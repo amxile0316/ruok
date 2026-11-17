@@ -36,7 +36,7 @@ void main(){
   vec3 col=shot(uv,m);
   vec3 soft=(col+shot(uv+texel*vec2(2.,0.),m)+shot(uv-texel*vec2(2.,0.),m)+shot(uv+texel*vec2(0.,2.),m)+shot(uv-texel*vec2(0.,2.),m))/5.;
   float l=dot(soft,vec3(.299,.587,.114));
-  vec3 base=mix(vec3(l),soft,.3)*vec3(.92,.96,1.04)*mix(.54,.9,mist.a);
+  vec3 base=mix(vec3(l),soft,.3)*vec3(.88,.99,1.08)*mix(.54,.9,mist.a);
   base=mix(base,mist.rgb,mist.a*.66);
   float k=texture2D(ink,v).r;
   // ink edges are uneven, like ink in water rather than a soft disc
@@ -44,14 +44,14 @@ void main(){
   float reveal=smoothstep(.06,.5,k);
   vec2 ca=texel*1.1*reveal;
   vec3 graded=vec3(shot(uv+ca,m).r,col.g,shot(uv-ca,m).b);
-  graded=pow(graded,vec3(.9))*vec3(1.1,1.,.88)*1.18;
+  graded=pow(graded,vec3(.9))*vec3(1.04,1.02,.94)*1.14;
   // through fog the night shot would read as a hole; screen the fog into its shadows
   graded=mix(graded,1.-(1.-graded)*(1.-mist.rgb*.5),mist.a);
   vec3 c=mix(base,graded,reveal);
   float rim=smoothstep(.05,.14,k)*(1.-smoothstep(.14,.32,k));
-  c+=vec3(1.,.69,.13)*rim*.2*(.45+fbm(v*9.+time*.3));
+  c+=vec3(.46,.79,.67)*rim*.2*(.45+fbm(v*9.+time*.3));
   float seam=m*(1.-m)*4.;
-  c+=vec3(1.,.69,.13)*seam*.18*smoothstep(.3,.7,fbm(v*6.+time*.2));
+  c+=vec3(.46,.79,.67)*seam*.15*smoothstep(.3,.7,fbm(v*6.+time*.2));
   c*=mix(1.,.38,smoothstep(.5,1.,v.x)*side);
   c*=mix(mix(.55,1.,smoothstep(0.,.45,v.y)),1.,mist.a);
   float vig=smoothstep(1.2,.3,length((v-focus)*vec2(aspect*.8,1.)));

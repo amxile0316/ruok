@@ -16,6 +16,7 @@
 @import './studio/editor-placement.css';
 @import './studio/editor-wait.css';
 @import './workspace/ruok-theme.css';
+@import './workspace/ruok-design.css';
 
 @tailwind base;
 @tailwind components;

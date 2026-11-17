@@ -141,8 +141,8 @@ html[data-ui-theme=original] .ge-work {
 html[data-ui-theme=original] :is(.home, .home-soon) {
   --home-koubo: var(--ruok-accent);
   --home-koubo-ink: var(--ruok-accent-ink);
-  --home-general: var(--ruok-verdigris-300);
-  --home-general-ink: #07201b;
+  --home-general: var(--ruok-verdigris-500);
+  --home-general-ink: #f1fbf7;
   --home-card: var(--ruok-patina-800);
   --home-card-hover: var(--ruok-patina-700);
   --home-line: var(--ruok-line);

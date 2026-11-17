@@ -1,12 +1,12 @@
 /* Same-origin OpenScreen document uses hex tokens, separate from host HSL tokens. */
 :root:root:root {
- --bg:#1c2323; --bg-grad:radial-gradient(ellipse at 75% 25%,#38584744,transparent 60%),#1c2323;
- --surface:#28312feb; --surface-1:#303a37; --surface-2:#3b4741; --surface-3:#49594f;
- --surface-hi:#34443c; --surface-warm:#303832;
- --border:#b8d6c630; --border-soft:#b8d6c61c; --border-hi:#b8d6c655;
- --fg:#e9eeeb; --fg-2:#c3cfc8; --fg-emphasis:#f4f7f5; --muted:#a3b0ab; --muted-soft:#8e9d95; --meta:#a3b0ab; --dim:#788c80;
- --brand:#a0d4bc; --brand-lo:#81b69e; --accent:#a0d4bc; --accent-on:#152b20;
- --accent-soft:#a0d4bc22; --accent-wash:#a0d4bc12; --accent-border:#a0d4bc66;
+ --bg:#0c1211; --bg-grad:radial-gradient(ellipse at 75% 25%,#1c3a3540,transparent 62%),#0c1211;
+ --surface:#131d1bee; --surface-1:#172421; --surface-2:#1f2e2a; --surface-3:#293c37;
+ --surface-hi:#243531; --surface-warm:#1b2925;
+ --border:#4f8f8030; --border-soft:#4f8f801c; --border-hi:#4f8f8055;
+ --fg:#eef4f0; --fg-2:#c7d3ce; --fg-emphasis:#f5faf7; --muted:#8ba39b; --muted-soft:#79958c; --meta:#8ba39b; --dim:#5f766f;
+ --brand:#d6a85f; --brand-lo:#c39a5c; --accent:#d6a85f; --accent-on:#17130b;
+ --accent-soft:#d6a85f24; --accent-wash:#d6a85f12; --accent-border:#d6a85f66;
  --font-display:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;
  color-scheme:dark;
 }
@@ -30,13 +30,19 @@ body {font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;}
  --accent-soft:#79644c22;--accent-wash:#79644c12;--accent-border:#79644c66;color-scheme:light;
 }
 
-/* 原色 · Graphite Pro (same palette as src/workspace/pro-theme.css): brand amber for active state, white / light grey text */
+/* 原色 · Patina Instrument. Values are written out in full: the OpenScreen
+   document is a separate document, so host-side --ruok-* variables are not
+   inherited here. Keep this block in sync with src/workspace/ruok-theme.css. */
 :root:root:root[data-ui-theme=original] {
- --bg:#121315; --bg-grad:#121315;
- --surface:#1a1b1e; --surface-1:#1f2023; --surface-2:#28292e; --surface-3:#313339;
- --surface-hi:#28292e; --surface-warm:#222327;
- --border:#ffffff1c; --border-soft:#ffffff0f; --border-hi:#ffffff2e;
- --fg:#f2f2f4; --fg-2:#c9cbd1; --fg-emphasis:#ffffff; --muted:#8b8e96; --muted-soft:#7a7d85; --meta:#8b8e96; --dim:#5e6169;
- --brand:var(--ruok-accent); --brand-lo:var(--ruok-accent-deep); --accent:var(--ruok-accent); --accent-on:#1b1c1f;
- --accent-soft:color-mix(in srgb, var(--ruok-accent) 14%, transparent); --accent-wash:color-mix(in srgb, var(--ruok-accent) 7%, transparent); --accent-border:color-mix(in srgb, var(--ruok-accent) 40%, transparent); color-scheme:dark;
+ --bg:#0c1211; --bg-grad:radial-gradient(ellipse at 75% 20%,#1c3a3540,transparent 62%),#0c1211;
+ --surface:#131d1bee; --surface-1:#172421; --surface-2:#1f2e2a; --surface-3:#293c37;
+ --surface-hi:#243531; --surface-warm:#1b2925;
+ --border:#4f8f8030; --border-soft:#4f8f801c; --border-hi:#4f8f8055; --border-dark:#050a09;
+ --fg:#eef4f0; --fg-2:#c7d3ce; --fg-emphasis:#f5faf7; --muted:#8ba39b; --muted-soft:#79958c; --meta:#8ba39b; --dim:#5f766f;
+ --brand:#d6a85f; --brand-lo:#c39a5c; --brand-glow:rgba(214,168,95,.32); --brand-soft:rgba(214,168,95,.10);
+ --accent:#d6a85f; --accent-on:#17130b;
+ --accent-soft:rgba(214,168,95,.14); --accent-wash:rgba(214,168,95,.07); --accent-border:rgba(214,168,95,.40);
+ --accent-ring:rgba(214,168,95,.32); --accent-stripe:rgba(214,168,95,.34);
+ --playhead:#e6c489; --playhead-glow:rgba(230,196,137,.55); --playhead-shadow:rgba(214,168,95,.28);
+ --success:#6fb3a2; --success-soft:rgba(111,179,162,.12); color-scheme:dark;
 }

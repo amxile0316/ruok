@@ -1,0 +1,827 @@
+/* RUOK design layer · 青铜仪表 (Patina Instrument)
+   ------------------------------------------------------------------
+   One place for the visual language: colour ramp, corner radii, hairline
+   strokes, elevation, type scale, spacing, icon geometry and motion.
+
+   Rules of the system
+   - Deep patina is the ground; verdigris is structure (rims, rails, quiet
+     accents); aged bronze is reserved for the primary action, selection and
+     the playhead. No other saturated hue in the chrome.
+   - Every surface is a plate: 1px hairline + 1px inner top highlight, then
+     one soft shadow. Radii stay on four steps (plate 14 / panel 12 /
+     control 9 / chip 7 / clip 5). No 20px+ blobs.
+   - Type scale is fixed (11/12/13/15/18/22/26/32); numbers are tabular.
+   - Motion is one curve, three durations; hover moves 1px, never scales.
+   This sheet only restyles: layout, markup, copy and behaviour are untouched.
+   ------------------------------------------------------------------ */
+
+/* ---------- 1. tokens ---------- */
+:root {
+  --rk-r-1: 3px;   /* hairline chips inside clips */
+  --rk-r-2: 5px;   /* timeline clips */
+  --rk-r-3: 7px;   /* tags, swatches */
+  --rk-r-4: 9px;   /* controls: buttons, inputs, menu rows */
+  --rk-r-5: 12px;  /* panels, toolbars, cards */
+  --rk-r-6: 14px;  /* plates: entrances, dialogs, hero cards */
+  --rk-r-pill: 999px;
+
+  --rk-fs-1: 11px;
+  --rk-fs-2: 12px;
+  --rk-fs-3: 13px;
+  --rk-fs-4: 15px;
+  --rk-fs-5: 18px;
+  --rk-fs-6: 22px;
+  --rk-fs-7: 26px;
+  --rk-fs-8: 32px;
+  --rk-lh-1: 1.25;
+  --rk-lh-2: 1.45;
+  --rk-lh-3: 1.65;
+  --rk-track-1: -.015em;
+  --rk-track-2: .02em;
+  --rk-track-3: .08em;
+
+  --rk-sp-1: 4px;
+  --rk-sp-2: 8px;
+  --rk-sp-3: 12px;
+  --rk-sp-4: 16px;
+  --rk-sp-5: 24px;
+  --rk-sp-6: 32px;
+
+  --rk-ease: cubic-bezier(.22, .7, .16, 1);
+  --rk-dur-1: 120ms;
+  --rk-dur-2: 180ms;
+  --rk-dur-3: 240ms;
+  --rk-lift: -1px;
+
+  --rk-stroke: 1.6px;
+
+  --rk-shadow-1: 0 1px 2px #00000066, 0 0 0 1px #ffffff05;
+  --rk-shadow-2: 0 2px 6px #00000059, 0 10px 26px -10px #000000a6, inset 0 1px 0 #ffffff0d;
+  --rk-shadow-3: 0 10px 28px -12px #00000080, 0 32px 72px -20px #000000cc, inset 0 1px 0 #ffffff14;
+  --rk-focus-ring: 0 0 0 2px color-mix(in srgb, var(--rk-accent) 46%, transparent);
+}
+
+/* dark ground: 原色 */
+html.workspace-glass,
+html.workspace-glass[data-ui-theme=original] {
+  --rk-bg: var(--ruok-patina-900);
+  --rk-surface: var(--ruok-patina-800);
+  --rk-surface-2: var(--ruok-patina-700);
+  --rk-surface-3: var(--ruok-patina-600);
+  --rk-surface-4: var(--ruok-patina-500);
+  --rk-plate: linear-gradient(158deg, color-mix(in srgb, var(--ruok-patina-700) 92%, #ffffff 1%) 0%, var(--ruok-patina-800) 62%, var(--ruok-patina-900) 100%);
+  --rk-glass: linear-gradient(150deg, #ffffff07, #ffffff01 58%), color-mix(in srgb, var(--ruok-patina-900) 88%, transparent);
+  --rk-media: #08100f;
+  --rk-ink: var(--ruok-ink);
+  --rk-ink-2: var(--ruok-ink-2);
+  --rk-muted: var(--ruok-muted);
+  --rk-faint: var(--ruok-faint);
+  --rk-line: var(--ruok-line);
+  --rk-line-strong: var(--ruok-line-2);
+  --rk-rim: color-mix(in srgb, var(--ruok-verdigris-500) 42%, transparent);
+  --rk-rim-hi: color-mix(in srgb, var(--ruok-verdigris-300) 62%, transparent);
+  --rk-accent: var(--ruok-bronze-300);
+  --rk-accent-hi: var(--ruok-bronze-200);
+  --rk-accent-deep: var(--ruok-bronze-700);
+  --rk-accent-ink: #17130b;
+  --rk-accent-soft: color-mix(in srgb, var(--ruok-bronze-300) 16%, transparent);
+  --rk-accent-2: var(--ruok-verdigris-300);
+  --rk-accent-2-ink: #06201a;
+  --rk-accent-2-solid: var(--ruok-verdigris-500);
+  --rk-accent-2-solid-ink: #f1fbf7;
+  --rk-accent-2-deep: var(--ruok-verdigris-700);
+  --rk-accent-2-soft: color-mix(in srgb, var(--ruok-verdigris-500) 18%, transparent);
+  --rk-danger: var(--ruok-danger);
+  --rk-wash: radial-gradient(1200px 640px at 24% -8%, color-mix(in srgb, var(--ruok-verdigris-700) 18%, transparent) 0%, transparent 62%),
+             radial-gradient(1000px 620px at 88% 106%, color-mix(in srgb, var(--ruok-bronze-700) 10%, transparent) 0%, transparent 66%);
+}
+
+/* light ground: 暖雾 keeps its paper, moves to bronze ink + verdigris structure */
+html.workspace-glass[data-ui-theme=warm] {
+  --rk-bg: #b6ada0;
+  --rk-surface: linear-gradient(145deg, #fff9ec4a, #f7eed51a), #a49a8b62;
+  --rk-surface-2: #f5ecd552;
+  --rk-surface-3: #fff8eb70;
+  --rk-surface-4: #fff8eb9c;
+  --rk-plate: linear-gradient(150deg, #fff9ec6b, #f3e9d63d 58%, #a49a8b3d);
+  --rk-glass: linear-gradient(145deg, #fff9ec4a, #f7eed51a), #a49a8b62;
+  --rk-media: #cfc6b6;
+  --rk-ink: #302a24;
+  --rk-ink-2: #4a4037;
+  --rk-muted: #62584d;
+  --rk-faint: #857a6b;
+  --rk-line: #5b4c3a29;
+  --rk-line-strong: #5b4c3a45;
+  --rk-rim: #2f7a6b59;
+  --rk-rim-hi: #2f7a6b8c;
+  --rk-accent: #8a5a1f;
+  --rk-accent-hi: #6b4a2b;
+  --rk-accent-deep: #5b3f26;
+  --rk-accent-ink: #fff8e9;
+  --rk-accent-soft: #8a5a1f1f;
+  --rk-accent-2: #2f7a6b;
+  --rk-accent-2-ink: #f4fffb;
+  --rk-accent-2-solid: #2f7a6b;
+  --rk-accent-2-solid-ink: #f4fffb;
+  --rk-accent-2-deep: #245a50;
+  --rk-accent-2-soft: #2f7a6b1f;
+  --rk-danger: #a9472f;
+  --rk-wash: radial-gradient(1200px 640px at 20% -6%, #fff9ecb8 0%, transparent 62%),
+             radial-gradient(900px 560px at 92% 104%, #8e7d6640 0%, transparent 68%);
+}
+
+/* ---------- 2. canvas, selection, scrollbars ---------- */
+html.workspace-glass body { background: var(--rk-bg); }
+html.workspace-glass[data-ui-theme=original] body { background: var(--rk-wash), var(--rk-bg); background-attachment: fixed; }
+html.workspace-glass[data-ui-theme=warm] body { background: var(--rk-wash), var(--rk-bg); background-attachment: fixed; }
+html.workspace-glass ::selection { background: color-mix(in srgb, var(--rk-accent) 34%, transparent); color: var(--rk-ink); }
+html.workspace-glass :where(*):focus-visible { outline: 2px solid color-mix(in srgb, var(--rk-accent) 82%, transparent); outline-offset: 2px; }
+html.workspace-glass * { scrollbar-color: color-mix(in srgb, var(--rk-muted) 42%, transparent) transparent; scrollbar-width: thin; }
+html.workspace-glass ::-webkit-scrollbar { width: 10px; height: 10px; }
+html.workspace-glass ::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: var(--rk-r-pill);
+  background: color-mix(in srgb, var(--rk-muted) 42%, transparent);
+  background-clip: content-box;
+}
+html.workspace-glass ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--rk-muted) 62%, transparent); background-clip: content-box; }
+
+/* ---------- 3. app chrome ---------- */
+html.workspace-glass .workspace-nav {
+  height: 58px;
+  padding: 0 18px 0 12px;
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-6);
+  background: var(--rk-glass);
+  color: var(--rk-ink);
+  box-shadow: var(--rk-shadow-2);
+  backdrop-filter: blur(22px) saturate(1.15);
+}
+html.workspace-glass[data-ui-theme=original] .workspace-nav { background: color-mix(in srgb, var(--ruok-patina-800) 88%, transparent); }
+html.workspace-glass .workspace-home { gap: 9px; font-weight: 600; letter-spacing: -.01em; color: var(--rk-ink); }
+html.workspace-glass .workspace-brand-wordmark { font-weight: 600; letter-spacing: .01em; }
+html.workspace-glass .workspace-brand-icon { border-radius: var(--rk-r-3); }
+html.workspace-glass .workspace-nav-divider { background: var(--rk-line-strong); }
+html.workspace-glass .workspace-switch > button {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--rk-r-4);
+  color: var(--rk-ink-2);
+  transition: background-color var(--rk-dur-2) var(--rk-ease), color var(--rk-dur-2) var(--rk-ease);
+}
+html.workspace-glass .workspace-switch > button:hover { background: color-mix(in srgb, var(--rk-ink) 7%, transparent); color: var(--rk-ink); }
+html.workspace-glass .workspace-switch > nav {
+  top: 44px;
+  padding: 6px;
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-5);
+  background: color-mix(in srgb, var(--rk-surface) 96%, transparent);
+  box-shadow: var(--rk-shadow-3);
+  backdrop-filter: blur(24px);
+}
+html.workspace-glass .workspace-switch nav a { padding: 10px 11px; border-radius: var(--rk-r-4); }
+html.workspace-glass .workspace-switch nav a:hover,
+html.workspace-glass .workspace-switch nav a[aria-current] { background: color-mix(in srgb, var(--rk-accent) 14%, transparent); }
+html.workspace-glass .workspace-switch nav small { color: var(--rk-muted); }
+html.workspace-glass :is(.ui-theme-menu-trigger, .system-settings-entry) { border-radius: var(--rk-r-4); }
+html.workspace-glass :is(.ui-theme-menu-trigger, .system-settings-entry):hover { background: color-mix(in srgb, var(--rk-ink) 8%, transparent); }
+html.workspace-glass .ui-theme-switch { padding: 3px; border: 1px solid var(--rk-line-strong); border-radius: var(--rk-pill); background: transparent; }
+html.workspace-glass .ui-theme-switch button { border-radius: var(--rk-pill); color: var(--rk-ink-2); }
+html.workspace-glass .ui-theme-switch button[aria-pressed=true] { background: var(--rk-accent); color: var(--rk-accent-ink); box-shadow: var(--rk-shadow-1); }
+
+/* the editor pill that floats in the top bar */
+html.workspace-glass .workspace-preview-island,
+html.workspace-glass .preview-style-capsule.workspace-preview-island {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-5);
+  background: color-mix(in srgb, var(--rk-surface) 92%, transparent);
+  box-shadow: var(--rk-shadow-1);
+  color: var(--rk-ink-2);
+}
+html.workspace-glass .workspace-preview-island button { border-radius: var(--rk-r-3); color: var(--rk-ink-2); }
+html.workspace-glass .workspace-preview-island button[aria-pressed=true] { background: var(--rk-accent); color: var(--rk-accent-ink); }
+html.workspace-glass .preview-style-capsule__part { border-radius: var(--rk-r-3); color: var(--rk-ink-2); }
+html.workspace-glass .preview-style-capsule__part:hover { background: color-mix(in srgb, var(--rk-ink) 9%, transparent); }
+html.workspace-glass .preview-style-capsule__part[data-state=open] { background: color-mix(in srgb, var(--rk-accent) 16%, transparent); color: var(--rk-ink); }
+html.workspace-glass .preview-style-capsule > i { background: var(--rk-line-strong); }
+
+/* ---------- 4. controls: one button, one field ---------- */
+html.workspace-glass :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, .openscreen-workspace-shell, [role=dialog], [role=menu], [role=listbox], .studio-dialog, .studio-drawer, .export-dialog, .agent-settings-dialog, .full-card-dialog, .clip-context-menu) :is(button, .upload-button, a.plain-action, a.home-all, .workspace-project-actions a) {
+  border-radius: var(--rk-r-4);
+  border-color: var(--rk-line-strong);
+  background-color: color-mix(in srgb, var(--rk-ink) 6%, transparent);
+  color: var(--rk-ink-2);
+  box-shadow: none;
+  transition: background-color var(--rk-dur-2) var(--rk-ease), border-color var(--rk-dur-2) var(--rk-ease),
+              color var(--rk-dur-2) var(--rk-ease), box-shadow var(--rk-dur-2) var(--rk-ease);
+}
+html.workspace-glass :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, [role=dialog], .studio-dialog) :is(button, .upload-button, a.plain-action):hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--rk-ink) 10%, transparent);
+  border-color: var(--rk-rim);
+  color: var(--rk-ink);
+}
+html.workspace-glass :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings) :is(button, .upload-button):active:not(:disabled) { background-color: color-mix(in srgb, var(--rk-ink) 4%, transparent); }
+html.workspace-glass :is(button, input, select, textarea):disabled { opacity: .45; cursor: not-allowed; }
+
+html.workspace-glass :is(.panel-tabs button, .media-view-toggle button, .inspector-tabs button, .timeline-display-mode button, .preview-quality-switch button) { background-color: transparent; border-color: transparent; }
+html.workspace-glass :is(.panel-tabs button, .media-view-toggle button, .inspector-tabs button):hover { background-color: color-mix(in srgb, var(--rk-ink) 8%, transparent); }
+
+/* primary: aged bronze, one per view */
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .media-panel .upload-button, .agent-settings-footer .agent-settings-save, .full-card-dialog footer > button, .full-card-controls > button, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry__button, .settings-primary, .export-primary) {
+  border: 1px solid color-mix(in srgb, var(--rk-accent-hi) 78%, #ffffff 0%);
+  border-radius: var(--rk-r-4);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rk-accent-hi) 88%, var(--rk-accent)) 0%, var(--rk-accent) 52%, color-mix(in srgb, var(--rk-accent) 78%, var(--rk-accent-deep)) 100%);
+  color: var(--rk-accent-ink);
+  font-weight: 650;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 34%, transparent), 0 6px 16px -8px color-mix(in srgb, var(--rk-accent) 62%, transparent);
+}
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry__button, .settings-primary):hover:not(:disabled) {
+  background: linear-gradient(180deg, var(--rk-accent-hi) 0%, color-mix(in srgb, var(--rk-accent) 86%, var(--rk-accent-hi)) 100%);
+  border-color: var(--rk-accent-hi);
+  color: var(--rk-accent-ink);
+  transform: translateY(var(--rk-lift));
+}
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .home-entry__button):active:not(:disabled) { transform: none; }
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry__button, .settings-primary, .export-primary):disabled {
+  background: color-mix(in srgb, var(--rk-ink) 6%, transparent);
+  border-color: var(--rk-line-strong);
+  color: var(--rk-faint);
+  box-shadow: none;
+  transform: none;
+}
+
+/* secondary: verdigris plate for “general” actions */
+html.workspace-glass :is(.ge-en-row .ge-en-go, .sl-general, .ot-deploy-item[data-s=ok] .ot-deploy-act, .home-entry[data-kind=general] .home-entry__button) {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rk-accent-2) 92%, #ffffff) 0%, var(--rk-accent-2) 60%, var(--rk-accent-2-deep) 100%);
+  border-color: color-mix(in srgb, var(--rk-accent-2) 70%, transparent);
+  color: var(--rk-accent-2-ink);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 30%, transparent), 0 6px 16px -10px color-mix(in srgb, var(--rk-accent-2) 60%, transparent);
+}
+html.workspace-glass .home-entry[data-kind=general] .home-entry__button:hover { filter: brightness(1.06); transform: translateY(var(--rk-lift)); }
+
+/* fields */
+html.workspace-glass :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, .openscreen-workspace-shell, [role=dialog], .studio-dialog) :is(input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]), textarea, select) {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-4);
+  background-color: color-mix(in srgb, var(--rk-media) 72%, transparent);
+  color: var(--rk-ink);
+  transition: border-color var(--rk-dur-2) var(--rk-ease), box-shadow var(--rk-dur-2) var(--rk-ease), background-color var(--rk-dur-2) var(--rk-ease);
+}
+html.workspace-glass[data-ui-theme=warm] :is(input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]), textarea, select) {
+  background-color: color-mix(in srgb, #ffffff 46%, transparent);
+}
+html.workspace-glass :is(input, textarea, select):hover:not(:disabled) { border-color: var(--rk-rim); }
+html.workspace-glass :is(input, textarea, select):focus,
+html.workspace-glass :is(input, textarea, select):focus-visible { border-color: var(--rk-accent); box-shadow: var(--rk-focus-ring); outline: none; }
+html.workspace-glass :is(input, textarea)::placeholder { color: var(--rk-faint); opacity: 1; }
+html.workspace-glass :is(input[type=range], input[type=checkbox], input[type=radio], progress) { accent-color: var(--rk-accent); }
+html.workspace-glass option { background: var(--rk-surface); color: var(--rk-ink); }
+
+/* ---------- 5. home ---------- */
+html.workspace-glass .home { --home-entry-line: var(--rk-line-strong); }
+html.workspace-glass .home-entry {
+  padding: clamp(24px, 2.6vw, 38px);
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-6);
+  background: var(--rk-plate);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--rk-accent) 20%, transparent), var(--rk-shadow-2);
+}
+html.workspace-glass .home-entry[data-kind=general] {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--rk-accent-2) 28%, transparent), var(--rk-shadow-2);
+}
+html.workspace-glass .home-entry:hover { border-color: var(--rk-rim); }
+html.workspace-glass .home-entry__eyebrow {
+  gap: 7px;
+  font-size: var(--rk-fs-1);
+  letter-spacing: var(--rk-track-3);
+  text-transform: uppercase;
+  color: var(--rk-muted);
+}
+html.workspace-glass .home-entry h2 {
+  margin: 14px 0 10px;
+  font-size: clamp(30px, 3.1vw, 40px);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+html.workspace-glass .home-entry__line { font-size: var(--rk-fs-4); line-height: var(--rk-lh-3); color: var(--rk-muted); }
+html.workspace-glass .home-entry__button {
+  height: 40px;
+  padding: 0 16px 0 18px;
+  gap: 6px;
+  font-size: var(--rk-fs-3);
+  font-weight: 620;
+}
+html.workspace-glass .home-entry__status { font-size: var(--rk-fs-2); color: var(--rk-muted); }
+html.workspace-glass :is(.home-media, .home-thumb) { border-radius: var(--rk-r-5); background: var(--rk-media); }
+html.workspace-glass :is(.home-media, .home-thumb)::after { box-shadow: inset 0 0 0 1px var(--rk-line-strong); }
+html.workspace-glass .home-media__brand img { filter: drop-shadow(0 8px 22px #00000073) drop-shadow(0 0 16px color-mix(in srgb, var(--ruok-bronze-300) 20%, transparent)); }
+html.workspace-glass .home-section__head h2 { font-size: var(--rk-fs-7); line-height: var(--rk-lh-1); font-weight: 600; letter-spacing: var(--rk-track-1); }
+html.workspace-glass .home-tools { font-size: var(--rk-fs-2); color: var(--rk-muted); }
+html.workspace-glass .home-filter button { height: 28px; padding: 0 9px; border: 1px solid transparent; border-radius: var(--rk-r-3); background: none; color: var(--rk-muted); }
+html.workspace-glass .home-filter button:hover { background: color-mix(in srgb, var(--rk-ink) 7%, transparent); color: var(--rk-ink-2); }
+html.workspace-glass .home-filter button[aria-pressed=true] { background: color-mix(in srgb, var(--rk-accent) 15%, transparent); color: var(--rk-ink); }
+html.workspace-glass .home-all { color: var(--rk-ink-2); border-radius: var(--rk-r-3); }
+html.workspace-glass .home-all:hover { background: color-mix(in srgb, var(--rk-ink) 7%, transparent); }
+html.workspace-glass .home-meta { font-size: var(--rk-fs-2); color: var(--rk-muted); }
+html.workspace-glass .home-module-group__head {
+  margin-bottom: 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--rk-line);
+  font-size: var(--rk-fs-1);
+  letter-spacing: var(--rk-track-3);
+  text-transform: uppercase;
+  color: var(--rk-muted);
+}
+html.workspace-glass .home-module {
+  padding: 9px 9px 14px;
+  border: 1px solid var(--rk-line);
+  border-radius: var(--rk-r-5);
+  background: var(--rk-surface);
+  box-shadow: none;
+  transition: background-color var(--rk-dur-2) var(--rk-ease), border-color var(--rk-dur-2) var(--rk-ease), box-shadow var(--rk-dur-2) var(--rk-ease), transform var(--rk-dur-2) var(--rk-ease);
+}
+html.workspace-glass .home-module:hover {
+  border-color: var(--rk-rim);
+  background: var(--rk-surface-2);
+  box-shadow: var(--rk-shadow-1);
+  transform: translateY(var(--rk-lift));
+}
+html.workspace-glass .home-module__name { font-size: var(--rk-fs-3); font-weight: 600; color: var(--rk-ink); }
+html.workspace-glass .home-module__brief { font-size: var(--rk-fs-2); line-height: var(--rk-lh-3); color: var(--rk-muted); }
+html.workspace-glass .home-only,
+html.workspace-glass .standard-pro-badge {
+  padding: 1px 7px;
+  border: 1px solid var(--rk-line-strong) !important;
+  border-radius: var(--rk-pill) !important;
+  background: color-mix(in srgb, var(--rk-ink) 5%, transparent);
+  color: var(--rk-muted);
+  font-size: 10px;
+  letter-spacing: var(--rk-track-2);
+}
+html.workspace-glass .home-intake__panel {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-6);
+  background: var(--rk-plate);
+  box-shadow: var(--rk-shadow-3);
+}
+html.workspace-glass .home-intake__bar { border-bottom: 1px solid var(--rk-line); }
+
+/* ---------- 6. workspace dashboard & studio project list ---------- */
+html.workspace-glass .workspace-dashboard { padding-top: 44px; background: transparent; color: var(--rk-ink); }
+html.workspace-glass .workspace-intro > span { font-size: 10px; letter-spacing: var(--rk-track-3); color: var(--rk-muted); }
+html.workspace-glass .workspace-intro h1 { font-size: var(--rk-fs-8); font-weight: 600; letter-spacing: -.03em; }
+html.workspace-glass .workspace-intro p { color: var(--rk-muted); }
+html.workspace-glass .workspace-module-card {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-5);
+  background: var(--rk-surface);
+  box-shadow: none;
+  transition: border-color var(--rk-dur-2) var(--rk-ease), background-color var(--rk-dur-2) var(--rk-ease), box-shadow var(--rk-dur-2) var(--rk-ease), transform var(--rk-dur-2) var(--rk-ease);
+}
+html.workspace-glass .workspace-module-card:hover { border-color: var(--rk-rim); background: var(--rk-surface-2); box-shadow: var(--rk-shadow-1); transform: translateY(var(--rk-lift)); }
+html.workspace-glass .workspace-module-card h2 { font-size: var(--rk-fs-4); font-weight: 600; color: var(--rk-ink); }
+html.workspace-glass .workspace-module-card p { font-size: var(--rk-fs-2); line-height: var(--rk-lh-3); color: var(--rk-muted); }
+html.workspace-glass .workspace-module-art > svg {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-5);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--rk-accent-2) 11%, transparent), transparent 70%);
+  box-shadow: none;
+  color: var(--rk-accent-2);
+}
+html.workspace-glass .workspace-module-art i { border: 1px solid var(--rk-line); background: var(--rk-line); border-radius: var(--rk-r-1); }
+html.workspace-glass .workspace-project-list { border-color: var(--rk-line); border-radius: var(--rk-r-5); }
+html.workspace-glass .workspace-project-list article { background: var(--rk-surface); }
+html.workspace-glass .workspace-project-actions a { border: 1px solid var(--rk-line-strong); background: transparent; color: var(--rk-accent-2); }
+html.workspace-glass .workspace-project-actions a:hover { border-color: var(--rk-rim); background: color-mix(in srgb, var(--rk-ink) 6%, transparent); }
+html.workspace-glass .workspace-project-thumbnail { border-color: var(--rk-line-strong); background: var(--rk-media); border-radius: var(--rk-r-4); }
+html.workspace-glass .workspace-project-rename input { border-color: var(--rk-accent); background: var(--rk-media); color: var(--rk-ink); border-radius: var(--rk-r-3); }
+html.workspace-glass .workspace-projects-toggle { border-color: var(--rk-line-strong); background: transparent; color: var(--rk-ink-2); border-radius: var(--rk-r-4); }
+/* the archive cards were a light glass slab; they become patina plates */
+html.workspace-glass .workspace-project-list .workspace-project-card {
+  border: 1px solid var(--rk-line-strong) !important;
+  border-radius: var(--rk-r-6) !important;
+  background: var(--rk-plate) !important;
+  box-shadow: var(--rk-shadow-1) !important;
+}
+html.workspace-glass .workspace-project-list .workspace-project-card:hover { box-shadow: var(--rk-shadow-2) !important; border-color: var(--rk-rim) !important; }
+html.workspace-glass .workspace-project-thumbnail { border-radius: var(--rk-r-5) 0 0 var(--rk-r-5) !important; }
+html.workspace-glass .workspace-project-archive {
+  border-radius: 0 var(--rk-r-6) var(--rk-r-6) 0;
+  background: color-mix(in srgb, var(--rk-surface-3) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(.9);
+}
+html.workspace-glass .workspace-project-archive small { color: var(--rk-muted); }
+html.workspace-glass .workspace-project-quick-actions button {
+  border: 1px solid var(--rk-line-strong);
+  background: color-mix(in srgb, var(--rk-ink) 7%, transparent);
+  color: var(--rk-ink-2);
+  border-radius: var(--rk-r-4);
+}
+html.workspace-glass .workspace-project-actions a { background: color-mix(in srgb, var(--rk-ink) 7%, transparent) !important; color: var(--rk-ink) !important; }
+html.workspace-glass .home-archive-switch { border-color: var(--rk-line-strong); background: transparent; }
+html.workspace-glass .home-archive-switch__thumb { background: var(--rk-accent-soft); box-shadow: inset 0 0 0 1px var(--rk-rim); }
+html.workspace-glass .home-archive-switch button[aria-pressed=true] { color: var(--rk-ink); }
+
+/* studio projects */
+html.workspace-glass .studio-projects { background: transparent; }
+html.workspace-glass .studio-projects__header {
+  height: 58px;
+  padding: 0 18px;
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-6);
+  background: var(--rk-glass);
+  box-shadow: var(--rk-shadow-1);
+}
+html.workspace-glass .studio-brand__mark { border-radius: var(--rk-r-4); background: var(--rk-accent); color: var(--rk-accent-ink); }
+html.workspace-glass .studio-hero { border-bottom: 1px solid var(--rk-line); }
+html.workspace-glass .studio-hero h1 { font-size: var(--rk-fs-8); font-weight: 600; letter-spacing: -.03em; }
+html.workspace-glass .motion-lab-entry { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-4); background: transparent; }
+html.workspace-glass .motion-lab-entry:hover { border-color: var(--rk-rim); background: color-mix(in srgb, var(--rk-ink) 6%, transparent); }
+html.workspace-glass :is(.studio-create, .studio-new-card) {
+  border: 1px dashed var(--rk-rim);
+  border-radius: var(--rk-r-6);
+  background: color-mix(in srgb, var(--rk-surface) 62%, transparent);
+  box-shadow: none;
+}
+html.workspace-glass :is(.studio-create, .studio-new-card):hover { border-color: var(--rk-accent); background: color-mix(in srgb, var(--rk-accent) 7%, transparent); }
+html.workspace-glass .project-list { border-color: var(--rk-line); border-radius: var(--rk-r-5); }
+html.workspace-glass .project-row { background: var(--rk-surface); border-color: var(--rk-line); }
+html.workspace-glass .project-row:hover { background: var(--rk-surface-2); }
+html.workspace-glass .project-icon { border-radius: var(--rk-r-4); background: var(--rk-surface-3); }
+html.workspace-glass .studio-section-title { border-color: var(--rk-line); }
+html.workspace-glass .studio-section-title h2 { font-size: var(--rk-fs-5); font-weight: 600; }
+html.workspace-glass .studio-back,
+html.workspace-glass .editor-back { border-radius: var(--rk-r-3); color: var(--rk-ink-2); }
+html.workspace-glass .studio-back:hover,
+html.workspace-glass .editor-back:hover { color: var(--rk-ink); }
+
+/* ---------- 7. style library ---------- */
+html.workspace-glass .style-library {
+  --sl-radius: var(--rk-r-5);
+  --sl-line: var(--rk-line-strong);
+  --sl-field: color-mix(in srgb, var(--rk-media) 64%, transparent);
+  --sl-chip-on: color-mix(in srgb, var(--rk-accent) 16%, transparent);
+  --sl-chip-hover: color-mix(in srgb, var(--rk-ink) 7%, transparent);
+  --sl-surface: var(--rk-surface);
+  --sl-surface-line: var(--rk-line-strong);
+  --sl-surface-shadow: none;
+  --sl-media: var(--rk-media);
+  --sl-focus: var(--rk-accent);
+  --sl-general: var(--rk-accent-2-solid);
+  --sl-general-ink: var(--rk-accent-2-solid-ink);
+  --sl-dot: var(--rk-accent-2);
+}
+html.workspace-glass .sl-search { height: 36px; border-radius: var(--rk-r-4); }
+html.workspace-glass .sl-search:focus-within { border-color: var(--rk-accent); box-shadow: var(--rk-focus-ring); }
+html.workspace-glass .sl-search__clear { border-radius: var(--rk-r-3); }
+html.workspace-glass .sl-filters { gap: 6px; margin: 22px 0 38px; }
+html.workspace-glass .sl-filters button { height: 32px; padding: 0 12px; border: 1px solid transparent; border-radius: var(--rk-r-4); }
+html.workspace-glass .sl-filters button:hover { border-color: var(--rk-line); }
+html.workspace-glass .sl-filters button[aria-pressed=true] { border-color: var(--rk-rim); color: var(--rk-ink); }
+html.workspace-glass .sl-filters__count,
+html.workspace-glass .sl-section__count { font-variant-numeric: tabular-nums; }
+html.workspace-glass .sl-section__head h2 { font-size: var(--rk-fs-5); font-weight: 600; letter-spacing: var(--rk-track-1); }
+html.workspace-glass .sl-section__head p { font-size: var(--rk-fs-2); color: var(--rk-muted); }
+html.workspace-glass .sl-thumb::after { box-shadow: inset 0 0 0 1px var(--rk-line-strong); }
+html.workspace-glass .sl-card__button:focus-visible .sl-thumb { outline: 2px solid var(--rk-accent); outline-offset: 3px; }
+html.workspace-glass .sl-card[data-picked] .sl-thumb,
+html.workspace-glass .sl-card[data-picked][data-open] .sl-thumb { outline: 2px solid var(--rk-accent-2); outline-offset: 3px; }
+html.workspace-glass .sl-picked { background: var(--rk-accent-2); color: var(--rk-accent-2-ink); box-shadow: var(--rk-shadow-1); }
+html.workspace-glass .sl-section__soon { border-color: var(--rk-line-strong); border-radius: var(--rk-pill); color: var(--rk-muted); }
+html.workspace-glass .sl-card__name { font-size: var(--rk-fs-3); font-weight: 600; color: var(--rk-ink); }
+html.workspace-glass .sl-card__line { font-size: var(--rk-fs-2); line-height: var(--rk-lh-3); color: var(--rk-muted); }
+
+/* ---------- 8. 通用剪辑 ---------- */
+html.workspace-glass .ge {
+  --ge-bg: transparent;
+  --ge-panel: var(--rk-surface);
+  --ge-raise: var(--rk-surface-3);
+  --ge-field: color-mix(in srgb, var(--rk-media) 64%, transparent);
+  --ge-line: var(--rk-line);
+  --ge-line2: var(--rk-line-strong);
+  --ge-ink: var(--rk-ink);
+  --ge-ink2: var(--rk-ink-2);
+  --ge-muted: var(--rk-muted);
+  --ge-faint: var(--rk-faint);
+  --ge-chip: color-mix(in srgb, var(--rk-ink) 5%, transparent);
+  --ge-chip-on: color-mix(in srgb, var(--rk-ink) 10%, transparent);
+  --ge-hover: color-mix(in srgb, var(--rk-ink) 7%, transparent);
+  --ge-media: var(--rk-media);
+  --ge-teal: var(--rk-accent-2);
+  --ge-teal-ink: var(--rk-accent-2-ink);
+  --ge-dot: var(--rk-accent-2);
+  --ge-stop-bg: var(--rk-ink);
+  --ge-stop-ink: var(--rk-bg);
+  --ge-shadow: var(--rk-shadow-3);
+  --ge-popup: var(--rk-surface);
+  --ge-seg-on: var(--rk-surface-3);
+  --ge-panel-border: 1px solid var(--rk-line-strong);
+  --ge-panel-radius: var(--rk-r-5);
+  --ge-ease: var(--rk-ease);
+}
+html.workspace-glass[data-ui-theme=warm] .ge {
+  --ge-panel: var(--rk-surface);
+  --ge-raise: var(--rk-surface-2);
+  --ge-field: var(--rk-surface-2);
+  --ge-chip: color-mix(in srgb, var(--rk-ink) 6%, transparent);
+  --ge-chip-on: color-mix(in srgb, var(--rk-ink) 12%, transparent);
+  --ge-hover: color-mix(in srgb, var(--rk-ink) 8%, transparent);
+  --ge-media: var(--rk-media);
+  --ge-teal: var(--rk-accent-2);
+  --ge-stop-bg: var(--rk-accent);
+  --ge-stop-ink: var(--rk-accent-ink);
+  --ge-popup: var(--rk-surface-3);
+  --ge-seg-on: var(--rk-surface-4);
+}
+html.workspace-glass .ge-mark { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-3); background: color-mix(in srgb, var(--rk-ink) 6%, transparent); }
+html.workspace-glass .ge-h1 { font-size: var(--rk-fs-7); font-weight: 600; letter-spacing: -.02em; }
+html.workspace-glass .ge-steps { font-size: var(--rk-fs-2); }
+html.workspace-glass .ge-steps li b { border-radius: var(--rk-pill); border-color: var(--rk-line-strong); font-variant-numeric: tabular-nums; }
+html.workspace-glass .ge-back { border-radius: var(--rk-pill); border-color: var(--rk-line-strong); background: transparent; }
+html.workspace-glass .ge-box,
+html.workspace-glass .ge-area,
+html.workspace-glass .ge-input { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-5); background: color-mix(in srgb, var(--rk-media) 64%, transparent); }
+html.workspace-glass .ge-box:focus-within,
+html.workspace-glass .ge-area:focus-within { border-color: var(--rk-accent); box-shadow: var(--rk-focus-ring); }
+html.workspace-glass .ge-chip { border-radius: var(--rk-r-3); }
+html.workspace-glass .ge-export { border-radius: var(--rk-r-4); }
+
+/* ---------- 9. editor ---------- */
+html.workspace-glass .studio-editor { background: transparent; color: var(--rk-ink); }
+html.workspace-glass .editor-top { background: transparent; }
+html.workspace-glass :is(.media-panel, .inspector-panel, .preset-panel) {
+  border: 1px solid var(--rk-line);
+  border-radius: var(--rk-r-5);
+  background: var(--rk-glass);
+  box-shadow: none;
+}
+html.workspace-glass .editor-header {
+  border: 1px solid var(--rk-line);
+  border-radius: var(--rk-r-5);
+  background: var(--rk-glass);
+}
+html.workspace-glass .preview-stage-viewport { border-radius: var(--rk-r-5); background: var(--rk-media); }
+html.workspace-glass .preview-controls {
+  border: 1px solid var(--rk-line);
+  border-radius: var(--rk-r-5);
+  background: var(--rk-glass);
+}
+html.workspace-glass .timeline-toolbar {
+  border: 1px solid var(--rk-line);
+  border-radius: var(--rk-r-5) var(--rk-r-5) 0 0;
+  background: var(--rk-surface);
+}
+html.workspace-glass .timeline-toolbar :is(button, .plain-action) { border-radius: var(--rk-r-3); }
+html.workspace-glass .editor-resizer { background: transparent; }
+html.workspace-glass .editor-resizer::after { background: var(--rk-line-strong); border-radius: var(--rk-pill); }
+html.workspace-glass .preview-canvas { border-radius: var(--rk-r-3); box-shadow: 0 24px 64px -22px #000000c2, 0 2px 10px #00000059; }
+html.workspace-glass .preview-frame-outline { border-color: var(--rk-line-strong); }
+html.workspace-glass .panel-tabs { border-color: var(--rk-line); }
+html.workspace-glass .panel-tabs button { border-radius: var(--rk-r-3); }
+html.workspace-glass .panel-tabs button[aria-selected=true] { color: var(--rk-ink); background: color-mix(in srgb, var(--rk-accent) 13%, transparent); }
+html.workspace-glass .media-item { border: 1px solid var(--rk-line); border-radius: var(--rk-r-4); }
+html.workspace-glass .media-item:hover { border-color: var(--rk-rim); }
+html.workspace-glass .media-item.is-selected { border-color: var(--rk-accent); box-shadow: inset 0 0 0 1px var(--rk-accent); }
+html.workspace-glass .media-type-badge,
+html.workspace-glass .media-used-badge { border-radius: var(--rk-r-2); background: color-mix(in srgb, var(--rk-bg) 82%, transparent); color: var(--rk-ink-2); }
+html.workspace-glass .media-search,
+html.workspace-glass .media-library-toolbar { border-color: var(--rk-line); }
+html.workspace-glass .inspector-field > span,
+html.workspace-glass .inspector-empty-state { color: var(--rk-muted); }
+html.workspace-glass .property-tray__trigger { border-radius: var(--rk-r-4); }
+html.workspace-glass .timeline-clip { border-radius: var(--rk-r-2); }
+html.workspace-glass .timeline-clip.is-selected { outline: 1px solid var(--rk-accent); outline-offset: 0; }
+html.workspace-glass .track-lane { border-color: var(--rk-line); }
+html.workspace-glass .track-head,
+html.workspace-glass .timeline-ruler { background: var(--rk-surface); border-color: var(--rk-line); }
+html.workspace-glass .timeline-playhead { background: var(--rk-accent-hi); box-shadow: 0 0 10px color-mix(in srgb, var(--rk-accent) 46%, transparent); }
+html.workspace-glass .timeline-ruler-tick { background: var(--rk-line-strong); }
+html.workspace-glass .timeline-snap-guide { background: var(--rk-accent); }
+html.workspace-glass .timeline-slot-drop-preview { border: 1px dashed var(--rk-accent); border-radius: var(--rk-r-2); color: var(--rk-accent-hi); }
+html.workspace-glass .voice-phrase-marker { border-left-color: color-mix(in srgb, var(--rk-accent) 78%, transparent); }
+
+/* ---------- 10. dialogs, drawers, menus, tooltips ---------- */
+html.workspace-glass :is([data-slot=dialog-content], .studio-dialog, .studio-drawer, .full-card-dialog, .agent-settings-dialog, .roughcut-dialog, .export-dialog, .roughcut-progress-dialog, .settings-migration-modal) {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-6);
+  background: var(--rk-plate);
+  color: var(--rk-ink);
+  box-shadow: var(--rk-shadow-3);
+  backdrop-filter: blur(26px) saturate(1.1);
+}
+html.workspace-glass :is([data-slot=dialog-content], .studio-dialog, .full-card-dialog, .agent-settings-dialog) :is(header, .studio-dialog__head, .agent-settings-heading) { border-color: var(--rk-line); }
+html.workspace-glass :is([data-slot=dialog-content], .studio-dialog, .full-card-dialog, .agent-settings-dialog, .export-dialog) footer { border-top: 1px solid var(--rk-line); }
+html.workspace-glass :is([role=menu], [role=listbox], .clip-context-menu, [data-radix-popper-content-wrapper] > div) {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-5);
+  background: color-mix(in srgb, var(--rk-surface) 97%, transparent);
+  color: var(--rk-ink);
+  box-shadow: var(--rk-shadow-2);
+  backdrop-filter: blur(20px);
+}
+html.workspace-glass :is([role=menuitem], [role=option], [role=menuitemradio], [role=menuitemcheckbox]) { border-radius: var(--rk-r-3); }
+html.workspace-glass :is([role=menuitem], [role=option]):hover,
+html.workspace-glass :is([role=menuitem], [role=option])[data-highlighted] { background: color-mix(in srgb, var(--rk-accent) 15%, transparent); color: var(--rk-ink); }
+html.workspace-glass [role=menu] [data-state=checked] { color: var(--rk-accent-hi); }
+html.workspace-glass .full-card-fields,
+html.workspace-glass .agent-cli-section,
+html.workspace-glass .agent-settings-footer,
+html.workspace-glass .agent-module-head,
+html.workspace-glass .full-card-mode-banner,
+html.workspace-glass .motion-lab__cards > button {
+  border: 1px solid var(--rk-line);
+  border-radius: var(--rk-r-5);
+  background: color-mix(in srgb, var(--rk-ink) 4%, transparent);
+}
+html.workspace-glass .full-card-fields h3 { color: var(--rk-accent-hi); }
+html.workspace-glass .agent-settings-entry { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-4); background: transparent; }
+html.workspace-glass .agent-connectivity { border: 1px solid var(--rk-line) !important; border-radius: var(--rk-r-4); }
+html.workspace-glass .motion-lab__catalog-head { border-color: var(--rk-line); }
+html.workspace-glass .motion-lab__cards > button.active { border-color: var(--rk-accent); box-shadow: inset 0 0 0 1px var(--rk-accent); }
+html.workspace-glass .motion-lab__transport button.active { background: var(--rk-accent-soft); border-color: var(--rk-accent); color: var(--rk-accent-hi); }
+html.workspace-glass .export-progress { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-5); background: var(--rk-surface); }
+html.workspace-glass .export-progress__timing { border: 1px solid var(--rk-line); border-radius: var(--rk-r-4); background: color-mix(in srgb, var(--rk-ink) 4%, transparent); }
+html.workspace-glass .export-jianying.is-ready { border-color: var(--rk-accent-deep) !important; background: var(--rk-surface); }
+html.workspace-glass .export-method-icon { border-radius: var(--rk-r-4); }
+
+/* toast */
+html.workspace-glass [data-sonner-toast] {
+  border: 1px solid var(--rk-line-strong) !important;
+  border-radius: var(--rk-r-5) !important;
+  background: color-mix(in srgb, var(--rk-surface) 96%, transparent) !important;
+  color: var(--rk-ink) !important;
+  box-shadow: var(--rk-shadow-2) !important;
+}
+
+/* ---------- 11. settings & about ---------- */
+html.workspace-glass .system-settings {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-6);
+  background: var(--rk-plate);
+  color: var(--rk-ink);
+  box-shadow: var(--rk-shadow-3);
+}
+html.workspace-glass .system-settings > header,
+html.workspace-glass .system-settings > footer { border-color: var(--rk-line); }
+html.workspace-glass .system-settings nav { border-color: var(--rk-line); }
+html.workspace-glass .system-settings nav button {
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: var(--rk-r-4);
+  color: var(--rk-ink-2);
+  transition: background-color var(--rk-dur-2) var(--rk-ease), color var(--rk-dur-2) var(--rk-ease);
+}
+html.workspace-glass .system-settings nav button:hover { background: color-mix(in srgb, var(--rk-ink) 6%, transparent); color: var(--rk-ink); }
+html.workspace-glass .system-settings nav button[aria-current] {
+  background: color-mix(in srgb, var(--rk-accent) 14%, transparent);
+  box-shadow: inset 0 0 0 1px var(--rk-rim);
+  color: var(--rk-ink);
+}
+html.workspace-glass .system-settings h2 { font-size: var(--rk-fs-6); font-weight: 600; letter-spacing: var(--rk-track-1); }
+html.workspace-glass .system-settings h3,
+html.workspace-glass .system-settings legend { font-size: var(--rk-fs-3); font-weight: 600; color: var(--rk-ink); }
+html.workspace-glass .system-settings p { font-size: var(--rk-fs-2); line-height: var(--rk-lh-3); color: var(--rk-muted); }
+html.workspace-glass .system-settings section,
+html.workspace-glass .system-settings fieldset { border-bottom: 1px solid var(--rk-line); }
+html.workspace-glass .system-settings nav button[aria-current] { font-weight: 600; }
+html.workspace-glass .system-settings-entry { background: transparent; border-color: var(--rk-line-strong); color: var(--rk-ink-2); }
+html.workspace-glass .system-settings-entry:hover { border-color: var(--rk-rim); color: var(--rk-ink); }
+html.workspace-glass .standard-about-brand img { filter: drop-shadow(0 3px 12px color-mix(in srgb, var(--ruok-bronze-500) 30%, transparent)); }
+
+/* ---------- 12. onboarding / deploy ---------- */
+html.workspace-glass .ot-deploy { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-6); box-shadow: var(--rk-shadow-3); }
+html.workspace-glass .ot-deploy-list { background: var(--rk-surface); }
+html.workspace-glass .ot-deploy-nav { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-pill); }
+html.workspace-glass .ot-deploy-strip {
+  border: 1px solid var(--rk-rim);
+  border-radius: var(--rk-r-5);
+  background: var(--rk-surface);
+  box-shadow: var(--rk-shadow-1);
+}
+html.workspace-glass .ot-deploy-go { border-radius: var(--rk-r-4); }
+html.workspace-glass .ot-deploy-item { border: 1px solid var(--rk-line); border-radius: var(--rk-r-5); background: var(--rk-surface-2); }
+html.workspace-glass .ot-deploy-act { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-3); background: color-mix(in srgb, var(--rk-ink) 6%, transparent); color: var(--rk-ink); }
+html.workspace-glass .ot-deploy-tag { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-pill); color: var(--rk-muted); }
+html.workspace-glass .ot-deploy-agent { border: 1px solid var(--rk-line); border-radius: var(--rk-r-4); background: color-mix(in srgb, var(--rk-ink) 4%, transparent); }
+html.workspace-glass .ot-deploy-tick { background: var(--rk-accent-2); color: var(--rk-accent-2-ink); }
+html.workspace-glass .ge-en { --en-accent: var(--rk-accent); --en-accent-soft: var(--rk-accent-hi); --en-accent-ink: var(--rk-accent-ink); }
+html.workspace-glass .ge-en-row .ge-en-go { border-radius: var(--rk-r-4); }
+html.workspace-glass .ge-en-ent[data-on] .ic {
+  background: linear-gradient(180deg, var(--rk-accent-hi), var(--rk-accent));
+  color: var(--rk-accent-ink);
+  border-radius: var(--rk-r-4);
+}
+
+/* ---------- 13. screen-motion host chrome ---------- */
+html.workspace-glass .openscreen-workspace-shell { background: transparent; color: var(--rk-ink); }
+html.workspace-glass .openscreen-hostbar {
+  height: 48px;
+  border-bottom: 1px solid var(--rk-line);
+  background: var(--rk-surface);
+  color: var(--rk-ink);
+}
+html.workspace-glass .openscreen-hostbar__actions :is(button, a),
+html.workspace-glass .openscreen-icon-button {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-4);
+  background: transparent;
+  color: var(--rk-ink-2);
+}
+html.workspace-glass .openscreen-hostbar__actions :is(button, a):hover { border-color: var(--rk-rim); background: color-mix(in srgb, var(--rk-ink) 7%, transparent); color: var(--rk-ink); }
+html.workspace-glass .openscreen-save { color: var(--rk-accent-hi); }
+html.workspace-glass .openscreen-save--active { color: var(--rk-accent-2); }
+html.workspace-glass .openscreen-host-session { border-color: var(--rk-rim); background: color-mix(in srgb, var(--rk-accent-2) 12%, var(--rk-surface)); color: var(--rk-ink); }
+html.workspace-glass .openscreen-host-error { border-color: color-mix(in srgb, var(--rk-danger) 46%, transparent); background: color-mix(in srgb, var(--rk-danger) 18%, var(--rk-surface)); color: var(--rk-ink); }
+html.workspace-glass .openscreen-host-notice { border-color: var(--rk-rim); background: color-mix(in srgb, var(--rk-accent) 14%, var(--rk-surface)); color: var(--rk-ink); }
+html.workspace-glass .openscreen-candidate-panel { border-color: var(--rk-rim); background: color-mix(in srgb, var(--rk-accent) 9%, var(--rk-surface)); }
+
+/* ---------- 16. project archive: paper slabs become patina plates ---------- */
+html.workspace-glass .project-archive-tabs {
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-pill);
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+html.workspace-glass .project-archive-tabs button {
+  min-height: 32px;
+  padding: 6px 14px;
+  border-radius: var(--rk-pill) !important;
+  color: var(--rk-muted) !important;
+  font-size: var(--rk-fs-3);
+}
+html.workspace-glass .project-archive-tabs button:hover { color: var(--rk-ink) !important; background: color-mix(in srgb, var(--rk-ink) 7%, transparent) !important; }
+html.workspace-glass .project-archive-tabs button[aria-selected=true] {
+  background: color-mix(in srgb, var(--rk-accent) 16%, transparent) !important;
+  border-color: var(--rk-rim) !important;
+  color: var(--rk-ink) !important;
+  box-shadow: none !important;
+  font-weight: 600;
+}
+html.workspace-glass .studio-projects .project-card {
+  border: 1px solid var(--rk-line-strong);
+  border-radius: var(--rk-r-6);
+  background: var(--rk-surface);
+  box-shadow: var(--rk-shadow-1);
+}
+html.workspace-glass .studio-projects .project-card:hover {
+  border-color: var(--rk-rim);
+  background: var(--rk-surface-2);
+  box-shadow: var(--rk-shadow-2);
+  transform: translateY(var(--rk-lift));
+}
+html.workspace-glass .studio-projects .project-card:focus-visible { outline: 2px solid var(--rk-accent); outline-offset: 3px; }
+html.workspace-glass .studio-projects .project-card--blank {
+  border: 1px dashed var(--rk-rim);
+  background: color-mix(in srgb, var(--rk-surface) 58%, transparent);
+  color: var(--rk-ink);
+}
+html.workspace-glass .studio-projects .project-card--blank:hover { border-color: var(--rk-accent); background: color-mix(in srgb, var(--rk-accent) 7%, transparent); }
+html.workspace-glass .studio-projects .project-card--blank__icon {
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--rk-rim);
+  border-radius: var(--rk-r-6);
+  background: color-mix(in srgb, var(--rk-accent) 8%, transparent);
+  box-shadow: none;
+  color: var(--rk-accent-hi);
+}
+html.workspace-glass .studio-projects .project-card__archive {
+  border-radius: 0 var(--rk-r-6) var(--rk-r-6) 0;
+  background: color-mix(in srgb, var(--rk-surface-3) 66%, transparent);
+  backdrop-filter: blur(14px) saturate(.9);
+}
+html.workspace-glass .project-cover { border-radius: var(--rk-r-6) 0 0 var(--rk-r-6); background: var(--rk-surface-2); }
+html.workspace-glass .project-cover__image { border-radius: var(--rk-r-4); box-shadow: var(--rk-shadow-1); }
+html.workspace-glass .project-cover__fallback { border-radius: var(--rk-r-4); background: var(--rk-media); color: var(--rk-faint); }
+html.workspace-glass .project-cover__rename input { border: 1px solid var(--rk-accent); border-radius: var(--rk-r-3); background: var(--rk-media); color: var(--rk-ink); }
+html.workspace-glass .project-cover__rename button { border: 1px solid var(--rk-line-strong); border-radius: var(--rk-r-3); background: color-mix(in srgb, var(--rk-ink) 7%, transparent); color: var(--rk-ink); }
+html.workspace-glass .project-empty {
+  border: 1px dashed var(--rk-rim);
+  border-radius: var(--rk-r-6);
+  background: color-mix(in srgb, var(--rk-surface) 46%, transparent);
+  color: var(--rk-muted);
+}
+html.workspace-glass .project-empty:hover { border-color: var(--rk-accent); color: var(--rk-ink); }
+html.workspace-glass .project-empty b { color: var(--rk-ink); }
+html.workspace-glass .project-icon { border-radius: var(--rk-r-4); background: var(--rk-surface-3); color: var(--rk-accent-2); }
+html.workspace-glass .trash-row { border-bottom: 1px solid var(--rk-line); }
+
+/* ---------- 17. icon geometry ---------- */
+html.workspace-glass :where(svg.lucide, svg[stroke-width]) { stroke-width: var(--rk-stroke); }
+html.workspace-glass :where(.lucide) { stroke-linecap: round; stroke-linejoin: round; }
+html.workspace-glass .workspace-brand-icon { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--rk-accent) 26%, transparent)); }
+
+/* ---------- 18. motion rhythm ---------- */
+html.workspace-glass :is(button, a, input, select, textarea, [role=button], .home-module, .home-entry, .workspace-module-card, .timeline-clip, .media-item, .sl-card) {
+  transition-timing-function: var(--rk-ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.workspace-glass :is(button, a, input, select, textarea, [role=button], .home-module, .home-entry, .workspace-module-card, .timeline-clip, .media-item, .sl-card) {
+    transition: none !important;
+    transform: none !important;
+  }
+}

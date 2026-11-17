@@ -1,5 +1,5 @@
 :root { --workspace-nav-height:74px; }
-.workspace-nav { position:sticky;isolation:isolate;top:8px;z-index:40;width:calc(100% - 20px);height:58px;min-height:58px;max-height:58px;margin:8px 10px;display:flex;align-items:center;gap:20px;padding:0 26px;background:#1d2025;color:#e9ebef;border:1px solid #353a42;border-radius:18px;font-size:13px;box-shadow:0 10px 30px rgba(20,17,14,.12),inset 0 1px rgba(255,255,255,.18); }
+.workspace-nav { position:sticky;isolation:isolate;top:8px;z-index:40;width:calc(100% - 20px);height:58px;min-height:58px;max-height:58px;margin:8px 10px;display:flex;align-items:center;gap:20px;padding:0 26px;background:#1d2025;color:#e9ebef;border:1px solid #353a42;border-radius:var(--rk-r-6,14px);font-size:13px;box-shadow:0 10px 30px rgba(20,17,14,.12),inset 0 1px rgba(255,255,255,.18); }
 .workspace-nav-ambient-slot { position:fixed;z-index:0;inset:0;overflow:hidden;pointer-events:none; }
 .workspace-nav-ambient-slot:empty { display:none; }
 .workspace-nav-ambient-slot .editor-preview-ambient { inset:0; }

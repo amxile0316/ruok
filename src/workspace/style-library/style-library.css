@@ -8,7 +8,7 @@
   --sl-media:#0b0c0d; --sl-shade:#00000038; --sl-focus:var(--ui-mint,var(--ruok-verdigris-300));
   --sl-general:var(--ruok-verdigris-300); --sl-general-ink:#06201a; --sl-dot:var(--ruok-verdigris-300);
   --sl-ease:cubic-bezier(.2,.8,.2,1);
-  --sl-radius:12px;
+  --sl-radius:var(--rk-r-5,12px);
   /* the full window width: a large display shows more styles per row instead of empty margins */
   color:var(--sl-ink);
 }
