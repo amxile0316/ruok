@@ -19,7 +19,11 @@ function appDataRoot(platform=process.platform, env=process.env, home=os.homedir
  return platform==='win32' ? env.APPDATA||p.join(home,'AppData','Roaming') : platform==='darwin'?p.join(home,'Library','Application Support'):env.XDG_CONFIG_HOME||p.join(home,'.config');
 }
 function standardDataRoot(){return process.env.OPENTAKE_STANDARD_USER_DATA||path.join(appDataRoot(),'RUOK');}
-function projectsRoot(){return path.join(os.homedir(),process.platform==='win32'?'Videos':'Movies','LinkReader Projects');}
+function mediaHome(){return path.join(os.homedir(),process.platform==='win32'?'Videos':'Movies');}
+// New projects go to the RUOK library. Installs that still keep their work in the
+// pre-rename "LinkReader Projects" folder stay readable through legacyProjectsRoot().
+function projectsRoot(){return path.join(mediaHome(),'RUOK Projects');}
+function legacyProjectsRoot(){return path.join(mediaHome(),'LinkReader Projects');}
 function termination(pid, signal='SIGTERM', platform=process.platform){
  if(!Number.isSafeInteger(pid)||pid<=0||pid===process.pid)throw Error('无效的子进程 ID');
  return platform==='win32'?{command:'taskkill.exe',args:['/PID',String(pid),'/T','/F']}:{pid:-pid,signal};
@@ -81,4 +85,4 @@ function macBuildArch({arch=process.arch,env=process.env,translated=macTranslate
  return target;
 }
 function macAppDirectory(arch){validateMacArch(arch);return arch==='arm64'?'mac-arm64':'mac';}
-module.exports={macTranslated,validateMacArch,macBuildArch,macAppDirectory,environmentPath,environmentWithPath,appDataRoot,standardDataRoot,projectsRoot,termination,killTree,revealCommand,revealPath,buildTarget};
+module.exports={macTranslated,validateMacArch,macBuildArch,macAppDirectory,environmentPath,environmentWithPath,appDataRoot,standardDataRoot,projectsRoot,legacyProjectsRoot,termination,killTree,revealCommand,revealPath,buildTarget};

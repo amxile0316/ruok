@@ -185,7 +185,7 @@ npm run build:live
 - OpenScreen：按下一节从官方发布页安装。没有它仍可使用通用剪辑。
 - 网络失败：保留目录，网络恢复后重试失败的安装步骤。不要跳过失败步骤后声称安装完成。
 
-测试或并行安装可显式设置 `OPENTAKE_STANDARD_USER_DATA`（配置目录）及 `LINK_READER_PROJECTS_DIR`（工程目录），都使用独立绝对路径。默认工程目录是 `~/Movies/LinkReader Projects`，卸载程序时不要删除工程目录。
+测试或并行安装可显式设置 `OPENTAKE_STANDARD_USER_DATA`（配置目录）及 `LINK_READER_PROJECTS_DIR`（工程目录），都使用独立绝对路径。默认工程目录是 `~/Movies/RUOK Projects`（Windows 为 `~/Videos/RUOK Projects`）；改名前的 `LinkReader Projects` 若已存在会继续作为附加工程库列出，旧工程仍可打开，不会自动移动或删除。卸载程序时不要删除工程目录。
 
 ## Recording and OpenScreen export
 

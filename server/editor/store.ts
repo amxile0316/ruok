@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type {EditProject} from '../../src/types/editor.ts';
-import {defaultProjectRoot,projectRoots,validateDirectory} from '../system-settings.ts';
+import {defaultProjectRoot,projectRoots,validateDirectory,ensureProjectRoot} from '../system-settings.ts';
 import {autoBackup} from './project-backups.ts';
 import {assertNoMigration,placements,setPlacement,excludedMigrationSource} from './migration-state.ts';
 import * as legacy from './store-windows.ts';
@@ -49,7 +49,7 @@ export function save(dir:string,project:EditProject){
  return project;
 }
 export function createScreenProject(name:string){
- validateDirectory(defaultProjectRoot());
+ ensureProjectRoot();
  // The old factory defines the screen-only schema; route its initial write back
  // through the shared persistence boundary after it creates the new directory.
  const project=legacy.createScreenProject(name);const dir=legacy.projectFolder(project.id);dirs(dir);save(dir,project);return project;

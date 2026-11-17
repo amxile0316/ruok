@@ -4,7 +4,7 @@ import {migrationBackupRoots,placements,relocatedReferences} from './migration-s
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {readSystemSettings,validateDirectory,defaultProjectRoot} from '../system-settings.ts';
+import {readSystemSettings,validateDirectory,defaultProjectRoot,ensureProjectRoot} from '../system-settings.ts';
 import {EditProjectSchema} from '../../src/types/editor.ts';
 const failures=new Map<string,string>();
 export const backupFailures=()=>[...failures].map(([projectId,error])=>({projectId,error}));
@@ -50,7 +50,7 @@ export async function restoreBackup(id:string){
  let sourceDir=item.sourceDir;try{sourceDir=findProject(entry.projectId,true).dir;}catch{/* No live placement: retain the snapshot source directory. */}
  const original=EditProjectSchema.parse(relocatedReferences(JSON.parse(item.text),entry.projectId,item.sourceDir));
  for(const media of original.media)if(!fs.existsSync(path.resolve(sourceDir,media.originalFile)))throw Error('原素材缺失，无法恢复：'+media.name);
- validateDirectory(defaultProjectRoot());const names=new Set(scan(true).map(p=>p.project.name));let name=original.name.slice(0,50)+' · 恢复副本',n=2;while(names.has(name)||fs.existsSync(path.join(defaultProjectRoot(),name)))name=original.name.slice(0,50)+' · 恢复副本 '+n++;
+ ensureProjectRoot();const names=new Set(scan(true).map(p=>p.project.name));let name=original.name.slice(0,50)+' · 恢复副本',n=2;while(names.has(name)||fs.existsSync(path.join(defaultProjectRoot(),name)))name=original.name.slice(0,50)+' · 恢复副本 '+n++;
  const dir=path.join(defaultProjectRoot(),name);
  // Restore separately; never overwrite an open editor.
  const pathKeys=new Set(['originalFile','proxyFile','clearProxyFile','thumbnailFile','filmstripFile','waveformFile','cursorDataFile','openscreenProjectFile','rawProjectFile','relativePath','file','selectedFile','outputFile']);

@@ -2,7 +2,7 @@ declare const platform: {
  environmentPath(env?:NodeJS.ProcessEnv,platform?:string):string;
  environmentWithPath(env:NodeJS.ProcessEnv,value:string,platform?:string):NodeJS.ProcessEnv;
  appDataRoot(platform?:string,env?:NodeJS.ProcessEnv,home?:string):string;
- standardDataRoot():string;projectsRoot():string;
+ standardDataRoot():string;projectsRoot():string;legacyProjectsRoot():string;
  killTree(pid:number,signal?:NodeJS.Signals):void;
  revealCommand(target:string,platform?:string,env?:NodeJS.ProcessEnv):{command:string;args:string[]};
  revealPath(target:string,platform?:string):Promise<void>;

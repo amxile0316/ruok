@@ -1,20 +1,28 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {settingsDataRoot,defaultProjectsLocation} from './system-settings-location.ts';
+import {settingsDataRoot,defaultProjectsLocation,legacyProjectsLocation} from './system-settings-location.ts';
 import crypto from 'node:crypto';
 import { SystemPreferencesSchema, type SystemPreferences, type SettingsView } from '../src/settings/schema.ts';
 export const settingsFile = () => process.env.LINKREADER_SYSTEM_SETTINGS_FILE || path.join(settingsDataRoot(),'system-settings.json');
 export const legacyProjectsRoot = () => process.env.LINK_READER_PROJECTS_DIR || defaultProjectsLocation();
+/** Folders created before the RUOK rename stay in the library list so old projects open. */
+const previousLibrary = () => { const legacy = legacyProjectsLocation(); return legacy !== defaultProjectsLocation() && fs.existsSync(legacy) ? legacy : undefined; };
 export function defaultPreferences():SystemPreferences { return {paths:{projects:legacyProjectsRoot(),cache:'',exports:'',backups:process.env.LINKREADER_SYSTEM_SETTINGS_FILE?path.join(path.dirname(settingsFile()),'project-snapshots'):process.env.LINK_READER_PROJECTS_DIR?path.join(process.env.LINK_READER_PROJECTS_DIR,'.project-snapshots'):path.join(settingsDataRoot(),'project-snapshots')},export:{preset:'quick',container:'mp4',quality:'fast',resolution:'original',revealWhenDone:false},backup:{automatic:true,intervalMinutes:15,keep:20},reserveGB:5}; }
 type Stored={version:1;revision:number;preferences:SystemPreferences;libraries:string[];cacheRoots:string[];backupRoots:string[]};
 export function readSystemSettings():Stored {
- if(!fs.existsSync(settingsFile()))return {version:1,revision:0,preferences:defaultPreferences(),libraries:[legacyProjectsRoot()],cacheRoots:[],backupRoots:[]};
+ if(!fs.existsSync(settingsFile()))return {version:1,revision:0,preferences:defaultPreferences(),libraries:[legacyProjectsRoot(),previousLibrary()].filter((v):v is string=>!!v),cacheRoots:[],backupRoots:[]};
  try{const raw=JSON.parse(fs.readFileSync(settingsFile(),'utf8'));return {...raw,preferences:SystemPreferencesSchema.parse(raw.preferences)};}catch{throw Error('系统设置文件无法读取，请先恢复配置；未改用其他存储位置');}
 }
 const forcedRoot=()=>process.env.LINK_READER_PROJECTS_DIR&&process.env.LINK_READER_PROJECTS_DIR!==defaultProjectsLocation()&&!process.env.LINKREADER_SYSTEM_SETTINGS_FILE?process.env.LINK_READER_PROJECTS_DIR:undefined;
 export const projectPathOverridden=()=>!!forcedRoot();
 export function projectRoots(){const forced=forcedRoot();if(forced)return [forced];const s=readSystemSettings();return [...new Set([s.preferences.paths.projects,...s.libraries])];}
 export function defaultProjectRoot(){return forcedRoot()||readSystemSettings().preferences.paths.projects;}
+/** The app-owned default library may not exist on a fresh install; create it before validating. */
+export function ensureProjectRoot(){
+ const root=defaultProjectRoot();
+ if(root===defaultProjectsLocation()&&!fs.existsSync(root))fs.mkdirSync(root,{recursive:true});
+ validateDirectory(root);return root;
+}
 export function validateDirectory(input:string){
  if(!path.isAbsolute(input)||input.includes('\0')||path.resolve(input)===path.parse(input).root)throw Error('请选择具体文件夹的绝对路径，不能使用磁盘根目录');
  const target=path.resolve(input);
