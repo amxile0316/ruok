@@ -43,12 +43,12 @@ html.workspace-glass {
 .workspace-glass .workspace-intro h1 {font-size:36px;letter-spacing:-1px;}
 .workspace-glass .workspace-intro p {color:var(--ui-muted);}
 .workspace-glass .workspace-module-card { --module-color:var(--ui-mint);background:var(--ui-glass);border-color:#c8dfd333;border-radius:16px;box-shadow:inset 0 1px #ffffff09,0 12px 30px #00000012;min-height:330px;padding:23px 20px; }
-.workspace-glass .workspace-module-card:hover { background:linear-gradient(135deg,#4f8f8014,#ffffff05),var(--ruok-patina-700);border-color:var(--ruok-verdigris-500); }
-.workspace-glass .workspace-module-card h2 {margin:18px 0 8px;color:var(--ui-mint);font-weight:550;}
-.workspace-module-art {height:120px;display:flex;align-items:center;justify-content:center;gap:14px;margin:6px 0 18px;color:#abd6c1;}
-.workspace-module-art>svg {padding:10px;width:70px;height:70px;border-radius:14px;border:1px solid #4f8f8055;background:linear-gradient(140deg,#4f8f8024,#ffffff05);box-shadow:0 8px 20px #0003;}
+.workspace-glass .workspace-module-card:hover { background:linear-gradient(135deg,#ffffff0a,#ffffff05),var(--ruok-patina-700);border-color:var(--ruok-verdigris-500); }
+.workspace-glass .workspace-module-card h2 {margin:18px 0 8px;color:var(--ui-ink);font-weight:550;}
+.workspace-module-art {height:120px;display:flex;align-items:center;justify-content:center;gap:14px;margin:6px 0 18px;color:var(--ui-muted);}
+.workspace-module-art>svg {padding:10px;width:70px;height:70px;border-radius:14px;border:1px solid #ffffff1f;background:linear-gradient(140deg,#ffffff12,#ffffff05);box-shadow:0 8px 20px #0003;}
 .workspace-module-art>div {width:60px;display:grid;gap:12px;transform:perspective(300px) rotateY(-15deg);}
-.workspace-module-art i {display:block;height:10px;border:1px solid #bde3ce30;background:#bde3ce24;border-radius:4px;}
+.workspace-module-art i {display:block;height:10px;border:1px solid #ffffff1a;background:#ffffff14;border-radius:4px;}
 .workspace-module-art i:nth-child(2) {width:70%;}.workspace-module-art i:nth-child(3) {width:85%;}
 .workspace-module-art--motion>svg {transform:rotate(-12deg);}.workspace-module-art--library>div {gap:7px;}.workspace-module-art--library i {height:24px;}
 .workspace-glass .workspace-module-card>span {border-top:1px solid var(--ui-line);padding-top:16px;}

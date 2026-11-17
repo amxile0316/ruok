@@ -1,44 +1,43 @@
 /* Modified by the RUOK fork on 2026-11-17.
-   RUOK palette derived from the official patina-bronze mark:
-   deep patina backgrounds, verdigris for supporting/active information, aged bronze for primary actions,
-   selection and the playhead. Layout and component structure are unchanged; this file only remaps tokens.
-   Pixel-level legacy accents used across older sheets are aliased to --ruok-* so future palette changes
-   can be made here without hunting individual rules. */
+   RUOK palette: three families only — ground (patina), text (warm bone) and one accent
+   (aged bronze in the dark room, the mark's ochre red on paper). The "verdigris" ramp below is
+   now the neutral stone used for rims and quiet structure; it keeps its legacy names because the
+   older sheets reference them. Nothing else in the chrome is allowed a fourth hue. */
 :root {
-  --ruok-patina-900: #0c1211;
-  --ruok-patina-800: #131d1b;
-  --ruok-patina-700: #172421;
-  --ruok-patina-600: #1f2e2a;
-  --ruok-patina-500: #293c37;
-  --ruok-patina-400: #314740;
-  --ruok-verdigris-900: #1c3a35;
-  --ruok-verdigris-700: #2f5a55;
-  --ruok-verdigris-500: #4f8f80;
-  --ruok-verdigris-300: #6fb3a2;
+  --ruok-patina-900: #0a0f0e;
+  --ruok-patina-800: #121817;
+  --ruok-patina-700: #17201e;
+  --ruok-patina-600: #1e2825;
+  --ruok-patina-500: #26322e;
+  --ruok-patina-400: #2f3c37;
+  --ruok-verdigris-900: #1b2422;
+  --ruok-verdigris-700: #2b3733;
+  --ruok-verdigris-500: #4c5853;
+  --ruok-verdigris-300: #9aa49d;
   --ruok-bronze-900: #5b3f26;
   --ruok-bronze-700: #8a6534;
   --ruok-bronze-500: #a9804a;
   --ruok-bronze-400: #c39a5c;
-  --ruok-bronze-300: #d6a85f;
-  --ruok-bronze-200: #e6c489;
-  --ruok-ink: #eef4f0;
-  --ruok-ink-2: #c7d3ce;
-  --ruok-muted: #8ba39b;
-  --ruok-faint: #5f766f;
-  --ruok-line: #ffffff0f;
-  --ruok-line-2: #ffffff1c;
-  --ruok-input: #080d0c;
+  --ruok-bronze-300: #d8a05e;
+  --ruok-bronze-200: #e8bd85;
+  --ruok-ink: #edd6a8;
+  --ruok-ink-2: #d9b878;
+  --ruok-muted: #bb9a63;
+  --ruok-faint: #9c7f4f;
+  --ruok-line: #d8a05e1f;
+  --ruok-line-2: #d8a05e33;
+  --ruok-input: #060a09;
 
   --ruok-accent: var(--ruok-bronze-300);
   --ruok-accent-hi: var(--ruok-bronze-200);
   --ruok-accent-deep: var(--ruok-bronze-500);
   --ruok-accent-text: var(--ruok-bronze-200);
-  --ruok-accent-ink: #17130b;
-  --ruok-accent-soft: #d6a85f24;
+  --ruok-accent-ink: #17110a;
+  --ruok-accent-soft: #d8a05e24;
   --ruok-selection: var(--ruok-bronze-300);
   --ruok-playhead: var(--ruok-bronze-200);
   --ruok-warning: var(--ruok-bronze-300);
-  --ruok-danger: #d97a5f;
+  --ruok-danger: #d9795d;
 }
 
 html.workspace-glass[data-ui-theme=original] {
@@ -64,29 +63,29 @@ html.workspace-glass[data-ui-theme=original] {
   --pro-amber: var(--ruok-bronze-300);
   --pro-playhead: var(--ruok-playhead);
 
-  --ui-mint: var(--ruok-verdigris-300);
+  --ui-mint: var(--ruok-accent);
 
-  --background: 165 18% 6%;
-  --foreground: 160 23% 95%;
-  --card: 165 21% 9%;
-  --card-foreground: 160 23% 95%;
-  --popover: 166 20% 12%;
-  --popover-foreground: 160 23% 95%;
-  --primary: 38 58% 61%;
-  --primary-foreground: 30 40% 7%;
-  --secondary: 166 19% 15%;
-  --secondary-foreground: 160 23% 95%;
-  --muted: 166 20% 12%;
-  --muted-foreground: 164 12% 59%;
-  --accent: 166 19% 20%;
-  --accent-foreground: 160 23% 95%;
-  --border: 166 18% 20%;
-  --input: 166 18% 23%;
-  --ring: 38 58% 61%;
+  --background: 158 33% 5%;
+  --foreground: 40 66% 79%;
+  --card: 170 14% 8%;
+  --card-foreground: 40 66% 79%;
+  --popover: 167 16% 11%;
+  --popover-foreground: 40 66% 79%;
+  --primary: 32 59% 61%;
+  --primary-foreground: 28 45% 6%;
+  --secondary: 167 14% 14%;
+  --secondary-foreground: 40 66% 79%;
+  --muted: 167 16% 11%;
+  --muted-foreground: 38 39% 56%;
+  --accent: 167 12% 18%;
+  --accent-foreground: 40 66% 79%;
+  --border: 167 10% 20%;
+  --input: 167 10% 24%;
+  --ring: 32 59% 61%;
 
   --studio-role-overlay: var(--ruok-bronze-500);
   --studio-role-subtitle: #3a2a10;
-  --studio-role-video: #253934;
+  --studio-role-video: #1f2a27;
   --studio-role-voice: #2a1d08;
   --studio-role-music: #2b1808;
   --voice-wave-top: var(--ruok-bronze-200);
@@ -122,7 +121,7 @@ html[data-ui-theme=original] {
 }
 
 html[data-ui-theme=original] .ge-en {
-  --en-bg: radial-gradient(1200px 700px at 22% 40%, #1b2c29 0%, #101a18 55%, #080d0c 100%);
+  --en-bg: radial-gradient(1200px 700px at 22% 40%, #1a211f 0%, #101514 55%, #080b0a 100%);
   --en-ink: var(--ruok-ink);
   --en-muted: var(--ruok-muted);
   --en-accent: var(--ruok-accent);
@@ -141,45 +140,50 @@ html[data-ui-theme=original] .ge-work {
 html[data-ui-theme=original] :is(.home, .home-soon) {
   --home-koubo: var(--ruok-accent);
   --home-koubo-ink: var(--ruok-accent-ink);
-  --home-general: var(--ruok-verdigris-500);
-  --home-general-ink: #f1fbf7;
+  --home-general: var(--ruok-accent);
+  --home-general-ink: var(--ruok-accent-ink);
   --home-card: var(--ruok-patina-800);
   --home-card-hover: var(--ruok-patina-700);
   --home-line: var(--ruok-line);
   --home-line-2: var(--ruok-line-2);
   --home-bg: var(--ruok-patina-900);
-  --home-entry-bg: linear-gradient(160deg, #1b2c29b8, #0c1211cc);
+  --home-entry-bg: linear-gradient(160deg, #1a211fb8, #0a0f0ecc);
   --home-entry-line: #ffffff1f;
-  --home-media: radial-gradient(120% 120% at 50% 40%, #1b2c29 0%, #0a1110 74%);
+  --home-media: radial-gradient(120% 120% at 50% 40%, #1a211f 0%, #090e0d 74%);
 }
 
-/* Warm is a light theme; keep its paper surfaces but move the accent from orange to aged bronze/verdigris. */
+/* Warm is paper: three families again — warm ground, warm ink, the mark's ochre red. */
 html[data-ui-theme=warm] {
-  --ruok-accent: #8a5a1f;
-  --ruok-accent-hi: #a9804a;
-  --ruok-accent-deep: #5b3f26;
-  --ruok-accent-text: #5b3f26;
-  --ruok-accent-ink: #fff8e9;
-  --ruok-accent-soft: #8a5a1f24;
-  --ruok-warning: #8a5a1f;
-  --ruok-danger: #a9472f;
-  --ruok-verdigris-500: #2f7a6b;
-  --ed-icon: #8a5a1f;
-  --ed-accent: #6b4a2b;
-  --ed-accent-hi: #8a6534;
-  --ed-accent-text: #5b3f26;
-  --ed-accent-soft: #8a653426;
+  --ruok-accent: #a9552f;
+  --ruok-accent-hi: #8f441f;
+  --ruok-accent-deep: #6f3417;
+  --ruok-accent-text: #8c4322;
+  --ruok-accent-ink: #fff8f2;
+  --ruok-accent-soft: #a9552f14;
+  --ruok-warning: #a9552f;
+  --ruok-danger: #a34428;
+  --ruok-ink: #2b2621;
+  --ruok-ink-2: #4b4338;
+  --ruok-muted: #6b6156;
+  --ruok-faint: #746a5d;
+  --ruok-verdigris-500: #a9552f;
+  --ruok-verdigris-300: #a9552f;
+  --ed-icon: #a9552f;
+  --ed-accent: #a9552f;
+  --ed-accent-hi: #8f441f;
+  --ed-accent-text: #8c4322;
+  --ed-accent-soft: #a9552f14;
 }
 html[data-ui-theme=warm] .ge-en {
-  --en-accent: #a86f1f;
-  --en-accent-soft: #c99a55;
-  --en-accent-ink: #fff8e9;
+  --en-accent: #a9552f;
+  --en-accent-soft: #8f441f;
+  --en-accent-ink: #fff8f2;
 }
 html[data-ui-theme=warm] :is(.home, .home-soon) {
-  --home-koubo: #a86f1f;
-  --home-koubo-ink: #fff8e9;
-  --home-general: #2f7a6b;
-  --home-general-ink: #f4fffb;
+  --home-koubo: #a9552f;
+  --home-koubo-ink: #fff8f2;
+  --home-general: #a9552f;
+  --home-general-ink: #fff8f2;
 }
 
 html[data-ui-theme=original] ::selection {

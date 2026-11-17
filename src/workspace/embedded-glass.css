@@ -21,28 +21,28 @@ body {font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;}
  --accent-soft:#b5dcd266;--accent-wash:#b5dcd233;--accent-border:#85b8a8;color-scheme:light;
 }
 :root:root:root[data-ui-theme=warm] {
- --bg:#b3aa9d;--bg-grad:linear-gradient(130deg,#d7cebf,#a79a88);
- --surface:#c1b6a3dc;--surface-1:#cec3b1;--surface-2:#e1d6c2;--surface-3:#efe3ce;
- --surface-hi:#e9dec9;--surface-warm:#d7c9b4;
- --border:#fff3dc80;--border-soft:#fff3dc40;--border-hi:#fffae6;
- --fg:#393026;--fg-2:#514638;--fg-emphasis:#251f19;--muted:#665947;--muted-soft:#786b59;--meta:#665947;--dim:#786b59;
- --brand:#79644c;--brand-lo:#6b5842;--accent:#79644c;--accent-on:#fff8e9;
- --accent-soft:#79644c22;--accent-wash:#79644c12;--accent-border:#79644c66;color-scheme:light;
+ --bg:#f7f2e9;--bg-grad:linear-gradient(130deg,#fffdf8,#f3ebde);
+ --surface:#fffdf8f0;--surface-1:#fffdfa;--surface-2:#fbf6ec;--surface-3:#f3ebde;
+ --surface-hi:#ffffff;--surface-warm:#f8f1e6;
+ --border:#6b5a4424;--border-soft:#6b5a4414;--border-hi:#ffffff;
+ --fg:#2b2621;--fg-2:#4b4338;--fg-emphasis:#1f1a15;--muted:#6b6156;--muted-soft:#746a5d;--meta:#6b6156;--dim:#746a5d;
+ --brand:#a9552f;--brand-lo:#8f441f;--accent:#a9552f;--accent-on:#fff8f2;
+ --accent-soft:#a9552f1f;--accent-wash:#a9552f12;--accent-border:#a9552f66;color-scheme:light;
 }
 
 /* 原色 · Patina Instrument. Values are written out in full: the OpenScreen
    document is a separate document, so host-side --ruok-* variables are not
    inherited here. Keep this block in sync with src/workspace/ruok-theme.css. */
 :root:root:root[data-ui-theme=original] {
- --bg:#0c1211; --bg-grad:radial-gradient(ellipse at 75% 20%,#1c3a3540,transparent 62%),#0c1211;
- --surface:#131d1bee; --surface-1:#172421; --surface-2:#1f2e2a; --surface-3:#293c37;
- --surface-hi:#243531; --surface-warm:#1b2925;
- --border:#4f8f8030; --border-soft:#4f8f801c; --border-hi:#4f8f8055; --border-dark:#050a09;
- --fg:#eef4f0; --fg-2:#c7d3ce; --fg-emphasis:#f5faf7; --muted:#8ba39b; --muted-soft:#79958c; --meta:#8ba39b; --dim:#5f766f;
+ --bg:#0a0f0e; --bg-grad:radial-gradient(ellipse at 75% 20%,#d8a05e18,transparent 62%),#0a0f0e;
+ --surface:#121817ee; --surface-1:#17201e; --surface-2:#1e2825; --surface-3:#26322e;
+ --surface-hi:#1e2825; --surface-warm:#1a211f;
+ --border:#ffffff1c; --border-soft:#ffffff0f; --border-hi:#ffffff2e; --border-dark:#050a09;
+ --fg:#f2ece3; --fg-2:#cfc6b8; --fg-emphasis:#fdf9f2; --muted:#a49a8c; --muted-soft:#9a9081; --meta:#a49a8c; --dim:#857d71;
  --brand:#d6a85f; --brand-lo:#c39a5c; --brand-glow:rgba(214,168,95,.32); --brand-soft:rgba(214,168,95,.10);
  --accent:#d6a85f; --accent-on:#17130b;
  --accent-soft:rgba(214,168,95,.14); --accent-wash:rgba(214,168,95,.07); --accent-border:rgba(214,168,95,.40);
  --accent-ring:rgba(214,168,95,.32); --accent-stripe:rgba(214,168,95,.34);
  --playhead:#e6c489; --playhead-glow:rgba(230,196,137,.55); --playhead-shadow:rgba(214,168,95,.28);
- --success:#6fb3a2; --success-soft:rgba(111,179,162,.12); color-scheme:dark;
+ --success:#d8a05e; --success-soft:rgba(216,160,94,.12); color-scheme:dark;
 }

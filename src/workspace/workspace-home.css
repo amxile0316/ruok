@@ -107,7 +107,7 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
 .home-project > a { display:block;min-width:0;color:inherit;text-decoration:none;border-radius:14px; }
 .home-thumb { position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:var(--home-media); }
 .home-thumb img { position:absolute;inset:0;width:100%;max-width:none;height:100%;object-fit:cover; }
-.home-thumb > span { font-size:12px;color:#ffffff59; }
+.home-thumb > span { font-size:12px;color:var(--home-muted,var(--ruok-muted)); }
 .home-project > a:hover .home-thumb::after { opacity:.5; }
 .home-project h3 { margin:12px 0 2px;overflow:hidden;font-size:15px;line-height:1.5;font-weight:600;white-space:nowrap;text-overflow:ellipsis;color:var(--home-ink); }
 .home-meta { display:flex;align-items:center;gap:8px;margin:0;font-size:12px;line-height:1.5;color:var(--home-muted);font-variant-numeric:tabular-nums; }

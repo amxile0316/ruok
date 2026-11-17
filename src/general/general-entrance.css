@@ -2,13 +2,13 @@
    beams that fan out with one light running each, a poster flow. Graphite by default; 暖雾 and 霜白 keep the same
    glass in their own light. The stage is 1600×900, scaled to the page. */
 .ge-en {
-  --en-bg:radial-gradient(1200px 700px at 22% 40%,#1d1f24 0%,#121316 55%,#0b0c0e 100%);
-  --en-ink:#eef0f4; --en-muted:#8e929b; --en-accent:var(--ruok-accent); --en-accent-soft:var(--ruok-accent-hi); --en-accent-ink:#1d1404; --en-beam-end:#ffffff;
-  --en-slab:linear-gradient(155deg,#2a2c32 0%,#1b1c20 48%,#16171a 100%); --en-slab-line:#ffffff12; --en-slab-hi:#ffffff1a;
+  --en-bg:radial-gradient(1200px 700px at 22% 40%,#1a211f 0%,#101514 55%,#080b0a 100%);
+  --en-ink:#f2ece3; --en-muted:#a49a8c; --en-accent:var(--ruok-accent); --en-accent-soft:var(--ruok-accent-hi); --en-accent-ink:#17110a; --en-beam-end:#f7efdf;
+  --en-slab:linear-gradient(155deg,#1c2623 0%,#151d1b 48%,#101614 100%); --en-slab-line:#ffffff12; --en-slab-hi:#ffffff1a;
   --en-slab-shadow:0 20px 50px #00000066; --en-shine:#ffffff12;
-  --en-icon:linear-gradient(160deg,#3a3d44,#24262b); --en-chip:linear-gradient(180deg,#26282e,#1c1d21); --en-chip-line:#ffffff14;
-  --en-chip-shadow:0 10px 26px #0006; --en-count:#ffffff0a; --en-card:linear-gradient(180deg,#202227,#17181b); --en-card-line:#ffffff1a;
-  --en-card-shadow:0 26px 50px #000b; --en-side:#0007; --en-field:#0f1012; --en-pill:#1f2125; --en-reflect:#ffffff0c; --en-dot:#ffffff26;
+  --en-icon:linear-gradient(160deg,#2b3733,#1e2825); --en-chip:linear-gradient(180deg,#26322e,#1c2421); --en-chip-line:#ffffff14;
+  --en-chip-shadow:0 10px 26px #0006; --en-count:#ffffff0a; --en-card:linear-gradient(180deg,#1e2825,#121817); --en-card-line:#ffffff1a;
+  --en-card-shadow:0 26px 50px #000b; --en-side:#0007; --en-field:#0a0f0e; --en-pill:#202a27; --en-reflect:#ffffff0c; --en-dot:#ffffff26;
   --en-glass:none;
   position:relative;height:calc(100dvh - var(--workspace-nav-height,74px));overflow:hidden;color:var(--en-ink);
   font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif;-webkit-font-smoothing:antialiased;
@@ -64,7 +64,7 @@ html[data-ui-theme=frost] .ge-en {
 .ge-en-beams { position:absolute;inset:0;width:1600px;height:900px;pointer-events:none;overflow:visible; }
 .ge-en-beam { fill:none;stroke:url(#ge-en-g);stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:1;animation:ge-en-draw .5s cubic-bezier(.3,.7,.2,1) forwards;transition:opacity .2s; }
 .ge-en-beam[data-hot] { stroke:url(#ge-en-gh);stroke-width:1.6; }
-.ge-en-spark { fill:#ffe39a;filter:drop-shadow(0 0 5px #ffbf2e) drop-shadow(0 0 16px #ff9f0aaa); }
+.ge-en-spark { fill:var(--ruok-bronze-200,#e8bd85);filter:drop-shadow(0 0 5px #d8a05e) drop-shadow(0 0 16px #d8a05e66); }
 @keyframes ge-en-draw { to { stroke-dashoffset:0; } }
 
 /* purposes: frosted chips in one column. The button only comes in (its own animation); the chip inside it does the rest
@@ -99,7 +99,7 @@ html[data-ui-theme] .ge-en .ge-en-compose textarea:not([disabled]):focus,.ge-en-
 .ge-en-row .ge-en-go { border:1px solid color-mix(in srgb, var(--ruok-bronze-200,#e6c489) 78%, transparent);padding:10px 22px;border-radius:var(--rk-r-4,9px);background:linear-gradient(180deg,var(--ruok-bronze-200,#e6c489),var(--ruok-bronze-300,#d6a85f) 55%,var(--ruok-bronze-400,#c39a5c));color:var(--ruok-accent-ink,#17130b);font-weight:700;font-size:14px;box-shadow:inset 0 1px 0 #ffffff57,0 6px 16px -8px color-mix(in srgb, var(--ruok-bronze-300,#d6a85f) 62%, transparent); }
 .ge-en-row .ge-en-go:disabled { opacity:.45;cursor:default; }
 .ge-en-compose small { display:block;color:var(--en-muted);margin-top:12px; }
-.ge-en-error { margin:12px 0 0;color:#e8604f;font-size:13px; }
+.ge-en-error { margin:12px 0 0;color:var(--ruok-danger,#d9795d);font-size:13px; }
 .ge-en-files { display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none; }
 .ge-en-files li { display:inline-flex;align-items:center;gap:6px;max-width:220px;padding:5px 6px 5px 11px;border-radius:999px;background:var(--en-pill);border:1px solid var(--en-chip-line);font-size:12.5px; }
 .ge-en-files li span { overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }

@@ -36,7 +36,7 @@ test('缺项保留文案、亮紫提示、重查通过才建工程和开始；�
    assert.equal(calls.length,before+1);assert.equal(document.querySelector('button')!.textContent,'重新检查');
    assert.equal(document.querySelector('textarea')!.value,'勾股定理，讲解一下原理');
    assert.match(document.body.textContent||'',/安装后重新检查/);
-   assert.ok([...document.querySelectorAll('div')].some(el=>el.style.color==='rgb(152, 105, 220)'));
+   assert.ok([...document.querySelectorAll('div')].some(el=>el.style.color==='var(--ruok-warning)'));
    assert.equal(calls.some(c=>c.includes('/projects')),false);
   }
   missing='';await h.act(async()=>{document.querySelector('button')!.click();await new Promise(r=>setTimeout(r,30));});

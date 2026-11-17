@@ -85,7 +85,7 @@ export function WorkspaceNavigation() {
           <text x="0" y="44" fontSize="40" fontWeight="700" letterSpacing="2" fill="currentColor">RUOK</text>
         </svg>
       </Link>
-      <button ref={toggle} className="workspace-launcher-toggle" aria-label="切换工作模块" title={current?.name || '全部模块'} aria-expanded={open} aria-controls="workspace-module-menu" onClick={() => { cancelClose(); setOpen(!open); setActive(null) }}><LayoutGrid size={17} /></button>
+      <button ref={toggle} className="workspace-launcher-toggle" aria-label="切换工作模块" title={current?.name || '全部模块'} aria-expanded={open} aria-controls="workspace-module-menu" onClick={() => { cancelClose(); setOpen(!open); setActive(null) }}><LayoutGrid size={16} /></button>
       <nav ref={dock} id="workspace-module-menu" className="workspace-module-dock" aria-label="切换工作模块" aria-hidden={!open} inert={!open}>
         {moduleGroups.map(group => <div key={group.id} className="workspace-module-group" role="group" aria-label={group.label}>
           <span className="workspace-module-group__label" aria-hidden="true">{group.label}</span>
@@ -104,10 +104,11 @@ export function WorkspaceNavigation() {
         </div>)}
       </nav>
     </div>
+    <span className="workspace-nav-context">{current ? <>工作台<i aria-hidden="true">/</i>{current.name}</> : '工作台'}</span>
     <div id="workspace-project-title-slot" className="workspace-project-title-slot" />
     <div id="workspace-preview-island-slot" className="workspace-preview-island-slot" />
     <div id="workspace-editor-slot" className="workspace-editor-slot" />
-    <div className="workspace-global-actions"><DeployButton /><DesktopActions /><UsageBadge /><ThemeSwitcher compact /><SystemSettings /></div>
+    <div className="workspace-global-actions"><DeployButton /><span className="workspace-nav-sep" aria-hidden="true" /><DesktopActions /><UsageBadge /><ThemeSwitcher compact /><SystemSettings /></div>
     <div id="workspace-primary-action-slot" className="workspace-primary-action-slot" />
   </header><DeployWizard /></>
 }

@@ -115,7 +115,7 @@ test('只读宿主收到导出请求会展示真实共享弹窗；打开失败�
   const send=async(type:string,payload:unknown)=>{await act(async()=>{dom.window.dispatchEvent(new dom.window.MessageEvent('message',{origin:'http://localhost',source:iframe.contentWindow,data:{type,projectId:'p',payload}}));});};
   await send('error',{message:'无法打开导出：已保存文件读取失败'});
   const error=dom.window.document.querySelector<HTMLElement>('.openscreen-host-error[role="alert"]');assert(error);
-  assert.match(error.textContent!,/已保存文件读取失败/);assert.equal(error.style.color,'rgb(152, 105, 220)');
+  assert.match(error.textContent!,/已保存文件读取失败/);assert.equal(error.style.color,'var(--ruok-warning)');
   await send('export-dialog',{documentId:'doc',revision:7,useSavedDocument:true,canvas:{width:1920,height:1080,fps:30},notice:'另一个窗口正在编辑，导出的是上次保存的版本'});
   assert(dom.window.document.querySelector('.export-dialog[role="dialog"]'));
   assert.equal(dom.window.document.querySelector('.export-notice')?.textContent,'另一个窗口正在编辑，导出的是上次保存的版本');

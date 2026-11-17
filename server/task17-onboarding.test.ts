@@ -72,7 +72,8 @@ test('复审修正2：真实暖雾通用控件样式不能覆盖三种录屏引�
     const actual=window.getComputedStyle(primary[0]);
     assert.equal(actual.backgroundColor,theme==='warm'?'rgb(233, 165, 22)':'rgb(245, 179, 22)',`${theme}/${kind}/themeLast=${themeLast}`);
     assert.equal(actual.color,theme==='warm'?'rgb(43, 29, 5)':'rgb(29, 20, 4)');
-    assert.equal(window.getComputedStyle(document.querySelector('.screen-setup-notice')!).color,'rgb(152, 105, 220)');
+    // JSDOM cannot resolve var(); pin the declaration so the warning colour stays on the RUOK token.
+    assert.match(guideCss,/\.screen-setup-notice\{color:var\(--ruok-warning\)/);
     guide.remove();warm.remove();
    }
   }finally{await h.close()}
