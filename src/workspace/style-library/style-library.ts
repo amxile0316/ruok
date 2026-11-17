@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import standardStyles from '../../standard/styles.json' with {type:'json'};
 /** 风格库: the general-editing styles, their three kinds and the browsing logic. Pure functions only (no React, no JSON import),
  *  so the unit tests and the generator script can load this file directly. The list itself is style-library.json,
@@ -30,7 +31,7 @@ export const STYLE_INPUT_TYPES: readonly StyleInputType[] = ['footage', 'topic',
 
 /** The kinds a new general project can start from in the first release; 要准备数据 shows 即将支持 and cannot be picked. */
 export const PICKABLE_INPUT_TYPES: readonly StyleInputType[] = ['footage', 'topic']
-export const SOON_LABEL = 'Pro'
+export const SOON_LABEL = '本分支未包含'
 export function isPickableStyle(style: Pick<LibraryStyle, 'id'>) {
   return standardStyles.includes(style.id)
 }

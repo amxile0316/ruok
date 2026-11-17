@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const path = require('node:path');
 const os = require('node:os');
 const childProcess = require('node:child_process');
@@ -17,7 +18,7 @@ function appDataRoot(platform=process.platform, env=process.env, home=os.homedir
  const p=platform==='win32'?path.win32:path.posix;
  return platform==='win32' ? env.APPDATA||p.join(home,'AppData','Roaming') : platform==='darwin'?p.join(home,'Library','Application Support'):env.XDG_CONFIG_HOME||p.join(home,'.config');
 }
-function standardDataRoot(){return process.env.OPENTAKE_STANDARD_USER_DATA||path.join(appDataRoot(),'OpenTake Standard');}
+function standardDataRoot(){return process.env.OPENTAKE_STANDARD_USER_DATA||path.join(appDataRoot(),'RUOK');}
 function projectsRoot(){return path.join(os.homedir(),process.platform==='win32'?'Videos':'Movies','LinkReader Projects');}
 function termination(pid, signal='SIGTERM', platform=process.platform){
  if(!Number.isSafeInteger(pid)||pid<=0||pid===process.pid)throw Error('无效的子进程 ID');

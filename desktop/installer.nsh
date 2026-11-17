@@ -1,3 +1,4 @@
+; Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 !include nsDialogs.nsh
 !ifndef BUILD_UNINSTALLER
 Var otDialog
@@ -23,10 +24,10 @@ Var otRenameAttempt
 !macroend
 
 !macro customWelcomePage
-  !define MUI_WELCOMEPAGE_TITLE "安装 OpenTake Standard"
+  !define MUI_WELCOMEPAGE_TITLE "安装 RUOK"
   !define MUI_WELCOMEPAGE_TEXT "版本 ${VERSION}$\r$\n$\r$\n为当前用户安装应用和完整离线组件。$\r$\n$\r$\n安装步骤$\r$\n1. 选择安装位置$\r$\n2. 解压应用与离线组件（显示实际进度）$\r$\n3. 核对文件并创建应用入口$\r$\n4. 完成安装并启动$\r$\n$\r$\n安装过程无需下载依赖，卸载时保留工程和设置。"
   !define MUI_FINISHPAGE_TITLE "安装完成 · 第 4/4 步"
-  !define MUI_FINISHPAGE_TEXT "OpenTake Standard ${VERSION} 和离线组件已安装。$\r$\n$\r$\n现在可以录制、编辑并导出视频。AI 生成功能需要你自行接通智能体。$\r$\n$\r$\n点击「完成」退出向导。"
+  !define MUI_FINISHPAGE_TEXT "RUOK ${VERSION} 和离线组件已安装。$\r$\n$\r$\n现在可以录制、编辑并导出视频。AI 生成功能需要你自行接通智能体。$\r$\n$\r$\n点击「完成」退出向导。"
   !insertmacro MUI_PAGE_WELCOME
 !macroend
 
@@ -43,7 +44,7 @@ Function OpenTakeComponentsPage
   ${If} $otDialog == error
     Abort
   ${EndIf}
-  ${NSD_CreateLabel} 0u 0u 100% 14u "OpenTake Standard ${VERSION}"
+  ${NSD_CreateLabel} 0u 0u 100% 14u "RUOK ${VERSION}"
   Pop $otLabel
   SetCtlColors $otLabel 0x705000 transparent
   ${NSD_CreateLabel} 0u 22u 100% 12u "应用与录屏运镜编辑器"
@@ -65,7 +66,7 @@ FunctionEnd
 
 Function OpenTakeInstallShow
   SetDetailsView show
-  !insertmacro MUI_HEADER_TEXT "正在安装 OpenTake Standard" "第 2/4 步 · 解压应用与完整离线组件"
+  !insertmacro MUI_HEADER_TEXT "正在安装 RUOK" "第 2/4 步 · 解压应用与完整离线组件"
 FunctionEnd
 
 Function OpenTakePromotePayload
@@ -137,6 +138,6 @@ FunctionEnd
   ${EndIf}
   !insertmacro MUI_HEADER_TEXT "安装文件已就绪" "第 3/4 步 · 应用入口已创建，即将完成"
   FileOpen $R0 "$INSTDIR\installation-result.txt" w
-  FileWrite $R0 "OpenTake Standard$\r$\nOffline runtime files installed.$\r$\nScope: current user. Projects and settings are preserved on uninstall.$\r$\n"
+  FileWrite $R0 "RUOK$\r$\nOffline runtime files installed.$\r$\nScope: current user. Projects and settings are preserved on uninstall.$\r$\n"
   FileClose $R0
 !macroend

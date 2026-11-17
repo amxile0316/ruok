@@ -1,5 +1,5 @@
+// Modified by the RUOK fork on 2026-11-17: removed the upstream Pro style dialog and Pro upsell.
 import catalog from '@/general/entrance-catalog.json'
-import {ProStyleDialog} from '@/standard/ProStyleDialog'
 import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from 'react'
 import { useNavigate } from 'react-router'
 import { Check, ChevronLeft, ChevronRight, Pause, Play, Search, X } from 'lucide-react'
@@ -107,7 +107,7 @@ function StyleCard({ style, open, picked, soon, detailId, onToggle }: {
       onClick={event => { stop(); onToggle(style, event.currentTarget) }}
       onPointerEnter={start} onPointerLeave={stop}
       onFocus={event => { if (event.currentTarget.matches(':focus-visible')) start() }} onBlur={stop}>
-      <span className="sl-thumb">{soon && <span className="home-only standard-pro-badge">Pro</span>}
+      <span className="sl-thumb">{soon && <span className="home-only standard-pro-badge">未包含</span>}
         <img src={style.poster} alt="" loading="lazy" decoding="async" draggable={false} />
         {live && !open && <HoverClip src={style.preview} />}
         {picked && <span className="sl-picked" title="已选"><Check size={13} strokeWidth={2.6} aria-label="已选" /></span>}
@@ -234,7 +234,6 @@ export function StyleLibrary(props: StyleLibraryProps) {
   const uid = useId()
   const root = useRef<HTMLDivElement>(null)
   const [category,setCategory] = useState('全部')
-  const [proStyle,setProStyle] = useState<string|null>(null)
   const categories = catalog.entries.find(e=>e.key==='footage')!.cats
   const [filter, setFilter] = useState<StyleFilter>('all')
   const [query, setQuery] = useState('')
@@ -273,8 +272,7 @@ export function StyleLibrary(props: StyleLibraryProps) {
 
   const select = props.mode === 'pick' ? props.onSelect : undefined
   const toggle = useCallback((style: LibraryStyle, card: HTMLElement) => {
-    if(!isPickableStyle(style)){setProStyle(style.id);return}
-    select?.(style)
+    if (isPickableStyle(style)) select?.(style)
     if (openId === style.id) { setOpenId(null); return }
     anchor.current = { target: 'card', id: style.id, top: card.getBoundingClientRect().top }
     setOpenId(style.id)
@@ -325,7 +323,6 @@ export function StyleLibrary(props: StyleLibraryProps) {
       </button>)}
     </div>
     <div className="sl-filters" role="group" aria-label="按九类用途筛选">{['全部',...categories.map(c=>c.name)].map(name=><button key={name} aria-pressed={category===name} onClick={()=>{setCategory(name);setOpenId(null)}}>{name}</button>)}<span>56 个风格 · 10 个可用</span></div>
-    <ProStyleDialog id={proStyle} onClose={()=>setProStyle(null)}/>
     {groups.map((group, index) => <StyleSection key={group.type} type={group.type} styles={group.styles} order={index}
       openId={open ? open.id : null} pickedId={picked?.id} picking={props.mode === 'pick'}
       detailId={detailId} headingId={`${uid}-${group.type}`} onToggle={toggle} detail={detail} />)}

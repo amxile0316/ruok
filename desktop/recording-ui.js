@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 let current={},stopPending=false,confirmationTimer;
 const byId=id=>document.getElementById(id);
 const rank={starting:0,recording:1,stopping:2,saved:3,failed:3};
@@ -13,7 +14,7 @@ function render(state){
  byId('status').textContent=({starting:'正在准备录制…',recording:'正在录制',stopping:'正在停止并保存…',saved:'录制已保存',failed:'录制未完成'})[phase]||'尚未开始录制';
  byId('stop').textContent=phase==='saved'?'录制已保存':phase==='stopping'?'正在停止并保存…':'停止并保存';
  byId('stop').disabled=stopPending||!['starting','recording'].includes(current.phase);
- byId('shortcut').textContent=current.shortcutAvailable?'停止快捷键：'+current.shortcut:'快捷键被其他程序占用，请使用按钮或 OpenTake 托盘停止。';
+ byId('shortcut').textContent=current.shortcutAvailable?'停止快捷键：'+current.shortcut:'快捷键被其他程序占用，请使用按钮或 RUOK 托盘停止。';
  byId('error').hidden=!current.error;byId('error').textContent=current.error||'';
  document.body.dataset.phase=phase||'idle';tick();
 }
@@ -30,7 +31,7 @@ byId('stop').addEventListener('click',async()=>{
   if(current.id===id&&stopPending)confirmationTimer=setTimeout(async()=>{
    try{
     const state=await window.recordingDesktop.getState();if(current.id!==id)return;render(state);
-    if(stopPending){stopPending=false;render(current);showError(new Error('停止请求尚未确认，请重试或使用 OpenTake 托盘停止。'))}
+    if(stopPending){stopPending=false;render(current);showError(new Error('停止请求尚未确认，请重试或使用 RUOK 托盘停止。'))}
    }catch(error){if(current.id===id){stopPending=false;render(current);showError(error)}}
   },5000);
  }catch(error){if(current.id===id){stopPending=false;render(current);showError(error)}}

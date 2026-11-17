@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import {ProjectAgentChoice} from '@/studio/components/ScopedAgentChoice'
 import { ScreenExportDialog, type ScreenExportRequest } from '@/screen-motion/ScreenExportDialog'
 import { prepareScreenWorkspace, ScreenWorkspaceExtraActions } from '@/screen-motion/workspace-edition'
@@ -212,7 +213,7 @@ export default function OpenScreenWorkspace() {
       <span className="openscreen-host-session__pulse" />
       <div>
         <strong>{hostStatusLabel}</strong>
-            <small>{hostSession.mode==='cli'?`${hostSession.sourceName||'本机录制'} · 可从 OpenTake 录制控制栏和托盘停止并保存`:'录制对象是当前运行 OpenScreen 的主机；OpenTake Standard 只接收本次会话新增的 OpenScreen 工程。'}</small>
+            <small>{hostSession.mode==='cli'?`${hostSession.sourceName||'本机录制'} · 可从 RUOK 录制控制栏和托盘停止并保存`:'录制对象是当前运行 OpenScreen 的主机；RUOK 只接收本次会话新增的 OpenScreen 工程。'}</small>
       </div>
       {recordingBusy?<button type="button" onClick={()=>void stopRecording()} disabled={!writable||hostSession.status==='stopping'}><CircleStop size={15}/>{hostSession.status==='stopping'?'正在保存…':'停止并保存'}</button>:hostSession.status !== 'failed' && <button type="button" onClick={() => void cancelHudReceive()} disabled={!writable}>
         <CircleStop size={15} />停止接收

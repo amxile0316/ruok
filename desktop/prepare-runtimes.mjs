@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -18,13 +19,13 @@ export async function prepareRuntimeManifest(source){
  await fs.mkdir(path.dirname(original),{recursive:true});
  try{await fs.access(original)}catch{await fs.copyFile(helper,original)}
  await fs.copyFile(path.join(source,'native/windows/wgc-capture.exe'),helper);
- await fs.copyFile(path.join(source,'native/windows/build.json'),path.join(root,'openscreen/original-components/OpenTake-wgc-build.json'));
+ await fs.copyFile(path.join(source,'native/windows/build.json'),path.join(root,'openscreen/original-components/RUOK-wgc-build.json'));
  const compositor=verifyWindowsCompositor(source);
  const addon=path.join(root,'openscreen/resources/electron/native/bin/win32-x64/compositor_view.node');
  const originalAddon=path.join(root,'openscreen/original-components/compositor_view-2.1.2.node');
  try{await fs.access(originalAddon)}catch{await fs.copyFile(addon,originalAddon)}
  await fs.copyFile(path.join(source,'native/windows/compositor/compositor_view.node'),addon);
- await fs.copyFile(path.join(source,'native/windows/compositor/build.json'),path.join(root,'openscreen/original-components/OpenTake-compositor-build.json'));
+ await fs.copyFile(path.join(source,'native/windows/compositor/build.json'),path.join(root,'openscreen/original-components/RUOK-compositor-build.json'));
  const sourceFolder=path.join(root,'sources/openscreen-compositor-windows-patch');await fs.mkdir(sourceFolder,{recursive:true});
  for(const name of ['LICENSE','upstream.json','windows-software-decode.patch','README.md'])await fs.copyFile(path.join(source,'vendor/openscreen-compositor',name),path.join(sourceFolder,name));
  const digest=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');

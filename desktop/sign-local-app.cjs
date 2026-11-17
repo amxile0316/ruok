@@ -1,10 +1,11 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 // Standard local build only. No keychain identity lookup, private keys, notarization or system policy changes.
 const fs=require('node:fs'),path=require('node:path');
 const {spawnSync}=require('node:child_process');
 const {createRequire}=require('node:module');
 const ENTITLEMENTS=path.join(__dirname,'standard-entitlements.plist');
 function validateApp(app){
- if(!path.isAbsolute(app)||path.basename(app)!=='OpenTake Standard.app')throw Error('只能检查或修复绝对路径下的 OpenTake Standard.app，不能修改 Pro 或其他应用。');
+ if(!path.isAbsolute(app)||path.basename(app)!=='RUOK.app')throw Error('只能检查或修复绝对路径下的 RUOK.app，不能修改其他应用。');
  if(fs.lstatSync(app).isSymbolicLink())throw Error('App 不能是符号链接，请指定本次实际构建目录。');
  const root=fs.realpathSync(app);
  if(!fs.statSync(root).isDirectory()||!fs.existsSync(path.join(root,'Contents/Info.plist')))throw Error('这不是完整的 Standard App，请重新运行 npm run build:app。');

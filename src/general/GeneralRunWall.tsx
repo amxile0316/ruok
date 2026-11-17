@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 /**
  * The stage while Codex makes a version (S先生 2026-10-26, mock docs/通用剪辑出片等待-效果图.html): the newest picture of
  * the run, blurred, behind the OpenTake mark turning on the left; on the right the run's steps as a wall that slides up
@@ -91,7 +92,7 @@ export function GeneralRunWall({ project, poster }: { project: GeneralProject; p
     <div className="ge-rw-scrim" />
     <div className="ge-rw-turn">
       <span className="ge-rw-glow" aria-hidden="true" />
-      <img className="ge-rw-mark" src="/opentake-icon-512.png" alt="" draggable={false} />
+      <img className="ge-rw-mark" src="/ruok-icon-512.png" alt="" draggable={false} />
       <div className="ge-rw-status" role="status"><b data-repair={repair && live ? true : undefined} title={repair && live ? repair : title}>{repair && live ? repair : title}</b>
         {step && <small>{step.detail || title} · {elapsed(step)}</small>}
         <small>{working >= 0 ? `第 ${working + 1} / ${rows.length} 步 · ` : ''}已用 {elapsedLabel(now - started)}</small></div>

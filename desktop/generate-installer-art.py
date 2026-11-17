@@ -1,3 +1,4 @@
+# Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 """Rebuild the NSIS sidebar from the existing logo; Pillow is build-time only."""
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
@@ -6,12 +7,12 @@ root=Path(__file__).resolve().parent.parent
 scale=4
 im=Image.new('RGB',(164*scale,314*scale),'#122b2a')
 draw=ImageDraw.Draw(im)
-logo=Image.open(root/'public/opentake-icon-512.png').convert('RGBA').resize((76*scale,76*scale),Image.Resampling.LANCZOS)
+logo=Image.open(root/'public/ruok-icon-512.png').convert('RGBA').resize((76*scale,76*scale),Image.Resampling.LANCZOS)
 im.paste(logo,(24*scale,30*scale),logo)
 def text(x,y,value,size,color='#edf5ef'):
     font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',size*scale)
     draw.text((x*scale,y*scale),value,font=font,fill=color)
-text(24,122,'OpenTake',20)
+text(24,122,'RUOK',20)
 text(24,153,'Standard',15,'#ffc126')
 draw.line((24*scale,201*scale,140*scale,201*scale),fill='#47615a',width=scale)
 text(24,218,'录制 · 编辑 · 生成',11)

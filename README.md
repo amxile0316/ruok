@@ -1,41 +1,25 @@
-# OpenTake Standard
+# RUOK
 
-免费的本地视频工具：通用剪辑与录屏运镜。编辑不需要 OpenTake 账号；出片可接入 Codex 或 Claude Code 命令行，并支持 API 密钥方式（仍需对应命令行执行出片）；Claude Code 默认关闭。只有 API 密钥、没装命令行时只能做轻量文字任务。Pro 功能不包含在本仓库。
+RUOK 是 [OpenTake Standard v1.1.3](https://github.com/saf1102/opentake-standard) 的本地开源改造分支：保留通用剪辑、录屏运镜和 OpenScreen 集成，品牌改为 RUOK，移除上游 Pro 入口与作者更新通道。来源、完整改动和许可说明见 [RUOK-PROVENANCE.md](RUOK-PROVENANCE.md)。
 
-## 下载安装
-
-| 系统 | 安装包 |
-| --- | --- |
-| **Windows 10 / 11（64 位）** | **[下载 EXE（628 MB）](https://github.com/saf1102/opentake-standard/releases/download/desktop-v1.1.3-2026111001/OpenTake-Standard-Setup-1.1.3-x64.exe)** |
-| **Mac（Apple 芯片，M1 及以后）** | **[下载 DMG（446 MB）](https://github.com/saf1102/opentake-standard/releases/download/desktop-v1.1.3-2026111001/OpenTake-Standard-1.1.3-mac-arm64.dmg)** |
-| **Mac（Intel 芯片）** | **[下载 DMG（400 MB）](https://github.com/saf1102/opentake-standard/releases/download/desktop-v1.1.3-2026111001/OpenTake-Standard-1.1.3-mac-x64.dmg)**（[测试范围](#intel-mac-测试范围)） |
-
-下载后直接安装，不用自己编译。其他版本和校验值见 [Releases](https://github.com/saf1102/opentake-standard/releases)。
-
-安装包暂未做苹果公证和 Windows 代码签名，第一次打开时系统会拦一下：
-
-- **Mac**：提示无法验证开发者时，打开「系统设置 → 隐私与安全性」，在下方找到 OpenTake Standard，点「仍要打开」。
-- **Windows**：出现「Windows 已保护你的电脑」时，点「更多信息」，再点「仍要运行」。
-
-**Windows** 安装包已带齐运行工具，装好后在设置里接通智能体就能用。
-
-**Mac** 安装包暂时不带运行工具。先从 [nodejs.org](https://nodejs.org) 安装 Node.js 24（一键更新也要用），再在第一次出片前到终端运行一次（需要已安装 [Homebrew](https://brew.sh)），也可以把这段发给你的智能体执行：
+本分支不提供官方下载、自动更新或 Pro 服务。请从源码构建：
 
 ```sh
-brew install ffmpeg python
-python3 -m venv "$HOME/.opentake-venv" && "$HOME/.opentake-venv/bin/python3" -m pip install numpy
-npx --yes playwright-core@1.63.0 install chromium
+npm ci
+npm --prefix vendor/openscreen ci
+node scripts/build-desktop-ui.mjs
+npm start
 ```
 
-软件里如果提示「在 Standard 源码目录运行」安装 Chromium，用上面第三条命令即可，不需要源码目录。智能体在「设置 → 智能体接入」里接通。录屏运镜还需要安装官方 OpenScreen，见[从源码安装](#从源码安装macos--apple-芯片与-intel)里的说明。
+`npm run build` 还会编译 Windows 原生录制/合成组件，需要 Python、FFmpeg、Chromium 以及 Visual Studio C++ 生成工具；缺少时会给出明确错误。`npm run typecheck` 可单独验证 TypeScript。
 
-想自己构建或看源码，见文末[从源码安装](#从源码安装macos--apple-芯片与-intel)。
+> 以下内容保留自上游 README，用于说明技术架构和原功能。其中“下载安装”“官方更新”“Pro”等段落不适用于 RUOK；遇到指向作者仓库的链接，请以 [RUOK-PROVENANCE.md](RUOK-PROVENANCE.md) 和本分支配置为准。
 
-[每日下载统计](https://github.com/saf1102/opentake-standard/tree/repository-stats)显示的是请求次数，不是用户人数或安装成功数，App 不上报使用遥测。[统计口径](DOWNLOAD-STATS.md)
+## 上游功能说明
 
-已经在用源码版的 Mac 用户不需要重装，软件内的更新照旧。**1.0.0 用户请对智能体说：按 AGENTS.md 更新到最新版。** 1.0.0 没有更新提醒；从 1.0.1 开始每天检查。
+上游产品定位：免费的本地视频工具，通用剪辑与录屏运镜；编辑不需要账号，出片可接入 Codex 或 Claude Code 命令行。上游 Pro 功能不包含在本仓库，RUOK 也未启用。
 
-## 1.1.3 更新
+## 上游 1.1.3 更新
 
 OpenTake 1.1.3
 

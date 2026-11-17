@@ -1,9 +1,10 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const {allowedSource}=require('./update-source.cjs');
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 /** All destructive operations are restricted to a designated Standard app, never source/profile/project trees. */
 async function install({target,candidate,backups,signal,launch,healthy,stop,progress=()=>{}}){
- if(path.basename(target)!=='OpenTake Standard.app'||path.basename(candidate)!=='OpenTake Standard.app'||target===candidate)throw Error('更新目标不是 Standard App');
+ if(path.basename(target)!=='RUOK.app'||path.basename(candidate)!=='RUOK.app'||target===candidate)throw Error('更新目标不是 RUOK App');
  const id=crypto.randomUUID(),rollback=target+'.rollback-'+id,staged=target+'.new-'+id;
  fs.mkdirSync(backups,{recursive:true});const backup=path.join(backups,'standard-'+id+'.app');
  const check=()=>{if(signal?.aborted)throw Error('更新已取消')};check();
@@ -34,7 +35,7 @@ async function download({release,dest,signal,testOrigin,fetcher=fetch,progress=(
 /** Download, verify, then let the platform unpack/inspect the installer. Never touches the running app. */
 async function prepare({release,work,signal,testOrigin,fetcher=fetch,unpack,progress=()=>{}}){
  fs.mkdirSync(work,{recursive:true});progress(0);
- const name=path.basename(new URL(release.url).pathname);if(!/^OpenTake-Standard-[\w.-]+\.(dmg|exe)$/.test(name))throw Error('无效更新清单');
+ const name=path.basename(new URL(release.url).pathname);if(!/^RUOK-[\w.-]+\.(dmg|exe)$/.test(name))throw Error('无效更新清单');
  const file=await download({release,dest:path.join(work,name),signal,testOrigin,fetcher,progress});
  if(signal?.aborted)throw Error('更新已取消');progress(2);return unpack(file,signal);
 }

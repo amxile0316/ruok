@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import {useEffect, useState} from 'react'
 import {Download, MonitorPlay, RefreshCw, Settings} from 'lucide-react'
 import './screen-setup-guide.css'
@@ -38,7 +39,7 @@ export function ScreenSetupGuide() {
     <span className="screen-setup-symbol"><MonitorPlay size={29} aria-hidden /></span>
     <div className="screen-setup-copy"><h2 id="screen-setup-title">{missing ? '先装好 OpenScreen' : outdated ? '更新 OpenScreen' : guide ? '打开屏幕录制权限' : '重新检查 OpenScreen'}</h2>
       <p className="screen-setup-notice">{missing ? '录屏运镜的录制和导出都要用 OpenScreen' : outdated ? `当前 ${guide?.version}，需要 ${guide?.minimum} 以上` : guide ? '到系统设置 → 隐私与安全性 → 屏幕录制，给 OpenScreen 打开权限' : '检查暂时没完成，已有工程仍可打开。'}</p>
-      {guide?.state === 'permission-unknown' && <p className="screen-setup-detail">OpenTake 无法读取 OpenScreen 自己的权限状态；如果你已打开，可以直接开始录屏。</p>}
+      {guide?.state === 'permission-unknown' && <p className="screen-setup-detail">RUOK 无法读取 OpenScreen 自己的权限状态；如果你已打开，可以直接开始录屏。</p>}
       <div className="screen-setup-actions">
         {(missing || outdated) ? <a className="screen-setup-primary" href="https://github.com/getopenscreen/openscreen/releases/latest" target="_blank" rel="noreferrer"><Download size={15} aria-hidden />{outdated ? '去下载新版' : '去下载'}</a> : guide && <button type="button" className="screen-setup-primary" onClick={() => void openPermission()}><Settings size={15} aria-hidden />打开屏幕录制设置</button>}
         <button type="button" disabled={busy} onClick={() => setRefresh(value => value + 1)}><RefreshCw size={15} aria-hidden />{busy ? '正在检测…' : '我已装好，重新检测'}</button>

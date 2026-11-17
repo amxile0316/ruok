@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const base=require('./builder.config.cjs');
 const {OFFLINE_CHANNEL,distributionIdentity}=require('./distribution.cjs');
 const identity=distributionIdentity({opentakeDistribution:OFFLINE_CHANNEL},'win32');
@@ -11,12 +12,12 @@ module.exports={...base,
  extraMetadata:{opentakeDistribution:OFFLINE_CHANNEL},
  extraResources:[{from:runtimeRoot,to:'runtimes',filter:['**/*','!browsers/chromium-1243/**','!**/__pycache__/**','!**/*.pyc','!**/*.log']}],
  files:[...base.files,'!server/editor/jianying/portable/test_*.py','WINDOWS-RUNTIME-NOTICES.md','!public/**','!desktop/*.test.*','!desktop/installer.builder.config.cjs','!desktop/build-installer.mjs','!desktop/prepare-runtimes.mjs','!desktop/build-app.mjs','!desktop/production-pack.cjs','!desktop/install-payload.cjs','!desktop/installer.nsh','!desktop/nsis/**','!desktop/installer-assets/**','!desktop/generate-installer-art.py','!desktop/python-sitecustomize.py','!**/*.map','!**/*.d.ts','!**/*.d.cts','!node_modules/lucide-react/**'],
- win:{...base.win,icon:'public/opentake.ico',signAndEditExecutable:true,signExecutable:false,target:['nsis'],requestedExecutionLevel:'asInvoker',artifactName:'OpenTake-Standard-Setup-${version}-x64.${ext}'},
+ win:{...base.win,icon:'public/ruok.ico',signAndEditExecutable:true,signExecutable:false,target:['nsis'],requestedExecutionLevel:'asInvoker',artifactName:'RUOK-Setup-${version}-x64.${ext}'},
  nsis:{oneClick:false,perMachine:false,allowElevation:false,packElevateHelper:false,
   allowToChangeInstallationDirectory:true,displayLanguageSelector:false,include:'desktop/installer.nsh',
   createDesktopShortcut:false,createStartMenuShortcut:true,shortcutName:identity.APP_NAME,
   uninstallDisplayName:identity.APP_NAME,deleteAppDataOnUninstall:false,runAfterFinish:true,
-  installerIcon:'public/opentake.ico',uninstallerIcon:'public/opentake.ico',installerSidebar:'desktop/installer-assets/sidebar.bmp',uninstallerSidebar:'desktop/installer-assets/sidebar.bmp',differentialPackage:false,
+  installerIcon:'public/ruok.ico',uninstallerIcon:'public/ruok.ico',installerSidebar:'desktop/installer-assets/sidebar.bmp',uninstallerSidebar:'desktop/installer-assets/sidebar.bmp',differentialPackage:false,
   // One complete staging tree is verified before promotion. Upstream's default
   // split media files would otherwise be written only after that check.
   preCompressedFileExtensions:[],

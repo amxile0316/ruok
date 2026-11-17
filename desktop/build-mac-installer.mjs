@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 // Build a disk image from the existing local/ad-hoc Mac assembly. No public signing.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -7,8 +8,8 @@ import release from './release-contract.cjs';
 import platform from './platform.cjs';
 export function macInstallerPlan(root,version,arch){
  platform.validateMacArch(arch);
- return {app:path.join(root,'release',platform.macAppDirectory(arch),'OpenTake Standard.app'),
-  installer:path.join(root,`release/OpenTake-Standard-${version}-mac-${arch}.dmg`)};
+ return {app:path.join(root,'release',platform.macAppDirectory(arch),'RUOK.app'),
+  installer:path.join(root,`release/RUOK-${version}-mac-${arch}.dmg`)};
 }
 export async function buildMacInstaller(root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..')){
  if(process.platform!=='darwin')throw Error('macOS 安装包必须在 Mac 上构建。');
@@ -20,10 +21,10 @@ export async function buildMacInstaller(root=path.resolve(path.dirname(fileURLTo
  run(process.execPath,['desktop/build-app.mjs']);
  const stage=fs.mkdtempSync(path.join(root,'release/mac-dmg-'));
  // ditto retains Electron framework links and extended attributes.
- run('/usr/bin/ditto',['--rsrc',app,path.join(stage,'OpenTake Standard.app')]);
+ run('/usr/bin/ditto',['--rsrc',app,path.join(stage,'RUOK.app')]);
  fs.symlinkSync('/Applications',path.join(stage,'Applications'));
  // GitHub's macOS runners sometimes report "Resource busy" right after the copy; retry the same create a few times.
- for(let attempt=1;;attempt++){const r=spawnSync('/usr/bin/hdiutil',['create','-volname','OpenTake Standard','-srcfolder',stage,'-format','UDZO',installer],{cwd:root,stdio:'inherit'});if(!r.error&&r.status===0)break;fs.rmSync(installer,{force:true});if(attempt>=4)throw Error('hdiutil 构建失败');console.warn(`hdiutil create 第 ${attempt} 次失败，${attempt*10} 秒后重试`);spawnSync('/bin/sleep',[String(attempt*10)])}
+ for(let attempt=1;;attempt++){const r=spawnSync('/usr/bin/hdiutil',['create','-volname','RUOK','-srcfolder',stage,'-format','UDZO',installer],{cwd:root,stdio:'inherit'});if(!r.error&&r.status===0)break;fs.rmSync(installer,{force:true});if(attempt>=4)throw Error('hdiutil 构建失败');console.warn(`hdiutil create 第 ${attempt} 次失败，${attempt*10} 秒后重试`);spawnSync('/bin/sleep',[String(attempt*10)])}
  run('/usr/bin/hdiutil',['verify',installer]);
  await release.writeInstallerReceipt(root,installer,'darwin',arch);
  console.log('macOS DMG 已生成并校验；沿用本机临时签名，未公证：'+installer);

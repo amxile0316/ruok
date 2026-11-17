@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import {useEffect,useState} from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import type {CaptureSource,OpenScreenHostSession} from '@/types'
@@ -34,7 +35,7 @@ export default function RecordingSetup({projectId,clientId,onStarted,onClose}:{
  }
  return <Dialog.Root open onOpenChange={open=>{if(!open&&!starting)onClose()}}><Dialog.Portal><Dialog.Overlay className="recording-setup-backdrop"/><Dialog.Content className="recording-setup">
   <Dialog.Title>开始录制</Dialog.Title>
-  <Dialog.Description>选择这台电脑上的窗口或屏幕。录制后可从可见控制栏、OpenTake 托盘菜单或快捷键停止并保存。</Dialog.Description>
+  <Dialog.Description>选择这台电脑上的窗口或屏幕。录制后可从可见控制栏、RUOK 托盘菜单或快捷键停止并保存。</Dialog.Description>
   <label>录制来源<select autoFocus value={selected} disabled={loading||starting} onChange={e=>setSelected(e.target.value)}>
    <option value="">{loading?'正在读取窗口和屏幕…':'请选择要录制的窗口或屏幕'}</option>
    {(['window','display'] as const).map(type=><optgroup key={type} label={type==='window'?'窗口':'整个屏幕'}>

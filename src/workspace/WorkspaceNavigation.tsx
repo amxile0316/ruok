@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import { WorkspaceLink as Link } from './navigation-guard'
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
@@ -17,7 +18,7 @@ const moduleGroups = groupedModules()
 export function WorkspaceNavigation() {
   const { pathname } = useLocation()
   const current = workspaceModule(pathname)
-  useEffect(() => { document.title = `${current?.name || '创作工作台'} · OpenTake` }, [current?.name])
+  useEffect(() => { document.title = `${current?.name || '创作工作台'} · RUOK` }, [current?.name])
   const [open, setOpen] = useState(false)
   const panel = useRef<HTMLDivElement>(null)
   const dock = useRef<HTMLElement>(null)
@@ -78,12 +79,10 @@ export function WorkspaceNavigation() {
           setFocusIndex({index:next})
         }
       }}>
-      <Link to="/" className="workspace-brand" aria-label="OpenTake，返回首页" onClick={closeDock}>
-        <img className="workspace-brand-icon" src="/opentake-mark.svg" alt="" width="32" height="32" />
-        <svg className="workspace-brand-wordmark" viewBox="0 0 226 60" height="22" aria-hidden="true">
-          <text x="0" y="44" fontSize="40" fontWeight="400" fill="currentColor" opacity=".72">Open</text>
-          <rect className="workspace-brand-t" x="99" y="12" width="26" height="9" rx="4.5" /><rect className="workspace-brand-t" x="108" y="12" width="8" height="38" rx="4" />
-          <text x="125" y="44" fontSize="40" fontWeight="600" fill="currentColor">ake</text>
+      <Link to="/" className="workspace-brand" aria-label="RUOK，返回首页" onClick={closeDock}>
+        <img className="workspace-brand-icon" src="/ruok-mark.svg" alt="" width="32" height="32" />
+        <svg className="workspace-brand-wordmark" viewBox="0 0 112 60" height="22" aria-hidden="true">
+          <text x="0" y="44" fontSize="40" fontWeight="700" letterSpacing="2" fill="currentColor">RUOK</text>
         </svg>
       </Link>
       <button ref={toggle} className="workspace-launcher-toggle" aria-label="切换工作模块" title={current?.name || '全部模块'} aria-expanded={open} aria-controls="workspace-module-menu" onClick={() => { cancelClose(); setOpen(!open); setActive(null) }}><LayoutGrid size={17} /></button>

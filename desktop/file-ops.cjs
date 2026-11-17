@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const fs=require('node:fs');
 const path=require('node:path');
 const crypto=require('node:crypto');
@@ -53,7 +54,7 @@ function cleanupPathSync(target,options={}){
  try{removeWithRetrySync(target,{force:true,...options});return undefined}catch(error){
   // Cleanup is secondary. Keep the artifact and leave a diagnostic, while the
   // task's original error/completed output remains the authoritative result.
-  console.warn(`[OpenTake cleanup] ${error.message}`);
+  console.warn(`[RUOK cleanup] ${error.message}`);
   return error;
  }
 }

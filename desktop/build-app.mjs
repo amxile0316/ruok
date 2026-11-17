@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import localSignature from './sign-local-app.cjs';
 import platform from './platform.cjs';
 import releaseContract from './release-contract.cjs';
@@ -13,20 +14,20 @@ if(target!=='mac'){
 const receiptFile=path.join(root,'release-source.json');
 if(target==='mac'&&!fs.existsSync(receiptFile)&&fs.existsSync(path.join(root,'.git'))){
  const git=args=>{const r=spawnSync('git',args,{cwd:root,encoding:'utf8'});if(r.status!==0)throw Error('源码身份未确认，请交给智能体更新');return r.stdout.trim()};
- const origin=git(['remote','get-url','origin']),version=JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version;
+ const version=JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version;
  const metadata=JSON.parse(fs.readFileSync(path.join(root,'desktop/windows-version.json'),'utf8'));
  const tags=git(['tag','--points-at','HEAD']).split(/\r?\n/);
  const regularTag=tags.includes('v'+version)||tags.includes(releaseContract.desktopTag(version,metadata.windowsBuild));
  const intelTag=tags.find(tag=>releaseContract.isMacIntelTag(tag,version));
  const officialTag=regularTag||Boolean(intelTag);
  const sourceTag=releaseContract.macSourceTag(version,metadata.windowsBuild,tags,macArch);
- if(!['https://github.com/saf1102/opentake-standard.git','https://github.com/saf1102/opentake-standard','git@github.com:saf1102/opentake-standard.git'].includes(origin)||git(['status','--porcelain'])||!officialTag)throw Error('请在干净的官方版本标签上构建，或交给智能体保留你的源码改动');
+ if(git(['status','--porcelain'])||!officialTag)throw Error('请在干净的版本标签上构建，或保留你的源码改动');
  const entries=git(['ls-tree','-rz','HEAD']).split('\0').filter(Boolean).map(line=>{const m=/^(100644|100755) blob ([a-f0-9]+)\t([\s\S]+)$/.exec(line);if(!m)throw Error('不支持的源码项');return [m[3],m[2]]});
- fs.writeFileSync(receiptFile,JSON.stringify({repository:'saf1102/opentake-standard',version,...(sourceTag?{tag:sourceTag}:{}),commit:git(['rev-parse','HEAD']),files:Object.fromEntries(entries)}));
+ fs.writeFileSync(receiptFile,JSON.stringify({repository:releaseContract.REPOSITORY,version,...(sourceTag?{tag:sourceTag}:{}),commit:git(['rev-parse','HEAD']),files:Object.fromEntries(entries)}));
 }
 if(target==='mac'&&fs.existsSync(receiptFile)){
  const receipt=JSON.parse(fs.readFileSync(receiptFile));
- if(receipt.repository!=='saf1102/opentake-standard'||!receipt.files)throw Error('源码来源记录无效，请交给智能体更新');
+ if(receipt.repository!==releaseContract.REPOSITORY||!receipt.files)throw Error('源码来源记录无效，请重新生成');
  for(const [rel,expected] of Object.entries(receipt.files)){
   const file=path.resolve(root,rel);if(!file.startsWith(root+path.sep))throw Error('源码记录路径无效');
   const bytes=fs.readFileSync(file),actual=crypto.createHash('sha1').update(Buffer.from(`blob ${bytes.length}\0`)).update(bytes).digest('hex');
@@ -38,16 +39,16 @@ const run=(command,args)=>{const r=spawnSync(command,args,{cwd:root,stdio:'inher
 if(target==='mac'){
 // electronDist is explicit: never label an arm64 Electron bundle as Intel (or vice versa).
 run('/usr/bin/lipo',[path.join(root,'node_modules/electron/dist/Electron.app/Contents/MacOS/Electron'),'-verify_arch',macArch==='x64'?'x86_64':'arm64']);
-const icons=path.join(root,'release','OpenTake.iconset');fs.mkdirSync(icons,{recursive:true});
-for(const size of [16,32,128,256,512])for(const scale of [1,2])run('sips',['-z',String(size*scale),String(size*scale),'public/opentake-icon-512.png','--out',path.join(icons,`icon_${size}x${size}${scale===2?'@2x':''}.png`)]);
-run('iconutil',['-c','icns',icons,'-o','release/OpenTake.icns']);
+const icons=path.join(root,'release','RUOK.iconset');fs.mkdirSync(icons,{recursive:true});
+for(const size of [16,32,128,256,512])for(const scale of [1,2])run('sips',['-z',String(size*scale),String(size*scale),'public/ruok-icon-512.png','--out',path.join(icons,`icon_${size}x${size}${scale===2?'@2x':''}.png`)]);
+run('iconutil',['-c','icns',icons,'-o','release/RUOK.icns']);
 run(process.execPath,['node_modules/electron-builder/cli.js','--config','desktop/builder.config.cjs','--mac','dir','--'+macArch,'--publish','never']);
-const app=path.join(root,'release',platform.macAppDirectory(macArch),'OpenTake Standard.app');
-run('/usr/bin/lipo',[path.join(app,'Contents/MacOS/OpenTake Standard'),'-verify_arch',macArch==='x64'?'x86_64':'arm64']);
+const app=path.join(root,'release',platform.macAppDirectory(macArch),'RUOK.app');
+run('/usr/bin/lipo',[path.join(app,'Contents/MacOS/RUOK'),'-verify_arch',macArch==='x64'?'x86_64':'arm64']);
 // The receipt must still match what was packaged, or the next one-click update would report the app as modified.
 if(fs.existsSync(receiptFile)){const {receiptMatches}=await import('./client-update.cjs');const version=JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version;if(!receiptMatches(path.join(app,'Contents/Resources/app'),version,true))throw Error('打包后的 App 与源码来源记录对不上，停止构建');}
 try{await localSignature.signLocalApp(app);}catch(error){console.error(error.message);process.exit(1);}
 }else{
 run(process.execPath,['node_modules/electron-builder/cli.js','--config','desktop/builder.config.cjs','--win','dir','--x64','--publish','never','--config.directories.output=release/'+target]);
 }
-console.log(target==='mac'?'本机 OpenTake Standard.app 已生成在 release 下：临时签名严格校验通过，已清理隔离标记。请先双击验收，再自行放入「应用程序」。媒体工具与常见问题见 README；此结果不代表苹果公证。':`本地 Windows 测试程序已生成在 release/${target}，尚未通过 Windows 实机验收，不可发布。`);
+console.log(target==='mac'?'本机 RUOK.app 已生成在 release 下：临时签名严格校验通过，已清理隔离标记。请先双击验收，再自行放入「应用程序」。媒体工具与常见问题见 README；此结果不代表苹果公证。':`本地 Windows 测试程序已生成在 release/${target}，尚未通过 Windows 实机验收，不可发布。`);

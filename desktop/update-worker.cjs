@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const {allowedSource}=require('./update-source.cjs');
 const fs=require('node:fs'),path=require('node:path'),{spawn}=require('node:child_process');
 const {prepare,install}=require('./update-engine.cjs');const {killTree}=require('./platform.cjs');
@@ -15,11 +16,11 @@ const plist=(app,key)=>run('/usr/bin/plutil',['-extract',key,'raw',path.join(app
 async function unpackMac(dmg){
  const out=await run('/usr/bin/hdiutil',['attach','-nobrowse','-readonly','-noautoopen','-plist',dmg]);
  const mounts=[...out.matchAll(/<key>mount-point<\/key>\s*<string>([^<]+)<\/string>/g)].map(m=>m[1]);if(mounts.length!==1)throw Error('无法打开新版安装包，旧版未改动');
- const candidate=path.join(config.work,'candidate','OpenTake Standard.app');
- try{const source=path.join(mounts[0],'OpenTake Standard.app');if(!fs.existsSync(source))throw Error('安装包里没有 OpenTake Standard，旧版未改动');fs.mkdirSync(path.dirname(candidate));await run('/usr/bin/ditto',[source,candidate])}
+ const candidate=path.join(config.work,'candidate','RUOK.app');
+ try{const source=path.join(mounts[0],'RUOK.app');if(!fs.existsSync(source))throw Error('安装包里没有 RUOK，旧版未改动');fs.mkdirSync(path.dirname(candidate));await run('/usr/bin/ditto',[source,candidate])}
  finally{await run('/usr/bin/hdiutil',['detach',mounts[0],'-force']).catch(()=>{})}
  if(await plist(candidate,'CFBundleShortVersionString')!==config.release.version)throw Error('新版版本号不符，旧版未改动');
- if(await plist(candidate,'CFBundleIdentifier')!==config.bundleId)throw Error('新版不是 OpenTake Standard，旧版未改动');
+ if(await plist(candidate,'CFBundleIdentifier')!==config.bundleId)throw Error('新版不是 RUOK，旧版未改动');
  await run('/usr/bin/codesign',['--verify','--deep','--strict',candidate]).catch(()=>{throw Error('新版签名校验失败，旧版未改动')});
  await run('/usr/bin/xattr',['-dr','com.apple.quarantine',candidate]).catch(()=>{});
  return candidate;
@@ -37,7 +38,7 @@ async function waitForExit(){for(let i=0;i<172800;i++){if(abort.signal.aborted)t
  await waitForExit();
  const ready=path.join(config.work,'ready.json');
  await install({target:config.target,candidate,backups:config.backups,signal:abort.signal,progress,
- launch:async(target,rollback)=>{fs.rmSync(ready,{force:true});const child=spawn(path.join(target,'Contents/MacOS/OpenTake Standard'),[],{env:{...process.env,ELECTRON_RUN_AS_NODE:undefined,OPENTAKE_STANDARD_USER_DATA:config.profile,...(!rollback?{OPENTAKE_UPDATE_READY:ready}:{OPENTAKE_UPDATE_READY:''})},detached:true,stdio:'ignore'});child.unref();return child;},
+ launch:async(target,rollback)=>{fs.rmSync(ready,{force:true});const child=spawn(path.join(target,'Contents/MacOS/RUOK'),[],{env:{...process.env,ELECTRON_RUN_AS_NODE:undefined,OPENTAKE_STANDARD_USER_DATA:config.profile,...(!rollback?{OPENTAKE_UPDATE_READY:ready}:{OPENTAKE_UPDATE_READY:''})},detached:true,stdio:'ignore'});child.unref();return child;},
  healthy:async(child)=>{for(let i=0;i<120;i++){if(abort.signal.aborted)return false;if(child.exitCode!==null||child.signalCode!==null)return false;try{const v=JSON.parse(fs.readFileSync(ready));if(v.version===config.release.version&&v.pid===child.pid)return true}catch{}await new Promise(r=>setTimeout(r,500))}return false},
  stop:async(child)=>{if(!child.pid)return;const ended=()=>child.exitCode!==null||child.signalCode!==null;if(!ended())killTree(child.pid,'SIGTERM');for(let i=0;i<30&&!ended();i++)await new Promise(r=>setTimeout(r,100));if(!ended())killTree(child.pid,'SIGKILL');for(let i=0;i<30&&!ended();i++)await new Promise(r=>setTimeout(r,100));if(!ended())throw Error('新版进程尚未退出，保留回退副本，未覆盖运行中的 App')}});
  fs.rmSync(path.join(config.work,'candidate'),{recursive:true,force:true});state(3,'completed');

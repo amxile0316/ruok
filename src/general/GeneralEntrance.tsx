@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 /**
  * 新建通用剪辑 (S先生 2026-10-26, entrance mock v4): three entrances (不用风格 first, then 上传视频 and 给文案), the purposes
  * of the chosen one in one column with beams fanning out to them, then that purpose's styles as a poster flow — the
@@ -9,7 +10,7 @@ import { ChevronLeft, ChevronRight, Sparkles, Type, Video } from 'lucide-react'
 import { LIBRARY_STYLES } from '@/workspace/style-library/library-styles'
 import { styleById } from '@/workspace/style-library/style-library'
 import {type GeneralInputKind} from './general-contract'
-import {Composer, EntranceHandoff, EntranceUpgrade, entranceHasFreeStyle, entranceCountSuffix, categoryAllowed, type Handoff} from './entrance-edition'
+import {Composer, EntranceHandoff, entranceHasFreeStyle, entranceCountSuffix, categoryAllowed, type Handoff} from './entrance-edition'
 import catalog from './entrance-catalog.json'
 import './general-entrance.css'
 import {FirstAgentChoice, useFirstAgentChoice} from './FirstAgentChoice'
@@ -72,7 +73,6 @@ export function GeneralEntrance({ entry: given, cat: givenCat, focusId, onEntry,
 }) {
   const firstAgent = useFirstAgentChoice()
   const { ref, scale } = useStageScale()
-  const [proStyle, setProStyle] = useState<string | null>(null)
   const [hoverId, setHoverId] = useState('')
   const entry = given, data = entry && entry !== 'free' ? ENTRIES.find(e => e.key === entry) : undefined
   const cat = data && givenCat !== undefined && data.cats[givenCat] ? givenCat : undefined
@@ -148,7 +148,7 @@ export function GeneralEntrance({ entry: given, cat: givenCat, focusId, onEntry,
       {!firstAgent.open && handoff && !wide && <div className="ge-en-from"><EntranceHandoff handoff={handoff} onDrop={() => onDropHandoff?.()} /></div>}
       {!firstAgent.open && entranceHasFreeStyle && entry === 'free' && <Composer key={handoff ? 'from' : 'blank'} handoff={handoff} />}
       {!firstAgent.open && data && cats.map((c, j) => <button type="button" key={`${entry}-${c.name}`} className="ge-en-cat" data-pro={!c.styles.some(id => categoryAllowed(j, id)) || undefined} data-on={cat === j || undefined} data-away={(cat !== undefined && cat !== j) || undefined}
-        style={{ left: CAT_X, top: catY(j, cats.length), animationDelay: `${j * 45 + 420}ms` }} onClick={() => { onCat(j); if (!c.styles.some(id => categoryAllowed(j, id))) setProStyle(c.styles[0] || null) }} aria-pressed={cat === j}>
+        style={{ left: CAT_X, top: catY(j, cats.length), animationDelay: `${j * 45 + 420}ms` }} onClick={() => onCat(j)} aria-pressed={cat === j}>
         <span className="ge-en-chip"><b>{c.name}</b><i>{c.styles.length}</i>{!c.styles.some(id => categoryAllowed(j, id)) && <span className="standard-pro-badge">Pro</span>}</span>
       </button>)}
       {!firstAgent.open && shown && entry !== 'free' && <section key={shownKey} className="ge-en-flow" onMouseEnter={() => setWide(true)} aria-label={`${shown.name}的风格`}>
@@ -169,13 +169,13 @@ export function GeneralEntrance({ entry: given, cat: givenCat, focusId, onEntry,
             const star = shown.star.includes(id)
             return <article key={id} className="ge-en-pc" data-pro={!categoryAllowed(cat!, id) || undefined} role="button" tabIndex={visible ? 0 : -1} aria-label={style.name_zh}
               onMouseEnter={() => setHoverId(id)} onMouseLeave={() => setHoverId('')} onFocus={() => setHoverId(id)} onBlur={() => setHoverId('')}
-              onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); categoryAllowed(cat!, id) ? onPick(id, entry as GeneralInputKind, cat!) : setProStyle(id) } }} data-front={o === 0 || undefined} data-side={o < 0 ? 'l' : o > 0 ? 'r' : undefined} title={style.description_zh}
+              onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); if (categoryAllowed(cat!, id)) onPick(id, entry as GeneralInputKind, cat!) } }} data-front={o === 0 || undefined} data-side={o < 0 ? 'l' : o > 0 ? 'r' : undefined} title={style.description_zh}
               style={{ transform: `translateX(${x}px) translateZ(${z}px) rotateY(${ry}deg)`, opacity: visible ? (o === 0 ? 1 : Math.max(0.25, 1 - a * 0.2)) : 0, zIndex: 50 - a, pointerEvents: visible ? 'auto' : 'none' }}
-              onClick={() => !categoryAllowed(cat!, id) ? setProStyle(id) : (o === 0 ? onPick(id, entry as GeneralInputKind, cat!) : setFocus(i))}>
+              onClick={() => { if (categoryAllowed(cat!, id)) { if (o === 0) onPick(id, entry as GeneralInputKind, cat!); else setFocus(i) } }}>
               <img src={style.poster} alt="" draggable={false} />
               {hoverId === id && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && <video style={{position: 'absolute', inset: 0, width: '100%', height: 250, objectFit: 'cover'}} src={style.preview} autoPlay muted loop playsInline aria-hidden="true" />}
-              {!categoryAllowed(cat!, id) && <span className="standard-pro-badge">Pro</span>}
-              {o === 0 && <span className="ge-en-use">{categoryAllowed(cat!, id) ? '用这个风格' : '了解 Pro'}<ChevronRight size={14} aria-hidden /></span>}
+              {!categoryAllowed(cat!, id) && <span className="standard-pro-badge">未包含</span>}
+              {o === 0 && <span className="ge-en-use">{categoryAllowed(cat!, id) ? '用这个风格' : '本分支未包含'}<ChevronRight size={14} aria-hidden /></span>}
               <div className="txt"><b>{style.name_zh}{star && <em>★</em>}</b><p>{style.description_zh}</p>
                 <div className="tags">{style.uses.slice(0, 3).map(u => <i key={u}>{u}</i>)}</div></div>
             </article>
@@ -186,6 +186,5 @@ export function GeneralEntrance({ entry: given, cat: givenCat, focusId, onEntry,
       </section>}
       {firstAgent.open && <FirstAgentChoice onDone={firstAgent.close}/>}
     </div>
-    <EntranceUpgrade id={proStyle} onClose={() => setProStyle(null)}/>
   </main>
 }

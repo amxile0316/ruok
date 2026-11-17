@@ -1,3 +1,8 @@
+RUOK fork notice (2026-11-17)
+
+RUOK is a modified fork of OpenTake Standard v1.1.3. The original OpenTake Standard source is licensed AGPL-3.0-only; RUOK keeps that license. The OpenTake name and T mark remain excluded from the code license (see TRADEMARK.md), and RUOK does not claim to be an official OpenTake release.
+RUOK changes include rebranding to RUOK, replacement of the upstream update service with a disabled/local endpoint, and removal of the upstream Pro upgrade pages, Pro dialogs and Pro module entries. The complete modification record, upstream repository, version and commit are in RUOK-PROVENANCE.md. All upstream copyright notices, attributions and third-party license texts below are retained unchanged.
+
 OpenTake Standard — Third-party notices
 
 OpenTake original code: AGPL-3.0-only, see LICENSE. OpenTake name and T mark are excluded; see TRADEMARK.md.

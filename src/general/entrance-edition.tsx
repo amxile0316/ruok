@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import {useRef, useState, type ChangeEvent, type DragEvent} from 'react'
 import {Music, Image as ImageIcon, Video, X} from 'lucide-react'
 import allowed from '@/standard/styles.json'
@@ -6,7 +7,6 @@ import {DEFAULT_GENERAL_SETTINGS, MEDIA_ACCEPT, mediaKindOf} from './general-log
 import {FREE_STYLE_ID, type GeneralAgentChoice, type GeneralInputKind} from './general-contract'
 import {AgentControls} from './AgentPicker'
 import {useGeneralStart} from './general-start'
-export {ProStyleDialog as EntranceUpgrade} from '@/standard/ProStyleDialog'
 export type Handoff = {text?: string; draft?: never}
 export const entranceHasFreeStyle = true
 export const entranceCountSuffix = ' · 10 个可用'

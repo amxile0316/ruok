@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const {installFileDialogBridge}=require('./file-dialogs.cjs');
 const {app, BrowserWindow, Menu, dialog, desktopCapturer, ipcMain, session, shell, screen, systemPreferences} = require('electron');
 const {spawn} = require('node:child_process');
@@ -21,7 +22,7 @@ let win, child, origin, closing = false;
 let recordingControls, quitAfterRecording = false;
 const root = path.resolve(__dirname, '..');
 const assets=assetRoot(root);
-app.setAboutPanelOptions({applicationName:APP_NAME,applicationVersion:metadata.version,iconPath:path.join(assets,'opentake-icon-512.png'),copyright:'OpenTake contributors',credits:'AGPL-3.0-only · 开源许可与第三方署名见应用内关于页面。'});
+app.setAboutPanelOptions({applicationName:APP_NAME,applicationVersion:metadata.version,iconPath:path.join(assets,'ruok-icon-512.png'),copyright:'RUOK contributors · based on OpenTake contributors',credits:'AGPL-3.0-only · 开源许可与第三方署名见应用内关于页面。'});
 const trusted = event => Boolean(win && event.sender === win.webContents && event.senderFrame === win.webContents.mainFrame && sameOrigin(event.senderFrame.url, origin));
 function stopService() {
  if (!child?.pid) return;
@@ -45,7 +46,7 @@ function permissions() {
  ipcMain.handle('standard:screen-help', async event => {
   if (!trusted(event)) throw Error('无效窗口');
   if(process.platform==='win32'){await dialog.showMessageBox(win,{type:'info',title:'屏幕录制',message:'请在录制窗口中选择要共享的屏幕或窗口。',detail:'如果被系统或组织策略阻止，请检查 Windows 的屏幕捕获权限。'});return;}
-  const result = await dialog.showMessageBox(win,{type:'info',title:'开启屏幕录制权限',message:'请允许 OpenTake Standard 录制屏幕',detail:'打开「系统设置 → 隐私与安全性 → 屏幕与系统音频录制」，允许 OpenTake Standard，然后退出并重新打开。开发模式下名称可能显示为 Electron。',buttons:['打开系统设置','稍后'],cancelId:1});
+  const result = await dialog.showMessageBox(win,{type:'info',title:'开启屏幕录制权限',message:'请允许 RUOK 录制屏幕',detail:'打开「系统设置 → 隐私与安全性 → 屏幕与系统音频录制」，允许 RUOK，然后退出并重新打开。开发模式下名称可能显示为 Electron。',buttons:['打开系统设置','稍后'],cancelId:1});
   if (result.response === 0) await shell.openExternal('x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture');
  });
  ipcMain.handle('standard:screen-status', event => {
@@ -69,10 +70,10 @@ async function start() {
  recordServiceEvent(profile,'desktop-service-start');
  try{origin = await waitForService(child,{onPhase:stage=>recordServiceEvent(profile,'startup-phase',{stage})});}
  catch(error){recordServiceEvent(profile,'startup-failed',{error});throw error;}
- child.on('exit',(code,signal)=>{recordServiceEvent(profile,'desktop-service-exit',{code,signal});if(!closing){if(recordingControls?.state)recordingControls.update({...recordingControls.state,phase:'failed',error:'本机服务已退出；原始录制文件保留。'});dialog.showErrorBox('本机服务已退出',`退出码：${code??'未知'}${signal?`，信号：${signal}`:''}。请退出并重新打开 OpenTake Standard。已有工程仍保存在磁盘。\n故障记录：${path.join(profile,'diagnostics','service-events.jsonl')}`);app.quit()}});
- win = new BrowserWindow({title:APP_NAME,width:1320,height:900,minWidth:640,minHeight:620,backgroundColor:'#202827',icon:path.join(assets,'opentake-icon-512.png'),webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
+ child.on('exit',(code,signal)=>{recordServiceEvent(profile,'desktop-service-exit',{code,signal});if(!closing){if(recordingControls?.state)recordingControls.update({...recordingControls.state,phase:'failed',error:'本机服务已退出；原始录制文件保留。'});dialog.showErrorBox('本机服务已退出',`退出码：${code??'未知'}${signal?`，信号：${signal}`:''}。请退出并重新打开 RUOK。已有工程仍保存在磁盘。\n故障记录：${path.join(profile,'diagnostics','service-events.jsonl')}`);app.quit()}});
+ win = new BrowserWindow({title:APP_NAME,width:1320,height:900,minWidth:640,minHeight:620,backgroundColor:'#202827',icon:path.join(assets,'ruok-icon-512.png'),webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
  if(process.platform==='win32')win.on('page-title-updated',event=>event.preventDefault());
- if(process.platform==='darwin')app.dock.setIcon(path.join(assets,'opentake-icon-512.png'));
+ if(process.platform==='darwin')app.dock.setIcon(path.join(assets,'ruok-icon-512.png'));
  permissions();
  require('./client-update.cjs').installUpdateIPC({app,ipcMain,trusted,root,getOrigin:()=>origin});
  if(process.platform==='win32'){
@@ -102,7 +103,7 @@ async function start() {
 if(!app.requestSingleInstanceLock())app.quit();
 else {
  app.on('second-instance',()=>{win?.show();win?.focus()});
- app.whenReady().then(start).catch(error=>{dialog.showErrorBox('OpenTake Standard 无法启动',error.message);app.quit()});
+ app.whenReady().then(start).catch(error=>{dialog.showErrorBox('RUOK 无法启动',error.message);app.quit()});
  app.on('window-all-closed',()=>app.quit());
  app.on('before-quit',event=>{if(recordingControls?.busy){event.preventDefault();quitAfterRecording=true;recordingControls.stop();return}closing=true;stopService()});
  app.on('will-quit',()=>recordingControls?.dispose());

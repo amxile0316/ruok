@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import {CreationEnvironment} from '../general/CreationEnvironment';
 import {AboutUpdate} from '../standard/ClientUpdate';
 import {ConnectionList} from '../studio/components/ConnectionSettings';
@@ -12,5 +13,5 @@ export function EnhancedAgentSettings(){return null}
 export function IntegrationSettings(){return null}
 export function PublishDirSetting(){return null}
 export function ProjectMigration(_props:{defaultTarget:string;disabled:boolean;onChanged:()=>void}){return null}
-export function StandardAbout({environment=true}:{environment?:boolean}={}){return <><AboutUpdate/>{environment&&<CreationEnvironment/>}<section><h3>OpenTake Standard</h3><p>版本 {pkg.version}</p><p>通用剪辑与录屏运镜，开源创作工作台。</p><p>只有升级查询与主动申请时联网。申请收集名字、联系方式、用途和密码摘要；网络地址用于防刷并在 90 天后清理。会话保存在用户数据目录，不在工程里。</p><p>代码采用 AGPL-3.0。OpenTake 名字和 T 图标不随代码授权。</p><a href="/NOTICE" target="_blank" rel="noreferrer">开源许可与第三方署名</a></section></>}
+export function StandardAbout({environment=true}:{environment?:boolean}={}){return <><AboutUpdate/>{environment&&<CreationEnvironment/>}<section><h3>RUOK</h3><p>版本 {pkg.version}</p><p>通用剪辑与录屏运镜，本地开源创作工作台。基于 OpenTake Standard 1.1.3 分支。</p><p>默认不采集使用行为；更新检查默认关闭。工程保存在本机；使用智能体或第三方接口时，任务内容会发送给你选择的提供方。</p><p>代码采用 AGPL-3.0。OpenTake 名称与图标不随代码授权；RUOK 分支的改动与来源见 NOTICE 和 RUOK-PROVENANCE.md。</p><a href="/NOTICE" target="_blank" rel="noreferrer">开源许可与第三方署名</a></section></>}
 export function DesktopSettings({section}:{section?:string}){return section==='about'?<StandardAbout environment={false}/>:null}

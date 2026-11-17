@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 // macOS creation preflight shared by doctor and the local API. Never installs software.
 const fs = require('node:fs');
 const path = require('node:path');
@@ -12,7 +13,7 @@ const executable = file => { try { fs.accessSync(file, fs.constants.X_OK); retur
 const PYTHON_ENV = {PYTHONNOUSERSITE:'1', PYTHONDONTWRITEBYTECODE:'1', PYTHONPATH:''};
 const {SAMPLE_ARGS, sampleArgs, renderArgs} = require('../shared/browser-launch.cjs');
 const fixes = {
- python: 'macOS：brew install python；然后 python3 -m venv "$HOME/.opentake-venv" && "$HOME/.opentake-venv/bin/python3" -m pip install numpy。启动 OpenTake 前设置 LINKREADER_PYTHON 为该解释器的绝对路径。',
+ python: 'macOS：brew install python；然后 python3 -m venv "$HOME/.opentake-venv" && "$HOME/.opentake-venv/bin/python3" -m pip install numpy。启动 RUOK 前设置 LINKREADER_PYTHON 为该解释器的绝对路径。',
  chromium: '在 Standard 源码目录运行：npx --no-install playwright-core install chromium。若指定了浏览器路径，请先核对或清除 CW_HFX_CHROME、CW_CHROME、PLAYWRIGHT_CHROMIUM_EXECUTABLE 的旧值；需要自选时，仅设置 PLAYWRIGHT_CHROMIUM_EXECUTABLE 为兼容 Chromium 的绝对路径。已安装仍失败时，请保留失败阶段与路径交给维护者检查，再点“重新检查”；不要关闭 Codex 沙盒或自行放宽系统权限。',
  ffmpeg: 'macOS：brew install ffmpeg。需要同时包含 ffmpeg 和 ffprobe；也可设置 LINKREADER_BIN_DIR 为两者所在目录。',
  codex: 'macOS：npm install -g @openai/codex，然后在终端运行 codex login；登录后重新检查。'
@@ -27,7 +28,7 @@ async function probeBrowser(chromium, file, env, args = sampleArgs(env.CW_CHROME
   stage='page';
   const page = await browser.newPage({viewport:{width:64,height:64}});
   page.setDefaultTimeout(5000);
-  await page.setContent('<html><body>OpenTake</body></html>');
+  await page.setContent('<html><body>RUOK</body></html>');
   stage='screenshot';
   // Chromium can briefly have no compositor surface after setContent. A
   // successful launch/DOM is not sufficient: require an actual screenshot,

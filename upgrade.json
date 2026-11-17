@@ -1,5 +1,5 @@
 {
-  "endpoint": "https://register.badesign.top:8433/standard/upgrade.json",
+  "endpoint": "",
   "mode": "beta",
-  "notice": ""
+  "notice": "RUOK 分支尚未配置更新服务；需要时请改为你自己的更新地址。"
 }

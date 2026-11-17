@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const path=require('node:path');
 const {pathToFileURL}=require('node:url');
 const {assetRoot}=require('./assets.cjs');
@@ -24,18 +25,18 @@ function createRecordingControls({electron,root,parent,onStop,onShow,onQuit}){
   {id:'recording-show',label:'显示录制控制栏',click:()=>show()},
   {id:'recording-stop',label:'停止并保存录制',enabled:false,click:stop},
   {id:'recording-project',label:'返回录屏工程',click:showProject},
-  {type:'separator'},{label:'显示 OpenTake Standard',click:showProject},
-  {label:'退出 OpenTake Standard',click:onQuit},
+  {type:'separator'},{label:'显示 RUOK',click:showProject},
+  {label:'退出 RUOK',click:onQuit},
  ]);
- const tray=new Tray(nativeImage.createFromPath(path.join(assetRoot(root),'opentake-icon-512.png')).resize({width:20,height:20}));
- tray.setToolTip('OpenTake Standard');tray.setContextMenu(menu);tray.on('double-click',()=>busy(state)?show():showProject());
+ const tray=new Tray(nativeImage.createFromPath(path.join(assetRoot(root),'ruok-icon-512.png')).resize({width:20,height:20}));
+ tray.setToolTip('RUOK');tray.setContextMenu(menu);tray.on('double-click',()=>busy(state)?show():showProject());
  function show(){
   if(!window||window.isDestroyed()){
    const owner=parent&&!parent.isDestroyed()?parent:undefined;
    const area=(owner?screen.getDisplayMatching(owner.getBounds()):screen.getPrimaryDisplay()).workArea;
    // A normal owned window stays above Standard without a global overlay layer.
    // Show it on Standard's display and activate it so the first click is usable.
-   window=new BrowserWindow({title:'OpenTake 录制控制',icon:path.join(assetRoot(root),'opentake-icon-512.png'),width:540,height:190,resizable:false,maximizable:false,minimizable:true,autoHideMenuBar:true,
+   window=new BrowserWindow({title:'RUOK 录制控制',icon:path.join(assetRoot(root),'ruok-icon-512.png'),width:540,height:190,resizable:false,maximizable:false,minimizable:true,autoHideMenuBar:true,
     parent:owner,show:false,focusable:true,x:area.x+Math.max(0,Math.floor((area.width-540)/2)),y:area.y+72,
     alwaysOnTop:false,skipTaskbar:false,backgroundColor:'#20242b',
     webPreferences:{preload:path.join(root,'desktop/recording-preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
@@ -57,7 +58,7 @@ function createRecordingControls({electron,root,parent,onStop,onShow,onQuit}){
   item.enabled=busy(state)&&state.phase!=='stopping';
   item.label=state.phase==='stopping'?'正在保存录制…':'停止并保存录制';
   menu.getMenuItemById('recording-show').enabled=true;
-  tray.setToolTip(busy(state)?`OpenTake 正在${state.phase==='stopping'?'保存':'录制'}：${String(state.sourceName||'').slice(0,90)}`:'OpenTake Standard');
+  tray.setToolTip(busy(state)?`RUOK 正在${state.phase==='stopping'?'保存':'录制'}：${String(state.sourceName||'').slice(0,90)}`:'RUOK');
   // On Windows the native tray refreshes its cached menu from this same object.
   tray.setContextMenu(menu);
   // The source dialog restores focus to Standard after startup. Activate once

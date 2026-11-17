@@ -1,8 +1,10 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 const fs=require('node:fs');
 const path=require('node:path');
 const crypto=require('node:crypto');
 const {spawnSync}=require('node:child_process');
-const REPOSITORY='saf1102/opentake-standard';
+// RUOK fork: replace this placeholder with your own GitHub repository before publishing updates.
+const REPOSITORY='ruok-app/ruok';
 function desktopTag(version,build){
  if(!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version)||!Number.isSafeInteger(build)||build<1)throw Error('Invalid desktop version/build');
  return `desktop-v${version}-${build}`;

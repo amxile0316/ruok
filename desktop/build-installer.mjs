@@ -1,3 +1,4 @@
+// Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import {spawnSync} from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -22,6 +23,6 @@ const result=spawnSync(process.execPath,['node_modules/electron-builder/cli.js',
 if(result.error)throw result.error;
 if(result.status!==0)throw Error(`Windows 安装器构建失败（${result.status}）。`);
 const version=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).version;
-await release.writeInstallerReceipt(root,path.join(root,`release/windows/OpenTake-Standard-Setup-${version}-x64.exe`),'win32','x64');
-console.log('OpenTake Standard Windows 完整离线安装器已生成；未签名、未发布。');
+await release.writeInstallerReceipt(root,path.join(root,`release/windows/RUOK-Setup-${version}-x64.exe`),'win32','x64');
+console.log('RUOK Windows 完整离线安装器已生成；未签名、未发布。');
 }
