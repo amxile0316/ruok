@@ -5,8 +5,9 @@ import crypto from 'node:crypto';
 import { SystemPreferencesSchema, type SystemPreferences, type SettingsView } from '../src/settings/schema.ts';
 export const settingsFile = () => process.env.LINKREADER_SYSTEM_SETTINGS_FILE || path.join(settingsDataRoot(),'system-settings.json');
 export const legacyProjectsRoot = () => process.env.LINK_READER_PROJECTS_DIR || defaultProjectsLocation();
-/** Folders created before the RUOK rename stay in the library list so old projects open. */
-const previousLibrary = () => { const legacy = legacyProjectsLocation(); return legacy !== defaultProjectsLocation() && fs.existsSync(legacy) ? legacy : undefined; };
+/** Folders created before the RUOK rename stay in the library list so old projects open.
+    An explicit projects-root override (tests, parallel installs) must stay isolated from the host's folders. */
+const previousLibrary = () => { if (process.env.LINK_READER_PROJECTS_DIR) return undefined; const legacy = legacyProjectsLocation(); return legacy !== defaultProjectsLocation() && fs.existsSync(legacy) ? legacy : undefined; };
 export function defaultPreferences():SystemPreferences { return {paths:{projects:legacyProjectsRoot(),cache:'',exports:'',backups:process.env.LINKREADER_SYSTEM_SETTINGS_FILE?path.join(path.dirname(settingsFile()),'project-snapshots'):process.env.LINK_READER_PROJECTS_DIR?path.join(process.env.LINK_READER_PROJECTS_DIR,'.project-snapshots'):path.join(settingsDataRoot(),'project-snapshots')},export:{preset:'quick',container:'mp4',quality:'fast',resolution:'original',revealWhenDone:false},backup:{automatic:true,intervalMinutes:15,keep:20},reserveGB:5}; }
 type Stored={version:1;revision:number;preferences:SystemPreferences;libraries:string[];cacheRoots:string[];backupRoots:string[]};
 export function readSystemSettings():Stored {
