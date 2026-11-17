@@ -122,6 +122,7 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 8. 上游 Pro 模块只删除了入口，没有等价自研实现；需要时按模块补齐。
 9. 内部 `opentake-*` 事件名、storage key、`OPENTAKE_*` 环境变量保留以降低兼容风险，未做全量重命名。
 10. 官方截图 `screenshots/*.png` 仍是上游界面，需重新截图或标注为上游示意。
+11. 上游文档 `AGENTS.md`、`WINDOWS-RELEASE.md`、`WINDOWS-INSTALLER.md`、`RELEASE-NOTES-*.md`、`DOWNLOAD-STATS.md`、`BUILD-MACOS.md` 仍保留旧名/作者下载说明，发布前需改写或标注为上游资料。
 
 ## 5. 许可与商标声明
 
