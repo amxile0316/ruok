@@ -89,7 +89,7 @@ export function ScreenExportDialog({ id, name, clientId, input, onClose }: {
     onReveal={() => { if (task) void reveal(task) }}
     history={<section className="export-history">
       <button className="export-history__toggle" aria-expanded={historyOpen} onClick={() => setHistoryOpen(value => !value)}><ChevronRight />导出记录</button>
-      {error && <p role="alert" style={{ color: '#9869dc' }}>{error}</p>}
+      {error && <p role="alert" style={{ color: 'var(--ruok-warning)' }}>{error}</p>}
       {historyOpen && <div className="export-history__body">{entries.length ? entries.map(entry => <div className="export-history__actions" key={entry.id}>
         <span>{new Date(entry.createdAt).toLocaleString('zh-CN')} · {statusLabel[entry.status]} · {entry.outputFile.split('/').at(-1)}</span>
         {entry.status === 'completed' && <button onClick={() => void reveal(entry)}>所在文件夹</button>}

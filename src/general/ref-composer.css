@@ -5,9 +5,9 @@
 .ge-pill:active { cursor:grabbing; }
 .ge-pill i { flex:none;width:18px;height:12px;border-radius:2px;background:linear-gradient(135deg,#556,#334) center/cover; }
 .ge-pill b { flex:none;font-weight:600;color:var(--ge-muted); }
-.ge-pill[data-kind="s"] b { color:#9869dc; }
+.ge-pill[data-kind="s"] b { color:var(--ruok-warning); }
 .ge-pill.is-waiting { opacity:.6;cursor:progress;border-style:dashed; }
-.ge-rc-drop { position:fixed;z-index:1000;width:2px;border-radius:1px;background:#9869dc;pointer-events:none; }
+.ge-rc-drop { position:fixed;z-index:1000;width:2px;border-radius:1px;background:var(--ruok-warning);pointer-events:none; }
 .ge-at { position:fixed;z-index:1000;width:260px;max-height:300px;overflow-y:auto;padding:5px;border:1px solid var(--ge-line2);border-radius:10px;background:var(--ge-panel-solid,#1f2024);box-shadow:0 14px 40px #0006;color:var(--ge-ink);font-size:12.5px; }
 html[data-ui-theme=warm] .ge-at { background:#f4ead6; }
 .ge-at h5 { margin:6px 8px 3px;font-size:11px;font-weight:600;color:var(--ge-faint); }

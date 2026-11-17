@@ -1,7 +1,7 @@
 /* ⌘ 点击素材的圆盘 (ClipRadial). Frosted glass; values open a panel on hover, actions run on click. */
 .clip-radial {
   --cr-glass: #26282e9c; --cr-piece: #26282e8f; --cr-line: #ffffff1f; --cr-ink: #eef0f4; --cr-faint: #8e929b;
-  --cr-hot: #f5b316; --cr-hot-ink: #1d1404; --cr-red: #e5484d; --cr-panel: #232429b8; --cr-shadow: 0 18px 44px #0006;
+  --cr-hot: var(--ruok-accent); --cr-hot-ink: #1d1404; --cr-red: #e5484d; --cr-panel: #232429b8; --cr-shadow: 0 18px 44px #0006;
   position: fixed; inset: 0; z-index: 900; pointer-events: none; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
 }
 html[data-ui-theme=warm] .clip-radial {
@@ -36,9 +36,9 @@ html[data-ui-theme=warm] .clip-radial {
   backdrop-filter: blur(14px) saturate(1.25); -webkit-backdrop-filter: blur(14px) saturate(1.25); animation: clip-radial-fade .16s ease-out both; }
 .clip-radial-panel h4 { margin: 0 0 10px; font-size: 13px; }
 .clip-radial-field p { margin: 8px 0 0; font-size: 11px; color: var(--cr-faint); }
-.clip-radial-field input[type=range] { width: 100%; accent-color: #9869dc; }
+.clip-radial-field input[type=range] { width: 100%; accent-color: var(--ruok-warning); }
 .clip-radial-field textarea { width: 100%; resize: vertical; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--cr-line); background: #0000001f; color: var(--cr-ink); font: inherit; font-size: 13px; line-height: 1.5; outline: 0; }
-.clip-radial-value { font-size: 15px; font-weight: 700; color: #9869dc; font-variant-numeric: tabular-nums; }
+.clip-radial-value { font-size: 15px; font-weight: 700; color: var(--ruok-warning); font-variant-numeric: tabular-nums; }
 .clip-radial-marks { display: flex; justify-content: space-between; font-size: 10px; color: var(--cr-faint); }
 .clip-radial-row { display: grid; grid-template-columns: 32px 1fr 46px; align-items: center; gap: 8px; font-size: 12px; margin: 4px 0; }
 .clip-radial-row b { text-align: right; font-variant-numeric: tabular-nums; }
@@ -64,6 +64,6 @@ html[data-ui-theme=warm] .clip-radial {
 
 /* the timeline while a disc is open: only the clip's own track stays sharp */
 [data-radial-dim] { filter: blur(1.6px); opacity: .32; transition: filter .22s ease-out, opacity .22s ease-out; pointer-events: none; }
-[data-radial-on].track-lane { background: color-mix(in srgb, #f5b316 7%, transparent); box-shadow: inset 3px 0 0 #f5b316; }
-[data-radial-on] .timeline-clip[data-radial-clip] { outline: 2px solid #f5b316; outline-offset: 1px; box-shadow: 0 0 24px #f5b31659; }
+[data-radial-on].track-lane { background: color-mix(in srgb, var(--ruok-accent) 7%, transparent); box-shadow: inset 3px 0 0 var(--ruok-accent); }
+[data-radial-on] .timeline-clip[data-radial-clip] { outline: 2px solid var(--ruok-accent); outline-offset: 1px; box-shadow: 0 0 24px color-mix(in srgb, var(--ruok-accent) 35%, transparent); }
 .track-lane, .track-head { transition: filter .18s ease-out, opacity .18s ease-out; }

@@ -3,7 +3,7 @@
    glass in their own light. The stage is 1600×900, scaled to the page. */
 .ge-en {
   --en-bg:radial-gradient(1200px 700px at 22% 40%,#1d1f24 0%,#121316 55%,#0b0c0e 100%);
-  --en-ink:#eef0f4; --en-muted:#8e929b; --en-accent:#f5b316; --en-accent-soft:#ffd36b; --en-accent-ink:#1d1404; --en-beam-end:#ffffff;
+  --en-ink:#eef0f4; --en-muted:#8e929b; --en-accent:var(--ruok-accent); --en-accent-soft:var(--ruok-accent-hi); --en-accent-ink:#1d1404; --en-beam-end:#ffffff;
   --en-slab:linear-gradient(155deg,#2a2c32 0%,#1b1c20 48%,#16171a 100%); --en-slab-line:#ffffff12; --en-slab-hi:#ffffff1a;
   --en-slab-shadow:0 20px 50px #00000066; --en-shine:#ffffff12;
   --en-icon:linear-gradient(160deg,#3a3d44,#24262b); --en-chip:linear-gradient(180deg,#26282e,#1c1d21); --en-chip-line:#ffffff14;

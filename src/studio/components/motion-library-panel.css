@@ -248,7 +248,7 @@ html[data-ui-theme] .media-panel .motion-library-card > .motion-library-card__fa
   border-radius: 9px;
   background: var(--ed-menu-bg, #28292e);
   color: var(--ed-ink, #f2f2f4);
-  box-shadow: inset 3px 0 0 var(--ed-accent, #ffb020), var(--ed-shadow-lg, 0 14px 30px #000c);
+  box-shadow: inset 3px 0 0 var(--ed-accent, var(--ruok-accent)), var(--ed-shadow-lg, 0 14px 30px #000c);
   pointer-events: none;
   will-change: transform;
   animation: ed-ghost-in 160ms var(--ed-ease, ease-out);
@@ -258,7 +258,7 @@ html[data-ui-theme] .media-panel .motion-library-card > .motion-library-card__fa
 .motion-card-pointer-ghost__thumb .preset-real-preview > span { display: none; }
 .motion-card-pointer-ghost b { padding: 0 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; font-weight: 600; }
 .motion-card-pointer-ghost small { padding: 0 2px; font-size: 10px; color: var(--ed-muted, #8b8e96); font-variant-numeric: tabular-nums; }
-.motion-card-pointer-ghost[data-state=valid] small { color: var(--ed-accent-text, #ffcf73); }
+.motion-card-pointer-ghost[data-state=valid] small { color: var(--ed-accent-text, var(--ruok-accent-text)); }
 .motion-card-pointer-ghost[data-state=blocked] { box-shadow: inset 3px 0 0 var(--ed-danger, #ff5a4f), var(--ed-shadow-lg, 0 14px 30px #000c); }
 .motion-card-pointer-ghost[data-state=blocked] small { color: var(--ed-danger, #ff5a4f); }
 /* on the lane: the landing box reuses the library drop preview; a refused spot is a red line with the reason */

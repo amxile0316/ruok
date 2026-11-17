@@ -39,9 +39,7 @@ const run=(command,args)=>{const r=spawnSync(command,args,{cwd:root,stdio:'inher
 if(target==='mac'){
 // electronDist is explicit: never label an arm64 Electron bundle as Intel (or vice versa).
 run('/usr/bin/lipo',[path.join(root,'node_modules/electron/dist/Electron.app/Contents/MacOS/Electron'),'-verify_arch',macArch==='x64'?'x86_64':'arm64']);
-const icons=path.join(root,'release','RUOK.iconset');fs.mkdirSync(icons,{recursive:true});
-for(const size of [16,32,128,256,512])for(const scale of [1,2])run('sips',['-z',String(size*scale),String(size*scale),'public/ruok-icon-512.png','--out',path.join(icons,`icon_${size}x${size}${scale===2?'@2x':''}.png`)]);
-run('iconutil',['-c','icns',icons,'-o','release/RUOK.icns']);
+fs.mkdirSync(path.join(root,'release'),{recursive:true});fs.copyFileSync(path.join(root,'public/ruok.icns'),path.join(root,'release/RUOK.icns'));
 run(process.execPath,['node_modules/electron-builder/cli.js','--config','desktop/builder.config.cjs','--mac','dir','--'+macArch,'--publish','never']);
 const app=path.join(root,'release',platform.macAppDirectory(macArch),'RUOK.app');
 run('/usr/bin/lipo',[path.join(app,'Contents/MacOS/RUOK'),'-verify_arch',macArch==='x64'?'x86_64':'arm64']);

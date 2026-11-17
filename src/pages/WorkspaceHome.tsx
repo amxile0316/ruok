@@ -18,24 +18,7 @@ import '@/workspace/workspace-home.css'
 import { DeployStrip } from '@/onboarding/DeployWizard'
 import {homeHasKoubo, loadHomeEditorProjects} from '@/workspace/home-edition'
 
-/** Entrance loops. Until real clips are placed here the slots stay a neutral dark frame; a missing file only hides the video. */
-const HOME_LOOPS: Record<'koubo' | 'general' | 'publish', { src: string; poster?: string }> = {
-  koubo: { src: '/home/koubo-loop.mp4', poster: '/home/koubo-poster.jpg' },
-  general: { src: '/home/general-loop.mp4', poster: '/home/general-poster.jpg' },
-  publish: { src: '/home/publish-loop.mp4', poster: '/home/publish-poster.jpg' },
-}
-/** 模块卡的概念动图（分镜：docs/界面改版/概念动图-四个模块分镜.md 和各模块方案第三节）。没有的模块是深色底加图标。
- *  rest：不播时停在哪一秒（剪辑台第 0 帧是空地面，停在 T 拼好的那一刻）。 */
-const MODULE_LOOPS: Partial<Record<string, { src: string; poster: string; rest?: number }>> = {
-  screen: { src: '/home/module-screen-loop.mp4', poster: '/home/module-screen-poster.jpg' },
-  studio: { src: '/home/module-studio-loop.mp4', poster: '/home/module-studio-poster.jpg', rest: 2.467 },
-  motion: { src: '/home/module-motion-loop.mp4', poster: '/home/module-motion-poster.jpg' },
-  styles: { src: '/home/module-styles-loop.mp4', poster: '/home/module-styles-poster.jpg' },
-  topics: { src: '/home/module-topics-loop.mp4', poster: '/home/module-topics-poster.jpg' },
-  reader: { src: '/home/module-reader-loop.mp4', poster: '/home/module-reader-poster.jpg', rest: 3.2 },
-  library: { src: '/home/module-library-loop.mp4', poster: '/home/module-library-poster.jpg', rest: 3 },
-  analytics: { src: '/home/module-analytics-loop.mp4', poster: '/home/module-analytics-poster.jpg', rest: 3 },
-}
+/** RUOK replaces the upstream entrance/module footage with the official mark until new product clips exist. */
 /** Parallax and entrances run only here; reduced motion or a small window lays the page out flat (same query as the CSS). */
 const MOTION_QUERY = '(prefers-reduced-motion: no-preference) and (min-width: 760px) and (min-height: 560px)'
 const motionOn = () => typeof window.matchMedia === 'function' && window.matchMedia(MOTION_QUERY).matches
@@ -155,46 +138,18 @@ function useParallax(ref: RefObject<HTMLElement | null>) {
   }, [ref])
 }
 
-function HomeLoop({ source }: { source: { src: string; poster?: string } }) {
-  const video = useRef<HTMLVideoElement>(null)
-  const [failed, setFailed] = useState(false)
-  useEffect(() => {
-    const element = video.current
-    if (!element) return
-    element.muted = true
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const sync = () => { if (reduce.matches) element.pause(); else void element.play().catch(() => {}) }
-    sync(); reduce.addEventListener('change', sync)
-    return () => reduce.removeEventListener('change', sync)
-  }, [failed])
-  return <div className="home-media" aria-hidden="true"><div className="home-media__drift">
-    {!failed && <video ref={video} src={source.src} poster={source.poster} loop muted playsInline preload="auto" disablePictureInPicture tabIndex={-1} onError={() => setFailed(true)} />}
+function HomeLoop() {
+  return <div className="home-media" aria-hidden="true"><div className="home-media__drift home-media__brand">
+    <img src="/ruok-icon-512.png" alt="" draggable={false} />
   </div></div>
-}
-
-/** A module card's loop: still at its rest frame (frame 0 unless set); plays while the card is hovered or focused
- *  (eight cards moving at once would be noise), back to the rest frame after. Reduced motion keeps it still. */
-function useModuleLoop(rest = 0) {
-  const video = useRef<HTMLVideoElement>(null)
-  const play = () => {
-    const element = video.current
-    if (!element || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    element.muted = true; void element.play().catch(() => {})
-  }
-  const stop = () => { const element = video.current; if (element) { element.pause(); element.currentTime = rest } }
-  return { video, handlers: { onMouseEnter: play, onFocus: play, onMouseLeave: stop, onBlur: stop } }
 }
 
 function ModuleCard({ module }: { module: ReturnType<typeof groupedModules>[number]['modules'][number] }) {
   const Icon = MODULE_ICONS[module.id]
   const pro = 'pro' in module && module.pro === true
-  const loop = MODULE_LOOPS[module.id]
-  const { video, handlers } = useModuleLoop(loop?.rest)
-  const [failed, setFailed] = useState(false)
-  return <li><Link className="home-module" data-pro={pro || undefined} to={module.path} title={module.description} {...(loop ? handlers : {})}>
+  return <li><Link className="home-module" data-pro={pro || undefined} to={module.path} title={module.description}>
     <span className="home-module__media" aria-hidden="true">
-      {loop && !failed ? <video ref={video} src={loop.src} poster={loop.poster} loop muted playsInline preload="metadata" disablePictureInPicture tabIndex={-1} onError={() => setFailed(true)} onLoadedMetadata={event => { if (loop.rest) event.currentTarget.currentTime = loop.rest }} />
-        : <Icon size={26} strokeWidth={1.4} />}
+      <Icon size={26} strokeWidth={1.4} />
     </span>
     <span className="home-module__top"><Icon size={18} strokeWidth={1.6} aria-hidden="true" />{module.only && <span className="home-only"><i className="home-dot" data-kind={module.only} aria-hidden="true" />{MODULE_ONLY_LABELS[module.only]}</span>}</span>
     {pro && <span className="home-only standard-pro-badge">未包含</span>}
@@ -358,7 +313,7 @@ export default function WorkspaceHome() {
               {status && <span className="home-entry__status" role="status"><i className="home-dot" data-kind="koubo" aria-hidden="true" />{status}</span>}
             </div>
           </div>
-          <HomeLoop source={HOME_LOOPS.koubo} />
+          <HomeLoop />
         </section>
         <section className="home-entry" data-kind="general" aria-labelledby="home-entry-general">
           <div>
@@ -369,7 +324,7 @@ export default function WorkspaceHome() {
               <Link className="home-entry__button" to={GENERAL_EDIT_PATH}>新建通用工程<ChevronRight size={16} aria-hidden="true" /></Link>
             </div>
           </div>
-          <HomeLoop source={HOME_LOOPS.general} />
+          <HomeLoop />
         </section>
         <section className="home-entry" data-pro={!homeHasKoubo || undefined} data-kind="publish" aria-labelledby="home-entry-publish">
           <div>
@@ -380,7 +335,7 @@ export default function WorkspaceHome() {
               {homeHasKoubo ? <Link className="home-entry__button" to="/publish">新建稿子<ChevronRight size={16} aria-hidden="true" /></Link> : <button type="button" className="home-entry__button" disabled>本分支未包含文案发布</button>}
             </div>
           </div>
-          <HomeLoop source={HOME_LOOPS.publish} />
+          <HomeLoop />
         </section>
       </div>
       <div className="home-hero__dim" aria-hidden="true" />

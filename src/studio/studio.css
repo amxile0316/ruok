@@ -1122,7 +1122,7 @@ body:has(.preview-panel:fullscreen) { visibility: hidden; }
 .motion-style-switcher__track button:hover { color: var(--studio-ink); }
 .motion-style-switcher__track button[aria-pressed="true"] { color: #fff; }
 .motion-style-switcher__track button:focus-visible { outline: 2px solid color-mix(in srgb, var(--studio-accent) 62%, white); outline-offset: -2px; }
-.motion-mode-identity{display:flex;align-items:center;gap:8px;margin:9px 0;padding:8px;border:1px solid var(--studio-control-line);border-radius:9px;background:rgba(255,255,255,.025)}.motion-mode-identity>strong{width:30px;height:30px;display:grid;place-items:center;border-radius:7px;background:#246d4f;color:#eaffdf}.motion-mode-identity--semantic>strong{background:#ffb020;color:#201807}.motion-mode-identity span{display:grid;gap:1px}.motion-mode-identity span b{font-size:10px}.motion-mode-identity span small{color:var(--studio-muted);font-size:8px}
+.motion-mode-identity{display:flex;align-items:center;gap:8px;margin:9px 0;padding:8px;border:1px solid var(--studio-control-line);border-radius:9px;background:rgba(255,255,255,.025)}.motion-mode-identity>strong{width:30px;height:30px;display:grid;place-items:center;border-radius:7px;background:#246d4f;color:#eaffdf}.motion-mode-identity--semantic>strong{background:var(--ruok-accent);color:#201807}.motion-mode-identity span{display:grid;gap:1px}.motion-mode-identity span b{font-size:10px}.motion-mode-identity span small{color:var(--studio-muted);font-size:8px}
 .card-layout-editor { display: grid; gap: 9px; margin: 11px 0 12px; padding: 10px; border: 1px solid var(--studio-control-line); border-radius: 9px; background: rgba(255,255,255,.025); }
 .card-layout-editor__title { display: grid; gap: 3px; }
 .card-layout-editor__title b { font-size: 11px; }
@@ -3306,12 +3306,12 @@ label:has(.magnetic-range.is-snapped) output { color: var(--studio-accent); }
 [data-card-state="checking"]{--card-state-bg:#8534df;--card-state-fg:#ffffff;--card-state-line:#bd85ff}
 [data-card-state="ready"]{--card-state-bg:#22e66e;--card-state-fg:#07391c;--card-state-line:#7affab}
 [data-card-state="failed"]{--card-state-bg:#d91f32;--card-state-fg:#ffffff;--card-state-line:#ff7c88}
-[data-card-state="rework"]{--card-state-bg:#ffb020;--card-state-fg:#422600;--card-state-line:#ffd678}
+[data-card-state="rework"]{--card-state-bg:var(--ruok-accent);--card-state-fg:#422600;--card-state-line:#ffd678}
 /* Only the status symbol receives a color tile; preserve timeline role colors. */
 .timeline-card-state-icon{display:inline-grid;place-items:center;width:22px;height:22px;flex:none;border-radius:6px;background:var(--card-state-bg);color:var(--card-state-fg);border:0;font-size:12px;font-weight:700;line-height:1}
 
 /* Match the desktop update/download attention color across workspace themes. */
-html[data-ui-theme] button.project-storage-trigger[data-archived="true"],button.project-storage-trigger[data-archived="true"]{background:#9869dc!important;color:#fff!important;border-color:#9869dc!important;}
+html[data-ui-theme] button.project-storage-trigger[data-archived="true"],button.project-storage-trigger[data-archived="true"]{background:var(--ruok-warning)!important;color:#fff!important;border-color:var(--ruok-warning)!important;}
 
 .project-storage-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .project-storage-toolbar>label{flex:none}.project-storage-toolbar .project-storage-actions{flex-wrap:wrap}

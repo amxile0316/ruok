@@ -37,6 +37,6 @@ body {font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;}
  --surface-hi:#28292e; --surface-warm:#222327;
  --border:#ffffff1c; --border-soft:#ffffff0f; --border-hi:#ffffff2e;
  --fg:#f2f2f4; --fg-2:#c9cbd1; --fg-emphasis:#ffffff; --muted:#8b8e96; --muted-soft:#7a7d85; --meta:#8b8e96; --dim:#5e6169;
- --brand:#ffb020; --brand-lo:#d98e00; --accent:#ffb020; --accent-on:#1b1c1f;
- --accent-soft:#ffb02024; --accent-wash:#ffb02012; --accent-border:#ffb02066; color-scheme:dark;
+ --brand:var(--ruok-accent); --brand-lo:var(--ruok-accent-deep); --accent:var(--ruok-accent); --accent-on:#1b1c1f;
+ --accent-soft:color-mix(in srgb, var(--ruok-accent) 14%, transparent); --accent-wash:color-mix(in srgb, var(--ruok-accent) 7%, transparent); --accent-border:color-mix(in srgb, var(--ruok-accent) 40%, transparent); color-scheme:dark;
 }

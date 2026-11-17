@@ -48,7 +48,7 @@
 .export-header h2 { margin: 0; color: #fff; font-size: 24px; letter-spacing: -.02em; }
 .export-header > div { min-width: 0; }
 .export-header p { margin: 5px 0 0; color: #89929f; font-size: 12px; }
-html[data-ui-theme] .export-dialog .export-header .export-notice { color: #9869dc; }
+html[data-ui-theme] .export-dialog .export-header .export-notice { color: var(--ruok-warning); }
 .export-header > button,
 .export-progress > header > button {
   width: 35px;
@@ -388,7 +388,7 @@ html:is([data-ui-theme=warm],[data-ui-theme=frost]) .export-backdrop {
   background:color-mix(in srgb,var(--ui-ink) 24%,transparent);backdrop-filter:blur(12px);
 }
 html:is([data-ui-theme=warm],[data-ui-theme=frost]) .export-dialog {
-  --export-error:#9869dc;--export-error-bg:color-mix(in srgb,#9869dc 12%,transparent);
+  --export-error:var(--ruok-warning);--export-error-bg:color-mix(in srgb,var(--ruok-warning) 12%,transparent);
   color:var(--ui-ink);
 }
 html:is([data-ui-theme=warm],[data-ui-theme=frost]) .export-dialog :is(.export-progress,.export-content,.export-header,.export-footer,.export-presets) {
@@ -427,8 +427,8 @@ html:is([data-ui-theme=warm],[data-ui-theme=frost]) .export-dialog :is(.export-p
 
 .export-resolution .export-option-heading {margin-top:18px;}
 .export-resolution[aria-disabled="true"] {opacity:.45;}
-.export-dialog :is(.export-error,.export-progress__error,.export-progress > ul) {color:#9869dc;}
-.export-dialog button:focus-visible {outline:2px solid #9869dc;outline-offset:3px;}
+.export-dialog :is(.export-error,.export-progress__error,.export-progress > ul) {color:var(--ruok-warning);}
+.export-dialog button:focus-visible {outline:2px solid var(--ruok-warning);outline-offset:3px;}
 
-html[data-ui-theme] .export-dialog :is([role="alert"],.export-progress__icon.is-failed) {color:#9869dc;}
-html[data-ui-theme] .export-dialog .export-progress__icon.is-failed {border-color:#9869dc;background:color-mix(in srgb,#9869dc 12%,transparent);}
+html[data-ui-theme] .export-dialog :is([role="alert"],.export-progress__icon.is-failed) {color:var(--ruok-warning);}
+html[data-ui-theme] .export-dialog .export-progress__icon.is-failed {border-color:var(--ruok-warning);background:color-mix(in srgb,var(--ruok-warning) 12%,transparent);}

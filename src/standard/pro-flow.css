@@ -4,8 +4,8 @@
   --line:#ffffff10;--line2:#ffffff1c;
   --slab:linear-gradient(155deg,#2a2c32 0%,#1b1c20 48%,#16171a 100%);--slab-line:#ffffff12;--slab-hi:#ffffff1a;--slab-shadow:0 30px 80px #000000a0;
   --chip:linear-gradient(180deg,#26282e,#1c1d21);--chip-line:#ffffff14;--field:#0f1012;
-  --amber:#f5b316;--amber-ink:#1d1404;--amber-text:#f5b316;--amber-soft:#f5b3161f;
-  --scrim:#0b0c0ecc;--glass:none;--good:#2fc6a4;--warn:#9869dc;
+  --amber:var(--ruok-accent);--amber-ink:#1d1404;--amber-text:var(--ruok-accent);--amber-soft:color-mix(in srgb, var(--ruok-accent) 12%, transparent);
+  --scrim:#0b0c0ecc;--glass:none;--good:var(--ruok-verdigris-300);--warn:var(--ruok-warning);
   --page:radial-gradient(1200px 700px at 22% 40%,#1d1f24 0%,#121316 55%,#0b0c0e 100%);
 }
 html[data-ui-theme=warm] .pro-flow{
@@ -76,7 +76,7 @@ html[data-ui-theme=warm] .pro-flow{
 .pro-flow .later{position:absolute;right:18px;top:18px;padding:3px 9px;border-radius:999px;font-size:11.5px;color:var(--muted);border:1px dashed var(--line2)}
 .pro-flow .topbar{position:absolute;left:0;right:0;top:0;height:64px;display:flex;align-items:center;justify-content:flex-end;padding:0 24px}
 .pro-flow .upgrade{position:relative;height:38px;padding:0 16px;border-radius:11px;border:1px solid var(--chip-line);background:var(--chip);display:inline-flex;align-items:center;gap:8px}
-.pro-flow .upgrade .dot{width:7px;height:7px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 3px #9869dc33}
+.pro-flow .upgrade .dot{width:7px;height:7px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 3px color-mix(in srgb, var(--ruok-warning) 20%, transparent)}
 .pro-flow .tip{position:absolute;right:0;top:46px;white-space:nowrap;padding:8px 12px;border-radius:10px;background:var(--slab);border:1px solid var(--slab-line);box-shadow:var(--slab-shadow);font-size:12.5px}
 .pro-flow .tip b{color:var(--warn);font-weight:600}
 .pro-flow .activate{min-height:100vh;display:grid;place-items:center}
@@ -88,9 +88,9 @@ html[data-ui-theme=warm] .pro-flow{
 .pro-flow .card .primary{width:100%;height:46px;margin-top:12px}
 .pro-flow .card .links{margin-top:18px;font-size:12.5px;color:var(--muted)}
 .pro-flow .card .links a{color:var(--amber-text);text-decoration:none}
-.pro-flow .err{margin-top:12px;padding:11px 14px;border-radius:11px;text-align:left;font-size:13px;line-height:1.55;border:1px solid #9869dc66;background:#9869dc1a;color:var(--ink)}
+.pro-flow .err{margin-top:12px;padding:11px 14px;border-radius:11px;text-align:left;font-size:13px;line-height:1.55;border:1px solid color-mix(in srgb, var(--ruok-warning) 40%, transparent);background:color-mix(in srgb, var(--ruok-warning) 10%, transparent);color:var(--ink)}
 .pro-flow .err b{color:var(--warn)}
-.pro-flow .input.bad{border-color:#9869dc}
+.pro-flow .input.bad{border-color:var(--ruok-warning)}
 .pro-flow .tabs{display:flex;gap:4px;padding:4px;margin:4px 0 20px;border-radius:12px;background:var(--field);border:1px solid var(--chip-line)}
 .pro-flow .tabs span{flex:1;padding:8px 0;border-radius:9px;font-size:13px;color:var(--muted)}
 .pro-flow .tabs span.on{background:var(--chip);color:var(--ink);box-shadow:inset 0 0 0 1px var(--chip-line)}
@@ -104,5 +104,5 @@ html[data-ui-theme=warm] .pro-flow{
 .pro-flow .intent .chips{margin:0}
 .pro-flow .card .intent{margin:14px 0 0}
 
-.pro-flow{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.pro-flow .dialog{position:relative;left:auto;top:auto;transform:none;max-width:calc(100vw - 32px);max-height:90vh;overflow:auto}.pro-flow-overlay{position:fixed;inset:0;z-index:100;background:#0b0c0ecc;backdrop-filter:blur(3px)}.pro-flow-modal{position:fixed;inset:0;z-index:101;display:grid;place-items:center;background:none!important;pointer-events:none}.pro-flow-modal .dialog{pointer-events:auto}.pro-flow button{cursor:pointer}.pro-flow button:disabled{opacity:.55;cursor:default}.pro-flow input:focus-visible,.pro-flow button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}.pro-flow .form-two{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-bottom:12px}.pro-flow .password-row{margin-bottom:18px}.pro-flow .hp{position:absolute;left:-9999px}.upgrade-dot{width:7px;height:7px;border-radius:50%;background:#9869dc;display:inline-block;margin-right:7px}.pro-flow .account-switch{margin-top:12px;text-align:center}.pro-flow .activate{padding:32px}.pro-flow .card{max-width:100%}@media(prefers-reduced-motion:reduce){.pro-flow *{animation:none!important;transition:none!important}}
+.pro-flow{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.pro-flow .dialog{position:relative;left:auto;top:auto;transform:none;max-width:calc(100vw - 32px);max-height:90vh;overflow:auto}.pro-flow-overlay{position:fixed;inset:0;z-index:100;background:#0b0c0ecc;backdrop-filter:blur(3px)}.pro-flow-modal{position:fixed;inset:0;z-index:101;display:grid;place-items:center;background:none!important;pointer-events:none}.pro-flow-modal .dialog{pointer-events:auto}.pro-flow button{cursor:pointer}.pro-flow button:disabled{opacity:.55;cursor:default}.pro-flow input:focus-visible,.pro-flow button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}.pro-flow .form-two{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-bottom:12px}.pro-flow .password-row{margin-bottom:18px}.pro-flow .hp{position:absolute;left:-9999px}.upgrade-dot{width:7px;height:7px;border-radius:50%;background:var(--ruok-warning);display:inline-block;margin-right:7px}.pro-flow .account-switch{margin-top:12px;text-align:center}.pro-flow .activate{padding:32px}.pro-flow .card{max-width:100%}@media(prefers-reduced-motion:reduce){.pro-flow *{animation:none!important;transition:none!important}}
 .pro-flow .ring{box-shadow:none}.pro-flow .state>.row{width:100%}.pro-flow a.primary{display:inline-flex;align-items:center;text-decoration:none}html[data-ui-theme=warm] .pro-flow-overlay{background:#8e7d6699;backdrop-filter:blur(22px) saturate(.9)}

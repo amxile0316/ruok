@@ -6,8 +6,8 @@
   --home-gutter:10px; /* the top bar's own side margin: the least room the cards keep from the window edge */
   --home-width:1180px; /* the two entrances sit in a centred column; 我的工程 and 全部模块 use the full width */
   --home-ease:cubic-bezier(.2,.8,.2,1);
-  --home-koubo:#ffb020; --home-koubo-ink:#16171a;
-  --home-general:#2fc6a4; --home-general-ink:#06201a;
+  --home-koubo:var(--ruok-accent); --home-koubo-ink:#16171a;
+  --home-general:var(--ruok-verdigris-300); --home-general-ink:#06201a;
   --home-ink:var(--ui-ink); --home-ink-2:var(--ui-ink); --home-muted:var(--ui-muted);
   --home-faint:color-mix(in srgb,var(--ui-muted) 70%,transparent);
   --home-card:var(--ui-glass); --home-card-hover:var(--ui-glass);
@@ -75,6 +75,8 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
    still fits the first screen (470px ≈ top bar, paddings and the text above it). */
 .home-media { position:relative;flex:0 1 auto;align-self:flex-start;width:min(100%,calc((100vh - 470px) * 16 / 9));min-height:120px;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:var(--home-media); }
 .home-media__drift { position:absolute;inset:0; }
+.home-media__brand { display:grid;place-items:center;background:radial-gradient(120% 120% at 50% 38%,#1b2c29 0%,#0c1211 72%); }
+.home-media__brand img { width:34%;max-width:120px;height:auto;opacity:.96;filter:drop-shadow(0 8px 22px #00000073) drop-shadow(0 0 18px color-mix(in srgb,var(--ruok-bronze-300,#d6a85f) 22%,transparent)); }
 .home-media video { display:block;width:100%;max-width:none;height:100%;object-fit:cover; }
 :is(.home-media,.home-thumb)::after { content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,#00000000 50%,#00000047),#0000003d;box-shadow:inset 0 0 0 1px #ffffff12;pointer-events:none;transition:opacity .2s; }
 

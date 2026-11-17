@@ -18,9 +18,9 @@ html {
 }
 
 html[data-ui-theme=original] {
-  --ed-icon: #ffb020;
-  --ed-card-s: #ffc24d; --ed-card-m: #ffb020; --ed-card-f: #d98e00; --ed-card-ink: #1b1c1f; --ed-danger: #ff5a4f;
-  --ed-accent: #ffb020; --ed-accent-hi: #ffc24d; --ed-accent-ink: #1b1c1f; --ed-accent-soft: #ffb02024; --ed-accent-text: #ffcf73;
+  --ed-icon: var(--ruok-accent);
+  --ed-card-s: var(--ruok-accent-hi); --ed-card-m: var(--ruok-accent); --ed-card-f: var(--ruok-accent-deep); --ed-card-ink: #1b1c1f; --ed-danger: #ff5a4f;
+  --ed-accent: var(--ruok-accent); --ed-accent-hi: var(--ruok-accent-hi); --ed-accent-ink: #1b1c1f; --ed-accent-soft: color-mix(in srgb, var(--ruok-accent) 14%, transparent); --ed-accent-text: var(--ruok-accent-text);
   --ed-ink: #f2f2f4; --ed-ink-2: #c9cbd1; --ed-muted: #8b8e96; --ed-faint: #5e6169;
   --ed-raise: #28292e; --ed-raise-hi: #313339; --ed-line: #ffffff0f; --ed-line-2: #ffffff1c; --ed-input: #0f1012;
   --ed-menu-bg: #28292e; --ed-hint-bg: #313339;
@@ -42,7 +42,7 @@ html[data-ui-theme=warm] {
 }
 
 html[data-ui-theme=frost] {
-  --ed-icon: #d98e00;
+  --ed-icon: var(--ruok-accent-deep);
   --ed-card-s: #dcf1ea; --ed-card-m: #addfcf; --ed-card-f: #71bca6; --ed-card-ink: #1f3633; --ed-danger: #cf4a44;
   --ed-accent: #34786b; --ed-accent-hi: #4f9a8b; --ed-accent-ink: #ffffff; --ed-accent-soft: #34786b24; --ed-accent-text: #245a50;
   --ed-ink: #293e3b; --ed-ink-2: #3d524e; --ed-muted: #536863; --ed-faint: #87a09a;

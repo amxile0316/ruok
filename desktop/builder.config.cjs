@@ -8,5 +8,5 @@ module.exports = {
  npmRebuild:false,
  win:{target:['dir'],icon:'public/ruok.ico',signAndEditExecutable:true,signExecutable:false},
  // build-app.mjs keeps the upstream ad-hoc signing/verification finalizer.
- mac:{target:['dir'],identity:null,icon:'release/RUOK.icns',category:'public.app-category.video',extendInfo:{CFBundleDisplayName:'RUOK',CFBundleName:'RUOK',NSScreenCaptureUsageDescription:'录制你选择的屏幕或窗口，制作演示视频。'}},
+ mac:{target:['dir'],identity:null,icon:'public/ruok.icns',category:'public.app-category.video',extendInfo:{CFBundleDisplayName:'RUOK',CFBundleName:'RUOK',NSScreenCaptureUsageDescription:'录制你选择的屏幕或窗口，制作演示视频。'}},
 };

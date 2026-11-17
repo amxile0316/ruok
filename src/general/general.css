@@ -4,7 +4,7 @@
   --ge-bg:var(--pro-bg,#121315); --ge-panel:#1a1b1e; --ge-raise:#28292e; --ge-field:#0f1012;
   --ge-line:#ffffff0f; --ge-line2:#ffffff1c; --ge-ink:#f2f2f4; --ge-ink2:#c9cbd1; --ge-muted:#8b8e96; --ge-faint:#5e6169;
   --ge-chip:#ffffff08; --ge-chip-on:#ffffff12; --ge-hover:#ffffff0a; --ge-media:#0b0c0d;
-  --ge-teal:#2fc6a4; --ge-teal-ink:#06201a; --ge-dot:#2fc6a4; --ge-red:#ff6b61;
+  --ge-teal:var(--ruok-verdigris-300); --ge-teal-ink:#06201a; --ge-dot:var(--ruok-verdigris-300); --ge-red:#ff6b61;
   --ge-stop-bg:#f2f2f4; --ge-stop-ink:#121315; --ge-shadow:0 14px 30px #000000cc; --ge-popup:#28292e; --ge-seg-on:#28292e;
   --ge-panel-border:1px solid var(--ge-line); --ge-panel-radius:0; --ge-panel-shadow:none; --ge-panel-glass:none; --ge-gap:0px; --ge-inset:0px;
   --ge-ease:cubic-bezier(.2,.8,.2,1);
@@ -38,13 +38,13 @@ html[data-ui-theme] .ge :is(.ge-box,.ge-area) textarea:not([disabled]):not([read
 .ge-spin { display:block;animation:ge-spin .9s linear infinite;transform-origin:50% 50%; }
 .ge-navtitle { display:inline-flex;align-items:center;gap:8px;min-width:0;max-width:min(36vw,420px);height:30px;padding:0 6px;margin-left:-6px;border:0;border-radius:8px;background:none;color:inherit;font:600 13px/1 -apple-system,"SF Pro Text","PingFang SC",sans-serif;white-space:nowrap;cursor:default; }
 .ge-navtitle > span { overflow:hidden;text-overflow:ellipsis; }
-.ge-navtitle i { flex:none;width:6px;height:6px;border-radius:50%;background:#2fc6a4; }
+.ge-navtitle i { flex:none;width:6px;height:6px;border-radius:50%;background:var(--ruok-verdigris-300); }
 html[data-ui-theme=warm] .ge-navtitle i,html[data-ui-theme=frost] .ge-navtitle i { background:#1f9a80; }
 .ge-navtitle[role=button] { cursor:text; }
 .ge-navtitle[role=button]:hover { background:#ffffff12; }
 html[data-ui-theme=warm] .ge-navtitle[role=button]:hover,html[data-ui-theme=frost] .ge-navtitle[role=button]:hover { background:#ffffff40; }
-.ge-navtitle[role=button]:focus-visible { outline:2px solid #2fc6a4;outline-offset:1px; }
-.ge-navtitle input { width:min(30vw,320px);height:28px;padding:0 8px;border:1px solid #2fc6a4;border-radius:7px;background:transparent;color:inherit;font:inherit;outline:0; }
+.ge-navtitle[role=button]:focus-visible { outline:2px solid var(--ruok-verdigris-300);outline-offset:1px; }
+.ge-navtitle input { width:min(30vw,320px);height:28px;padding:0 8px;border:1px solid var(--ruok-verdigris-300);border-radius:7px;background:transparent;color:inherit;font:inherit;outline:0; }
 .ge-export { display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 16px;border:0;border-radius:8px;background:var(--studio-accent,#e0a040);color:#1d1406;font:600 13px/1 -apple-system,"SF Pro Text","PingFang SC",sans-serif;white-space:nowrap;text-decoration:none;cursor:pointer; }
 .ge-export:hover { filter:brightness(1.08); }
 .ge-export[aria-disabled=true] { background:#ffffff0d;color:#5e6169;cursor:default;pointer-events:none; }
@@ -205,7 +205,7 @@ html[data-ui-theme=warm] .ge-play { background:#40362b;color:#fff8e9; }
 
 /* ⌘ selection */
 .ge-pick { position:absolute;z-index:4;pointer-events:none; }
-.ge-sel { position:absolute;border:1.5px solid var(--ge-teal);background:#2fc6a412;border-radius:3px;box-shadow:0 0 0 9999px #00000038;animation:ge-fade .2s ease both; }
+.ge-sel { position:absolute;border:1.5px solid var(--ge-teal);background:color-mix(in srgb, var(--ruok-verdigris-300) 7%, transparent);border-radius:3px;box-shadow:0 0 0 9999px #00000038;animation:ge-fade .2s ease both; }
 .ge-sel em { position:absolute;left:-1.5px;bottom:calc(100% + 5px);height:20px;padding:0 7px;border-radius:5px;background:var(--ge-teal);color:var(--ge-teal-ink);font:600 11px/20px -apple-system,"PingFang SC",sans-serif;font-style:normal;white-space:nowrap; }
 .ge-sel[data-below] em { bottom:auto;top:calc(100% + 5px); }
 .ge-sel[data-drawing] { box-shadow:none; }
@@ -274,7 +274,7 @@ html[data-ui-theme=warm] .ge-play { background:#40362b;color:#fff8e9; }
 .ge-fold[aria-expanded=true] > svg:last-child { transform:rotate(180deg); }
 .ge-runbox { display:flex;flex-direction:column;gap:12px; }
 .ge-runnote { display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:12px;border-radius:10px;border:1px solid var(--ge-line);background:var(--ge-chip);font-size:12.5px;line-height:1.6;color:var(--ge-ink2); }
-.ge-runnote[data-tone=failed] p { color:#9869dc; }
+.ge-runnote[data-tone=failed] p { color:var(--ruok-warning); }
 .ge-runnote p { margin:0; }
 .ge-soft { display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border:1px solid var(--ge-line2);border-radius:8px;background:none;font-size:12.5px;font-weight:600;color:var(--ge-ink2);cursor:pointer; }
 .ge-soft:hover:not(:disabled) { color:var(--ge-ink);background:var(--ge-hover); }
@@ -504,35 +504,35 @@ html[data-ui-theme=warm] .ge-play { background:#40362b;color:#fff8e9; }
 
 /* 拿去剪：带着稿子来的（文案发布 › 定稿 › 拿去剪 › 通用剪辑） */
 .ge-intake .ge-from { margin-top:14px; }
-.ge-from { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:14px; border:1px solid #9869dc66; background:#9869dc1f; animation:ge-from-in .5s cubic-bezier(.2,.8,.2,1) both; }
-.ge-from .ic { display:grid; place-items:center; flex:none; width:32px; height:32px; border-radius:10px; background:#9869dc; color:#fff; }
+.ge-from { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:14px; border:1px solid color-mix(in srgb, var(--ruok-warning) 40%, transparent); background:color-mix(in srgb, var(--ruok-warning) 12%, transparent); animation:ge-from-in .5s cubic-bezier(.2,.8,.2,1) both; }
+.ge-from .ic { display:grid; place-items:center; flex:none; width:32px; height:32px; border-radius:10px; background:var(--ruok-warning); color:#fff; }
 .ge-from > div { flex:1; min-width:0; }
 .ge-from b { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13.5px; }
 .ge-from small { display:block; opacity:.72; font-size:12px; }
-.ge-from button { flex:none; height:28px; padding:0 10px; border-radius:8px; border:1px solid #9869dc66; background:none; color:inherit; font:inherit; font-size:12.5px; cursor:pointer; }
+.ge-from button { flex:none; height:28px; padding:0 10px; border-radius:8px; border:1px solid color-mix(in srgb, var(--ruok-warning) 40%, transparent); background:none; color:inherit; font:inherit; font-size:12.5px; cursor:pointer; }
 @keyframes ge-from-in { from { opacity:0; transform:translateY(8px); } }
 @media (prefers-reduced-motion:reduce) { .ge-from { animation:none; } }
-.ge-from-note { margin:0 0 8px; font-size:12.5px; color:#9869dc; }
+.ge-from-note { margin:0 0 8px; font-size:12.5px; color:var(--ruok-warning); }
 
 /* 任务24：失败续接的提醒用亮紫，琥珀仅用于推荐的主动作。 */
-.ge-failover { border:1px solid #9869dc;background:#9869dc24;border-radius:12px;padding:14px;gap:10px;overflow-wrap:anywhere; }
-.ge-failover > b { color:#9869dc;font-size:13.5px;font-weight:600; }
+.ge-failover { border:1px solid var(--ruok-warning);background:color-mix(in srgb, var(--ruok-warning) 14%, transparent);border-radius:12px;padding:14px;gap:10px;overflow-wrap:anywhere; }
+.ge-failover > b { color:var(--ruok-warning);font-size:13.5px;font-weight:600; }
 .ge-runnote.ge-failover > p { color:var(--ge-ink2); }
 .ge-failover-actions { display:flex;gap:8px;flex-wrap:wrap;align-items:center; }
 .ge-failover-button { min-height:32px;padding:5px 13px;border:1px solid var(--ge-line2);border-radius:8px;background:var(--ge-raise);color:var(--ge-ink);font-size:12px;cursor:pointer; }
-.ge-failover-button.primary { background:#f5b316;color:#1d1404;border-color:transparent;font-weight:650; }
+.ge-failover-button.primary { background:var(--ruok-accent);color:#1d1404;border-color:transparent;font-weight:650; }
 .ge-failover-button.later { background:transparent;border-color:transparent;padding-inline:6px;color:var(--ge-muted); }
 .ge-failover-button:disabled { opacity:.5;cursor:default; }
 .ge-failover small { font-size:12px;color:var(--ge-muted); }
-.ge-failover small.ge-failover-notice { color:#9869dc; }
+.ge-failover small.ge-failover-notice { color:var(--ruok-warning); }
 .ge-failover-notice button { border:0;background:none;color:inherit;text-decoration:underline;cursor:pointer; }
-html[data-ui-theme=warm] .ge-failover { background:#9869dc1c; }
+html[data-ui-theme=warm] .ge-failover { background:color-mix(in srgb, var(--ruok-warning) 11%, transparent); }
 html[data-ui-theme=warm] .ge-failover-button.primary { background:#e9a516;color:#2b1d05; }
-.ge-agent[data-failover] .ge-step[data-tone=failed] .ic { color:#9869dc; }
-.ge-agent[data-failover] .ge-ahead .st i[data-tone=failed] { background:#9869dc; }
+.ge-agent[data-failover] .ge-step[data-tone=failed] .ic { color:var(--ruok-warning); }
+.ge-agent[data-failover] .ge-ahead .st i[data-tone=failed] { background:var(--ruok-warning); }
 .ge-agent[data-failover] .ge-ahead .st[data-tone=failed],
 .ge-agent[data-failover] .ge-ahead .st[data-tone=wait],
-.ge-agent[data-failover] .ge-retry { color:#9869dc; }
-.ge-agent[data-failover] .ge-ahead .st i[data-tone=wait] { background:#9869dc; }
-.ge-runnote.ge-failover > .ge-failover-reason, .ge-failover-reason a { color:#9869dc; }
+.ge-agent[data-failover] .ge-retry { color:var(--ruok-warning); }
+.ge-agent[data-failover] .ge-ahead .st i[data-tone=wait] { background:var(--ruok-warning); }
+.ge-runnote.ge-failover > .ge-failover-reason, .ge-failover-reason a { color:var(--ruok-warning); }
 .ge-failover-reason a { text-decoration:underline;text-underline-offset:3px; }

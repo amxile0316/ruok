@@ -19,13 +19,13 @@ html.workspace-glass[data-ui-theme=original] {
   --pro-ink-2: #c9cbd1;
   --pro-muted: #8b8e96;
   --pro-faint: #5e6169;
-  --pro-accent: #ffb020;
-  --pro-accent-hi: #ffc24d;
-  --pro-accent-deep: #d98e00;
+  --pro-accent: var(--ruok-accent);
+  --pro-accent-hi: var(--ruok-accent-hi);
+  --pro-accent-deep: var(--ruok-accent-deep);
   --pro-accent-ink: #1b1c1f;
-  --pro-accent-text: #ffcf73;
-  --pro-accent-soft: #ffb02024;
-  --pro-amber: #ffb020;
+  --pro-accent-text: var(--ruok-accent-text);
+  --pro-accent-soft: color-mix(in srgb, var(--ruok-accent) 14%, transparent);
+  --pro-amber: var(--ruok-accent);
   --pro-red: #ff5a4f;
   --pro-playhead: #f2f2f4;
 
@@ -45,16 +45,16 @@ html.workspace-glass[data-ui-theme=original] {
   --studio-bg: var(--pro-bg); --studio-panel: var(--pro-panel); --studio-panel-2: var(--pro-raise); --studio-panel-3: var(--pro-raise-hi);
   --studio-input-bg: var(--pro-input); --studio-line: var(--pro-line); --studio-control-line: var(--pro-line-2);
   --studio-selection: var(--pro-amber); --studio-playhead: var(--pro-playhead); --studio-ok: var(--pro-accent); --studio-soft: var(--pro-raise);
-  --studio-role-overlay: #d98e00; --studio-role-subtitle: #3a2a10; --studio-role-video: #26282d;
+  --studio-role-overlay: var(--ruok-accent-deep); --studio-role-subtitle: #3a2a10; --studio-role-video: #26282d;
   --studio-role-voice: #2a1d08; --studio-role-music: #2b1808;
   /* voice waveform (drawn on canvas, read by VoiceWaveform) */
-  --voice-wave-top: #ffe3a6; --voice-wave-mid: #ffb020; --voice-wave-bottom: #c97f00;
-  --voice-wave-glow: rgba(255, 176, 32, .28); --voice-wave-rim: rgba(255, 227, 166, .3); --voice-wave-axis: rgba(255, 176, 32, .18);
+  --voice-wave-top: var(--ruok-accent-text); --voice-wave-mid: var(--ruok-accent); --voice-wave-bottom: var(--ruok-accent-deep);
+  --voice-wave-glow: color-mix(in srgb, var(--ruok-accent) 28%, transparent); --voice-wave-rim: rgba(255, 227, 166, .3); --voice-wave-axis: color-mix(in srgb, var(--ruok-accent) 18%, transparent);
 }
 html.workspace-glass[data-ui-theme=original] body {
   background: var(--pro-bg);
 }
-html[data-ui-theme=original] ::selection { background: #ffb02055; color: #fff; }
+html[data-ui-theme=original] ::selection { background: color-mix(in srgb, var(--ruok-accent) 33%, transparent); color: #fff; }
 html[data-ui-theme=original] :where(button, a, input, textarea, select):focus-visible { outline: 2px solid var(--pro-accent); outline-offset: 2px; }
 html[data-ui-theme=original] :where(input[type=range], input[type=checkbox], input[type=radio], progress) { accent-color: var(--pro-accent); }
 html[data-ui-theme=original] option { background: var(--pro-raise); color: var(--pro-ink); }
@@ -120,7 +120,7 @@ html[data-ui-theme=original] :is(.editor-primary, .media-import, .qe-start, .med
   background: var(--pro-accent) !important;
   border-color: var(--pro-accent) !important;
   color: var(--pro-accent-ink) !important;
-  box-shadow: 0 1px 0 #ffffff40 inset, 0 2px 8px #ffb02026;
+  box-shadow: 0 1px 0 #ffffff40 inset, 0 2px 8px color-mix(in srgb, var(--ruok-accent) 15%, transparent);
 }
 html[data-ui-theme=original] :is(.editor-primary, .media-import, .qe-start, .media-panel .upload-button):hover { background: var(--pro-accent-hi) !important; border-color: var(--pro-accent-hi) !important; }
 /* segmented groups (theme, render style, language, quality, display mode, tabs): recessed track, raised selection */
@@ -144,7 +144,7 @@ html[data-ui-theme=original] :is(.ui-theme-switch, .preview-style-switch, .previ
 /* toggles and filters that are "on" inside panels: accent text on a soft accent tint */
 html[data-ui-theme=original] :is(.media-panel, .inspector-panel, .timeline-toolbar, .preview-controls, .preset-panel) button:is(.active, .is-active, [aria-pressed=true]):not(.editor-primary) {
   background: var(--pro-accent-soft) !important;
-  border-color: #ffb02066 !important;
+  border-color: color-mix(in srgb, var(--ruok-accent) 40%, transparent) !important;
   color: var(--pro-accent-text) !important;
 }
 html[data-ui-theme=original] :is(.inspector-tabs, .timeline-display-mode, .media-view-toggle) button:is(.active, .is-active, [aria-pressed=true]) {
@@ -163,7 +163,7 @@ html[data-ui-theme=original] :is(.media-item, .media-category, .inspector-sectio
 html[data-ui-theme=original] .media-item:hover { background-color: var(--pro-raise-hi); border-color: var(--pro-line-2); }
 html[data-ui-theme=original] .media-type-filters button { background: var(--pro-raise) !important; border-color: var(--pro-line) !important; color: var(--pro-muted) !important; }
 html[data-ui-theme=original] .media-type-filters button span { color: var(--pro-faint); }
-html[data-ui-theme=original] .media-type-filters button:is(.active, [aria-pressed=true]) { background: var(--pro-accent-soft) !important; border-color: #ffb02073 !important; color: var(--pro-accent-text) !important; }
+html[data-ui-theme=original] .media-type-filters button:is(.active, [aria-pressed=true]) { background: var(--pro-accent-soft) !important; border-color: color-mix(in srgb, var(--ruok-accent) 45%, transparent) !important; color: var(--pro-accent-text) !important; }
 html[data-ui-theme=original] .media-type-filters button:is(.active, [aria-pressed=true]) span { color: #ffcf73b3; }
 html[data-ui-theme=original] .media-used-badge { background: #000000b3; color: #e4e5e9; border: 1px solid #ffffff1f; }
 html[data-ui-theme=original] .media-type-badge { background: #000000a6; color: #fff; }
@@ -197,17 +197,17 @@ html[data-ui-theme=original] .playhead { --studio-playhead: var(--pro-playhead);
 html[data-ui-theme=original] .timeline-clip { border-color: #00000080; border-radius: 4px; box-shadow: inset 0 1px 0 #ffffff12; }
 html[data-ui-theme=original] .timeline-clip.selected { outline: 2px solid var(--pro-accent); outline-offset: 0; }
 html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip { color: #1b1c1f !important; }
-html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip[data-motion-card-type=small] { background: #ffc24d !important; }
-html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip[data-motion-card-type=half] { background: #ffb020 !important; }
-html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip[data-motion-card-type=full] { background: #d98e00 !important; }
+html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip[data-motion-card-type=small] { background: var(--ruok-accent-hi) !important; }
+html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip[data-motion-card-type=half] { background: var(--ruok-accent) !important; }
+html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip[data-motion-card-type=full] { background: var(--ruok-accent-deep) !important; }
 html[data-ui-theme=original] :is(.track-lane--overlay, .track-lane--enhanced) .timeline-clip.selected { outline-color: var(--pro-ink); }
-html[data-ui-theme=original] .track-lane--subtitle .timeline-clip { background: #3a2a10 !important; color: #ffd690 !important; border-color: #ffb02059; }
+html[data-ui-theme=original] .track-lane--subtitle .timeline-clip { background: #3a2a10 !important; color: #ffd690 !important; border-color: color-mix(in srgb, var(--ruok-accent) 35%, transparent); }
 html[data-ui-theme=original] .track-lane--subtitle .timeline-clip.selected { background: #5a3f12 !important; color: #fff1d6 !important; outline-color: var(--pro-ink); }
 html[data-ui-theme=original] .track-lane--subtitle .timeline-clip b { color: inherit; }
 html[data-ui-theme=original] :is(.track-lane--video, .track-lane--proxy) .timeline-clip { background: #26282d !important; border-color: #ffffff1f; }
 html[data-ui-theme=original] :is(.track-lane--visual, .track-lane--camera) .timeline-clip { background: #34363c !important; color: var(--pro-ink) !important; border-color: #ffffff1f; }
 html[data-ui-theme=original] .track-lane--composition .timeline-clip { background: #2b2e35 !important; color: var(--pro-ink-2) !important; }
-html[data-ui-theme=original] .track-lane--voice .timeline-clip { background: #2a1d08 !important; border-color: #ffb02040; color: #ffd690 !important; }
+html[data-ui-theme=original] .track-lane--voice .timeline-clip { background: #2a1d08 !important; border-color: color-mix(in srgb, var(--ruok-accent) 25%, transparent); color: #ffd690 !important; }
 html[data-ui-theme=original] :is(.track-lane--music, .track-lane--source-bed) .timeline-clip { background: #2b1808 !important; border-color: #ff8a3040; color: #ffc08f !important; }
 html[data-ui-theme=original] .track-lane--sfx .timeline-clip { background: #2b1409 !important; border-color: #f0703040; color: #ffb48a !important; }
 html[data-ui-theme=original] .timeline-clip--timeline-gap { background: #24262b !important; }

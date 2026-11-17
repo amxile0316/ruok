@@ -1,4 +1,8 @@
 .system-settings-entry{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid hsl(var(--border));border-radius:8px;background:hsl(var(--secondary));color:hsl(var(--foreground));font-size:12px;white-space:nowrap}
+.standard-about-brand{display:flex;align-items:center;gap:16px;margin:0 0 18px}
+.standard-about-brand img{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 2px 10px color-mix(in srgb,var(--ruok-bronze-500,#a9804a) 32%,transparent))}
+.standard-about-brand h3{margin:0}
+.standard-about-brand p{margin:3px 0 0;color:var(--ui-muted,#8ba39b)}
 .system-settings{width:min(1080px,calc(100vw - 40px));max-width:none!important;height:min(820px,90dvh);padding:0;gap:0;display:flex;flex-direction:column;background:hsl(var(--background));color:hsl(var(--foreground));border-color:hsl(var(--border));overflow:hidden}
 .system-settings>header,.system-settings>footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;flex-shrink:0}
 .system-settings>header{border-bottom:1px solid hsl(var(--border))}.system-settings>footer{border-top:1px solid hsl(var(--border));font-size:12px}.system-settings>footer>span{margin-right:auto;color:var(--ui-muted,#a0a7b2)}

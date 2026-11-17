@@ -171,7 +171,7 @@ function IntakeStep({ style, kind, draft, setDraft, onChangeStyle }: {
         </button>
       </div>
       {environment && !environment.ok && <EnvironmentResults value={environment}/>}
-      {error && <p className="ge-error" role="alert" style={{color:'#9869dc',whiteSpace:'pre-wrap'}}>{error}</p>}
+      {error && <p className="ge-error" role="alert" style={{color:'var(--ruok-warning)',whiteSpace:'pre-wrap'}}>{error}</p>}
     </div>
   </main>
 }

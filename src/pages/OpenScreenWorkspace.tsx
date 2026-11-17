@@ -208,7 +208,7 @@ export default function OpenScreenWorkspace() {
         <ScreenWorkspaceExtraActions id={id} />
       </div>
     </header>
-    {error && <div className="openscreen-host-error" role="alert" style={{ color: '#9869dc', background: 'color-mix(in srgb,#9869dc 12%,transparent)' }}>{error}<button onClick={() => setError('')}>关闭</button></div>}
+    {error && <div className="openscreen-host-error" role="alert" style={{ color: 'var(--ruok-warning)', background: 'color-mix(in srgb,var(--ruok-warning) 12%,transparent)' }}>{error}<button onClick={() => setError('')}>关闭</button></div>}
     {hostSession && !['completed', 'cancelled'].includes(hostSession.status) && <div className={`openscreen-host-session openscreen-host-session--${hostSession.status}`}>
       <span className="openscreen-host-session__pulse" />
       <div>

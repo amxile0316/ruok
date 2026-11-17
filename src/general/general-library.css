@@ -7,7 +7,7 @@
 .ge-runpill .ge-spin { animation:ge-library-spin .9s linear infinite; }
 .project-cover .ge-runpill { left:26px;top:26px; }
 .ge-kindtag { display:inline-flex;align-items:center;gap:6px;font-weight:600; }
-.ge-kindtag i { width:6px;height:6px;border-radius:50%;background:#2fc6a4; }
+.ge-kindtag i { width:6px;height:6px;border-radius:50%;background:var(--ruok-verdigris-300); }
 html[data-ui-theme=warm] .ge-kindtag i,html[data-ui-theme=frost] .ge-kindtag i { background:#1f9a80; }
 @keyframes ge-library-spin { to { transform:rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .ge-runpill .ge-spin { animation:none; } }

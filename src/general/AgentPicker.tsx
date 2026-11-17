@@ -96,13 +96,13 @@ function ConnectedAgentPicker({ value, onChange, compact, up, disabled, onResolv
       </button>
       <div className="ge-model-sep" />
       <div className="ge-model-grp">已接通的智能体</div>
-      {!catalog.connections.length&&<div className="ge-model-grp" style={{color:'#9869dc'}}>还没有接通的智能体，请先到设置接入。</div>}
+      {!catalog.connections.length&&<div className="ge-model-grp" style={{color:'var(--ruok-warning)'}}>还没有接通的智能体，请先到设置接入。</div>}
       <button type="button" className="ge-model-opt" onClick={()=>{setOpen(false);openSettings('agents',selectedId)}}>管理智能体接入 →</button>
       {catalog.connections.map(c=><button key={c.id} type="button" className="ge-model-opt" disabled={!connectionReadyForFilm(c)} data-on={selectedId===c.id||undefined} onClick={()=>onChange({agent:c.id as GeneralAgentChoice['agent'],model:'default',effort:'medium'})}>
         <span><b>{c.name}</b><small>{c.mode==='api'?'API 密钥':'命令行 · 账号登录'}{!c.cliInstalled?' · 仅轻活，出片需安装命令行':!c.heavySupported?' · 出片待适配':''}</small></span><Check size={15}/>
       </button>)}
-      {fallback&&<div role="status" className="ge-model-grp" style={{color:'#9869dc'}}>原模型不可用，出片时改用该智能体默认模型。</div>}
-      {!connected&&shown&&<div role="status" className="ge-model-grp" style={{color:'#9869dc'}}>所选智能体未接通，请重新连接或选择。</div>}
+      {fallback&&<div role="status" className="ge-model-grp" style={{color:'var(--ruok-warning)'}}>原模型不可用，出片时改用该智能体默认模型。</div>}
+      {!connected&&shown&&<div role="status" className="ge-model-grp" style={{color:'var(--ruok-warning)'}}>所选智能体未接通，请重新连接或选择。</div>}
       {ready&&<>
         <div className="ge-model-grp">模型</div>
         <button type="button" className="ge-model-opt" data-on={shown?.model==='default'||undefined} onClick={()=>onChange({agent:selectedId,model:'default',effort:shown?.effort||'medium'})}><span><b>跟随 {connected?.name||'智能体'} 默认</b></span><Check size={15}/></button>

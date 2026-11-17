@@ -71,7 +71,7 @@
 .agent-row-title{display:flex;align-items:center;gap:9px;min-height:22px}.agent-row-title b{font-size:14px}
 .agent-pill{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:600;background:hsl(var(--secondary));color:hsl(var(--muted-foreground))}
 .agent-pill.is-ready{background:rgba(40,160,110,.18);color:#3fb985}.agent-pill.is-ready::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-.agent-pill.is-warn{background:rgba(255,176,32,.18);color:#d48a00}
+.agent-pill.is-warn{background:color-mix(in srgb, var(--ruok-accent) 18%, transparent);color:#d48a00}
 .agent-row-line{margin:2px 0 0;font-size:12.5px;color:hsl(var(--muted-foreground));overflow-wrap:anywhere}.agent-row-line code{font-size:11.5px}
 .agent-row-use{margin:2px 0 0;font-size:12px;color:hsl(var(--muted-foreground))}
 .agent-row-status{margin:4px 0 0;font-size:12px;color:hsl(var(--muted-foreground))}.agent-row-status:empty{display:none}
@@ -91,8 +91,8 @@
 .agent-picker>svg:last-child{margin-left:auto;opacity:.6}
 .agent-picker-menu [role=menuitem]{gap:9px;min-width:220px}
 .agent-picker-note{margin-left:auto;font-size:11px;color:hsl(var(--muted-foreground))}.agent-picker-note.is-current{color:#3fb985}
-.agent-row .agent-row-notice{margin:4px 0 0;font-size:12.5px;color:#9869dc;overflow-wrap:anywhere}
+.agent-row .agent-row-notice{margin:4px 0 0;font-size:12.5px;color:var(--ruok-warning);overflow-wrap:anywhere}
 .agent-row-warn{color:#d48a00;font-weight:600;margin-right:6px}
 
 /* A model this Codex does not offer runs on its default; said once, in the reminder purple (S先生 10-26). */
-.agent-module-fallback{grid-column:1/-1;margin:4px 0 0;font-size:12px;color:#9869dc}
+.agent-module-fallback{grid-column:1/-1;margin:4px 0 0;font-size:12px;color:var(--ruok-warning)}

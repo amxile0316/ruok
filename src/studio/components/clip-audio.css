@@ -12,7 +12,7 @@
 /* at the top of the fade ramp; an 18 px target around a 10 px dot */
 .clip-audio-dot { position: absolute; top: -4px; width: 18px; height: 18px; margin-left: -9px; cursor: ew-resize; touch-action: none; }
 .clip-audio-dot.is-out { margin: 0 -9px 0 0; }
-.clip-audio-dot::after { content: ""; position: absolute; left: 4px; top: 4px; width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; background: #fff; border: 2px solid var(--studio-accent, #f5b316); box-shadow: 0 0 2px #0009; transition: transform .1s; }
+.clip-audio-dot::after { content: ""; position: absolute; left: 4px; top: 4px; width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; background: #fff; border: 2px solid var(--studio-accent, var(--ruok-accent)); box-shadow: 0 0 2px #0009; transition: transform .1s; }
 .clip-audio-dot:hover::after, .clip-audio[data-dragging] .clip-audio-dot::after { transform: scale(1.25); }
 .clip-audio-tip { position: absolute; top: 1px; padding: 1px 5px; border-radius: 4px; background: #000c; color: #fff; font: 600 10px/1.4 var(--studio-font, system-ui); white-space: nowrap; pointer-events: none; }
 /* the waveform follows the line; what would clip shows orange at the edges */
