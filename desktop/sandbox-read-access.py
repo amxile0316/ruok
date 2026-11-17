@@ -19,7 +19,7 @@ def configure(root):
     if root.is_symlink() or root.is_junction() or not root.is_dir():raise ValueError('Invalid installation directory')
     package=json.loads((root/'resources/app/package.json').read_text(encoding='utf-8-sig'))
     manifest=json.loads((root/'opentake-payload.json').read_text(encoding='utf-8-sig'))
-    if package.get('name')!='ruok' or manifest.get('format')!='opentake.windows.payload':raise ValueError('Not an OpenTake installation')
+    if package.get('name')!='ruok' or manifest.get('format')!='opentake.windows.payload':raise ValueError('Not a RUOK installation')
     api=C.WinDLL('advapi32',use_last_error=True);kernel=C.WinDLL('kernel32',use_last_error=True)
     api.LookupAccountNameW.argtypes=[W.LPCWSTR,W.LPCWSTR,C.c_void_p,C.POINTER(W.DWORD),W.LPWSTR,C.POINTER(W.DWORD),C.POINTER(W.DWORD)]
     api.GetNamedSecurityInfoW.argtypes=[W.LPWSTR,C.c_int,W.DWORD,C.c_void_p,C.c_void_p,C.POINTER(C.c_void_p),C.c_void_p,C.POINTER(C.c_void_p)]
