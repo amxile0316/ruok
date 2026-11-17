@@ -1,6 +1,6 @@
 import type {AgentConnectionId,ConnectionMode} from '../../shared/agent-connections.ts';
 /** Shared settings contract. The server validates against the selected CLI's model/list. */
-export const AGENT_MODULES = [{id:'generalEditing',name:'通用剪辑出片',description:'生成和检查视频'},{id:'screenEditing',name:'录屏编辑',description:'编辑录屏文档'},{id:'captionTranslation',name:'录屏字幕翻译',description:'翻译录屏字幕'}] as const;
+export const AGENT_MODULES = [{id:'generalEditing',name:'通用剪辑出片',description:'生成和检查视频'},{id:'screenEditing',name:'录屏编辑',description:'编辑录屏文档'},{id:'captionTranslation',name:'录屏字幕翻译',description:'翻译录屏字幕'},{id:'publishCopy',name:'发布文案',description:'生成标题、正文与话题标签'}] as const;
 export const VISIBLE_AGENT_MODULES=AGENT_MODULES;
 export type AgentModule = typeof AGENT_MODULES[number]['id'];
 export const EFFORT_LABELS: Record<string, string> = { none:'无推理', minimal:'最低', low:'轻度', medium:'中度', high:'高度', xhigh:'极高', max:'最高', ultra:'极限' };
