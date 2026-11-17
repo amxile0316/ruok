@@ -1,21 +1,27 @@
-import pkg from '../package.json' with {type:'json'};
-import metadata from '../desktop/windows-version.json' with {type:'json'};
-const nextVersion=pkg.version.split('.').map((n,i)=>i===2?String(Number(n)+1):n).join('.');
-const laterVersion=pkg.version.split('.').map((n,i)=>i===2?String(Number(n)+2):n).join('.');
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';
-test('local HTTP: version headers, GitHub fallback, silent offline and disabled daily',async()=>{
- const root=fs.mkdtempSync(path.join(os.tmpdir(),'update-http-')),keys=['OPENTAKE_STANDARD_USER_DATA','OPENTAKE_UPGRADE_TEST_URL','OPENTAKE_UPGRADE_FALLBACK_URL','OPENTAKE_MAC_UPDATE_TEST_URL'];const before=Object.fromEntries(keys.map(k=>[k,process.env[k]]));let sourceDown=false,allDown=false,feedDown=false,origin='';const seen:{url:string;headers:http.IncomingHttpHeaders}[]=[];
- const remote=http.createServer((req,res)=>{seen.push({url:req.url!,headers:req.headers});res.setHeader('Content-Type','application/json');if(allDown||(sourceDown&&req.url==='/standard/upgrade.json')){res.writeHead(503);return res.end('{}')}const feed=(version:string)=>({schemaVersion:1,product:'opentake-standard',platform:'darwin',channel:'stable',version,desktopBuild:metadata.windowsBuild,notes:'fixture',installers:Object.fromEntries(['arm64','x64'].map(arch=>[arch,{url:`${origin}/OpenTake-Standard-${version}-mac-${arch}.dmg`,sha256:'1'.repeat(64),size:1234}]))});
- if(req.url==='/mac-update.json'){if(feedDown){res.writeHead(404);return res.end('{}')}return res.end(JSON.stringify(feed(nextVersion)))}
- // The backend mirror carries the old source-ZIP fields for older clients plus the same Mac feed.
- res.end(JSON.stringify({mode:'beta',standard:{version:laterVersion,notes:'fixture',url:'https://example.test/source.zip',sha256:'1'.repeat(64),mac:feed(laterVersion)}}))});
- await new Promise<void>(r=>remote.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+(remote.address() as {port:number}).port;
- process.env.OPENTAKE_STANDARD_USER_DATA=root;process.env.OPENTAKE_UPGRADE_TEST_URL=origin;process.env.OPENTAKE_UPGRADE_FALLBACK_URL=origin+'/fallback';process.env.OPENTAKE_MAC_UPDATE_TEST_URL=origin+'/mac-update.json';const {upgradeApi}=await import('./standard/upgrade.ts');const local=http.createServer((req,res)=>void upgradeApi(req,res));await new Promise<void>(r=>local.listen(0,'127.0.0.1',r));const client='http://127.0.0.1:'+(local.address() as {port:number}).port+'/api/upgrade';
- try{const call=async(route:string,method='GET',body?:unknown)=>(await fetch(client+route,{method,...(body?{headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})})).json();
- const first=(await call('/state')).clientUpdate;assert.equal(first.available,true);assert.equal(first.release.version,nextVersion);assert.equal(first.release.kind,'dmg');assert.ok(['arm64','x64'].includes(first.release.arch));assert.equal(seen[0].headers['x-opentake-client'],'standard/'+pkg.version);
- feedDown=true;const mirrored=(await call('/state')).clientUpdate;assert.equal(mirrored.release.version,laterVersion);feedDown=false;assert.match(String(seen[0].headers['x-opentake-install']),/^[a-f0-9-]{36}$/);sourceDown=true;assert.equal((await call('/state')).clientUpdate.available,true);const fb=seen.filter(x=>x.url==='/fallback').at(-1)!;assert.ok(fb);assert.equal(fb.headers['x-opentake-install'],undefined);assert.equal(fb.headers['x-opentake-client'],undefined);assert.equal(seen.filter(x=>x.url==='/mac-update.json').every(x=>x.headers['x-opentake-install']===undefined&&x.headers['x-opentake-client']===undefined),true);
- await call('/preferences','PUT',{daily:false});const count=seen.length;assert.equal((await call('/daily')).skipped,true);assert.equal(seen.length,count);await call('/state');assert.ok(seen.length>count);
- await call('/intent','PUT',{plan:'monthly'});assert.equal(seen.at(-1)!.headers['x-opentake-client'],'standard/'+pkg.version);assert.equal(seen.at(-1)!.headers['x-opentake-install'],undefined);
- allDown=true;const offline=await call('/state');assert.equal(offline.clientUpdate.notify,false);assert.equal(offline.error,'');
+// The fork removed the author-operated update feed. The HTTP surface now only serves
+// local client-update state and daily preferences; nothing may reach a remote host.
+test('local upgrade HTTP serves offline state and never contacts a remote feed',async()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'update-http-')),keys=['OPENTAKE_STANDARD_USER_DATA','OPENTAKE_UPGRADE_TEST_URL','OPENTAKE_UPGRADE_FALLBACK_URL','OPENTAKE_MAC_UPDATE_TEST_URL'];const before=Object.fromEntries(keys.map(k=>[k,process.env[k]]));
+ const seen:string[]=[];
+ const remote=http.createServer((req,res)=>{seen.push(String(req.url));res.setHeader('Content-Type','application/json');res.end('{}')});
+ await new Promise<void>(r=>remote.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+(remote.address() as {port:number}).port;
+ process.env.OPENTAKE_STANDARD_USER_DATA=root;process.env.OPENTAKE_UPGRADE_TEST_URL=origin;process.env.OPENTAKE_UPGRADE_FALLBACK_URL=origin+'/fallback';process.env.OPENTAKE_MAC_UPDATE_TEST_URL=origin+'/mac-update.json';
+ const {upgradeApi}=await import('./standard/upgrade.ts');const local=http.createServer((req,res)=>void upgradeApi(req,res));await new Promise<void>(r=>local.listen(0,'127.0.0.1',r));const client='http://127.0.0.1:'+(local.address() as {port:number}).port+'/api/upgrade';
+ try{
+  const call=async(route:string,method='GET',body?:unknown)=>{const response=await fetch(client+route,{method,...(body?{headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});return {status:response.status,body:await response.json()}};
+  const state=await call('/state');
+  assert.equal(state.status,200);
+  assert.equal(state.body.upgrade.offline,true);
+  assert.equal(state.body.clientUpdate.offline,true);
+  assert.equal(state.body.clientUpdate.notify,false);
+  assert.equal(state.body.account,null);
+  assert.equal(state.body.error,'');
+  assert.deepEqual(seen,[],'不得请求远端更新源');
+  const preferences=await call('/preferences');assert.deepEqual(preferences.body,{daily:true});
+  await call('/preferences','PUT',{daily:false});assert.deepEqual((await call('/preferences')).body,{daily:false});
+  assert.equal((await call('/daily')).body.skipped,true);
+  assert.deepEqual(seen,[],'关闭每日检查后更不应有网络请求');
+  const missing=await call('/removed');assert.equal(missing.status,404);assert.match(String(missing.body.error),/接口不存在/);
  }finally{await Promise.all([new Promise<void>(r=>local.close(()=>r())),new Promise<void>(r=>remote.close(()=>r()))]);for(const k of keys){if(before[k]===undefined)delete process.env[k];else process.env[k]=before[k]}fs.rmSync(root,{recursive:true,force:true})}
 });
