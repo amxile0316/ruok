@@ -43,7 +43,7 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 
 ### 2.2 品牌与视觉资产
 
-- 品牌母版：`desktop/brand/ruok-master.png`（用户提供的正式问号造型素材，透明底）。
+- 品牌母版：`desktop/brand/ruok-master.png`（用户提供的正式问号造型素材，透明底）。该素材的商标/版权归属由提供方确认；随仓库或安装包分发前请确认授权范围。
 - 生成脚本：`scripts/generate-ruok-icons.mjs`，按需重跑即可更新全部尺寸。
 - Windows 图标：`public/ruok.ico`，含 16/24/32/48/64/128/256 七个尺寸；小尺寸直接由母版降采样并轻量锐化，未使用放大插值。
 - macOS 图标：`public/ruok.icns`，含 icp4/icp5/icp6/ic07/ic08/ic09/ic10 及 @2x 变体；`desktop/build-app.mjs` 会复制到 `release/RUOK.icns`，`builder.config.cjs` 直接引用 `public/ruok.icns`。
