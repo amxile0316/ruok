@@ -1,0 +1,22 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"></head>
+<body>
+<template>
+<style>
+  #captions{position:absolute;inset:0;overflow:hidden;background:transparent;
+    font-family:sans-serif;pointer-events:none}
+  #captions .clip{position:absolute;left:192px;right:192px;bottom:96px;text-align:center;
+    font-size:36px;line-height:1.45;letter-spacing:.01em;color:#eef4f0;
+    text-shadow:0 2px 18px rgba(0,0,0,.72);
+    animation:line-in .32s cubic-bezier(.22,.61,.36,1) both}
+  #captions .clip em{font-style:normal;color:#d6a85f}
+  @keyframes line-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+<div id="captions" data-composition-id="captions" data-width="1920" data-height="1080" data-duration="20" data-no-timeline>
+  <div class="clip" id="caption-1" data-hf-id="cap-1" data-start="0.2" data-duration="3.6">把复杂，讲成 <em>20 秒</em></div>
+  <div class="clip" id="caption-2" data-hf-id="cap-2" data-start="4.2" data-duration="4.6">一个特写，只讲一个特征</div>
+</div>
+</template>
+</body>
+</html>

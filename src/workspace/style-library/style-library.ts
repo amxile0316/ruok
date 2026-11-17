@@ -43,7 +43,7 @@ export const STYLE_INPUT_COPY: Readonly<Record<StyleInputType, { readonly label:
 }
 
 /** The page-wide credit; each style's own credit is in its detail. */
-export const STYLE_CREDIT_LINE = '风格样片 © LemoLab，CC BY 4.0，已裁剪为预览'
+export const STYLE_CREDIT_LINE = '样片署名见各风格详情；LemoLab 样片为 CC BY 4.0 裁剪预览，product-promo 为本仓库自渲染'
 
 const THIRD_PARTY_SENTENCE = /\s*Third-party material in this excerpt:[\s\S]*$/
 

@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"></head>
+<body>
+<template>
+<style>
+  #closeup{--ring-size:420px;--sweep-angle:64deg;--sweep-duration:1.7s;
+    position:absolute;inset:0;overflow:hidden;color:#eef4f0;background:#0c1211;
+    font-family:sans-serif}
+  #closeup .ground{position:absolute;inset:0;
+    background:radial-gradient(900px 700px at 30% 50%,rgba(47,90,85,.34),transparent 68%),
+      radial-gradient(700px 600px at 86% 88%,rgba(138,101,52,.14),transparent 70%)}
+  #closeup .stage{position:absolute;left:150px;top:50%;width:var(--ring-size);height:var(--ring-size);
+    transform:translateY(-50%) scale(.96);opacity:0;animation:plate-in .7s cubic-bezier(.22,.61,.36,1) both}
+  #closeup .halo{position:absolute;inset:-90px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(111,179,162,.16),transparent 72%)}
+  #closeup .ring{position:absolute;inset:0;border-radius:50%;border:1px solid #8a6534;
+    box-shadow:inset 0 1px 0 rgba(230,196,137,.28),0 24px 70px rgba(0,0,0,.55)}
+  #closeup .ring.inner{inset:42px;border-color:rgba(79,143,128,.55)}
+  #closeup .ring.dash{inset:-42px;border-style:dashed;border-color:rgba(79,143,128,.28)}
+  #closeup .plate{position:absolute;inset:42px;border-radius:50%;overflow:hidden;
+    background:radial-gradient(120% 120% at 30% 18%,#1f2e2a 0%,#131d1b 58%,#0c1211 100%)}
+  #closeup .sweep{position:absolute;inset:-60%;border-radius:50%;
+    background:conic-gradient(from 0deg,rgba(214,168,95,0) 0deg,rgba(214,168,95,.30) 26deg,rgba(230,196,137,.10) 48deg,rgba(214,168,95,0) 70deg,transparent 360deg);
+    animation:sweep var(--sweep-duration) .45s cubic-bezier(.3,0,.2,1) both}
+  #closeup .mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:serif;font-size:190px;font-weight:600;color:#d6a85f;
+    text-shadow:0 0 46px rgba(214,168,95,.34)}
+  #closeup .copy{position:absolute;left:760px;top:50%;transform:translateY(-50%);width:900px}
+  #closeup .kicker{font-size:24px;letter-spacing:.24em;color:#6fb3a2;text-transform:uppercase;
+    opacity:0;animation:rise .5s .3s cubic-bezier(.22,.61,.36,1) both}
+  #closeup h2{margin:22px 0 0;font-family:serif;font-weight:600;
+    font-size:112px;line-height:1.04;letter-spacing:-.01em;opacity:0;
+    animation:rise .6s .42s cubic-bezier(.22,.61,.36,1) both}
+  #closeup .rule{width:120px;height:2px;background:#8a6534;margin:34px 0 0;transform-origin:left center;
+    transform:scaleX(0);animation:grow .5s .7s cubic-bezier(.22,.61,.36,1) both}
+  #closeup .tagline{margin:28px 0 0;font-size:38px;line-height:1.5;color:#c7d3ce;max-width:880px;
+    opacity:0;animation:rise .55s .8s cubic-bezier(.22,.61,.36,1) both}
+  #closeup .spec{display:flex;gap:56px;margin-top:52px;opacity:0;animation:fade .6s 1.15s linear both}
+  #closeup .spec div{font-size:22px;color:#6fb3a2;letter-spacing:.06em}
+  #closeup .spec b{display:block;margin-top:8px;font-size:40px;font-weight:600;color:#eef4f0;letter-spacing:0}
+  #closeup .spec span{color:#d6a85f}
+  @keyframes plate-in{from{opacity:0;transform:translateY(-50%) scale(.94)}to{opacity:1;transform:translateY(-50%) scale(1)}}
+  @keyframes sweep{from{transform:rotate(0deg)}to{transform:rotate(var(--sweep-angle))}}
+  @keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+</style>
+<div id="closeup" data-composition-id="shot-2-closeup" data-width="1920" data-height="1080" data-duration="5" data-no-timeline>
+  <div class="ground"></div>
+  <div class="stage">
+    <div class="halo"></div>
+    <div class="ring dash"></div>
+    <div class="plate"><div class="sweep"></div><div class="mark">?</div></div>
+    <div class="ring"></div>
+    <div class="ring inner"></div>
+  </div>
+  <div class="copy">
+    <div class="kicker">Product 01</div>
+    <h2>RUOK ONE</h2>
+    <div class="rule"></div>
+    <p class="tagline">一枚问号，装下整条流水线：拆本、配方、出片。</p>
+    <div class="spec">
+      <div>出片时间<b>20 <span>秒</span></b></div>
+      <div>镜头配方<b>5 <span>条</span></b></div>
+      <div>依赖<b>0 <span>个</span></b></div>
+    </div>
+  </div>
+</div>
+</template>
+</body>
+</html>

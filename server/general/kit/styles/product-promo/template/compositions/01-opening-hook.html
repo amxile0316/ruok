@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"></head>
+<body>
+<template>
+<style>
+  #hook{--scan-speed:1.2s;--title-size:148px;
+    position:absolute;inset:0;overflow:hidden;color:#eef4f0;background:#0c1211;
+    font-family:sans-serif}
+  #hook .grid{position:absolute;inset:-64px;
+    background-image:linear-gradient(#1f2e2a 1px,transparent 1px),linear-gradient(90deg,#1f2e2a 1px,transparent 1px);
+    background-size:64px 64px;opacity:0;animation:grid-in .8s ease-out both;
+    -webkit-mask-image:radial-gradient(1100px 720px at 32% 40%,#000 0%,transparent 74%);
+    mask-image:radial-gradient(1100px 720px at 32% 40%,#000 0%,transparent 74%)}
+  #hook .glow{position:absolute;left:-8%;top:-24%;width:1200px;height:1000px;
+    background:radial-gradient(closest-side,rgba(79,143,128,.20),transparent 70%)}
+  #hook .kicker{position:absolute;left:160px;top:188px;font-size:26px;letter-spacing:.26em;color:#6fb3a2;
+    text-transform:uppercase;opacity:0;animation:rise .5s .1s cubic-bezier(.22,.61,.36,1) both}
+  #hook h1{position:absolute;left:160px;top:330px;margin:0;font-family:serif;
+    font-size:var(--title-size);line-height:1.12;font-weight:600;letter-spacing:-.01em}
+  #hook h1 span{display:block;opacity:0;animation:rise .62s cubic-bezier(.22,.61,.36,1) both}
+  #hook h1 span:nth-child(1){animation-delay:.24s}
+  #hook h1 span:nth-child(2){animation-delay:.36s;color:#d6a85f}
+  #hook .rule{position:absolute;left:164px;top:640px;width:96px;height:2px;background:#8a6534;transform-origin:left center;
+    transform:scaleX(0);animation:grow .5s .72s cubic-bezier(.22,.61,.36,1) both}
+  #hook .tag{position:absolute;left:160px;top:676px;font-size:32px;color:#c7d3ce;letter-spacing:.01em;
+    opacity:0;animation:rise .5s .86s cubic-bezier(.22,.61,.36,1) both}
+  #hook .scan{position:absolute;top:0;bottom:0;width:3px;left:-4%;
+    background:linear-gradient(180deg,transparent,#6fb3a2 18%,#d6a85f 50%,#6fb3a2 82%,transparent);
+    box-shadow:0 0 28px rgba(111,179,162,.55);animation:scan var(--scan-speed) .2s cubic-bezier(.4,0,.2,1) both}
+  #hook .scan::after{content:"";position:absolute;top:0;bottom:0;right:100%;width:220px;
+    background:linear-gradient(90deg,transparent,rgba(111,179,162,.14))}
+  #hook .corner{position:absolute;right:150px;bottom:132px;font-size:22px;letter-spacing:.2em;color:#4f8f80;
+    opacity:0;animation:fade .6s 1.2s linear both}
+  @keyframes grid-in{from{opacity:0}to{opacity:.5}}
+  @keyframes rise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes scan{from{left:-4%}to{left:102%}}
+</style>
+<div id="hook" data-composition-id="shot-1-hook" data-width="1920" data-height="1080" data-duration="4" data-no-timeline>
+  <div class="grid"></div>
+  <div class="glow"></div>
+  <div class="kicker">RUOK · Product Film</div>
+  <h1><span>把复杂讲成</span><span>20 秒</span></h1>
+  <div class="rule"></div>
+  <p class="tag">一条流水线，五个可复用的镜头配方。</p>
+  <div class="scan"></div>
+  <div class="corner">01 / 05</div>
+</div>
+</template>
+</body>
+</html>

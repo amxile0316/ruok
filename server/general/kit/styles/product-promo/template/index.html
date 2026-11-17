@@ -1,0 +1,50 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>产品宣传片 · 完整模板</title>
+<style>
+  html,body{margin:0;width:1920px;height:1080px;background:#0c1211;overflow:hidden}
+  #root{position:relative;width:1920px;height:1080px;background:#0c1211;color:#eef4f0;
+    font-family:sans-serif}
+  #root>.shot{position:absolute;inset:0}
+  #root>.shot:not(#captions-host){position:absolute;inset:0}
+  #captions-host{position:absolute;inset:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="product-promo" data-width="1920" data-height="1080" data-duration="20" data-no-timeline>
+
+  <div class="shot" id="shot-1" data-composition-id="shot-1-hook"
+       data-composition-src="compositions/01-opening-hook.html"
+       data-start="0" data-duration="4" data-track-index="1" data-track-kind="graphics"
+       data-width="1920" data-height="1080" data-label="开场钩子"></div>
+
+  <div class="shot" id="shot-2" data-composition-id="shot-2-closeup"
+       data-composition-src="compositions/02-product-closeup.html"
+       data-start="4" data-duration="5" data-track-index="1" data-track-kind="graphics"
+       data-width="1920" data-height="1080" data-label="产品特写"></div>
+
+  <div class="shot" id="shot-3" data-composition-id="shot-3-demo"
+       data-composition-src="compositions/03-feature-demo.html"
+       data-start="9" data-duration="6" data-track-index="1" data-track-kind="graphics"
+       data-width="1920" data-height="1080" data-label="功能演示"></div>
+
+  <div class="shot" id="shot-4" data-composition-id="shot-4-wipe"
+       data-composition-src="compositions/04-transition-wipe.html"
+       data-start="15" data-duration="1.5" data-track-index="1" data-track-kind="graphics"
+       data-width="1920" data-height="1080" data-label="转场"></div>
+
+  <div class="shot" id="shot-5" data-composition-id="shot-5-cta"
+       data-composition-src="compositions/05-closing-cta.html"
+       data-start="16.5" data-duration="3.5" data-track-index="1" data-track-kind="graphics"
+       data-width="1920" data-height="1080" data-label="结尾 CTA"></div>
+
+  <div class="shot" id="captions-host" data-composition-id="captions"
+       data-composition-src="compositions/captions.html"
+       data-start="0" data-duration="20" data-track-index="9" data-track-kind="captions"
+       data-width="1920" data-height="1080" data-label="字幕"></div>
+
+</div>
+</body>
+</html>

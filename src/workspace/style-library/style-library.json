@@ -1276,6 +1276,28 @@
    ],
    "preview": "/styles/news-package.mp4",
    "poster": "/styles/news-package.jpg"
+  },
+  {
+   "id": "product-promo",
+   "name_zh": "产品宣传片",
+   "description_zh": "把一款产品讲成一支 20 秒宣传片：开场钩子、产品特写、功能演示、转场、结尾 CTA，五段可单独改。",
+   "category_zh": "图形与排版",
+   "input_type": "topic",
+   "user_provides": {
+    "summary_zh": "产品名、一句话卖点、2–3 个功能点和一个网址；可选自录旁白",
+    "own_video": "optional",
+    "script_or_topic": "required",
+    "voice_over": "可选：用户自录或默认 TTS"
+   },
+   "uses": [
+    "产品发布",
+    "功能演示",
+    "品牌广告"
+   ],
+   "attribution": "Preview/poster rendered by RUOK from its own product-promo template (original work, silent preview). The shot-recipe organisation is inspired by video-shotcraft (https://github.com/Vincentwei1021/video-shotcraft), licensed Apache-2.0; no upstream assets, demo films or source text are included. See server/general/kit/ATTRIBUTION.md.",
+   "third_party_in_preview": [],
+   "preview": "/styles/product-promo.mp4",
+   "poster": "/styles/product-promo.jpg"
   }
  ]
 }

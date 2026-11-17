@@ -7,7 +7,7 @@ export const standardEdition: boolean = true;
 export const extraStyle: StyleInfo | undefined = FREE_STYLE;
 export const includeStyle = (id: string) => ids.includes(id);
 export const recordCodexUsage = () => {};
-export const styleError = '请选择 Standard 的 10 种风格之一，或选「不用风格」';
+export const styleError = '请选择本分支提供的风格之一，或选「不用风格」';
 export const revealCommand = platform.revealCommand;
 export const revealPath = platform.revealPath;
 

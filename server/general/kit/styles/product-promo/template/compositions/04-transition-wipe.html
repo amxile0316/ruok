@@ -1,0 +1,35 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"></head>
+<body>
+<template>
+<style>
+  #wipe{--angle:-12deg;--band:340px;
+    position:absolute;inset:0;overflow:hidden;background:#0c1211;color:#0c1211;
+    font-family:sans-serif}
+  #wipe .track{position:absolute;left:-30%;top:-24%;width:190%;height:148%;
+    transform:rotate(var(--angle)) translateX(-58%);
+    animation:pass 1s cubic-bezier(.65,0,.35,1) both}
+  #wipe .band{position:absolute;left:0;top:0;width:var(--band);height:100%;
+    background:linear-gradient(90deg,#2f5a55,#4f8f80 46%,#6fb3a2 100%);
+    box-shadow:0 0 70px rgba(79,143,128,.35)}
+  #wipe .band.thin{width:10px;left:calc(var(--band) + 46px);background:#d6a85f}
+  #wipe .label{position:absolute;left:calc(var(--band) + 96px);top:50%;transform:translateY(-50%);
+    white-space:nowrap;opacity:0;animation:label-in .45s .28s cubic-bezier(.22,.61,.36,1) both}
+  #wipe .label b{display:block;font-family:serif;font-size:104px;font-weight:600;color:#0c1211;line-height:1}
+  #wipe .label span{display:block;margin-top:18px;font-size:26px;letter-spacing:.2em;text-transform:uppercase;color:#17302b}
+  #wipe .count{position:absolute;right:150px;bottom:118px;font-size:22px;letter-spacing:.24em;color:#4f8f80}
+  @keyframes pass{from{transform:rotate(var(--angle)) translateX(-58%)}to{transform:rotate(var(--angle)) translateX(58%)}}
+  @keyframes label-in{from{opacity:0;transform:translate(-26px,-50%)}to{opacity:1;transform:translate(0,-50%)}}
+</style>
+<div id="wipe" data-composition-id="shot-4-wipe" data-width="1920" data-height="1080" data-duration="1.5" data-no-timeline>
+  <div class="track">
+    <div class="band"></div>
+    <div class="band thin"></div>
+    <div class="label"><b>3× 更快</b><span>One take, three shots</span></div>
+  </div>
+  <div class="count">03 → 04</div>
+</div>
+</template>
+</body>
+</html>

@@ -2,8 +2,9 @@
 import catalog from '@/general/entrance-catalog.json'
 import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from 'react'
 import { useNavigate } from 'react-router'
-import { Check, ChevronLeft, ChevronRight, Pause, Play, Search, X } from 'lucide-react'
+import { Check, ChevronLeft, ChevronRight, Pause, Play, Search, Star, X } from 'lucide-react'
 import { LIBRARY_STYLES } from './library-styles'
+import { pushRecent, readFavorites, readRecent, toggleFavorite } from './style-extras'
 import {
   SOON_LABEL, STYLE_CREDIT_LINE, STYLE_INPUT_COPY, STYLE_INPUT_TYPES, countStyles, filterStyles, generalEditHref, groupStyles, isPickableStyle, neighbourStyle, rowEndIndex, styleCredit,
   type LibraryStyle, type StyleFilter, type StyleInputType,
@@ -89,8 +90,9 @@ function HoverClip({ src }: { src: string }) {
     disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => setPlaying(true)} />
 }
 
-function StyleCard({ style, open, picked, soon, detailId, onToggle }: {
-  style: LibraryStyle; open: boolean; picked: boolean; soon: boolean; detailId: string; onToggle: (style: LibraryStyle, card: HTMLElement) => void
+function StyleCard({ style, open, picked, soon, favorite, detailId, onToggle, onFavorite }: {
+  style: LibraryStyle; open: boolean; picked: boolean; soon: boolean; favorite: boolean; detailId: string
+  onToggle: (style: LibraryStyle, card: HTMLElement) => void; onFavorite: (style: LibraryStyle) => void
 }) {
   const [live, setLive] = useState(false)
   const timer = useRef(0)
@@ -114,6 +116,11 @@ function StyleCard({ style, open, picked, soon, detailId, onToggle }: {
       </span>
       <span className="sl-card__name">{style.name_zh}</span>
       <span className="sl-card__line">{style.description_zh}</span>
+    </button>
+    <button type="button" className="sl-fav" aria-pressed={favorite} title={favorite ? '取消收藏' : '收藏这个风格'}
+      aria-label={favorite ? `取消收藏：${style.name_zh}` : `收藏：${style.name_zh}`}
+      onClick={event => { event.stopPropagation(); onFavorite(style) }}>
+      <Star size={13} strokeWidth={1.8} fill={favorite ? 'currentColor' : 'none'} aria-hidden="true" />
     </button>
   </li>
 }
@@ -203,9 +210,10 @@ function StyleDetail({ style, id, hasPrevious, hasNext, actionLabel, actionDisab
   </section>
 }
 
-function StyleSection({ type, styles, order, openId, pickedId, picking, detailId, headingId, onToggle, detail }: {
+function StyleSection({ type, styles, order, openId, pickedId, picking, detailId, headingId, onToggle, favorites, onFavorite, detail }: {
   type: StyleInputType; styles: readonly LibraryStyle[]; order: number; openId: string | null; pickedId?: string; picking: boolean
   detailId: string; headingId: string; onToggle: (style: LibraryStyle, card: HTMLElement) => void; detail: ReactNode
+  favorites: ReadonlySet<string>; onFavorite: (style: LibraryStyle) => void
 }) {
   const grid = useRef<HTMLUListElement>(null)
   const columns = useColumns(grid)
@@ -222,7 +230,7 @@ function StyleSection({ type, styles, order, openId, pickedId, picking, detailId
     <ul ref={grid} className="sl-grid">
       {styles.flatMap((style, index) => {
         const card = <StyleCard key={style.id} style={style} open={style.id === openId} picked={style.id === pickedId} soon={!isPickableStyle(style)}
-          detailId={detailId} onToggle={onToggle} />
+          favorite={favorites.has(style.id)} detailId={detailId} onToggle={onToggle} onFavorite={onFavorite} />
         return index === detailAfter ? [card, <li key="detail" className="sl-grid__detail">{detail}</li>] : [card]
       })}
     </ul>
@@ -238,10 +246,20 @@ export function StyleLibrary(props: StyleLibraryProps) {
   const [filter, setFilter] = useState<StyleFilter>('all')
   const [query, setQuery] = useState('')
   const [openId, setOpenId] = useState<string | null>(null)
+  /** 收藏与最近打开只在本机，跟着风格 id 走，不改动风格数据本身。 */
+  const [favorites, setFavorites] = useState<readonly string[]>([])
+  const [recent, setRecent] = useState<readonly string[]>([])
+  const [favoritesOnly, setFavoritesOnly] = useState(false)
+  useEffect(() => { setFavorites(readFavorites()); setRecent(readRecent()) }, [])
+  useEffect(() => { if (openId) setRecent(pushRecent(openId)) }, [openId])
+  const favoriteSet = useMemo(() => new Set(favorites), [favorites])
   /** What has to stay put on screen across the next change: the clicked card, or the detail when stepping. */
   const anchor = useRef<{ target: 'card' | 'detail'; id: string; top: number } | null>(null)
   const pendingFocus = useRef<Direction | null>(null)
-  const visible = useMemo(() => filterStyles(LIBRARY_STYLES, filter, query).filter(s=>category==='全部'||categories.find(c=>c.name===category)?.styles.includes(s.id)), [filter, query, category])
+  const visible = useMemo(() => {
+    const list = filterStyles(LIBRARY_STYLES, filter, query).filter(s=>category==='全部'||categories.find(c=>c.name===category)?.styles.includes(s.id))
+    return favoritesOnly ? list.filter(style => favoriteSet.has(style.id)) : list
+  }, [filter, query, category, favoritesOnly, favoriteSet, categories])
   const counts = useMemo(() => countStyles(LIBRARY_STYLES, query), [query])
   const groups = useMemo(() => groupStyles(visible), [visible])
   const open = openId ? visible.find(style => style.id === openId) : undefined
@@ -297,6 +315,14 @@ export function StyleLibrary(props: StyleLibraryProps) {
   }
 
   const choose = (value: StyleFilter) => { setFilter(value); setOpenId(null) }
+  const favorite = (style: LibraryStyle) => setFavorites(toggleFavorite(style.id))
+  /** 最近打开的胶囊：先回到全部条件，再把这条风格详情打开。 */
+  const openRecent = (id: string) => {
+    if (!LIBRARY_STYLES.some(style => style.id === id)) return
+    setFilter('all'); setCategory('全部'); setQuery(''); setFavoritesOnly(false)
+    setOpenId(id)
+  }
+  const recentStyles = useMemo(() => recent.map(id => LIBRARY_STYLES.find(style => style.id === id)).filter((style): style is LibraryStyle => !!style), [recent])
   const act = (style: LibraryStyle) => { if (props.mode === 'pick') props.onPick(style); else navigate(generalEditHref(style.id)) }
   const actionLabel = props.mode === 'pick' ? props.pickLabel ?? '选这个风格' : '用这个风格新建通用工程'
   const picked = props.mode === 'pick' ? LIBRARY_STYLES.find(style => style.id === props.selectedId && isPickableStyle(style)) : undefined
@@ -317,17 +343,27 @@ export function StyleLibrary(props: StyleLibraryProps) {
         {query && <button type="button" className="sl-search__clear" aria-label="清除搜索" onClick={() => search('')}><X size={14} aria-hidden="true" /></button>}
       </div>
     </div>
+    {recentStyles.length > 0 && <div className="sl-recent" aria-label="最近打开">
+      <span className="sl-recent__label">最近打开</span>
+      {recentStyles.slice(0, 5).map(style => <button key={style.id} type="button" onClick={() => openRecent(style.id)}>{style.name_zh}</button>)}
+    </div>}
     <div className="sl-filters" role="group" aria-label="按你要准备的东西筛选">
       {FILTERS.map(item => <button key={item.value} type="button" aria-pressed={filter === item.value} onClick={() => choose(item.value)}>
         {item.label}<span className="sl-filters__count">{counts[item.value]}</span>
       </button>)}
+      <button type="button" className="sl-favonly" aria-pressed={favoritesOnly} onClick={() => { setFavoritesOnly(value => !value); setOpenId(null) }}>
+        <Star size={13} fill={favoritesOnly ? 'currentColor' : 'none'} aria-hidden="true" />只看收藏
+        <span className="sl-filters__count">{favorites.length}</span>
+      </button>
     </div>
     <div className="sl-filters" role="group" aria-label="按九类用途筛选">{['全部',...categories.map(c=>c.name)].map(name=><button key={name} aria-pressed={category===name} onClick={()=>{setCategory(name);setOpenId(null)}}>{name}</button>)}<span>56 个风格 · 10 个可用</span></div>
     {groups.map((group, index) => <StyleSection key={group.type} type={group.type} styles={group.styles} order={index}
       openId={open ? open.id : null} pickedId={picked?.id} picking={props.mode === 'pick'}
-      detailId={detailId} headingId={`${uid}-${group.type}`} onToggle={toggle} detail={detail} />)}
+      detailId={detailId} headingId={`${uid}-${group.type}`} onToggle={toggle} favorites={favoriteSet} onFavorite={favorite} detail={detail} />)}
     {!groups.length && <div className="sl-empty" role="status">
-      {counts.all > 0
+      {favoritesOnly
+        ? <><p>还没有收藏的风格。点卡片左上角的星标就能收藏，收藏只存在本机。</p><button type="button" onClick={() => setFavoritesOnly(false)}>看全部风格</button></>
+        : counts.all > 0
         ? <><p>这一类里没有和「{query.trim()}」有关的风格</p><button type="button" onClick={() => choose('all')}>在全部里看</button></>
         : <><p>没有和「{query.trim()}」有关的风格</p><button type="button" onClick={() => search('')}>清除搜索</button></>}
     </div>}

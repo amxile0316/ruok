@@ -1,0 +1,50 @@
+{
+  "presets": {
+    "宣传片主标题": {
+      "font": "Noto Serif SC",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.078,
+      "color": "#EEF4F0",
+      "accent": "#D6A85F",
+      "lineHeight": 1.24,
+      "roles": [
+        "title"
+      ],
+      "tracking": -0.01
+    },
+    "宣传片字幕": {
+      "font": "Noto Sans SC",
+      "fallback": "Microsoft YaHei",
+      "layout": "content",
+      "weight": 400,
+      "size": 0.038,
+      "color": "#EEF4F0",
+      "accent": "#6FB3A2",
+      "lineHeight": 1.45,
+      "roles": [
+        "caption"
+      ],
+      "box": true,
+      "boxColor": "rgba(12,18,17,.72)"
+    },
+    "参数标签": {
+      "font": "Noto Sans SC",
+      "fallback": "Microsoft YaHei",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.026,
+      "color": "#C7D3CE",
+      "accent": "#D6A85F",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ],
+      "tracking": 0.06
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

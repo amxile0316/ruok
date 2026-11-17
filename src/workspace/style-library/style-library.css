@@ -22,7 +22,7 @@ html[data-ui-theme=warm] .style-library {
   --sl-line:#fff8e780; --sl-field:#fff8eb38; --sl-chip-on:#fff8eb70; --sl-chip-hover:#fff8eb30;
   --sl-surface:linear-gradient(145deg,#fff9ec4a,#f7eed51a),#a49a8b62; --sl-surface-line:#fff8e780;
   --sl-surface-shadow:inset 0 1px 0 #fff9ee59,0 5px 16px #57442d0f;
-  --sl-media:#5d544a; --sl-shade:#2a211a2e; --sl-focus:#715a3e; --sl-dot:#1f9a80;
+  --sl-media:#5d544a; --sl-shade:#2a211a2e; --sl-focus:#715a3e; --sl-dot:var(--ruok-accent,#a9552f);
 }
 html[data-ui-theme=frost] .style-library {
   --sl-ink:#293e3b; --sl-ink-2:#3a524d; --sl-muted:#536863; --sl-faint:#6f837e;
@@ -65,7 +65,37 @@ html[data-ui-theme=frost] .style-library {
 .sl-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(204px,13vw,320px),1fr));gap:28px 16px;margin:0;padding:0;list-style:none; }
 
 /* ---------- card: poster, name, one line ---------- */
-.sl-card { min-width:0; }
+.sl-card { position:relative;min-width:0; }
+
+/* 收藏: a quiet star on the poster, always visible once it is on */
+.sl-fav {
+  position:absolute;top:8px;left:8px;z-index:3;display:grid;place-items:center;
+  width:26px;height:26px;padding:0;border:1px solid #ffffff2e;border-radius:50%;
+  background:#0000005c;color:#fff9edd9;backdrop-filter:blur(6px);cursor:pointer;
+  opacity:0;transition:opacity .18s ease,color .18s ease,border-color .18s ease,background-color .18s ease;
+}
+.sl-card:hover .sl-fav,.sl-fav:focus-visible,.sl-fav[aria-pressed=true] { opacity:1; }
+.sl-fav:hover { color:#fff;background:#00000080; }
+.sl-fav[aria-pressed=true] { color:var(--ruok-accent);border-color:color-mix(in srgb,var(--ruok-accent) 55%,transparent); }
+/* the shared button reset in ruok-design.css paints every button inside .style-library; the star keeps its
+   own on-poster treatment in both themes (gold on the dark room, ochre on paper). */
+html.workspace-glass .style-library .sl-fav { border-radius:50%;border-color:#ffffff2e;background-color:#0000005c;color:#fff9edd9;box-shadow:none; }
+html.workspace-glass .style-library .sl-fav:hover { background-color:#0000008a;color:#fff; }
+html.workspace-glass .style-library .sl-fav[aria-pressed=true] { color:var(--ruok-accent);border-color:color-mix(in srgb,var(--ruok-accent) 58%,transparent);background-color:#00000075; }
+/* 只看收藏 sits at the end of the first filter row */
+.sl-favonly { margin-left:auto; }
+.sl-favonly[aria-pressed=true] { color:var(--sl-ink);background:var(--sl-chip-on); }
+
+/* 最近打开: a thin row of style names under the title */
+.sl-recent { display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:18px 0 -16px;animation:sl-from-left .6s .04s var(--sl-ease) both; }
+.sl-recent__label { margin-right:4px;font-size:12px;color:var(--sl-faint); }
+.sl-recent button {
+  padding:4px 10px;border:1px solid var(--sl-line);border-radius:999px;
+  background:none;color:var(--sl-muted);font:inherit;font-size:12px;cursor:pointer;
+  transition:color .18s ease,border-color .18s ease;
+}
+.sl-recent button:hover { color:var(--sl-ink);border-color:var(--sl-ink-2); }
+
 .sl-card__button { display:block;width:100%;padding:0;border:0;border-radius:var(--sl-radius);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer; }
 .sl-card__button:focus-visible { outline:none; }
 .sl-thumb { position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border-radius:var(--sl-radius);background:var(--sl-media);isolation:isolate; }
@@ -133,7 +163,7 @@ html[data-ui-theme=frost] .style-library {
 .sl-pickbar__text b { display:block;overflow:hidden;font-size:14px;font-weight:600;line-height:1.4;text-overflow:ellipsis;white-space:nowrap;color:var(--sl-ink); }
 .sl-pickbar__text span { display:block;overflow:hidden;font-size:12px;color:var(--sl-muted);text-overflow:ellipsis;white-space:nowrap; }
 .sl-pickbar .sl-primary { flex:none; }
-html[data-ui-theme=warm] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#f8efdef2,#c9bfaef2);--sl-pickbar-line:#fff8e7a8;--sl-pickbar-shadow:0 18px 50px #4937223a; }
+html[data-ui-theme=warm] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#fffdf8f2,#f7f1e7f2);--sl-pickbar-line:#6b5a4424;--sl-pickbar-shadow:0 18px 50px #6b5a4433; }
 html[data-ui-theme=frost] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#fffffff7,#edf4f0f2);--sl-pickbar-line:#ffffffc9;--sl-pickbar-shadow:0 18px 44px #5b746b40; }
 .style-library[data-mode=pick] { padding-bottom:96px; }
 .sl-detail__credit { display:grid;gap:6px;margin-top:auto;padding-top:24px; }
@@ -178,7 +208,7 @@ html[data-ui-theme=frost] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#
 .styles-page__shield { position:fixed;z-index:30;left:0;right:0;top:0;height:calc(var(--workspace-nav-height,74px) + 6px);pointer-events:none;
   background:var(--styles-page-bg,#121315);background-attachment:fixed;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent); }
 html[data-ui-theme=original] .styles-page { --styles-page-bg:var(--pro-bg); }
-html[data-ui-theme=warm] .styles-page { --styles-page-bg:radial-gradient(ellipse at 12% 12%,#f5eddfb3,transparent 65%),radial-gradient(ellipse at 84% 80%,#8e7d664f,transparent 68%),#b3aa9d; }
+html[data-ui-theme=warm] .styles-page { --styles-page-bg:radial-gradient(ellipse at 12% 12%,#fffefb,transparent 65%),radial-gradient(ellipse at 84% 80%,#efe6d88c,transparent 68%),#f7f2e9; }
 html[data-ui-theme=frost] .styles-page { --styles-page-bg:radial-gradient(ellipse at 20% 40%,#c0e5df7a,transparent 48%),radial-gradient(ellipse at 85% 78%,#f2ccc97a,transparent 44%),#faf7f2; }
 .styles-page__title { display:flex;align-items:center;gap:16px; }
 .styles-page__title h1 { margin:0;font-size:32px;line-height:1.2;font-weight:650;letter-spacing:-.01em;color:var(--sl-ink); }
