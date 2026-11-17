@@ -51,13 +51,8 @@ async function transparentMaster() {
     const i = p * 4;
     if (!keep[p]) { rgba[i] = rgba[i + 1] = rgba[i + 2] = rgba[i + 3] = 0; continue; }
     let r = rgba[i], g = rgba[i + 1], b = rgba[i + 2];
-    // The supplied render has a few pure-red/yellow chromatic artifacts on the top/right rim. Recolour only
-    // extreme red/yellow pixels so the bronze patina stays untouched.
-    const other = Math.max(g, b);
-    if (r > 30 && other < 25 && r - other > 20) { r = 176; g = 128; b = 80; }
-    else if (r > 180 && g > 145 && b < 70) { r = 201; g = 160; b = 96; }
     const alpha = alphaMap[p];
-    // Despill low-alpha edge pixels before unmixing from white; chromatic edge noise would otherwise turn red/yellow.
+    // Despill low-alpha edge pixels before unmixing from white; the engraved terracotta must survive as is.
     if (alpha < 0.9) {
       const lum = 0.299 * r + 0.587 * g + 0.114 * b;
       const mix = (1 - alpha) * 0.7;
@@ -92,8 +87,12 @@ async function transparentMaster() {
 }
 
 async function renderPng(master, size) {
-  let image = sharp(master).resize(size, size, { fit: 'contain', kernel: 'lanczos3', background: { r: 0, g: 0, b: 0, alpha: 0 } });
-  if (size <= 32) image = image.sharpen({ sigma: 0.8, m1: 0.9, m2: 2.2 });
+  // Never upscale: sizes above the master's own edge keep the master pixels (no interpolation).
+  const { width: base } = await sharp(master).metadata();
+  let image = sharp(master);
+  if (size < base) image = image.resize(size, size, { fit: 'contain', kernel: 'lanczos3', background: { r: 0, g: 0, b: 0, alpha: 0 } });
+  if (size <= 24) image = image.sharpen({ sigma: 1.1, m1: 1.5, m2: 3 });
+  else if (size <= 32) image = image.sharpen({ sigma: 0.8, m1: 0.9, m2: 2.2 });
   else if (size <= 64) image = image.sharpen({ sigma: 0.6, m1: 0.6, m2: 1.6 });
   return image.png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
 }
