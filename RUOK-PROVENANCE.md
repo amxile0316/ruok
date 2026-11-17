@@ -4,6 +4,7 @@
 - 上游版本：OpenTake Standard v1.1.3
 - 上游标签：`desktop-v1.1.3-2026111001`
 - 上游提交：`9af159999bca06c125f767aafd1006348d1d3091`（2026-11-09，README：下载链接换成 1.1.3）
+- 版本线：RUOK 自 **2.0.0** 起使用独立版本号（`package.json`），上游基线固定为 OpenTake Standard 1.1.3。基线字符串只在 `src/settings/ruok-version.ts` 的 `UPSTREAM_BASELINE` 维护一次，关于页显示为「RUOK 2.0.0（基于 OpenTake Standard 1.1.3）」。桌面端、安装包与启动上报均读 `package.json`，更新通道保持关闭。
 - 本地目录：`ruok/`
 - 本地分支：`ruok/main`（从 `main` 建立，保留完整 Git 历史）
 - 改造日期：2026-11-17
@@ -43,30 +44,31 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 
 ### 2.2 品牌与视觉资产
 
-- 品牌母版：`desktop/brand/ruok-master.png`（用户提供的正式问号造型素材，透明底）。该素材的商标/版权归属由提供方确认；随仓库或安装包分发前请确认授权范围。
-- 生成脚本：`scripts/generate-ruok-icons.mjs`，按需重跑即可更新全部尺寸。
-- Windows 图标：`public/ruok.ico`，含 16/24/32/48/64/128/256 七个尺寸；小尺寸直接由母版降采样并轻量锐化，未使用放大插值。
+- 品牌母版：`desktop/brand/ruok-master.png`（1254×1254，RGBA 透明底）。素材由用户于 2026-11-17 提供（RUOK-2）：砂岩/赭石浮雕问号，表面刻有赭红岩画纹样（太阳放射纹、弧形河道、圆点螺旋）。原图自带 alpha 通道，未做二次抠图。该素材的商标/版权归属由提供方确认；随仓库或安装包分发前请确认授权范围。
+- 生成脚本：`scripts/generate-ruok-icons.mjs`，按需重跑即可更新全部尺寸。新母版去掉了旧素材专用的"极端红/黄像素回填青铜色"补丁，以免破坏赭红岩画纹样；超过母版边长的尺寸不再放大插值，直接沿用母版像素。
+- Windows 图标：`public/ruok.ico`，含 16/24/32/48/64/128/256 七个尺寸；小尺寸直接由母版降采样并轻量锐化（16–32px σ0.8 / 64px σ0.6），未使用放大插值。
 - macOS 图标：`public/ruok.icns`，含 icp4/icp5/icp6/ic07/ic08/ic09/ic10 及 @2x 变体；`desktop/build-app.mjs` 会复制到 `release/RUOK.icns`，`builder.config.cjs` 直接引用 `public/ruok.icns`。
 - 界面 PNG：`public/ruok-icon-{16,24,32,48,64,128,256,512,1024}.png`；`public/ruok-mark.svg` 内嵌 256px PNG，供顶栏使用。
-- 安装器素材：`desktop/installer-assets/sidebar.bmp` 已按新图标与铜绿/青铜配色重绘。
+- 安装器素材：`desktop/installer-assets/sidebar.bmp` 由同一母版重出（104px 图标 + 铜绿底 + 青铜字），与新图标的赭石主体保持同一暖色系。
 - 关于页：`src/settings/edition.tsx` 增加 64px 品牌图标；窗口、托盘、关于面板继续引用 `ruok-icon-512.png`。
+- 色彩关系：新母版主体为赭金（约 `#c98a45`），纹样为赭红（约 `#b1502f`）。UI 三色体系即由此而来：底色（深青墨 / 暖纸白）、文字（深色＝金字 / 浅色＝深墨）、强调（赭金 / 赭红），不再使用铜绿作为界面色；图标作为位图资产不参与主题换色。深色套的正文使用柔金 `#edd6a8`、次要文字 `#bb9a63`，方框与按钮改为带光感的金色描边，浅色套不跟随。
 - 旧 T 素材清理：删除 `public/home/*-loop.mp4`、`*-poster.jpg` 共 22 个上游入口/模块动图，`WorkspaceHome` 改为品牌图标占位；`public/home/studio-faders.*` 重制为新品牌背景；删除 `public/opentake-*` 与 `public/brand/icon-*`。
 - 旧品牌字形：移除 `workspace-brand-t` 内联 SVG 规则；全仓库搜索 `opentake` 仅剩来源说明、内部标识和兼容变量。
 
 ### 2.2.1 主题配色
 
-- 新增 `src/workspace/ruok-theme.css`，由官方图标的铜绿（patina/verdigris）与青铜（bronze）提取语义变量：
-  - 背景层次：`--ruok-patina-900/800/700/600/500`
-  - 主色/强调色：`--ruok-accent`、`--ruok-accent-hi`、`--ruok-accent-deep`
-  - 辅助信息：`--ruok-verdigris-500/300`
-  - 警告/危险：`--ruok-warning`、`--ruok-danger`
-- 默认深色主题保持深色底，仅替换色相；浅色 warm 主题保留纸张底色，强调色改为深青铜/铜绿。
-- 旧 CSS 中 251 处琥珀/紫色硬编码已收敛为 `var(--ruok-*)`；紫色提醒色（`#9869dc`）117 处替换为 `--ruok-warning`，文案发布入口改为铜绿。
+- `src/workspace/ruok-theme.css` 只保留三族令牌（底色 / 文字 / 强调），组件一律经 `--rk-*` 语义层取色：
+  - 底色：`--ruok-patina-900/800/700/600/500`（深）与 `#f7f2e9 → #fffdf8`（浅纸）
+  - 文字：`--ruok-ink`、`--ruok-ink-2`、`--ruok-muted`、`--ruok-faint`
+  - 强调：`--ruok-accent`、`--ruok-accent-hi`、`--ruok-accent-deep`、`--ruok-accent-ink`
+  - 轮廓/结构：原铜绿变量名保留给旧表引用，但值已改为中性石色，不再出现青色。
+- 深色（原色）：赭金 `#d8a05e` 作为唯一强调，实心主按钮统一走 `--rk-solid-top/bottom`；浅色（暖雾）：赭红 `#a9552f`，与母版纹样同源。两套主题只在主题层换值，组件不写两套。
+- 深色页面的体积光与背景问号受光保留：光束仍由 `.home > .login-backdrop-video::after/::before` 提供，仅把雾化层里的青色换成暖白，并把背景影片源调成同一暖色，避免画面出现第四种色相。
 - 时间线、轨道、选中态、播放头、按钮、聚焦环、更新提醒均通过主题变量取色；布局结构未改。
 
 ### 2.3 界面与桌面文案
 
-- `src/settings/edition.tsx`：关于页改为 RUOK，并注明基于 OpenTake Standard 1.1.3。
+- `src/settings/edition.tsx`：关于页改为 RUOK，显示自研版本号并附上游基线；基线常量在 `src/settings/ruok-version.ts`。
 - `src/pages/WorkspaceHome.tsx`、`src/pages/RecordingSetup.tsx`、`src/pages/OpenScreenWorkspace.tsx`、`src/settings/JianyingSettings.tsx`、`src/screen-motion/ScreenSetupGuide.tsx`、`src/studio/components/ConnectionSettings.tsx`、`src/workspace/QuickEdit.tsx`。
 - `desktop/menu.cjs`、`desktop/recording-controls.cjs`、`desktop/recording.html`、`desktop/recording-ui.js`、`desktop/creation-tools.cjs`、`desktop/installer.nsh`。
 
