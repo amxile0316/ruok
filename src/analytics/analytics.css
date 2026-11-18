@@ -1,10 +1,41 @@
 .an-page {
+  --an-surface: linear-gradient(160deg, rgba(31, 46, 42, .72), rgba(19, 29, 27, .88));
+  --an-card: rgba(19, 29, 27, .7);
+  --an-raise: rgba(12, 18, 17, .45);
+  --an-field: rgba(12, 18, 17, .55);
+  --an-track: rgba(79, 143, 128, .16);
+  --an-glow: inset 0 1px 0 rgba(111, 179, 162, .12), 0 18px 44px rgba(0, 0, 0, .32);
+  --an-dot-ring: var(--ruok-patina-800);
+  --an-form-line: rgba(214, 168, 95, .35);
+  --an-head-bg: radial-gradient(900px 520px at 8% -8%, rgba(79, 143, 128, .14), transparent 62%), radial-gradient(760px 460px at 96% 0%, var(--ruok-accent-soft), transparent 66%);
   min-height: 100%;
   padding: 40px clamp(20px, 4vw, 56px) 64px;
   color: var(--ruok-ink);
-  background:
-    radial-gradient(900px 520px at 8% -8%, rgba(79, 143, 128, .14), transparent 62%),
-    radial-gradient(760px 460px at 96% 0%, var(--ruok-accent-soft), transparent 66%);
+  background: var(--an-head-bg);
+}
+/* Light = cool stone: porcelain panels over pale gray-green, daiqing ink, gold as the only accent. */
+html[data-ui-theme=warm] .an-page {
+  --an-surface: linear-gradient(160deg, #e0e0e0e6, #d1d1d1d9);
+  --an-card: #e7e7e7cc;
+  --an-raise: #d1d1d1d9;
+  --an-field: #d1d1d1;
+  --an-track: #8e8e8e24;
+  --an-glow: inset 0 1px 0 #efefef, 0 14px 34px #23232312;
+  --an-dot-ring: #e0e0e0;
+  --an-form-line: #23232324;
+  --an-head-bg: radial-gradient(900px 520px at 8% -8%, #8e8e8e13, transparent 62%), radial-gradient(760px 460px at 96% 0%, #7a5f2f0d, transparent 66%);
+}
+/* 暮石: mid plates, warm-white ink, ochre as the only accent; shadows stay light so the mid ground does not muddy */
+html[data-ui-theme=dusk] .an-page {
+  --an-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
+  --an-card: #33403cd9;
+  --an-raise: #2c3734b3;
+  --an-field: #2c3734cc;
+  --an-track: #efe8dc1f;
+  --an-glow: inset 0 1px 0 #efe8dc1a, 0 14px 34px #1f292633;
+  --an-dot-ring: #33403c;
+  --an-form-line: #c08a5259;
+  --an-head-bg: radial-gradient(900px 520px at 8% -8%, #4a5955a6, transparent 62%), radial-gradient(760px 460px at 96% 0%, #c08a520f, transparent 66%);
 }
 .an-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 20px; }
 .an-kicker { margin: 0 0 8px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--ruok-verdigris-300); }
@@ -16,7 +47,7 @@
   padding: 9px 15px;
   border: 1px solid var(--ruok-line-2);
   border-radius: var(--rk-r-2, 6px);
-  background: rgba(12, 18, 17, .5);
+  background: var(--an-field);
   color: var(--ruok-ink-2);
   font-size: 13px;
   text-decoration: none;
@@ -29,14 +60,15 @@
 .an-toast { max-width: 1240px; margin: 0 auto 14px; color: var(--ruok-verdigris-300); font-size: 13px; }
 
 .an-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; max-width: 1240px; margin: 0 auto 16px; }
-.an-kpis div { padding: 14px 16px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-3, 10px); background: rgba(19, 29, 27, .7); }
+.an-kpis div { padding: 14px 16px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-3, 10px); background: var(--an-card); }
 .an-kpis span { display: block; font-size: 11px; letter-spacing: .14em; color: var(--ruok-muted); }
 .an-kpis b { display: block; margin-top: 6px; font-size: 22px; font-weight: 600; color: var(--ruok-bronze-200); font-variant-numeric: tabular-nums; }
+html[data-ui-theme=warm] .an-kpis b { color: var(--ruok-ink); }
 
 .an-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 16px; max-width: 1240px; margin: 0 auto 16px; align-items: start; }
 @media (max-width: 1040px) { .an-grid { grid-template-columns: 1fr; } .an-kpis { grid-template-columns: repeat(2, 1fr); } }
 
-.an-panel { max-width: 1240px; margin: 0 auto 16px; padding: 20px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-4, 14px); background: linear-gradient(160deg, rgba(31, 46, 42, .72), rgba(19, 29, 27, .88)); box-shadow: inset 0 1px 0 rgba(111, 179, 162, .12), 0 18px 44px rgba(0, 0, 0, .32); }
+.an-panel { max-width: 1240px; margin: 0 auto 16px; padding: 20px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-4, 14px); background: var(--an-surface); box-shadow: var(--an-glow); }
 .an-grid .an-panel { margin: 0; }
 .an-panel h2 { margin: 0; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--ruok-muted); }
 .an-panel__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
@@ -44,11 +76,11 @@
 .an-empty { margin: 0; padding: 22px 0; color: var(--ruok-muted); font-size: 13px; line-height: 1.7; text-align: center; }
 .an-link { border: 0; background: none; color: var(--ruok-verdigris-300); font-size: 12.5px; cursor: pointer; }
 
-.an-form { border-color: rgba(214, 168, 95, .35); }
+.an-form { border-color: var(--an-form-line); }
 .an-fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
 @media (max-width: 900px) { .an-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .an-field span { display: block; margin-bottom: 6px; font-size: 11.5px; letter-spacing: .08em; color: var(--ruok-muted); }
-.an-field input, .an-field select { width: 100%; padding: 9px 11px; border: 1px solid var(--ruok-line-2); border-radius: var(--rk-r-2, 6px); background: rgba(12, 18, 17, .55); color: var(--ruok-ink); font: 13px inherit; }
+.an-field input, .an-field select { width: 100%; padding: 9px 11px; border: 1px solid var(--ruok-line-2); border-radius: var(--rk-r-2, 6px); background: var(--an-field); color: var(--ruok-ink); font: 13px inherit; }
 .an-form__actions { display: flex; gap: 8px; }
 
 .an-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-3, 10px); overflow: hidden; }
@@ -65,7 +97,7 @@
 
 .an-work-title { margin: 0 0 12px; font-size: 17px; font-weight: 600; }
 .an-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
-.an-metrics div { padding: 10px 12px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-2, 6px); background: rgba(12, 18, 17, .45); }
+.an-metrics div { padding: 10px 12px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-2, 6px); background: var(--an-raise); }
 .an-metrics b { display: block; font-size: 17px; color: var(--ruok-ink); font-variant-numeric: tabular-nums; }
 .an-metrics span { font-size: 10.5px; letter-spacing: .12em; color: var(--ruok-muted); }
 .an-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 18px; margin: 0; }
@@ -76,14 +108,14 @@
 .an-bars { display: grid; gap: 9px; }
 .an-bar { display: grid; grid-template-columns: 150px minmax(0, 1fr) 56px; align-items: center; gap: 10px; }
 .an-bar__label { font-size: 12px; color: var(--ruok-ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.an-bar__track { height: 6px; border-radius: 999px; background: rgba(79, 143, 128, .16); overflow: hidden; }
+.an-bar__track { height: 6px; border-radius: 999px; background: var(--an-track); overflow: hidden; }
 .an-bar__track i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--ruok-verdigris-500), var(--ruok-bronze-300)); }
 .an-bar b { font-size: 11.5px; color: var(--ruok-muted); text-align: right; font-variant-numeric: tabular-nums; }
 .an-sub { margin: 22px 0 10px !important; }
 .an-trend { width: 100%; height: auto; }
 .an-axis { stroke: var(--ruok-line-2); stroke-width: 1; }
 .an-line { fill: none; stroke: var(--ruok-bronze-300); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.an-dot { fill: var(--ruok-bronze-200); stroke: var(--ruok-patina-800); stroke-width: 1.5; }
+.an-dot { fill: var(--ruok-bronze-200); stroke: var(--an-dot-ring); stroke-width: 1.5; }
 
 .an-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
 .an-tabs button { padding: 6px 12px; border: 1px solid var(--ruok-line-2); border-radius: 999px; background: transparent; color: var(--ruok-ink-2); font-size: 12px; cursor: pointer; }

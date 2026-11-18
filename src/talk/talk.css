@@ -1,10 +1,62 @@
 .talk-page {
+  --tk-surface: linear-gradient(160deg, rgba(31, 46, 42, .72), rgba(19, 29, 27, .88));
+  --tk-place: linear-gradient(150deg, rgba(33, 49, 44, .72), rgba(16, 25, 23, .82));
+  --tk-dialog: linear-gradient(160deg, rgba(31, 46, 42, .98), rgba(19, 29, 27, .99));
+  --tk-field: rgba(12, 18, 17, .55);
+  --tk-field-strong: rgba(12, 18, 17, .7);
+  --tk-btn: rgba(12, 18, 17, .5);
+  --tk-card: rgba(12, 18, 17, .45);
+  --tk-glow: inset 0 1px 0 rgba(111, 179, 162, .12), 0 18px 44px rgba(0, 0, 0, .32);
+  --tk-dialog-glow: 0 26px 70px rgba(0, 0, 0, .52), inset 0 1px 0 rgba(111, 179, 162, .14);
+  --tk-ok-line: rgba(111, 179, 162, .42);
+  --tk-ok-bg: rgba(45, 92, 80, .18);
+  --tk-mask: rgba(5, 9, 8, .66);
+  --tk-err-line: rgba(196, 106, 78, .42);
+  --tk-err-bg: rgba(120, 46, 32, .18);
+  --tk-err-ink: #f0c8ba;
+  --tk-head: radial-gradient(900px 520px at 12% -10%, var(--ruok-accent-soft), transparent 62%), radial-gradient(800px 480px at 92% 0%, rgba(79, 143, 128, .12), transparent 66%);
   min-height: 100%;
   padding: 40px clamp(20px, 4vw, 56px) 64px;
   color: var(--ruok-ink);
-  background:
-    radial-gradient(900px 520px at 12% -10%, var(--ruok-accent-soft), transparent 62%),
-    radial-gradient(800px 480px at 92% 0%, rgba(79, 143, 128, .12), transparent 66%);
+  background: var(--tk-head);
+}
+/* Light = cool stone: porcelain panels over pale gray-green, daiqing ink, gold as the only accent. */
+html[data-ui-theme=warm] .talk-page {
+  --tk-surface: linear-gradient(160deg, #e0e0e0e6, #d1d1d1d9);
+  --tk-place: linear-gradient(150deg, #e0e0e0d9, #ecececbd);
+  --tk-dialog: linear-gradient(160deg, #e0e0e0f7, #eaeaeaf5);
+  --tk-field: #d1d1d1;
+  --tk-field-strong: #e6e6e6;
+  --tk-btn: #d1d1d1d9;
+  --tk-card: #e7e7e7cc;
+  --tk-glow: inset 0 1px 0 #ffffff, 0 14px 34px #23232312;
+  --tk-dialog-glow: 0 26px 70px #23232333, inset 0 1px 0 #ffffff;
+  --tk-ok-line: #5a5a5a59;
+  --tk-ok-bg: #e2e2e2d9;
+  --tk-mask: #23232359;
+  --tk-err-line: #9c4a3859;
+  --tk-err-bg: #9c4a3814;
+  --tk-err-ink: #8c3f2e;
+  --tk-head: radial-gradient(900px 520px at 12% -10%, #7a5f2f0d, transparent 62%), radial-gradient(800px 480px at 92% 0%, #8e8e8e13, transparent 66%);
+}
+/* 暮石: mid plates, warm-white ink, ochre as the only accent */
+html[data-ui-theme=dusk] .talk-page {
+  --tk-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
+  --tk-place: linear-gradient(150deg, #44524ed9, #2c3734bd);
+  --tk-dialog: linear-gradient(160deg, #44524ef7, #33403cf5);
+  --tk-field: #2c3734cc;
+  --tk-field-strong: #2c3734;
+  --tk-btn: #efe8dc14;
+  --tk-card: #2c3734b3;
+  --tk-glow: inset 0 1px 0 #efe8dc1a, 0 14px 34px #1f292633;
+  --tk-dialog-glow: 0 26px 70px #1f292659, inset 0 1px 0 #efe8dc1f;
+  --tk-ok-line: #8fb39c66;
+  --tk-ok-bg: #8fb39c1f;
+  --tk-mask: #1f2926a6;
+  --tk-err-line: #e0846459;
+  --tk-err-bg: #e0846414;
+  --tk-err-ink: #f0b9a6;
+  --tk-head: radial-gradient(900px 520px at 12% -10%, #c08a520f, transparent 62%), radial-gradient(800px 480px at 92% 0%, #4a5955a3, transparent 66%);
 }
 .talk-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 26px; }
 .talk-kicker { margin: 0 0 8px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--ruok-verdigris-300); }
@@ -20,8 +72,8 @@
   padding: 22px;
   border: 1px solid var(--ruok-line);
   border-radius: var(--rk-r-4, 14px);
-  background: linear-gradient(160deg, rgba(31, 46, 42, .72), rgba(19, 29, 27, .88));
-  box-shadow: inset 0 1px 0 rgba(111, 179, 162, .12), 0 18px 44px rgba(0, 0, 0, .32);
+  background: var(--tk-surface);
+  box-shadow: var(--tk-glow);
 }
 .talk-panel h2 { margin: 0 0 12px; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--ruok-muted); }
 .talk-panel h2:not(:first-child) { margin-top: 22px; }
@@ -33,7 +85,7 @@
   padding: 9px 15px;
   border: 1px solid var(--ruok-line-2);
   border-radius: var(--rk-r-2, 6px);
-  background: rgba(12, 18, 17, .5);
+  background: var(--tk-btn);
   color: var(--ruok-ink-2);
   font-size: 13px;
   cursor: pointer;
@@ -50,7 +102,7 @@
   padding: 14px 15px;
   border: 1px solid var(--ruok-line-2);
   border-radius: var(--rk-r-3, 10px);
-  background: rgba(12, 18, 17, .55);
+  background: var(--tk-field);
   color: var(--ruok-ink);
   font: 14px/1.75 inherit;
   resize: vertical;
@@ -62,7 +114,7 @@
   padding: 8px 10px;
   border: 1px solid var(--ruok-line-2);
   border-radius: var(--rk-r-2, 6px);
-  background: rgba(12, 18, 17, .55);
+  background: var(--tk-field);
   color: var(--ruok-ink);
   font: 13px inherit;
 }
@@ -71,7 +123,7 @@
 
 .talk-empty { margin: 0; padding: 28px 0; color: var(--ruok-muted); font-size: 13px; text-align: center; }
 .talk-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
-.talk-stats div { padding: 12px 14px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-3, 10px); background: rgba(12, 18, 17, .45); }
+.talk-stats div { padding: 12px 14px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-3, 10px); background: var(--tk-card); }
 .talk-stats b { display: block; font-size: 20px; font-weight: 600; color: var(--ruok-bronze-200); font-variant-numeric: tabular-nums; }
 .talk-stats span { font-size: 11px; letter-spacing: .12em; color: var(--ruok-muted); }
 
@@ -88,14 +140,14 @@
 .talk-exports { display: flex; flex-wrap: wrap; gap: 9px; margin: 14px 0 10px; }
 .talk-style { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 4px 0 10px; color: var(--ruok-muted); font-size: 12px; }
 .talk-style label { display: flex; align-items: center; gap: 6px; }
-.talk-style select { padding: 5px 8px; border: 1px solid var(--ruok-line-2); border-radius: var(--rk-r-2, 6px); background: rgba(12, 18, 17, .55); color: var(--ruok-ink-2); font: 12px inherit; }
+.talk-style select { padding: 5px 8px; border: 1px solid var(--ruok-line-2); border-radius: var(--rk-r-2, 6px); background: var(--tk-field); color: var(--ruok-ink-2); font: 12px inherit; }
 
 .talk-btn:disabled { opacity: .42; cursor: not-allowed; }
 .talk-place {
   display: flex; align-items: center; justify-content: space-between; gap: 18px;
   margin: 14px 0 10px; padding: 14px 16px;
   border: 1px solid var(--ruok-line-2); border-radius: var(--rk-r-3, 10px);
-  background: linear-gradient(150deg, rgba(33, 49, 44, .72), rgba(16, 25, 23, .82));
+  background: var(--tk-place);
 }
 .talk-place b { display: block; margin-bottom: 4px; font-size: 13.5px; font-weight: 600; color: var(--ruok-bronze-200); }
 .talk-place p { margin: 0; max-width: 520px; }
@@ -104,8 +156,8 @@
 .talk-placed {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
   margin-top: 12px; padding: 14px 16px;
-  border: 1px solid rgba(111, 179, 162, .42); border-radius: var(--rk-r-3, 10px);
-  background: rgba(45, 92, 80, .18);
+  border: 1px solid var(--tk-ok-line); border-radius: var(--rk-r-3, 10px);
+  background: var(--tk-ok-bg);
 }
 .talk-placed b { display: block; font-size: 13.5px; color: var(--ruok-ink); }
 .talk-placed span { display: block; margin-top: 4px; color: var(--ruok-ink-2); font-size: 12px; font-variant-numeric: tabular-nums; }
@@ -115,13 +167,13 @@
 .talk-dialog-mask {
   position: fixed; inset: 0; z-index: 60;
   display: flex; align-items: center; justify-content: center;
-  padding: 24px; background: rgba(5, 9, 8, .66); backdrop-filter: blur(3px);
+  padding: 24px; background: var(--tk-mask); backdrop-filter: blur(3px);
 }
 .talk-dialog {
   width: min(560px, 100%); max-height: calc(100vh - 48px); overflow: auto;
   padding: 24px; border: 1px solid var(--ruok-line-2); border-radius: var(--rk-r-4, 14px);
-  background: linear-gradient(160deg, rgba(31, 46, 42, .98), rgba(19, 29, 27, .99));
-  box-shadow: 0 26px 70px rgba(0, 0, 0, .52), inset 0 1px 0 rgba(111, 179, 162, .14);
+  background: var(--tk-dialog);
+  box-shadow: var(--tk-dialog-glow);
   color: var(--ruok-ink);
 }
 .talk-dialog h2 { margin: 0 0 8px; font-size: 17px; font-weight: 600; }
@@ -133,9 +185,9 @@
 .talk-field select {
   display: block; width: 100%; margin-top: 6px; padding: 9px 10px;
   border: 1px solid var(--ruok-line-2); border-radius: var(--rk-r-2, 6px);
-  background: rgba(12, 18, 17, .7); color: var(--ruok-ink); font: 13px inherit;
+  background: var(--tk-field-strong); color: var(--ruok-ink); font: 13px inherit;
 }
-.talk-error { margin: 10px 0 0; padding: 10px 12px; border: 1px solid rgba(196, 106, 78, .42); border-radius: var(--rk-r-2, 6px); background: rgba(120, 46, 32, .18); color: #f0c8ba; font-size: 12.5px; line-height: 1.55; }
+.talk-error { margin: 10px 0 0; padding: 10px 12px; border: 1px solid var(--tk-err-line); border-radius: var(--rk-r-2, 6px); background: var(--tk-err-bg); color: var(--tk-err-ink); font-size: 12.5px; line-height: 1.55; }
 .talk-dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
 @media (max-width: 620px) {
   .talk-stats--dialog { grid-template-columns: repeat(2, minmax(0, 1fr)); }

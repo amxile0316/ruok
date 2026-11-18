@@ -1,8 +1,8 @@
 /* 风格库. Neutral graphite; the general-editing teal appears only on the small dot, the picked mark and the main button.
    Every poster: 16:9, one radius, one shade. Motion is transform and opacity only (no blur, no filter). */
 .style-library {
-  --sl-ink:var(--ui-ink,#f2f2f4); --sl-ink-2:var(--ui-ink,#c9cbd1); --sl-muted:var(--ui-muted,#8b8e96);
-  --sl-faint:color-mix(in srgb,var(--ui-muted,#8b8e96) 72%,transparent);
+  --sl-ink:var(--ui-ink,#f2f2f4); --sl-ink-2:var(--ui-ink,#c9cbd1); --sl-muted:var(--ui-muted,#8c8c8c);
+  --sl-faint:color-mix(in srgb,var(--ui-muted,#8c8c8c) 72%,transparent);
   --sl-line:var(--ui-line,#ffffff14); --sl-field:#ffffff0a; --sl-chip-on:#ffffff12; --sl-chip-hover:#ffffff0a;
   --sl-surface:#17181b; --sl-surface-line:#ffffff0f; --sl-surface-shadow:none;
   --sl-media:#0b0c0d; --sl-shade:#00000038; --sl-focus:var(--ui-mint,var(--ruok-verdigris-300));
@@ -18,22 +18,28 @@ html[data-ui-theme=original] .style-library {
   --sl-surface:#17181b; --sl-surface-line:#ffffff0d; --sl-focus:var(--pro-accent);
 }
 html[data-ui-theme=warm] .style-library {
-  --sl-ink:#302a24; --sl-ink-2:#4a4037; --sl-muted:#62584d; --sl-faint:#7a6f62;
-  --sl-line:#fff8e780; --sl-field:#fff8eb38; --sl-chip-on:#fff8eb70; --sl-chip-hover:#fff8eb30;
-  --sl-surface:linear-gradient(145deg,#fff9ec4a,#f7eed51a),#a49a8b62; --sl-surface-line:#fff8e780;
-  --sl-surface-shadow:inset 0 1px 0 #fff9ee59,0 5px 16px #57442d0f;
-  --sl-media:#5d544a; --sl-shade:#2a211a2e; --sl-focus:#715a3e; --sl-dot:var(--ruok-accent,#a9552f);
+  --sl-ink:#232323; --sl-ink-2:#3d3d3d; --sl-muted:#5c5c5c; --sl-faint:#6a6a6a;  --sl-line:#ffffff8c; --sl-field:#2323230f; --sl-chip-on:#ffffff70; --sl-chip-hover:#ffffff30;
+  --sl-surface:linear-gradient(160deg,#ececec,#d2d2d2); --sl-surface-line:#ffffffb3;
+  --sl-surface-shadow:inset 0 1px 0 #ffffff,0 2px 8px #23232314,0 10px 24px -18px #23232326;
+  --sl-media:#5a5a5a; --sl-shade:#2323232e; --sl-focus:#5a5a5a; --sl-dot:#3a3a3a;
+}
+html[data-ui-theme=dusk] .style-library {
+  --sl-ink:#efe8dc; --sl-ink-2:#d9d0c2; --sl-muted:#b0a99c; --sl-faint:#948d80;
+  --sl-line:#efe8dc26; --sl-field:#2c373480; --sl-chip-on:#efe8dc17; --sl-chip-hover:#efe8dc0f;
+  --sl-surface:linear-gradient(145deg,#4b5a5540,#33403c1a),#33403c; --sl-surface-line:#efe8dc1f;
+  --sl-surface-shadow:inset 0 1px 0 #efe8dc14,0 5px 16px #1f292626;
+  --sl-media:#2c3734; --sl-shade:#1f292638; --sl-focus:var(--ruok-accent); --sl-dot:var(--ruok-accent);
+  --sl-general:var(--ruok-accent); --sl-general-ink:var(--ruok-accent-ink);
 }
 html[data-ui-theme=frost] .style-library {
-  --sl-ink:#293e3b; --sl-ink-2:#3a524d; --sl-muted:#536863; --sl-faint:#6f837e;
+  --sl-ink:#293e3b; --sl-ink-2:#3a524d; --sl-muted:#575757; --sl-faint:#6a6a6a;
   --sl-line:#ffffffc9; --sl-field:#ffffff8c; --sl-chip-on:#ffffffe0; --sl-chip-hover:#ffffff73;
   --sl-surface:linear-gradient(125deg,#fffffff0,#faf8f2b8 42%,#f4f5f080); --sl-surface-line:#ffffffc9;
   --sl-surface-shadow:inset 0 1px 0 #fff,0 1px 2px #5b746b1f,0 8px 22px #5b746b1a;
-  --sl-media:#cfd8d3; --sl-shade:#1b2a2726; --sl-focus:#34786b; --sl-dot:#1f9a80;
+  --sl-media:#c3c3c3; --sl-shade:#1b2a2726; --sl-focus:#34786b; --sl-dot:#1f9a80;
 }
 
 .sl-dot { flex:none;display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sl-dot); }
-
 /* ---------- top: title + 通用专用, search ---------- */
 .sl-bar { display:flex;align-items:center;justify-content:space-between;gap:24px;animation:sl-from-left .6s var(--sl-ease) both; }
 .sl-bar__title { min-width:0; }
@@ -163,8 +169,8 @@ html.workspace-glass .style-library .sl-fav[aria-pressed=true] { color:var(--ruo
 .sl-pickbar__text b { display:block;overflow:hidden;font-size:14px;font-weight:600;line-height:1.4;text-overflow:ellipsis;white-space:nowrap;color:var(--sl-ink); }
 .sl-pickbar__text span { display:block;overflow:hidden;font-size:12px;color:var(--sl-muted);text-overflow:ellipsis;white-space:nowrap; }
 .sl-pickbar .sl-primary { flex:none; }
-html[data-ui-theme=warm] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#fffdf8f2,#f7f1e7f2);--sl-pickbar-line:#6b5a4424;--sl-pickbar-shadow:0 18px 50px #6b5a4433; }
-html[data-ui-theme=frost] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#fffffff7,#edf4f0f2);--sl-pickbar-line:#ffffffc9;--sl-pickbar-shadow:0 18px 44px #5b746b40; }
+html[data-ui-theme=warm] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#e0e0e0f2,#eaeaeaf2);--sl-pickbar-line:#23232324;--sl-pickbar-shadow:0 18px 50px #23232333; }
+html[data-ui-theme=frost] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#fffffff7,#eaeaeaf2);--sl-pickbar-line:#ffffffc9;--sl-pickbar-shadow:0 18px 44px #5b746b40; }
 .style-library[data-mode=pick] { padding-bottom:96px; }
 .sl-detail__credit { display:grid;gap:6px;margin-top:auto;padding-top:24px; }
 .sl-detail__credit p { margin:0;font-size:11px;line-height:1.6;color:var(--sl-faint);overflow-wrap:anywhere; }
@@ -208,7 +214,7 @@ html[data-ui-theme=frost] .sl-pickbar { --sl-pickbar-bg:linear-gradient(140deg,#
 .styles-page__shield { position:fixed;z-index:30;left:0;right:0;top:0;height:calc(var(--workspace-nav-height,74px) + 6px);pointer-events:none;
   background:var(--styles-page-bg,#121315);background-attachment:fixed;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent); }
 html[data-ui-theme=original] .styles-page { --styles-page-bg:var(--pro-bg); }
-html[data-ui-theme=warm] .styles-page { --styles-page-bg:radial-gradient(ellipse at 12% 12%,#fffefb,transparent 65%),radial-gradient(ellipse at 84% 80%,#efe6d88c,transparent 68%),#f7f2e9; }
+html[data-ui-theme=warm] .styles-page { --styles-page-bg:radial-gradient(ellipse at 12% 12%,#f7faf8,transparent 65%),radial-gradient(ellipse at 84% 80%,#b9c6c18c,transparent 68%),#cfcfcf; }
 html[data-ui-theme=frost] .styles-page { --styles-page-bg:radial-gradient(ellipse at 20% 40%,#c0e5df7a,transparent 48%),radial-gradient(ellipse at 85% 78%,#f2ccc97a,transparent 44%),#faf7f2; }
 .styles-page__title { display:flex;align-items:center;gap:16px; }
 .styles-page__title h1 { margin:0;font-size:32px;line-height:1.2;font-weight:650;letter-spacing:-.01em;color:var(--sl-ink); }

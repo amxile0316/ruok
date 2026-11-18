@@ -48,7 +48,7 @@ html[data-ui-theme=warm] .media-category-overlap .media-type-filters button.acti
 .project-status-summary__panel p{margin:8px 0;color:var(--studio-muted);line-height:1.6}
 .editor-header{position:relative;z-index:20;overflow:visible}
 html[data-ui-theme=warm] .project-status-summary__panel{background:#e4dbcd}
-html[data-ui-theme=warm] :is(.editor-header,.workspace-nav,.preview-controls){backdrop-filter:blur(20px) saturate(.85);background:linear-gradient(115deg,#fff9ef70,#e1d6c840 65%,#fff9ef55);box-shadow:inset 0 1px 0 #fffdf0b0,inset 0 -1px 0 #fff9ee55,0 3px 12px #56452e0d}
+html[data-ui-theme=warm] :is(.editor-header,.workspace-nav,.preview-controls){backdrop-filter:blur(20px) saturate(.85);background:linear-gradient(115deg,#e0e0e070,#c6c6c640 65%,#e0e0e055);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -1px 0 #ffffff55,0 3px 12px #2323230d}
 .project-cover{width:52%;height:100%;min-height:236px;position:relative;isolation:isolate;display:flex;flex-direction:column;padding:18px 14px 12px 18px;border-radius:23px 0 0 23px;background:#4f5054;overflow:visible}
 .project-cover__image{width:100%;min-height:0;flex:1;object-fit:cover;border-radius:15px;position:relative;z-index:2;box-shadow:0 5px 18px #00000038}
 .project-cover__glow{position:absolute;width:calc(100% - 34px);height:calc(100% - 34px);inset:17px;object-fit:cover;border-radius:15px;filter:blur(30px) saturate(2);opacity:1;transform:scale(1.42);pointer-events:none;z-index:1;transition:filter .3s ease,opacity .3s ease}

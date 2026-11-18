@@ -23,7 +23,7 @@
 .clip-speed-drag-stem { position: fixed; z-index: 950; width: 1px; height: 14px; margin-left: -.5px; background: var(--ruok-warning); pointer-events: none; }
 .clip-speed-drag-ghost { position: fixed; z-index: 940; display: flex; align-items: center; justify-content: center; box-sizing: border-box; pointer-events: none;
   border: 1px dashed var(--ruok-warning); border-left: 0; border-radius: 0 6px 6px 0; background: color-mix(in srgb, var(--ruok-warning) 8%, transparent); color: var(--ruok-warning); font: 600 11px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
-html[data-ui-theme=warm] .clip-speed-drag-hint { background: #fbf5eaf0; border-color: #5a46302e; color: #302a24; box-shadow: 0 10px 26px #4937222e; }
+html[data-ui-theme=warm] .clip-speed-drag-hint { background: #e0e0e0f0; border-color: #2323232e; color: #232323; box-shadow: 0 10px 26px #2323232e; }
 html[data-ui-theme=warm] .clip-speed-drag-hint kbd { border-color: #5a463040; }
 html[data-ui-theme=warm] .clip-speed-drag-hint small { color: #8a7f71; }
 .clip-speed--animation input[type=range] { accent-color: var(--ruok-warning); }

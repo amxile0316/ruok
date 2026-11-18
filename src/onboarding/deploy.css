@@ -26,17 +26,17 @@
 @keyframes ot-deploy-flip{0%{transform:rotateY(0)}45%,50%{transform:rotateY(180deg)}95%,100%{transform:rotateY(360deg)}}
 .ot-deploy-left h2{margin:0;font-size:22px;text-align:center}.ot-deploy-left>p{margin:0;color:#c9cbd1aa;text-align:center;max-width:300px}
 .ot-deploy-meter{display:flex;gap:6px}.ot-deploy-meter i{width:26px;height:4px;border-radius:2px;background:#ffffff20;transition:background .4s}.ot-deploy-meter i.ok{background:var(--ruok-verdigris-300)}.ot-deploy-meter i.act{background:var(--ruok-warning)}
-.ot-deploy-left .ot-deploy-privacy{margin-top:8px;font-size:12px;line-height:1.7;color:#8b8e96;padding:10px 14px;border-radius:12px;border:1px solid #ffffff14;background:#ffffff06}
+.ot-deploy-left .ot-deploy-privacy{margin-top:8px;font-size:12px;line-height:1.7;color:#8c8c8c;padding:10px 14px;border-radius:12px;border:1px solid #ffffff14;background:#ffffff06}
 .ot-deploy-go{height:44px;padding:0 26px;border-radius:var(--rk-r-4,9px);border:1px solid color-mix(in srgb, var(--ruok-bronze-200,#e6c489) 78%, transparent);background:linear-gradient(180deg,var(--ruok-bronze-200,#e6c489),var(--ruok-bronze-300,#d6a85f) 55%,var(--ruok-bronze-400,#c39a5c));color:var(--ruok-accent-ink,#17130b);font-weight:700;box-shadow:inset 0 1px 0 #ffffff57,0 6px 16px -8px color-mix(in srgb, var(--ruok-bronze-300,#d6a85f) 62%, transparent);opacity:0;pointer-events:none;transition:opacity .4s;cursor:pointer}
 .ot-deploy.is-ready .ot-deploy-go{opacity:1;pointer-events:auto}
-.ot-deploy-close{position:absolute;left:18px;top:16px;background:none;border:0;color:#8b8e96;cursor:pointer;font-size:13px}.ot-deploy-close:hover{color:#f2f2f4}
+.ot-deploy-close{position:absolute;left:18px;top:16px;background:none;border:0;color:#8c8c8c;cursor:pointer;font-size:13px}.ot-deploy-close:hover{color:#f2f2f4}
 
 .ot-deploy-list{overflow:auto;padding:26px 28px 30px;background:linear-gradient(180deg,var(--ruok-patina-800,#131d1b),var(--ruok-patina-900,#0c1211))}
-.ot-deploy-grp{display:flex;justify-content:space-between;margin:6px 4px 10px;font-size:12px;color:#8b8e96;letter-spacing:.5px}
+.ot-deploy-grp{display:flex;justify-content:space-between;margin:6px 4px 10px;font-size:12px;color:#8c8c8c;letter-spacing:.5px}
 /* the list enters once; afterwards each row only changes its symbol and words in place */
 .ot-deploy-item{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:14px;padding:14px 16px;margin-bottom:10px;border-radius:16px;background:linear-gradient(180deg,#1f2025,#18191d);border:1px solid #ffffff14;box-shadow:inset 0 1px 0 #ffffff12;animation:ot-deploy-row .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*40ms);transition:border-color .4s,box-shadow .4s}
 @keyframes ot-deploy-row{from{opacity:0;transform:translateX(24px)}}
-.ot-deploy-st{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;background:#ffffff0e;color:#8b8e96;transition:background .35s,color .35s}
+.ot-deploy-st{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;background:#ffffff0e;color:#8c8c8c;transition:background .35s,color .35s}
 .ot-deploy-item[data-s=checking] .ot-deploy-st{border:2.5px solid #ffffff22;border-top-color:var(--ruok-accent);background:none;animation:ot-deploy-spin .9s linear infinite}
 @keyframes ot-deploy-spin{to{transform:rotate(360deg)}}
 .ot-deploy-item[data-s=ok] .ot-deploy-st{background:var(--ruok-verdigris-300);color:#06201a}
@@ -46,7 +46,7 @@
 .ot-deploy-slot{min-width:1px}
 .ot-deploy-act{height:32px;padding:0 14px;border-radius:10px;border:1px solid #ffffff22;background:#ffffff0c;color:#f2f2f4;font-size:13px;white-space:nowrap;cursor:pointer}
 .ot-deploy-item[data-s=act] .ot-deploy-act{border:0;background:var(--ruok-warning);color:#fff;font-weight:700}
-.ot-deploy-tag{font-size:11.5px;color:#8b8e96;padding:2px 9px;border-radius:999px;border:1px solid #ffffff1c}
+.ot-deploy-tag{font-size:11.5px;color:#8c8c8c;padding:2px 9px;border-radius:999px;border:1px solid #ffffff1c}
 .ot-deploy-chips{grid-column:2/4;display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}.ot-deploy-chips span{padding:4px 10px;border-radius:999px;background:#ffffff0a;border:1px solid #ffffff12;font-size:12px;color:#c9cbd1;transition:opacity .4s}
 .ot-deploy-chips.is-pending span{opacity:.25}
 .ot-deploy-agents{grid-column:2/4;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
@@ -55,7 +55,7 @@
 .ot-deploy-logo{position:absolute;right:8px;top:8px}.ot-deploy-agent.is-off .ot-deploy-logo,.ot-deploy-agent.is-pending .ot-deploy-logo{filter:grayscale(.7);opacity:.6}
 .ot-deploy-agent b{display:flex;align-items:center;gap:6px;padding-right:30px;font-size:13.5px}.ot-deploy-agent b i{width:7px;height:7px;border-radius:50%;background:#5e6169}
 .ot-deploy-agent.is-on b i{background:var(--ruok-verdigris-300);box-shadow:0 0 8px var(--ruok-verdigris-300)}.ot-deploy-agent.is-off b i{background:transparent;border:1px solid #5e6169}
-.ot-deploy-agent small{display:block;min-height:1.45em;margin-top:2px;color:#8b8e96;line-height:1.45;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ot-deploy-agent small{display:block;min-height:1.45em;margin-top:2px;color:#8c8c8c;line-height:1.45;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ot-deploy-agent>span:last-child{display:block;margin-top:6px;color:#c9cbd1}
 @media (max-width:820px){.ot-deploy{grid-template-columns:1fr;grid-template-rows:auto 1fr}.ot-deploy-left{padding:46px 20px 20px;gap:12px}.ot-deploy-mark{width:64px;height:64px;border-radius:16px}.ot-deploy-agents{grid-template-columns:repeat(2,1fr)}}
 @media (prefers-reduced-motion:reduce){.ot-deploy-mark,.ot-deploy-glow{animation:none}.ot-deploy,.ot-deploy-item,.ot-deploy-veil,.ot-deploy-strip{animation-duration:.01ms}}
@@ -64,16 +64,16 @@ html[data-ui-theme] .workspace-global-actions button.ot-deploy-nav{height:30px;m
 html[data-ui-theme] .workspace-global-actions button.ot-deploy-nav:hover{background:color-mix(in srgb,var(--ed-ink,var(--ruok-ink)) 8%,transparent) !important;border-color:color-mix(in srgb,var(--ruok-verdigris-500) 46%,transparent) !important;color:var(--ed-ink,var(--ruok-ink)) !important}
 html[data-ui-theme] .workspace-global-actions button.ot-deploy-nav.is-ready{height:28px;min-height:28px;padding:0 9px 0 6px;background:transparent !important;border:1px solid transparent !important;box-shadow:none !important;color:var(--ed-muted) !important}
 html[data-ui-theme] .workspace-global-actions button.ot-deploy-nav.is-ready:hover{background:var(--ed-raise) !important;color:var(--ed-ink-2) !important}
-/* warm has light paper behind the chip: use its own ink instead of the dark theme's ink-2 */
-html[data-ui-theme=warm] .workspace-global-actions button.ot-deploy-nav{border-color:#5b4c3a45 !important;color:#4a4037 !important}
-html[data-ui-theme=warm] .workspace-global-actions button.ot-deploy-nav:hover{background:#00000008 !important;border-color:#2f7a6b70 !important;color:#302a24 !important}
-html[data-ui-theme=warm] .workspace-global-actions button.ot-deploy-nav.is-ready{color:#62584d !important}
-html[data-ui-theme=warm] .ot-deploy-ring circle:first-child{stroke:#5b4c3a40}
-html[data-ui-theme=warm] .ot-deploy-ring circle:last-child{stroke:#8a5a1f}
-html[data-ui-theme=warm] .ot-deploy-tick{background:#1f9e6c1f;color:#1f7a64}
-html[data-ui-theme=warm] .ot-deploy-strip{background:#f6eedf;border-color:#5b4c3a29}
-html[data-ui-theme=warm] .ot-deploy-strip b{color:#302a24}
-html[data-ui-theme=warm] .ot-deploy-strip span{color:#62584d}
+/* light has pale stone behind the chip: use its own ink instead of the dark theme's ink-2 */
+html[data-ui-theme=warm] .workspace-global-actions button.ot-deploy-nav{border-color:#23232345 !important;color:#3d3d3d !important}
+html[data-ui-theme=warm] .workspace-global-actions button.ot-deploy-nav:hover{background:#2323230a !important;border-color:#5a5a5a70 !important;color:#262626 !important}
+html[data-ui-theme=warm] .workspace-global-actions button.ot-deploy-nav.is-ready{color:#5c5c5c !important}
+html[data-ui-theme=warm] .ot-deploy-ring circle:first-child{stroke:#23232340}
+html[data-ui-theme=warm] .ot-deploy-ring circle:last-child{stroke:#7a5f2f}
+html[data-ui-theme=warm] .ot-deploy-tick{background:#5a5a5a1f;color:#3f3f3f}
+html[data-ui-theme=warm] .ot-deploy-strip{background:#eaeaea;border-color:#23232329}
+html[data-ui-theme=warm] .ot-deploy-strip b{color:#232323}
+html[data-ui-theme=warm] .ot-deploy-strip span{color:#5c5c5c}
 /* the check window is always the dark studio: the themes' shared dialog glass and heading inks do not apply to it */
 html[data-ui-theme] .ot-deploy{background:#0c0d0f !important;border:1px solid #ffffff1c !important;box-shadow:0 40px 90px #000c !important;backdrop-filter:none !important;color:#f2f2f4 !important}
 html[data-ui-theme] .ot-deploy :is(h2,b){color:#f2f2f4 !important}
@@ -81,8 +81,8 @@ html[data-ui-theme] .ot-deploy :is(small,.ot-deploy-grp){color:#a5a9b1 !importan
 /* 10-30 已确认原色 / 暖雾：六个智能体共享接通操作，不改变部署项目顺序。 */
 .ot-deploy{--deploy-win:#1b1c20;--deploy-card:#202227;--deploy-ink:#eef0f4;--deploy-muted:#8e929b;--deploy-line:#ffffff1f;width:min(1360px,94vw);grid-template-columns:33% 1fr;border-radius:16px}
 .ot-deploy-agent-manage{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.ot-deploy-agent-manage button,.ot-deploy-auto-agents button{font:inherit;cursor:pointer;border:1px solid var(--deploy-line);border-radius:8px;background:transparent;color:inherit;min-height:28px;padding:3px 8px;font-size:11.5px}.ot-deploy-agent-manage button:first-child{border-color:transparent;color:var(--deploy-muted)}.ot-deploy-auto-agents{gap:10px;margin-top:10px}.ot-deploy-auto-agents .ot-deploy-agent{display:flex;flex-direction:column;gap:4px;min-height:112px;padding:12px 13px;background:var(--deploy-win);border-color:var(--deploy-line)}.ot-deploy-auto-agents .ot-deploy-agent.is-off{opacity:.65}.ot-deploy-auto-agents .ot-deploy-agent.is-waiting{border-color:var(--ruok-warning);background:linear-gradient(color-mix(in srgb, var(--ruok-warning) 9%, transparent),color-mix(in srgb, var(--ruok-warning) 9%, transparent)),var(--deploy-win)}.ot-deploy-agent-head{display:flex;align-items:center;gap:7px}.ot-deploy-agent-head b{padding:0;font-weight:600;flex:1;white-space:nowrap}.ot-deploy-agent-head>button{padding:0 2px;min-height:24px;border:0;color:var(--deploy-muted);font-size:11px;white-space:nowrap}.ot-deploy-auto-agents .connection-quick-actions{margin-top:auto;font-size:11.5px;color:var(--deploy-muted)}.ot-deploy-auto-agents .connection-quick-buttons{gap:6px}.ot-deploy-auto-agents .connection-quick-buttons>a{min-height:28px;padding:3px 8px;border-color:var(--deploy-line)}.ot-deploy-auto-agents .connection-quick-buttons>button{margin-left:auto}.ot-deploy-auto-agents .connection-wait-copy{font-size:11px}.ot-deploy :is(button,a):focus-visible{outline:2px solid var(--ruok-warning);outline-offset:3px}.ot-deploy-agent-manage button:disabled{opacity:.5;cursor:wait}
-html[data-ui-theme=warm] .ot-deploy{--deploy-win:#f8f0e2;--deploy-card:#fbf5ea;--deploy-ink:#302a24;--deploy-muted:#62584d;--deploy-line:#5a46302e;background:var(--deploy-win)!important;color:var(--deploy-ink)!important;border-color:var(--deploy-line)!important;box-shadow:0 30px 70px #49372240!important}
-html[data-ui-theme=warm] .ot-deploy-left{background:radial-gradient(60% 60% at 50% 45%,#e9a51615,transparent),#efe4d0}html[data-ui-theme=warm] .ot-deploy-list{background:#f8f0e2}html[data-ui-theme=warm] .ot-deploy-item{background:var(--deploy-card);border-color:var(--deploy-line);box-shadow:none}html[data-ui-theme=warm] .ot-deploy :is(h2,b){color:var(--deploy-ink)!important}html[data-ui-theme=warm] .ot-deploy :is(small,.ot-deploy-grp),html[data-ui-theme=warm] .ot-deploy-left>p{color:var(--deploy-muted)!important}html[data-ui-theme=warm] .ot-deploy-close{color:var(--deploy-muted)}html[data-ui-theme=warm] .ot-deploy-privacy{border-color:var(--deploy-line);background:#fffaf0}html[data-ui-theme=warm] .ot-deploy-act{color:var(--deploy-ink);border-color:var(--deploy-line)}html[data-ui-theme=warm] .ot-deploy-chips span{color:var(--deploy-muted);background:#efe4d0;border-color:var(--deploy-line)}html[data-ui-theme=warm] .ot-deploy-meter i{background:#5a463025}html[data-ui-theme=warm] .ot-deploy-meter i.ok{background:#1f9e6c}html[data-ui-theme=warm] .ot-deploy-meter i.act{background:var(--ruok-warning)}html[data-ui-theme=warm] .ot-deploy .connection-ok{color:#1f9e6c}
+html[data-ui-theme=warm] .ot-deploy{--deploy-win:#eaeaea;--deploy-card:#e0e0e0;--deploy-ink:#232323;--deploy-muted:#5c5c5c;--deploy-line:#2323232e;background:var(--deploy-win)!important;color:var(--deploy-ink)!important;border-color:var(--deploy-line)!important;box-shadow:0 30px 70px #23232340!important}
+html[data-ui-theme=warm] .ot-deploy-left{background:radial-gradient(60% 60% at 50% 45%,#7a5f2f15,transparent),#e2e2e2}html[data-ui-theme=warm] .ot-deploy-list{background:#eaeaea}html[data-ui-theme=warm] .ot-deploy-item{background:var(--deploy-card);border-color:var(--deploy-line);box-shadow:none}html[data-ui-theme=warm] .ot-deploy :is(h2,b){color:var(--deploy-ink)!important}html[data-ui-theme=warm] .ot-deploy :is(small,.ot-deploy-grp),html[data-ui-theme=warm] .ot-deploy-left>p{color:var(--deploy-muted)!important}html[data-ui-theme=warm] .ot-deploy-close{color:var(--deploy-muted)}html[data-ui-theme=warm] .ot-deploy-privacy{border-color:var(--deploy-line);background:#ffffff}html[data-ui-theme=warm] .ot-deploy-act{color:var(--deploy-ink);border-color:var(--deploy-line)}html[data-ui-theme=warm] .ot-deploy-chips span{color:var(--deploy-muted);background:#e2e2e2;border-color:var(--deploy-line)}html[data-ui-theme=warm] .ot-deploy-meter i{background:#23232325}html[data-ui-theme=warm] .ot-deploy-meter i.ok{background:#5a5a5a}html[data-ui-theme=warm] .ot-deploy-meter i.act{background:var(--ruok-warning)}html[data-ui-theme=warm] .ot-deploy .connection-ok{color:#5a5a5a}
 html[data-ui-theme] .ot-deploy-item[data-s=warn] .ot-deploy-st{background:color-mix(in srgb, var(--ruok-warning) 13%, transparent);color:var(--ruok-warning)}
 @media(max-width:1100px){.ot-deploy-auto-agents{grid-template-columns:repeat(2,minmax(0,1fr))}.ot-deploy-item:has(.ot-deploy-auto-agents)>.ot-deploy-slot{grid-column:2/4}}
 @media(max-width:820px){.ot-deploy{grid-template-columns:1fr}}

@@ -17,16 +17,29 @@
   background: var(--tp-head);
 }
 html[data-ui-theme=warm] .topics-page {
-  --tp-surface: linear-gradient(160deg, #fffdf8e6, #f7f1e6d9);
-  --tp-field: #fffdf8c4;
-  --tp-line: #6b5a441f;
-  --tp-line-2: #6b5a4438;
-  --tp-rim: #6b5a4429;
+  --tp-surface: linear-gradient(160deg, #e0e0e0e6, #d1d1d1d9);
+  --tp-field: #ffffffc4;
+  --tp-line: #2323231f;
+  --tp-line-2: #23232338;
+  --tp-rim: #23232329;
   --tp-rim-hi: #ffffffcc;
   --tp-halo: none;
-  --tp-raise: #6b5a440a;
-  --tp-glow: 0 14px 34px #6b5a4414;
-  --tp-head: radial-gradient(900px 520px at 88% -8%, #a9552f14, transparent 62%), radial-gradient(720px 460px at 4% 0%, #a9552f0d, transparent 66%);
+  --tp-raise: #2323230a;
+  --tp-glow: 0 14px 34px #23232314;
+  --tp-head: radial-gradient(900px 520px at 88% -8%, #8e8e8e14, transparent 62%), radial-gradient(720px 460px at 4% 0%, #7a5f2f0d, transparent 66%);
+}
+/* 暮石: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
+html[data-ui-theme=dusk] .topics-page {
+  --tp-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
+  --tp-field: #2c3734c4;
+  --tp-line: #efe8dc26;
+  --tp-line-2: #efe8dc3d;
+  --tp-rim: color-mix(in srgb, var(--ruok-accent) 26%, transparent);
+  --tp-rim-hi: color-mix(in srgb, var(--ruok-accent-hi) 18%, transparent);
+  --tp-halo: 0 0 30px -14px color-mix(in srgb, var(--ruok-accent) 30%, transparent);
+  --tp-raise: #efe8dc0a;
+  --tp-glow: 0 14px 34px #1f292633;
+  --tp-head: radial-gradient(900px 520px at 88% -8%, #4a5955a6, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c08a520f, transparent 66%);
 }
 
 .topics-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 26px; }
@@ -134,7 +147,7 @@ html[data-ui-theme=warm] .topics-btn--keep[data-kept] { color: var(--ruok-accent
 }
 .topics-card:hover { border-color: var(--tp-rim); box-shadow: inset 0 1px 0 var(--tp-rim-hi), var(--tp-halo); }
 .topics-card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-.topics-index { font-size: 12px; letter-spacing: .08em; color: var(--ruok-accent-text); font-variant-numeric: tabular-nums; }
+.topics-index { font-size: 12px; letter-spacing: .08em; color: var(--ruok-muted); font-variant-numeric: tabular-nums; }
 .topics-mini { font-size: 12px; color: var(--ruok-muted); }
 .topics-mini i { margin: 0 6px; font-style: normal; opacity: .6; }
 .topics-card h3 { margin: 0 0 8px; font-size: 15px; line-height: 1.55; font-weight: 600; color: var(--ruok-ink); }

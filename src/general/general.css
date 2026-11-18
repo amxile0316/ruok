@@ -2,7 +2,7 @@
    the send button and the ⌘ selection. Motion is transform and opacity only (no blur or filter animation). */
 .ge {
   --ge-bg:var(--pro-bg,#121315); --ge-panel:#1a1b1e; --ge-raise:#28292e; --ge-field:#0f1012;
-  --ge-line:#ffffff0f; --ge-line2:#ffffff1c; --ge-ink:#f2f2f4; --ge-ink2:#c9cbd1; --ge-muted:#8b8e96; --ge-faint:#5e6169;
+  --ge-line:#ffffff0f; --ge-line2:#ffffff1c; --ge-ink:#f2f2f4; --ge-ink2:#c9cbd1; --ge-muted:#8c8c8c; --ge-faint:#5e6169;
   --ge-chip:#ffffff08; --ge-chip-on:#ffffff12; --ge-hover:#ffffff0a; --ge-media:#0b0c0d;
   --ge-teal:var(--ruok-verdigris-300); --ge-teal-ink:#06201a; --ge-dot:var(--ruok-verdigris-300); --ge-red:#ff6b61;
   --ge-stop-bg:#f2f2f4; --ge-stop-ink:#121315; --ge-shadow:0 14px 30px #000000cc; --ge-popup:#28292e; --ge-seg-on:#28292e;
@@ -12,17 +12,17 @@
   color:var(--ge-ink);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
 }
 html[data-ui-theme=warm] .ge {
-  --ge-bg:transparent; --ge-panel:linear-gradient(145deg,#fff9ec4a,#f7eed51a),#a49a8b62; --ge-raise:#f5ecd552; --ge-field:#fff8eb38;
-  --ge-line:#fff8e766; --ge-line2:#fff8e7a8; --ge-ink:#302a24; --ge-ink2:#4a4037; --ge-muted:#62584d; --ge-faint:#7a6f62;
-  --ge-chip:#fff8eb26; --ge-chip-on:#fff8eb66; --ge-hover:#fff8eb33; --ge-media:#2a2520; --ge-dot:#1f9a80; --ge-red:#a8402f;
-  --ge-stop-bg:#40362b; --ge-stop-ink:#fff8e9; --ge-shadow:0 18px 50px #4937223a; --ge-popup:linear-gradient(140deg,#f8efdef2,#c9bfaef2); --ge-seg-on:#fff8ebb0;
-  --ge-panel-radius:14px; --ge-panel-shadow:inset 0 1px 0 #fff9ee65,0 5px 16px #57442d0b; --ge-panel-glass:blur(22px) saturate(.8); --ge-gap:8px; --ge-inset:10px;
+  --ge-bg:transparent; --ge-panel:linear-gradient(145deg,#e0e0e04a,#eaeaea1a),#b0b0b062; --ge-raise:#ffffff52; --ge-field:#ffffff45;
+  --ge-line:#ffffff66; --ge-line2:#ffffffa8; --ge-ink:#232323; --ge-ink2:#3d3d3d; --ge-muted:#5c5c5c; --ge-faint:#8a8a8a;
+  --ge-chip:#ffffff26; --ge-chip-on:#ffffff66; --ge-hover:#ffffff33; --ge-media:#262626; --ge-dot:#7a5f2f; --ge-red:#9c4a38;
+  --ge-stop-bg:#232323; --ge-stop-ink:#e5e5e5; --ge-shadow:0 18px 50px #2323233a; --ge-popup:linear-gradient(140deg,#e0e0e0f2,#dbdbdbf2); --ge-seg-on:#ffffffb0;
+  --ge-panel-radius:14px; --ge-panel-shadow:inset 0 1px 0 #ffffff65,0 5px 16px #2323230b; --ge-panel-glass:blur(22px) saturate(.8); --ge-gap:8px; --ge-inset:10px;
 }
 html[data-ui-theme=frost] .ge {
   --ge-bg:transparent; --ge-panel:linear-gradient(125deg,#fffffff0,#faf8f2b8 42%,#f4f5f080); --ge-raise:#ffffffb8; --ge-field:#ffffff8c;
-  --ge-line:#9eb9b142; --ge-line2:#8fa9a17a; --ge-ink:#293e3b; --ge-ink2:#3a524d; --ge-muted:#536863; --ge-faint:#6f837e;
+  --ge-line:#9eb9b142; --ge-line2:#8fa9a17a; --ge-ink:#293e3b; --ge-ink2:#3a524d; --ge-muted:#575757; --ge-faint:#6a6a6a;
   --ge-chip:#ffffff66; --ge-chip-on:#ffffffd9; --ge-hover:#ffffff80; --ge-media:#1d2826; --ge-dot:#1f9a80; --ge-red:#a3413a;
-  --ge-stop-bg:#293e3b; --ge-stop-ink:#f6faf8; --ge-shadow:0 18px 44px #5b746b40; --ge-popup:linear-gradient(140deg,#fffffff7,#edf4f0f2); --ge-seg-on:#ffffffe6;
+  --ge-stop-bg:#293e3b; --ge-stop-ink:#e5e5e5; --ge-shadow:0 18px 44px #5b746b40; --ge-popup:linear-gradient(140deg,#fffffff7,#eaeaeaf2); --ge-seg-on:#ffffffe6;
   --ge-panel-border:1px solid #ffffffc9; --ge-panel-radius:14px; --ge-panel-shadow:inset 0 1px 0 #fff,0 1px 2px #5b746b1f,0 8px 22px #5b746b1a; --ge-panel-glass:blur(28px) saturate(1.1); --ge-gap:8px; --ge-inset:10px;
 }
 .ge *,.ge *::before,.ge *::after { box-sizing:border-box; }
@@ -48,8 +48,8 @@ html[data-ui-theme=warm] .ge-navtitle[role=button]:hover,html[data-ui-theme=fros
 .ge-export { display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 16px;border:0;border-radius:8px;background:var(--studio-accent,#e0a040);color:#1d1406;font:600 13px/1 -apple-system,"SF Pro Text","PingFang SC",sans-serif;white-space:nowrap;text-decoration:none;cursor:pointer; }
 .ge-export:hover { filter:brightness(1.08); }
 .ge-export[aria-disabled=true] { background:#ffffff0d;color:#5e6169;cursor:default;pointer-events:none; }
-html[data-ui-theme=warm] .ge-export[aria-disabled=true] { background:#f5ecd52b;color:#8a7f72; }
-html[data-ui-theme=frost] .ge-export[aria-disabled=true] { background:#ffffff73;color:#7d8f8a; }
+html[data-ui-theme=warm] .ge-export[aria-disabled=true] { background:#ffffff40;color:#8a8a8a; }
+html[data-ui-theme=frost] .ge-export[aria-disabled=true] { background:#ffffff73;color:#8e8e8e; }
 .ge-export svg { width:16px;height:16px; }
 
 /* step indicator: ① 选风格 —— ② 放素材 —— ③ 生成 */
@@ -175,7 +175,7 @@ html[data-ui-theme=warm] :is(.ge-side,.ge-agent),html[data-ui-theme=frost] :is(.
 .ge-bar b { color:var(--ge-ink2);font-weight:600; }
 .ge-bar .r { margin-left:auto; }
 .ge-play { display:grid;place-items:center;flex:none;width:32px;height:32px;padding:0;border:0;border-radius:50%;background:var(--ge-ink);color:var(--ge-stop-ink);cursor:pointer; }
-html[data-ui-theme=warm] .ge-play { background:#40362b;color:#fff8e9; }
+html[data-ui-theme=warm] .ge-play { background:#232323;color:#e5e5e5; }
 .ge-ico { display:grid;place-items:center;width:30px;height:30px;padding:0;border:0;border-radius:8px;background:none;color:var(--ge-muted);cursor:pointer; }
 .ge-ico:hover { color:var(--ge-ink);background:var(--ge-hover); }
 .ge-segs { position:relative;display:flex;gap:3px;height:46px;margin-top:6px; }
@@ -527,7 +527,7 @@ html[data-ui-theme=warm] .ge-play { background:#40362b;color:#fff8e9; }
 .ge-failover small.ge-failover-notice { color:var(--ruok-warning); }
 .ge-failover-notice button { border:0;background:none;color:inherit;text-decoration:underline;cursor:pointer; }
 html[data-ui-theme=warm] .ge-failover { background:color-mix(in srgb, var(--ruok-warning) 11%, transparent); }
-html[data-ui-theme=warm] .ge-failover-button.primary { background:#e9a516;color:#2b1d05; }
+html[data-ui-theme=warm] .ge-failover-button.primary { background:#7a5f2f;color:#f4f4f4; }
 .ge-agent[data-failover] .ge-step[data-tone=failed] .ic { color:var(--ruok-warning); }
 .ge-agent[data-failover] .ge-ahead .st i[data-tone=failed] { background:var(--ruok-warning); }
 .ge-agent[data-failover] .ge-ahead .st[data-tone=failed],

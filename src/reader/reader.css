@@ -14,15 +14,27 @@
   background: radial-gradient(900px 520px at 88% -8%, rgba(111, 179, 162, .13), transparent 62%), radial-gradient(720px 460px at 4% 0%, var(--ruok-accent-soft), transparent 66%);
 }
 html[data-ui-theme=warm] .reader-page {
-  --rd-surface: linear-gradient(160deg, #fffdf8e6, #f7f1e6d9);
-  --rd-field: #fffdf8c4;
-  --rd-line: #6b5a441f;
-  --rd-line-2: #6b5a4438;
-  --rd-rim: #6b5a4429;
+  --rd-surface: linear-gradient(160deg, #e0e0e0e6, #d1d1d1d9);
+  --rd-field: #ffffffc4;
+  --rd-line: #2323231f;
+  --rd-line-2: #23232338;
+  --rd-rim: #23232329;
   --rd-rim-hi: #ffffffcc;
   --rd-halo: none;
-  --rd-glow: 0 14px 34px #6b5a4414;
-  background: radial-gradient(900px 520px at 88% -8%, #a9552f14, transparent 62%), radial-gradient(720px 460px at 4% 0%, #a9552f0d, transparent 66%);
+  --rd-glow: 0 14px 34px #23232314;
+  background: radial-gradient(900px 520px at 88% -8%, #8e8e8e13, transparent 62%), radial-gradient(720px 460px at 4% 0%, #7a5f2f0d, transparent 66%);
+}
+/* 暮石: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
+html[data-ui-theme=dusk] .reader-page {
+  --rd-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
+  --rd-field: #2c3734c4;
+  --rd-line: #efe8dc26;
+  --rd-line-2: #efe8dc3d;
+  --rd-rim: color-mix(in srgb, var(--ruok-accent) 26%, transparent);
+  --rd-rim-hi: color-mix(in srgb, var(--ruok-accent-hi) 18%, transparent);
+  --rd-halo: 0 0 30px -14px color-mix(in srgb, var(--ruok-accent) 30%, transparent);
+  --rd-glow: 0 14px 34px #1f292633;
+  background: radial-gradient(900px 520px at 88% -8%, #4a5955a3, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c08a520f, transparent 66%);
 }
 
 .reader-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 24px; }
@@ -50,6 +62,7 @@ html[data-ui-theme=warm] .reader-page {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .38), 0 8px 22px rgba(138, 101, 52, .26);
 }
 .reader-go:disabled { opacity: .5; cursor: default; box-shadow: none; }
+html[data-ui-theme=warm] .reader-go:disabled { opacity: 1; background: #cfcfcf; color: #8a8a8a; box-shadow: none; }
 .reader-spin { animation: rd-spin 1s linear infinite; }
 @keyframes rd-spin { to { transform: rotate(360deg); } }
 
@@ -72,7 +85,7 @@ html[data-ui-theme=warm] .reader-error { color: var(--ruok-accent-text); }
 }
 .reader-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; font-size: 12px; color: var(--ruok-muted); }
 .reader-meta i { font-style: normal; opacity: .55; }
-.reader-site { color: var(--ruok-accent-text); letter-spacing: .02em; }
+.reader-site { color: var(--ruok-ink-2); letter-spacing: .02em; }
 .reader-article h2 { margin: 0 0 18px; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; font-weight: 600; letter-spacing: -.01em; }
 .reader-body { font-size: 15px; line-height: 1.95; color: var(--ruok-ink-2); }
 .reader-body p { margin: 0 0 14px; }
@@ -84,7 +97,7 @@ html[data-ui-theme=warm] .reader-error { color: var(--ruok-accent-text); }
   background: rgba(255, 255, 255, .04); color: var(--ruok-ink-2);
   font-size: 12.5px; text-decoration: none; cursor: pointer;
 }
-html[data-ui-theme=warm] .reader-btn { background: #fffdf8b8; }
+html[data-ui-theme=warm] .reader-btn { background: #ffffffb8; }
 .reader-btn:hover { border-color: var(--ruok-accent); color: var(--ruok-ink); }
 .reader-btn--primary { border-color: transparent; background: linear-gradient(180deg, var(--ruok-accent-hi), var(--ruok-accent)); color: var(--ruok-accent-ink); font-weight: 600; }
 .reader-btn--primary:hover { color: var(--ruok-accent-ink); filter: brightness(1.04); }
@@ -112,7 +125,7 @@ html[data-ui-theme=warm] .reader-btn { background: #fffdf8b8; }
   background: transparent; color: inherit; text-align: left; cursor: pointer;
 }
 .reader-history button:hover { border-color: var(--rd-line-2); background: rgba(255, 255, 255, .035); }
-html[data-ui-theme=warm] .reader-history button:hover { background: #fffdf8b8; }
+html[data-ui-theme=warm] .reader-history button:hover { background: #ffffffb8; }
 .reader-history__title { font-size: 12.5px; line-height: 1.55; color: var(--ruok-ink); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .reader-history__meta { display: block; margin-top: 3px; font-size: 11.5px; color: var(--ruok-muted); }
 .reader-history__meta i { margin: 0 5px; font-style: normal; opacity: .55; }
