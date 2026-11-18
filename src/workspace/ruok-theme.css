@@ -11,9 +11,9 @@
   --ruok-patina-500: #26322e;
   --ruok-patina-400: #2f3c37;
   --ruok-verdigris-900: #1b2422;
-  --ruok-verdigris-700: #2b3733;
-  --ruok-verdigris-500: #4c5853;
-  --ruok-verdigris-300: #9aa49d;
+  --ruok-verdigris-700: #232323;
+  --ruok-verdigris-500: #4c4c4c;
+  --ruok-verdigris-300: #9a9a9a;
   --ruok-bronze-900: #5b3f26;
   --ruok-bronze-700: #8a6534;
   --ruok-bronze-500: #a9804a;
@@ -152,38 +152,51 @@ html[data-ui-theme=original] :is(.home, .home-soon) {
   --home-media: radial-gradient(120% 120% at 50% 40%, #1a211f 0%, #090e0d 74%);
 }
 
-/* Warm is paper: three families again — warm ground, warm ink, the mark's ochre red. */
+/* Light is cool stone: three families again — pale gray-green ground, porcelain surfaces, daiqing ink,
+   with the same antique gold as the dark room used once, as the only accent.
+   Neutral gray: ground, plate, ink and every state step come from one achromatic ladder; no green cast. */
 html[data-ui-theme=warm] {
-  --ruok-accent: #a9552f;
-  --ruok-accent-hi: #8f441f;
-  --ruok-accent-deep: #6f3417;
-  --ruok-accent-text: #8c4322;
-  --ruok-accent-ink: #fff8f2;
-  --ruok-accent-soft: #a9552f14;
-  --ruok-warning: #a9552f;
-  --ruok-danger: #a34428;
-  --ruok-ink: #2b2621;
-  --ruok-ink-2: #4b4338;
-  --ruok-muted: #6b6156;
-  --ruok-faint: #746a5d;
-  --ruok-verdigris-500: #a9552f;
-  --ruok-verdigris-300: #a9552f;
-  --ed-icon: #a9552f;
-  --ed-accent: #a9552f;
-  --ed-accent-hi: #8f441f;
-  --ed-accent-text: #8c4322;
-  --ed-accent-soft: #a9552f14;
+  --ruok-accent: #7a5f2f;
+  --ruok-accent-hi: #8e7139;
+  --ruok-accent-deep: #5f4823;
+  --ruok-accent-text: #6b532a;
+  --ruok-accent-ink: #ffffff;
+  --ruok-accent-soft: #7a5f2f14;
+  --ruok-warning: #7a5f2f;
+  --ruok-danger: #9c4a38;
+  --ruok-bronze-500: #5f4823;
+  --ruok-bronze-400: #a17f4a;
+  --ruok-bronze-300: #69511f;
+  --ruok-bronze-200: #7a5f2f;
+  --ruok-verdigris-900: #262626;
+  --ruok-verdigris-700: #3f3f3f;
+  --ruok-verdigris-500: #5a5a5a;
+  --ruok-verdigris-300: #8e8e8e;
+  --ruok-ink: #232323;
+  --ruok-ink-2: #3d3d3d;
+  --ruok-muted: #555555;
+  --ruok-faint: #616161;
+  --ruok-line: #23232312;
+  --ruok-line-2: #23232324;
+  --ruok-input: #d2d2d2;
+  --ruok-selection: #7a5f2f;
+  --ruok-playhead: #3f3f3f;
+  --ed-icon: #6b532a;
+  --ed-accent: #7a5f2f;
+  --ed-accent-hi: #8e7139;
+  --ed-accent-text: #6b532a;
+  --ed-accent-soft: #7a5f2f14;
 }
 html[data-ui-theme=warm] .ge-en {
-  --en-accent: #a9552f;
-  --en-accent-soft: #8f441f;
-  --en-accent-ink: #fff8f2;
+  --en-accent: #7a5f2f;
+  --en-accent-soft: #8e71391f;
+  --en-accent-ink: #f4f4f4;
 }
 html[data-ui-theme=warm] :is(.home, .home-soon) {
-  --home-koubo: #a9552f;
-  --home-koubo-ink: #fff8f2;
-  --home-general: #a9552f;
-  --home-general-ink: #fff8f2;
+  --home-koubo: #2f2f2f;
+  --home-koubo-ink: #f4f4f4;
+  --home-general: #7a5f2f;
+  --home-general-ink: #f4f4f4;
 }
 
 html[data-ui-theme=original] ::selection {
@@ -196,4 +209,147 @@ html[data-ui-theme=original] .workspace-brand-wordmark {
 }
 html[data-ui-theme=original] .workspace-brand-icon {
   filter: drop-shadow(0 0 7px color-mix(in srgb, var(--ruok-bronze-300) 28%, transparent));
+}
+
+/* 暮石 (Dusk Stone): the third step, between the dark room and the pale stone. A mid-value grey-green ground, two
+   plate steps that separate by lightness rather than hue, warm-white ink, and the sandstone ochre as the only
+   accent. It is a value block, not a component fork. */
+html[data-ui-theme=dusk] {
+  --ruok-accent: #c08a52;
+  --ruok-accent-hi: #d3a266;
+  --ruok-accent-deep: #9c6c3c;
+  --ruok-accent-text: #dcb988;
+  --ruok-accent-ink: #241a10;
+  --ruok-accent-soft: #c08a5224;
+  --ruok-warning: #c08a52;
+  --ruok-danger: #e08464;
+  --ruok-bronze-500: #9c6c3c;
+  --ruok-bronze-400: #b3804a;
+  --ruok-bronze-300: #c08a52;
+  --ruok-bronze-200: #d3a266;
+  --ruok-verdigris-900: #2a3633;
+  --ruok-verdigris-700: #3a4744;
+  --ruok-verdigris-500: #4f5d59;
+  --ruok-verdigris-300: #97a5a0;
+  --ruok-ink: #efe8dc;
+  --ruok-ink-2: #d9d0c2;
+  --ruok-muted: #b0a99c;
+  --ruok-faint: #948d80;
+  --ruok-line: #efe8dc1f;
+  --ruok-line-2: #efe8dc33;
+  --ruok-input: #2c3734;
+  --ruok-selection: #c08a52;
+  --ruok-playhead: #d3a266;
+  --ed-icon: #c08a52;
+  --ed-accent: #c08a52;
+  --ed-accent-hi: #d3a266;
+  --ed-accent-text: #dcb988;
+  --ed-accent-soft: #c08a5224;
+}
+html.workspace-glass[data-ui-theme=dusk] {
+  --pro-bg: #3a4744;
+  --pro-panel: #33403c;
+  --pro-bar: #3d4a46;
+  --pro-raise: #44524e;
+  --pro-raise-hi: #4c5b56;
+  --pro-press: #55645f;
+  --pro-input: #2c3734;
+  --pro-line: var(--ruok-line);
+  --pro-line-2: var(--ruok-line-2);
+  --pro-ink: var(--ruok-ink);
+  --pro-ink-2: var(--ruok-ink-2);
+  --pro-muted: var(--ruok-muted);
+  --pro-faint: var(--ruok-faint);
+  --pro-accent: var(--ruok-accent);
+  --pro-accent-hi: var(--ruok-accent-hi);
+  --pro-accent-deep: var(--ruok-accent-deep);
+  --pro-accent-ink: var(--ruok-accent-ink);
+  --pro-accent-text: var(--ruok-accent-text);
+  --pro-accent-soft: var(--ruok-accent-soft);
+  --pro-amber: var(--ruok-bronze-300);
+  --pro-playhead: var(--ruok-playhead);
+
+  --ui-mint: var(--ruok-accent);
+
+  --background: 160 9% 25%;
+  --foreground: 40 32% 90%;
+  --card: 160 10% 27%;
+  --card-foreground: 40 32% 90%;
+  --popover: 160 9% 29%;
+  --popover-foreground: 40 32% 90%;
+  --primary: 29 48% 54%;
+  --primary-foreground: 29 45% 9%;
+  --secondary: 160 8% 31%;
+  --secondary-foreground: 40 32% 90%;
+  --muted: 160 8% 29%;
+  --muted-foreground: 42 12% 68%;
+  --accent: 160 8% 33%;
+  --accent-foreground: 40 32% 90%;
+  --border: 150 6% 36%;
+  --input: 150 6% 38%;
+  --ring: 29 48% 54%;
+
+  --studio-role-overlay: var(--ruok-bronze-400);
+  --studio-role-subtitle: #43301a;
+  --studio-role-video: #333333;
+  --studio-role-voice: #3d2d18;
+  --studio-role-music: #3a2714;
+  --voice-wave-top: var(--ruok-bronze-200);
+  --voice-wave-mid: var(--ruok-bronze-300);
+  --voice-wave-bottom: var(--ruok-bronze-500);
+  --voice-wave-glow: color-mix(in srgb, var(--ruok-bronze-300) 26%, transparent);
+  --voice-wave-rim: color-mix(in srgb, var(--ruok-bronze-200) 28%, transparent);
+  --voice-wave-axis: color-mix(in srgb, var(--ruok-bronze-300) 16%, transparent);
+}
+html[data-ui-theme=dusk] {
+  --ed-icon: var(--ruok-accent);
+  --ed-card-s: var(--ruok-accent-hi);
+  --ed-card-m: var(--ruok-accent);
+  --ed-card-f: var(--ruok-accent-deep);
+  --ed-card-ink: var(--ruok-accent-ink);
+  --ed-accent: var(--ruok-accent);
+  --ed-accent-hi: var(--ruok-accent-hi);
+  --ed-accent-ink: var(--ruok-accent-ink);
+  --ed-accent-soft: var(--ruok-accent-soft);
+  --ed-accent-text: var(--ruok-accent-text);
+  --ed-ink: var(--ruok-ink);
+  --ed-ink-2: var(--ruok-ink-2);
+  --ed-muted: var(--ruok-muted);
+  --ed-faint: var(--ruok-faint);
+  --ed-raise: #44524e;
+  --ed-raise-hi: #4c5b56;
+  --ed-line: #efe8dc26;
+  --ed-line-2: #efe8dc3d;
+  --ed-input: #2c3734;
+  --ed-menu-bg: #44524e;
+  --ed-hint-bg: #3d4a46;
+}
+html[data-ui-theme=dusk] .ge-en {
+  --en-bg: radial-gradient(1200px 700px at 22% 40%, #3f4d49 0%, #3a3a3a 55%, #2f3a37 100%);
+  --en-ink: var(--ruok-ink);
+  --en-muted: var(--ruok-muted);
+  --en-accent: var(--ruok-accent);
+  --en-accent-soft: var(--ruok-accent-hi);
+  --en-accent-ink: var(--ruok-accent-ink);
+  --en-beam-end: var(--ruok-bronze-200);
+}
+html[data-ui-theme=dusk] .ge-work {
+  --ge-bg: #3a4744;
+  --ge-panel: #33403c;
+  --ge-raise: #44524e;
+  --ge-field: #2c3734;
+}
+html[data-ui-theme=dusk] :is(.home, .home-soon) {
+  --home-koubo: var(--ruok-accent);
+  --home-koubo-ink: var(--ruok-accent-ink);
+  --home-general: var(--ruok-accent);
+  --home-general-ink: var(--ruok-accent-ink);
+  --home-card: #33403c;
+  --home-card-hover: #3d4a46;
+  --home-line: #efe8dc1f;
+  --home-line-2: #efe8dc33;
+  --home-bg: #3a4744;
+  --home-entry-bg: linear-gradient(160deg, #44524ed9, #33403ce6);
+  --home-entry-line: #ffffff1f;
+  --home-media: radial-gradient(120% 120% at 50% 40%, #3f4d49 0%, #2f3a37 74%);
 }

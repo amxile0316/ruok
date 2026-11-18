@@ -113,26 +113,26 @@ html.workspace-glass[data-ui-theme=original] {
   --rk-focus-ring: 0 0 0 1px var(--rk-bg), 0 0 0 3px color-mix(in srgb, var(--rk-accent-hi) 90%, transparent), 0 0 16px -2px color-mix(in srgb, var(--ruok-bronze-300) 42%, transparent);
 }
 
-/* light ground: 暖雾 — warm paper, generous air. Same three families as the dark room:
-   ground, ink, one ochre-red accent that comes from the mark's pattern. */
+/* light ground: 冷调石材 — pale gray-green ground, porcelain plates, daiqing ink. Same three families as the
+   dark room: ground, ink, one antique-gold accent that comes from the mark's own ochre. */
 html.workspace-glass[data-ui-theme=warm] {
   --rk-r-4: 10px;
   --rk-r-5: 16px;
   --rk-r-6: 20px;
-  --rk-bg: #f7f2e9;
-  --rk-surface: #fffdf8;
-  --rk-surface-2: #fffdfa;
-  --rk-surface-3: #fbf6ec;
-  --rk-surface-4: #f3ebde;
-  --rk-plate: linear-gradient(168deg, #ffffff 0%, #fdf9f2 60%, #f7f1e7 100%);
-  --rk-glass: linear-gradient(#ffffffd9, #fffaf1b8);
-  --rk-media: #efe6d7;
+  --rk-bg: #cfcfcf;
+  --rk-surface: #e0e0e0;
+  --rk-surface-2: #e5e5e5;
+  --rk-surface-3: #eaeaea;
+  --rk-surface-4: #d9d9d9;
+  --rk-plate: linear-gradient(168deg, #e9e9e9 0%, #e1e1e1 60%, #dcdcdc 100%);
+  --rk-glass: linear-gradient(#e0e0e0d9, #e5e5e5c9);
+  --rk-media: #c6c6c6;
   --rk-ink: var(--ruok-ink);
   --rk-ink-2: var(--ruok-ink-2);
   --rk-muted: var(--ruok-muted);
   --rk-faint: var(--ruok-faint);
-  --rk-line: #6b5a4414;
-  --rk-line-strong: #6b5a4424;
+  --rk-line: #23232312;
+  --rk-line-strong: #23232324;
   --rk-rim: color-mix(in srgb, var(--ruok-ink) 22%, transparent);
   --rk-rim-hi: color-mix(in srgb, var(--ruok-ink) 36%, transparent);
   --rk-accent: var(--ruok-accent);
@@ -147,23 +147,23 @@ html.workspace-glass[data-ui-theme=warm] {
   --rk-accent-2-deep: var(--rk-accent-deep);
   --rk-accent-2-soft: var(--rk-accent-soft);
   --rk-danger: var(--ruok-danger);
-  --rk-solid-top: #a9552f;
-  --rk-solid-bottom: #8f441f;
-  --rk-solid-top-hover: #994922;
-  --rk-solid-bottom-hover: #7d3a1c;
-  --rk-solid-ink: #fff8f2;
-  --rk-shadow-1: 0 1px 2px #6b5a4410, 0 8px 18px -12px #6b5a441f;
-  --rk-shadow-2: 0 2px 6px #6b5a440e, 0 18px 40px -20px #6b5a442b;
-  --rk-shadow-3: 0 12px 30px -16px #6b5a4422, 0 40px 80px -34px #6b5a4430;
-  --rk-wash: radial-gradient(1300px 720px at 50% -12%, #fffefb 0%, transparent 64%),
-             radial-gradient(900px 600px at 94% 106%, #e7ddcb4d 0%, transparent 70%),
-             radial-gradient(780px 520px at 2% 90%, #f1e9dd 0%, transparent 74%);
-  --rk-key-light: radial-gradient(900px 380px at 50% -8%, #ffffff 0%, transparent 70%);
+  --rk-solid-top: #7a5f2f;
+  --rk-solid-bottom: #69511f;
+  --rk-solid-top-hover: #8e7139;
+  --rk-solid-bottom-hover: #5f4823;
+  --rk-solid-ink: #f7f7f7;
+  --rk-shadow-1: 0 1px 2px #23232310, 0 8px 18px -12px #2323231f;
+  --rk-shadow-2: 0 2px 6px #2323230e, 0 18px 40px -20px #2323232b;
+  --rk-shadow-3: 0 12px 30px -16px #23232322, 0 40px 80px -34px #23232330;
+  --rk-wash: radial-gradient(1300px 720px at 50% -12%, #e7e7e7 0%, transparent 64%),
+             radial-gradient(900px 600px at 94% 106%, #b0b0b03d 0%, transparent 70%),
+             radial-gradient(780px 520px at 2% 90%, #e3e3e3 0%, transparent 74%);
+  --rk-key-light: radial-gradient(900px 380px at 50% -8%, #efefef 0%, transparent 70%);
   --rk-lit-rim: color-mix(in srgb, var(--ruok-ink) 26%, transparent);
-  --rk-lit-sheen: linear-gradient(168deg, #ffffff 0%, transparent 46%);
-  --rk-glow-soft: 0 20px 46px -26px #6b5a4440;
+  --rk-lit-sheen: linear-gradient(168deg, #f2f2f2 0%, transparent 46%);
+  --rk-glow-soft: 0 20px 46px -26px #23232340;
   --rk-glow-warm: none;
-  --rk-focus-ring: 0 0 0 2px #f7f2e9, 0 0 0 4px var(--ruok-accent);
+  --rk-focus-ring: 0 0 0 2px #cfcfcf, 0 0 0 4px var(--ruok-accent);
 }
 
 /* ---------- 2. canvas, selection, scrollbars ---------- */
@@ -200,7 +200,7 @@ html.workspace-glass[data-ui-theme=original] .workspace-nav {
   background: color-mix(in srgb, var(--ruok-patina-800) 94%, transparent);
   box-shadow: inset 0 1px 0 #ffffff08, 0 10px 24px -22px #000000;
 }
-html.workspace-glass[data-ui-theme=warm] .workspace-nav { box-shadow: inset 0 1px 0 #fff9ee65, 0 5px 16px #57442d0b; }
+html.workspace-glass[data-ui-theme=warm] .workspace-nav { box-shadow: inset 0 1px 0 #ffffff65, 0 5px 16px #2323230b; }
 /* one quiet context word to keep the middle of the bar from reading as empty chrome */
 html.workspace-glass .workspace-nav-context {
   display: inline-flex;
@@ -360,7 +360,7 @@ html.workspace-glass :is(.home, .workspace-dashboard, .workspace-nav, .studio-ed
   transition: border-color var(--rk-dur-2) var(--rk-ease), box-shadow var(--rk-dur-2) var(--rk-ease), background-color var(--rk-dur-2) var(--rk-ease);
 }
 html.workspace-glass[data-ui-theme=warm] :is(input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]), textarea, select) {
-  background-color: color-mix(in srgb, #ffffff 46%, transparent);
+  background-color: color-mix(in srgb, #232323 6%, transparent);
 }
 html.workspace-glass :is(input, textarea, select):hover:not(:disabled) { border-color: var(--rk-rim); }
 html.workspace-glass :is(input, textarea, select):focus,
@@ -958,7 +958,7 @@ html.workspace-glass :is(button, a, input, select, textarea, [role=button], .hom
 /* ---------- 19. one solid action per view ----------
    The generic button rule in section 4 carries the specificity of its longest :is() branch
    (button + .workspace-project-actions a), which outranks the primary list on <button>
-   elements: primaries lost their rim and inherited ink-2 (#c7d3ce on #d6a85f = 1.42:1).
+   elements: primaries lost their rim and inherited ink-2 (#bbbbbb on #d6a85f = 1.42:1).
    The material is restated here at a specificity that survives every page shell, and the
    bronze is deepened so a filled block stays dark enough for the archive's text ink. */
 html.workspace-glass.workspace-glass
@@ -1031,12 +1031,12 @@ html.workspace-glass[data-ui-theme=original] .workspace-nav {
     0 10px 34px -20px color-mix(in srgb, var(--ruok-bronze-300) 22%, transparent);
 }
 html.workspace-glass[data-ui-theme=warm] .workspace-nav {
-  border-color: #6b5a441a;
-  background: linear-gradient(180deg, #fffefb, #fdf8ef);
-  box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px #6b5a440f, 0 18px 36px -28px #6b5a4433;
+  border-color: #2323231a;
+  background: linear-gradient(180deg, #e0e0e0, #e7e7e7);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px #2323230f, 0 18px 36px -28px #23232333;
 }
 html.workspace-glass[data-ui-theme=warm] .workspace-switch > nav,
-html.workspace-glass[data-ui-theme=warm] .ui-theme-switch { background: #fffdf8; border-color: #6b5a441a; box-shadow: 0 12px 34px -18px #6b5a4438; }
+html.workspace-glass[data-ui-theme=warm] .ui-theme-switch { background: #e0e0e0; border-color: #2323231a; box-shadow: 0 12px 34px -18px #23232338; }
 
 /* 20.2b the shot itself is graded into the same two hues as the chrome: an ochre room never
    shows a teal studio. Grading sits on the sources so the beam keeps its own light. */
@@ -1142,7 +1142,7 @@ html.workspace-glass[data-ui-theme=original] :is(.home-entry[data-kind=general],
 }
 html.workspace-glass[data-ui-theme=warm] :is(.home-entry:hover, .home-entry:focus-within, .home-module:hover, .workspace-module-card:hover) {
   border-color: var(--rk-lit-rim);
-  box-shadow: inset 0 1px 0 #ffffff, 0 2px 6px #6b5a4410, 0 26px 54px -32px #6b5a4433;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 6px #23232310, 0 26px 54px -32px #23232333;
 }
 
 /* 20.5 the one solid action: a warm halo in the dark, matte paper in the light */
@@ -1158,7 +1158,7 @@ html.workspace-glass.workspace-glass[data-ui-theme=original]
 html.workspace-glass.workspace-glass[data-ui-theme=warm]
   :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, [role=dialog], .studio-dialog)
   :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry[data-kind=general] .home-entry__button) {
-  box-shadow: inset 0 1px 0 #ffffff2b, 0 8px 18px -12px #7d3a1c66;
+  box-shadow: inset 0 1px 0 #ffffff2b, 0 8px 18px -12px #5f482366;
 }
 
 /* 20.6 playhead: the warmest point in the dark, a crisp ochre-red needle in the light */
@@ -1171,22 +1171,22 @@ html.workspace-glass[data-ui-theme=warm] .timeline-playhead {
   box-shadow: 0 0 0 1px #ffffffcc;
 }
 
-/* 20.7 light climate: paper channels, so the same components read warm instead of grey */
+/* 20.7 light climate: stone channels, so the same components read cool instead of paper */
 html.workspace-glass[data-ui-theme=warm] :is(.home, .home-soon) {
-  --home-ink: #2b2621;
-  --home-ink-2: #4b4338;
-  --home-muted: #6b6156;
-  --home-faint: #7a7064;
-  --home-card: linear-gradient(168deg, #ffffff, #fdf9f2 62%, #f8f2e8);
+  --home-ink: #232323;
+  --home-ink-2: #3d3d3d;
+  --home-muted: #5c5c5c;
+  --home-faint: #8a8a8a;
+  --home-card: linear-gradient(168deg, #ffffff, #e0e0e0 62%, #e7e7e7);
   --home-card-hover: #ffffff;
-  --home-card-shadow: inset 0 1px 0 #ffffff, 0 2px 6px #6b5a4414, 0 26px 50px -30px #6b5a4438;
-  --home-line: #6b5a4414;
-  --home-line-2: #6b5a4424;
-  --home-bg: #f6f1e8;
-  --home-sheet-edge: 0 -1px 0 #ffffff, 0 -30px 70px #6b5a4424;
-  --home-entry-bg: linear-gradient(168deg, #ffffff 0%, #fffcf6 58%, #fbf5eb 100%);
-  --home-entry-line: #6b5a441f;
-  --home-media: linear-gradient(170deg, #f7efe2 0%, #efe4d2 60%, #e9dcc7 100%);
+  --home-card-shadow: inset 0 1px 0 #ffffff, 0 2px 6px #23232314, 0 26px 50px -30px #23232338;
+  --home-line: #23232314;
+  --home-line-2: #23232326;
+  --home-bg: #e0e0e0;
+  --home-sheet-edge: 0 -1px 0 #ffffff, 0 -30px 70px #23232324;
+  --home-entry-bg: linear-gradient(168deg, #ffffff 0%, #e0e0e0 58%, #e3e3e3 100%);
+  --home-entry-line: #2323231f;
+  --home-media: linear-gradient(170deg, #e7e7e7 0%, #e3e3e3 60%, #dbdbdb 100%);
   --home-koubo: var(--rk-accent);
   --home-koubo-ink: var(--rk-accent-ink);
   --home-general: var(--rk-accent);
@@ -1194,66 +1194,140 @@ html.workspace-glass[data-ui-theme=warm] :is(.home, .home-soon) {
 }
 html.workspace-glass[data-ui-theme=warm] .home-media__brand img {
   opacity: .62;
-  filter: drop-shadow(0 6px 14px #6b5a4433);
+  filter: drop-shadow(0 6px 14px #23232333);
 }
-/* the studio shot stays as a watermark, not as a grey veil over the paper */
+/* the studio shot stays a watermark on the stone, not a grey veil over it */
 html.workspace-glass[data-ui-theme=warm] .home > .login-backdrop-video {
-  filter: opacity(.16) grayscale(.55) brightness(1.12);
+  filter: opacity(.14) grayscale(.72) brightness(1.2);
 }
 html.workspace-glass[data-ui-theme=warm] :is(.home-media, .home-thumb)::after {
-  background: linear-gradient(180deg, #ffffff00 52%, #6b5a4412), #ffffff14;
-  box-shadow: inset 0 0 0 1px #6b5a441f;
+  background: linear-gradient(180deg, #ffffff00 52%, #23232312), #ffffff14;
+  box-shadow: inset 0 0 0 1px #2323231f;
 }
 html.workspace-glass[data-ui-theme=warm] .home-media__brand {
-  background: radial-gradient(120% 120% at 50% 38%, #f8f0e2 0%, #efe3cf 74%);
+  background: radial-gradient(120% 120% at 50% 38%, #e7e7e7 0%, #dedede 74%);
 }
 html.workspace-glass[data-ui-theme=warm] :is(.media-panel, .inspector-panel, .preset-panel) {
-  --studio-ink: #2b2621;
-  --studio-muted: #6b6156;
+  --studio-ink: #232323;
+  --studio-muted: #5c5c5c;
   --studio-accent: var(--rk-accent);
-  --ui-ink: #2b2621;
-  --ui-muted: #6b6156;
+  --ui-ink: #232323;
+  --ui-muted: #5c5c5c;
   --ui-field: #ffffffb8;
-  --ui-line: #6b5a441f;
+  --ui-line: #2323231f;
   border-color: var(--rk-line-strong);
-  background: linear-gradient(170deg, #ffffff, #fffaf2 62%, #f8f1e6);
+  background: linear-gradient(170deg, #ffffff, #e0e0e0 62%, #e7e7e7);
   box-shadow: inset 0 1px 0 #ffffff, var(--rk-shadow-2);
   backdrop-filter: none;
 }
-html.workspace-glass[data-ui-theme=warm] :is(.media-panel, .inspector-panel) :is(input:not([type=color]), textarea, select) { color: #2b2621; background-color: #ffffffb8; }
-html.workspace-glass[data-ui-theme=warm] :is(.media-panel, .inspector-panel) :is(input, textarea)::placeholder { color: #7a7064; opacity: 1; }
+html.workspace-glass[data-ui-theme=warm] :is(.media-panel, .inspector-panel) :is(input:not([type=color]), textarea, select) { color: #232323; background-color: color-mix(in srgb, #232323 7%, transparent); }
+html.workspace-glass[data-ui-theme=warm] :is(.media-panel, .inspector-panel) :is(input, textarea)::placeholder { color: #8a8a8a; opacity: 1; }
 html.workspace-glass[data-ui-theme=warm] .editor-top { background: var(--rk-bg); }
-html.workspace-glass[data-ui-theme=warm] .editor-preview-ambient { background: #f0e8da; }
-html.workspace-glass[data-ui-theme=warm] .timeline-clip { background: #eadfcd !important; color: #3a332b !important; border-color: #6b5a4424; }
-html.workspace-glass[data-ui-theme=warm] :is(.track-lane--video, .track-lane--visual, .track-lane--camera) .timeline-clip { background: #f2e3d9 !important; color: #6f3417 !important; }
+html.workspace-glass[data-ui-theme=warm] .editor-preview-ambient { background: #c6c6c6; }
+html.workspace-glass[data-ui-theme=warm] .timeline-clip { background: #e2e2e2 !important; color: #232323 !important; border-color: #23232326; }
+html.workspace-glass[data-ui-theme=warm] :is(.track-lane--video, .track-lane--visual, .track-lane--camera) .timeline-clip { background: #bcbcbc !important; color: #262626 !important; }
 html.workspace-glass[data-ui-theme=warm] .timeline-clip.selected { outline: 2px solid var(--rk-accent); outline-offset: 1px; box-shadow: inset 0 0 0 1px #ffffff; }
-html.workspace-glass[data-ui-theme=warm] .timeline-scroll::-webkit-scrollbar-track { background: #efe7d8; }
-html.workspace-glass[data-ui-theme=warm] .timeline-scroll::-webkit-scrollbar-thumb { background: #c3b6a2; border-color: #efe7d8; }
+html.workspace-glass[data-ui-theme=warm] .timeline-scroll::-webkit-scrollbar-track { background: #c6c6c6; }
+html.workspace-glass[data-ui-theme=warm] .timeline-scroll::-webkit-scrollbar-thumb { background: #909090; border-color: #c6c6c6; }
 html.workspace-glass[data-ui-theme=warm] :is(.qe-play, .qe-style) { background: var(--rk-accent); color: var(--rk-accent-ink); }
-html.workspace-glass[data-ui-theme=warm] .qe-style button[aria-pressed=true] { background: #fffdf8; color: var(--rk-accent-deep); }
+html.workspace-glass[data-ui-theme=warm] .qe-style button[aria-pressed=true] { background: #e0e0e0; color: var(--rk-accent-deep); }
 /* the first-run agent card and the general entrance still carried the old amber theme block */
 html.workspace-glass[data-ui-theme=warm] .first-agent-choice {
-  --fa-ink: #2b2621;
-  --fa-muted: #6b6156;
-  --fa-card: #fffdf8;
-  --fa-win: #fbf5ea;
-  --fa-field: #fffdf8;
-  --fa-line: #6b5a441f;
-  --fa-chip: #f5eddf;
+  --fa-ink: #232323;
+  --fa-muted: #5c5c5c;
+  --fa-card: #e0e0e0;
+  --fa-win: #eaeaea;
+  --fa-field: #d1d1d1;
+  --fa-line: #2323231f;
+  --fa-chip: #eaeaea;
   --fa-amber: var(--rk-accent);
   --fa-amber-ink: var(--rk-accent-ink);
 }
 html.workspace-glass[data-ui-theme=warm] .ge-en {
-  --en-ink: #2b2621;
-  --en-muted: #6b6156;
+  --en-ink: #232323;
+  --en-muted: #5c5c5c;
   --en-accent: var(--rk-accent);
   --en-accent-soft: var(--rk-accent-hi);
   --en-accent-ink: var(--rk-accent-ink);
   --en-beam-end: var(--rk-accent-hi);
-  --en-bg: radial-gradient(1200px 700px at 22% 40%, #fdf8ef 0%, #f8f1e6 55%, #f4ede1 100%);
-  --en-slab: linear-gradient(155deg, #ffffff 0%, #fdf8f0 52%, #f7f0e4 100%);
-  --en-slab-line: #6b5a441f;
-  --en-field: #fffdf8;
+  --en-bg: radial-gradient(1200px 700px at 22% 40%, #f7faf8 0%, #eaeaea 55%, #e0e0e0 100%);
+  --en-slab: linear-gradient(155deg, #ffffff 0%, #e0e0e0 52%, #e7e7e7 100%);
+  --en-slab-line: #2323231f;
+  --en-field: #d1d1d1;
+}
+
+/* 暮石 (Dusk Stone): the same components, one value block between the dark room and the pale stone. Ground is a
+   mid grey-green, the two plate steps separate by lightness only, ink is warm white, and the sandstone ochre is
+   the single accent. No component rule is forked — every surface below is a token. */
+html.workspace-glass[data-ui-theme=dusk] {
+  --rk-r-4: 10px;
+  --rk-r-5: 16px;
+  --rk-r-6: 20px;
+  --rk-bg: #3a4744;
+  --rk-surface: #44524e;
+  --rk-surface-2: #3d4a46;
+  --rk-surface-3: #33403c;
+  --rk-surface-4: #2c3734;
+  --rk-plate: linear-gradient(168deg, #4b5a55 0%, #44524e 62%, #3a4744 100%);
+  --rk-glass: linear-gradient(#44524ee6, #33403cd9);
+  --rk-media: #3f4d49;
+  --rk-ink: var(--ruok-ink);
+  --rk-ink-2: var(--ruok-ink-2);
+  --rk-muted: var(--ruok-muted);
+  --rk-faint: var(--ruok-faint);
+  --rk-line: #efe8dc1f;
+  --rk-line-strong: #efe8dc33;
+  --rk-rim: color-mix(in srgb, var(--ruok-ink) 14%, transparent);
+  --rk-rim-hi: color-mix(in srgb, var(--ruok-ink) 24%, transparent);
+  --rk-accent: var(--ruok-accent);
+  --rk-accent-hi: var(--ruok-accent-hi);
+  --rk-accent-deep: var(--ruok-accent-deep);
+  --rk-accent-ink: var(--ruok-accent-ink);
+  --rk-accent-soft: var(--ruok-accent-soft);
+  --rk-accent-2: var(--rk-accent);
+  --rk-accent-2-ink: var(--rk-accent-ink);
+  --rk-accent-2-solid: var(--rk-accent);
+  --rk-accent-2-solid-ink: var(--rk-accent-ink);
+  --rk-accent-2-deep: var(--rk-accent-deep);
+  --rk-accent-2-soft: var(--rk-accent-soft);
+  --rk-danger: var(--ruok-danger);
+  --rk-solid-top: #cb9459;
+  --rk-solid-bottom: #b07c44;
+  --rk-solid-top-hover: #d8a469;
+  --rk-solid-bottom-hover: #bd854b;
+  --rk-solid-ink: #241a10;
+  --rk-shadow-1: 0 1px 2px #1f2926 18%, 0 6px 14px -10px #1f292625;
+  --rk-shadow-2: 0 2px 6px #1f29261a, 0 16px 34px -22px #1f292633;
+  --rk-shadow-3: 0 10px 26px -18px #1f292633, 0 34px 70px -38px #1f29263d;
+  --rk-wash: radial-gradient(1300px 720px at 50% -12%, #4a5955 0%, transparent 66%),
+             radial-gradient(900px 600px at 94% 106%, #2b3734 0%, transparent 72%),
+             radial-gradient(780px 520px at 2% 90%, #40504b 0%, transparent 74%);
+  --rk-key-light: radial-gradient(900px 380px at 50% -8%, #efe8dc14 0%, transparent 70%);
+  --rk-lit-rim: color-mix(in srgb, var(--ruok-ink) 18%, transparent);
+  --rk-lit-sheen: linear-gradient(168deg, #efe8dc12 0%, transparent 46%);
+  --rk-glow-soft: 0 18px 40px -26px #1f292640;
+  --rk-glow-warm: none;
+  --rk-focus-ring: 0 0 0 2px #3a4744, 0 0 0 4px var(--ruok-accent);
+}
+/* the studio shot is a dark room take; on the mid ground it is veiled back to the stone so the corners do not go black */
+html.workspace-glass[data-ui-theme=dusk] .home > .login-backdrop-video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, #3a4744a3, #3a4744c2 58%, #3a4744e0);
+}
+html.workspace-glass[data-ui-theme=dusk] .ge-en-choose-agent { background: #44524e; color: #efe8dc; border-color: #efe8dc2e; }
+html.workspace-glass[data-ui-theme=dusk] .home-thumb { background: #3d4a46; }
+html.workspace-glass[data-ui-theme=dusk] :is(.home-media, .home-thumb)::after {
+  background: linear-gradient(180deg, #00000000 56%, #1f29261f), #1f292614;
+  box-shadow: inset 0 0 0 1px #efe8dc1f;
+}
+html.workspace-glass[data-ui-theme=dusk] .ge {
+  --ge-bg: transparent; --ge-panel: linear-gradient(145deg, #4b5a5540, #33403c1a), #3d4a46cc; --ge-raise: #4b5a5552; --ge-field: #2c373480;
+  --ge-line: #efe8dc26; --ge-line2: #efe8dc40; --ge-ink: #efe8dc; --ge-ink2: #d9d0c2; --ge-muted: #b0a99c; --ge-faint: #948d80;
+  --ge-chip: #efe8dc12; --ge-chip-on: #efe8dc26; --ge-hover: #efe8dc14; --ge-media: #2c3734; --ge-dot: var(--ruok-accent); --ge-red: var(--ruok-danger);
+  --ge-stop-bg: #9c6c3c; --ge-stop-ink: #241a10; --ge-shadow: 0 18px 50px #1f292640; --ge-popup: linear-gradient(140deg, #44524ef2, #33403cf2); --ge-seg-on: #efe8dc1f;
 }
 html.workspace-glass[data-ui-theme=warm] { --studio-accent: var(--rk-accent); }
 

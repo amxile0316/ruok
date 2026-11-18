@@ -82,7 +82,7 @@ function texture(gl: WebGLRenderingContext) {
 }
 
 // light themes see the undeveloped shot through their own fog (the host paints the same colour until the first frame)
-const MIST: Record<string, [number, number, number]> = { warm: [.925, .886, .816], frost: [.875, .914, .906] }
+const MIST: Record<string, [number, number, number]> = { warm: [.812, .812, .812], frost: [.875, .914, .906] }
 
 /** The sign-in page's moving backdrop: a looping studio shot that develops under the pointer, like ink spreading
  *  through water, from a dark ungraded take into the graded one. Writes its playback onto its host, the element it

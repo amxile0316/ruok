@@ -21,7 +21,7 @@ html[data-ui-theme=original] {
   --ed-icon: var(--ruok-accent);
   --ed-card-s: var(--ruok-accent-hi); --ed-card-m: var(--ruok-accent); --ed-card-f: var(--ruok-accent-deep); --ed-card-ink: #1b1c1f; --ed-danger: #ff5a4f;
   --ed-accent: var(--ruok-accent); --ed-accent-hi: var(--ruok-accent-hi); --ed-accent-ink: #1b1c1f; --ed-accent-soft: color-mix(in srgb, var(--ruok-accent) 14%, transparent); --ed-accent-text: var(--ruok-accent-text);
-  --ed-ink: #f2f2f4; --ed-ink-2: #c9cbd1; --ed-muted: #8b8e96; --ed-faint: #5e6169;
+  --ed-ink: #f2f2f4; --ed-ink-2: #c9cbd1; --ed-muted: #8c8c8c; --ed-faint: #5e6169;
   --ed-raise: #28292e; --ed-raise-hi: #313339; --ed-line: #ffffff0f; --ed-line-2: #ffffff1c; --ed-input: #0f1012;
   --ed-menu-bg: #28292e; --ed-hint-bg: #313339;
   --ed-slot: #ffffff0a; --ed-slot-hover: #ffffff10; --ed-slot-rim: #ffffff0a; --ed-head-hover: #ffffff05;
@@ -30,22 +30,34 @@ html[data-ui-theme=original] {
 }
 
 html[data-ui-theme=warm] {
-  --ed-icon: #b87200;
-  --ed-card-s: #ece2cf; --ed-card-m: #d2c09f; --ed-card-f: #a98f6c; --ed-card-ink: #302a24; --ed-danger: #c4453a;
-  --ed-accent: #6d5034; --ed-accent-hi: #8a6a48; --ed-accent-ink: #fff9ed; --ed-accent-soft: #6d503426; --ed-accent-text: #4a3826;
-  --ed-ink: #302a24; --ed-ink-2: #4a4138; --ed-muted: #62584d; --ed-faint: #6b6052;
-  --ed-raise: #fff8eb4d; --ed-raise-hi: #f4ead5; --ed-line: #74695835; --ed-line-2: #fff8e79c; --ed-input: #fff8eb38;
-  --ed-menu-bg: #f4ead5; --ed-hint-bg: #f8f0de;
-  --ed-slot: #fff8eb24; --ed-slot-hover: #fff8eb3a; --ed-slot-rim: #fff8eb40; --ed-head-hover: #fff8eb1f;
-  --ed-clip-rim: #ffffff26; --ed-grip: #30282040; --ed-fader: #30282033; --ed-tick: #30282033; --ed-playhead-halo: #fff8eb80;
-  --ed-shadow-sm: 0 1px 2px #3a2c1c33; --ed-shadow-md: 0 4px 14px #3a2c1c40; --ed-shadow-lg: 0 14px 30px #3a2c1c59;
+  --ed-icon: #6b532a;
+  --ed-card-s: #e2e2e2; --ed-card-m: #c2c2c2; --ed-card-f: #bcbcbc; --ed-card-ink: #262626; --ed-danger: #9c4a38;
+  --ed-accent: #7a5f2f; --ed-accent-hi: #8e7139; --ed-accent-ink: #f4f4f4; --ed-accent-soft: #7a5f2f26; --ed-accent-text: #6b532a;
+  --ed-ink: #232323; --ed-ink-2: #3d3d3d; --ed-muted: #5c5c5c; --ed-faint: #8a8a8a;
+  --ed-raise: #ffffff4d; --ed-raise-hi: #eaeaea; --ed-line: #23232335; --ed-line-2: #ffffff9c; --ed-input: #ffffff38;
+  --ed-menu-bg: #eaeaea; --ed-hint-bg: #e2e2e2;
+  --ed-slot: #ffffff24; --ed-slot-hover: #ffffff3a; --ed-slot-rim: #ffffff40; --ed-head-hover: #ffffff1f;
+  --ed-clip-rim: #ffffff26; --ed-grip: #23232340; --ed-fader: #23232333; --ed-tick: #23232333; --ed-playhead-halo: #ffffff80;
+  --ed-shadow-sm: 0 1px 2px #23232333; --ed-shadow-md: 0 4px 14px #23232340; --ed-shadow-lg: 0 14px 30px #23232359;
+}
+/* 暮石: the mid step — plates separate by lightness, the ochre is the only hue, shadows stay light on the mid ground */
+html[data-ui-theme=dusk] {
+  --ed-icon: #c08a52;
+  --ed-card-s: #d3a266; --ed-card-m: #c08a52; --ed-card-f: #9c6c3c; --ed-card-ink: #241a10; --ed-danger: #e08464;
+  --ed-accent: #c08a52; --ed-accent-hi: #d3a266; --ed-accent-ink: #241a10; --ed-accent-soft: #c08a5226; --ed-accent-text: #dcb988;
+  --ed-ink: #efe8dc; --ed-ink-2: #d9d0c2; --ed-muted: #b0a99c; --ed-faint: #948d80;
+  --ed-raise: #efe8dc14; --ed-raise-hi: #4c5b56; --ed-line: #efe8dc33; --ed-line-2: #efe8dc47; --ed-input: #2c373480;
+  --ed-menu-bg: #44524e; --ed-hint-bg: #3d4a46;
+  --ed-slot: #efe8dc1a; --ed-slot-hover: #efe8dc26; --ed-slot-rim: #efe8dc33; --ed-head-hover: #efe8dc17;
+  --ed-clip-rim: #ffffff1a; --ed-grip: #efe8dc33; --ed-fader: #efe8dc26; --ed-tick: #efe8dc26; --ed-playhead-halo: #efe8dc66;
+  --ed-shadow-sm: 0 1px 2px #1f292640; --ed-shadow-md: 0 4px 14px #1f29264d; --ed-shadow-lg: 0 14px 30px #1f292659;
 }
 
 html[data-ui-theme=frost] {
   --ed-icon: var(--ruok-accent-deep);
   --ed-card-s: #dcf1ea; --ed-card-m: #addfcf; --ed-card-f: #71bca6; --ed-card-ink: #1f3633; --ed-danger: #cf4a44;
   --ed-accent: #34786b; --ed-accent-hi: #4f9a8b; --ed-accent-ink: #ffffff; --ed-accent-soft: #34786b24; --ed-accent-text: #245a50;
-  --ed-ink: #293e3b; --ed-ink-2: #3d524e; --ed-muted: #536863; --ed-faint: #87a09a;
+  --ed-ink: #293e3b; --ed-ink-2: #3d524e; --ed-muted: #575757; --ed-faint: #87a09a;
   --ed-raise: #ffffff80; --ed-raise-hi: #ffffff; --ed-line: #9eb9b150; --ed-line-2: #ffffffd9; --ed-input: #ffffff66;
   --ed-menu-bg: #fbfdfa; --ed-hint-bg: #ffffff;
   --ed-slot: #ffffff4d; --ed-slot-hover: #ffffff80; --ed-slot-rim: #ffffffa6; --ed-head-hover: #ffffff40;

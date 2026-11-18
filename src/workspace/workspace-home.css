@@ -25,17 +25,26 @@ html[data-ui-theme=original] :is(.home, .home-soon) {
   --home-bg:var(--pro-bg);
 }
 html[data-ui-theme=warm] :is(.home, .home-soon) {
-  --home-ink-2:#4a4037; --home-faint:#7a6f62;
-  --home-card:linear-gradient(145deg,#fff9ec4a,#f7eed51a),#a49a8b62; --home-card-hover:linear-gradient(145deg,#fff9ec66,#f7eed526),#a49a8b70;
-  --home-line:#fff8e766; --home-line-2:#5a4c3b29;
-  --home-bg:#b8afa2; --home-dim:#3b322a5c; --home-backdrop:#3b322a80;
-  --home-sheet-edge:0 -1px 0 #fff8e7a6,0 -30px 70px #4a3c2a33;
-  --home-card-shadow:inset 0 1px 0 #fff9ee59,0 5px 16px #57442d0f;
-  --home-entry-bg:linear-gradient(145deg,#fff9ec5c,#f7eed529),#a49a8b4d; --home-entry-line:#fff8e780;
+  --home-ink-2:#3d3d3d; --home-faint:#8a8a8a;
+  --home-card:linear-gradient(145deg,#e0e0e04a,#eaeaea1a),#b0b0b062; --home-card-hover:linear-gradient(145deg,#e0e0e066,#eaeaea26),#b0b0b070;
+  --home-line:#ffffff66; --home-line-2:#23232329;
+  --home-bg:#c2c2c2; --home-dim:#2323235c; --home-backdrop:#23232380;
+  --home-sheet-edge:0 -1px 0 #ffffffa6,0 -30px 70px #23232333;
+  --home-card-shadow:inset 0 1px 0 #ffffff59,0 5px 16px #2323230f;
+  --home-entry-bg:linear-gradient(145deg,#e0e0e05c,#eaeaea29),#b0b0b04d; --home-entry-line:#ffffff80;
+}
+html[data-ui-theme=dusk] :is(.home, .home-soon) {
+  --home-ink-2:#d9d0c2; --home-faint:#948d80;
+  --home-card:linear-gradient(145deg,#4b5a554a,#33403c1a),#33403c; --home-card-hover:linear-gradient(145deg,#52605b52,#3a474426),#3d4a46;
+  --home-line:#efe8dc26; --home-line-2:#efe8dc3d;
+  --home-bg:#3a4744; --home-dim:#22302f66; --home-backdrop:#22302f8c;
+  --home-sheet-edge:0 -1px 0 #efe8dc26,0 -30px 70px #1f292659;
+  --home-card-shadow:inset 0 1px 0 #efe8dc1f,0 5px 16px #1f292633;
+  --home-entry-bg:linear-gradient(145deg,#4b5a5566,#33403c4d),#33403c; --home-entry-line:#efe8dc2e;
 }
 html[data-ui-theme=frost] :is(.home, .home-soon) {
   --home-entry-bg:linear-gradient(125deg,#ffffffb3,#faf8f28c 42%,#f4f5f066); --home-entry-line:#ffffffd9;
-  --home-ink-2:#3a524d; --home-faint:#6f837e;
+  --home-ink-2:#3a524d; --home-faint:#6a6a6a;
   --home-card:linear-gradient(125deg,#fffffff0,#faf8f2b8 42%,#f4f5f080); --home-card-hover:linear-gradient(125deg,#fffffff7,#faf8f2d9 42%,#f4f5f0a6);
   --home-line:#ffffffc9; --home-line-2:#9eb9b159;
   --home-bg:#f6f4ef; --home-dim:#2f403c4d; --home-backdrop:#2f403c66;

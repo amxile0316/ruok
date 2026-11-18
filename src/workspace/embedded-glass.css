@@ -4,7 +4,7 @@
  --surface:#131d1bee; --surface-1:#172421; --surface-2:#1f2e2a; --surface-3:#293c37;
  --surface-hi:#243531; --surface-warm:#1b2925;
  --border:#4f8f8030; --border-soft:#4f8f801c; --border-hi:#4f8f8055;
- --fg:#eef4f0; --fg-2:#c7d3ce; --fg-emphasis:#f5faf7; --muted:#8ba39b; --muted-soft:#79958c; --meta:#8ba39b; --dim:#5f766f;
+ --fg:#eef4f0; --fg-2:#bbbbbb; --fg-emphasis:#e5e5e5; --muted:#9a9a9a; --muted-soft:#79958c; --meta:#9a9a9a; --dim:#5f766f;
  --brand:#d6a85f; --brand-lo:#c39a5c; --accent:#d6a85f; --accent-on:#17130b;
  --accent-soft:#d6a85f24; --accent-wash:#d6a85f12; --accent-border:#d6a85f66;
  --font-display:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;
@@ -16,18 +16,27 @@ body {font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;}
  --surface:#f2f7eef0;--surface-1:#e7efe6;--surface-2:#dcebe1;--surface-3:#cce3d7;
  --surface-hi:#eef7ed;--surface-warm:#f4ede5;
  --border:#b5cbc0;--border-soft:#b5cbc066;--border-hi:#ffffff;
- --fg:#293e3b;--fg-2:#425f56;--fg-emphasis:#1e362e;--muted:#536863;--muted-soft:#60766c;--meta:#536863;--dim:#60766c;
+ --fg:#293e3b;--fg-2:#425f56;--fg-emphasis:#1e362e;--muted:#575757;--muted-soft:#60766c;--meta:#575757;--dim:#60766c;
  --brand:#376f65;--brand-lo:#2d6055;--accent:#376f65;--accent-on:#ffffff;
  --accent-soft:#b5dcd266;--accent-wash:#b5dcd233;--accent-border:#85b8a8;color-scheme:light;
 }
 :root:root:root[data-ui-theme=warm] {
- --bg:#f7f2e9;--bg-grad:linear-gradient(130deg,#fffdf8,#f3ebde);
- --surface:#fffdf8f0;--surface-1:#fffdfa;--surface-2:#fbf6ec;--surface-3:#f3ebde;
- --surface-hi:#ffffff;--surface-warm:#f8f1e6;
- --border:#6b5a4424;--border-soft:#6b5a4414;--border-hi:#ffffff;
- --fg:#2b2621;--fg-2:#4b4338;--fg-emphasis:#1f1a15;--muted:#6b6156;--muted-soft:#746a5d;--meta:#6b6156;--dim:#746a5d;
- --brand:#a9552f;--brand-lo:#8f441f;--accent:#a9552f;--accent-on:#fff8f2;
- --accent-soft:#a9552f1f;--accent-wash:#a9552f12;--accent-border:#a9552f66;color-scheme:light;
+ --bg:#cfcfcf;--bg-grad:linear-gradient(130deg,#e0e0e0,#dbdbdb);
+ --surface:#e0e0e0f0;--surface-1:#e5e5e5;--surface-2:#eaeaea;--surface-3:#e2e2e2;
+ --surface-hi:#ffffff;--surface-warm:#e7e7e7;
+ --border:#23232324;--border-soft:#23232314;--border-hi:#ffffff;
+ --fg:#232323;--fg-2:#3d3d3d;--fg-emphasis:#262626;--muted:#5c5c5c;--muted-soft:#6b7a77;--meta:#5c5c5c;--dim:#8a8a8a;
+ --brand:#7a5f2f;--brand-lo:#5f4823;--accent:#7a5f2f;--accent-on:#f4f4f4;
+ --accent-soft:#7a5f2f1f;--accent-wash:#7a5f2f12;--accent-border:#7a5f2f66;color-scheme:light;
+}
+:root:root:root[data-ui-theme=dusk] {
+ --bg:#3a4744;--bg-grad:linear-gradient(130deg,#44524e,#33403c);
+ --surface:#3d4a46f0;--surface-1:#44524e;--surface-2:#33403c;--surface-3:#2c3734;
+ --surface-hi:#4c5b56;--surface-warm:#40504b;
+ --border:#efe8dc26;--border-soft:#efe8dc17;--border-hi:#efe8dc3d;
+ --fg:#efe8dc;--fg-2:#d9d0c2;--fg-emphasis:#fffaf0;--muted:#b0a99c;--muted-soft:#a29b8e;--meta:#b0a99c;--dim:#948d80;
+ --brand:#c08a52;--brand-lo:#9c6c3c;--accent:#c08a52;--accent-on:#241a10;
+ --accent-soft:#c08a5224;--accent-wash:#c08a5214;--accent-border:#c08a5266;color-scheme:dark;
 }
 
 /* 原色 · Patina Instrument. Values are written out in full: the OpenScreen
