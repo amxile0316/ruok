@@ -55,6 +55,7 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 - 旧 T 素材清理：删除 `public/home/*-loop.mp4`、`*-poster.jpg` 共 22 个上游入口/模块动图，`WorkspaceHome` 改为品牌图标占位；`public/home/studio-faders.*` 重制为新品牌背景；删除 `public/opentake-*` 与 `public/brand/icon-*`。
 - 旧品牌字形：移除 `workspace-brand-t` 内联 SVG 规则；全仓库搜索 `opentake` 仅剩来源说明、内部标识和兼容变量。
 - 编辑器空态标识：`vendor/openscreen/src/components/ai-edition/EditorEmptyState.tsx` 原先直接引用上游 `public/openscreen/openscreen.png`（绿色快门圆形、黑色圆角底），空态 64×64、错误弹窗 36×36；现改为同目录的 `ruok-mark.svg`（与顶栏同一问号资产，由 `public/ruok-mark.svg` 复制），并删除上游图片，尺寸、布局与文案未改。`vendor/openscreen/electron/main.ts` 的默认托盘图标同步换成 `ruok-tray.png`（由 `public/ruok-icon-24.png` 复制），不再引用已删除的文件。
+- 顶栏标识：`vendor/openscreen/src/components/ai-edition/v4/EditorTopBar.tsx` 删除对 `@/assets/openscreen-mark.png` 的 import 与装饰性 `img`（该图在 RUOK 下由 `isLinkReaderHost` 隐藏、从不渲染），源图 `vendor/openscreen/src/assets/openscreen-mark.png` 一并移除；重建后产物中既无该图片资源，也无任何引用。
 
 ### 2.2.1 主题配色
 

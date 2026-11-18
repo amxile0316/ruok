@@ -14,7 +14,6 @@ import {
 	Sun,
 } from "lucide-react";
 import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from "react";
-import logoMark from "@/assets/openscreen-mark.png";
 import { useI18n, useScopedT } from "@/contexts/I18nContext";
 import { useTheme } from "@/hooks/useTheme";
 import { getAvailableLocales, getLocaleName, getLocaleShort } from "@/i18n/loader";
@@ -387,9 +386,7 @@ function AppMenu({ actions }: { actions: TopBarActions }) {
 				aria-expanded={open}
 				onClick={() => setOpen((v) => !v)}
 			>
-				{/* Decorative: the wordmark beside it already names the app — and, being the
-				    button's only text, is also its accessible name. */}
-				{isLinkReaderHost ? null : <img src={logoMark} alt="" draggable={false} />}
+				{/* The wordmark is the button's only text, so it is also its accessible name. */}
 				<span className={styles.name}>{isLinkReaderHost ? "录屏运镜" : "OpenScreen"}</span>
 				<ChevronDown size={13} className={styles.brandChevron} aria-hidden />
 			</button>
