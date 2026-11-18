@@ -54,6 +54,7 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 - 色彩关系：新母版主体为赭金（约 `#c98a45`），纹样为赭红（约 `#b1502f`）。UI 三色体系即由此而来：底色（深青墨 / 暖纸白）、文字（深色＝金字 / 浅色＝深墨）、强调（赭金 / 赭红），不再使用铜绿作为界面色；图标作为位图资产不参与主题换色。深色套的正文使用柔金 `#edd6a8`、次要文字 `#bb9a63`，方框与按钮改为带光感的金色描边，浅色套不跟随。
 - 旧 T 素材清理：删除 `public/home/*-loop.mp4`、`*-poster.jpg` 共 22 个上游入口/模块动图，`WorkspaceHome` 改为品牌图标占位；`public/home/studio-faders.*` 重制为新品牌背景；删除 `public/opentake-*` 与 `public/brand/icon-*`。
 - 旧品牌字形：移除 `workspace-brand-t` 内联 SVG 规则；全仓库搜索 `opentake` 仅剩来源说明、内部标识和兼容变量。
+- 编辑器空态标识：`vendor/openscreen/src/components/ai-edition/EditorEmptyState.tsx` 原先直接引用上游 `public/openscreen/openscreen.png`（绿色快门圆形、黑色圆角底），空态 64×64、错误弹窗 36×36；现改为同目录的 `ruok-mark.svg`（与顶栏同一问号资产，由 `public/ruok-mark.svg` 复制），并删除上游图片，尺寸、布局与文案未改。`vendor/openscreen/electron/main.ts` 的默认托盘图标同步换成 `ruok-tray.png`（由 `public/ruok-icon-24.png` 复制），不再引用已删除的文件。
 
 ### 2.2.1 主题配色
 
