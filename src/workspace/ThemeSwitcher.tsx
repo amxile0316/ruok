@@ -3,8 +3,8 @@ import {Contrast} from 'lucide-react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {applyUiTheme, readUiTheme, type UiTheme} from './ui-theme';
 
-const THEME_LABELS: Record<UiTheme, string> = {original: '深色', warm: '浅色', dusk: '暮石'};
-const THEMES = ['original', 'warm', 'dusk'] as const;
+const THEME_LABELS: Record<UiTheme, string> = {original: '深色', warm: '浅色', umbra: '烟褐'};
+const THEMES = ['original', 'warm', 'umbra'] as const;
 
 /** Segmented switch in 系统设置; `compact` is the one-icon menu used in the top bar. */
 export function ThemeSwitcher({compact = false}: {compact?: boolean}) {
