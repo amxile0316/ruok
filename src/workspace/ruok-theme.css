@@ -211,49 +211,49 @@ html[data-ui-theme=original] .workspace-brand-icon {
   filter: drop-shadow(0 0 7px color-mix(in srgb, var(--ruok-bronze-300) 28%, transparent));
 }
 
-/* 暮石 (Dusk Stone): the third step, between the dark room and the pale stone. A mid-value grey-green ground, two
-   plate steps that separate by lightness rather than hue, warm-white ink, and the sandstone ochre as the only
-   accent. It is a value block, not a component fork. */
-html[data-ui-theme=dusk] {
-  --ruok-accent: #c08a52;
-  --ruok-accent-hi: #d3a266;
-  --ruok-accent-deep: #9c6c3c;
-  --ruok-accent-text: #dcb988;
-  --ruok-accent-ink: #241a10;
-  --ruok-accent-soft: #c08a5224;
-  --ruok-warning: #c08a52;
-  --ruok-danger: #e08464;
-  --ruok-bronze-500: #9c6c3c;
+/* 烟褐 (Umbra): the third step, between the dark room and the pale stone. A mid-value warm taupe ground (no
+   green cast), two plate steps that separate by lightness rather than hue, warm-white ink, and the sandstone
+   ochre as the only accent. It is a value block, not a component fork. */
+html[data-ui-theme=umbra] {
+  --ruok-accent: #c39a63;
+  --ruok-accent-hi: #d4ae79;
+  --ruok-accent-deep: #a67f4c;
+  --ruok-accent-text: #d3ae7d;
+  --ruok-accent-ink: #241c12;
+  --ruok-accent-soft: #c39a6324;
+  --ruok-warning: #c39a63;
+  --ruok-danger: #e08a68;
+  --ruok-bronze-500: #a67f4c;
   --ruok-bronze-400: #b3804a;
-  --ruok-bronze-300: #c08a52;
-  --ruok-bronze-200: #d3a266;
-  --ruok-verdigris-900: #2a3633;
-  --ruok-verdigris-700: #3a4744;
-  --ruok-verdigris-500: #4f5d59;
-  --ruok-verdigris-300: #97a5a0;
-  --ruok-ink: #efe8dc;
-  --ruok-ink-2: #d9d0c2;
-  --ruok-muted: #b0a99c;
-  --ruok-faint: #948d80;
-  --ruok-line: #efe8dc1f;
-  --ruok-line-2: #efe8dc33;
-  --ruok-input: #2c3734;
-  --ruok-selection: #c08a52;
-  --ruok-playhead: #d3a266;
-  --ed-icon: #c08a52;
-  --ed-accent: #c08a52;
-  --ed-accent-hi: #d3a266;
-  --ed-accent-text: #dcb988;
-  --ed-accent-soft: #c08a5224;
+  --ruok-bronze-300: #c39a63;
+  --ruok-bronze-200: #d4ae79;
+  --ruok-verdigris-900: #3a3631;
+  --ruok-verdigris-700: #57524c;
+  --ruok-verdigris-500: #6a645d;
+  --ruok-verdigris-300: #bdb4a6;
+  --ruok-ink: #f2ece2;
+  --ruok-ink-2: #ded6ca;
+  --ruok-muted: #d5cdbf;
+  --ruok-faint: #beb5a7;
+  --ruok-line: #f2ece21f;
+  --ruok-line-2: #f2ece233;
+  --ruok-input: #494540;
+  --ruok-selection: #c39a63;
+  --ruok-playhead: #d4ae79;
+  --ed-icon: #c39a63;
+  --ed-accent: #c39a63;
+  --ed-accent-hi: #d4ae79;
+  --ed-accent-text: #d3ae7d;
+  --ed-accent-soft: #c39a6324;
 }
-html.workspace-glass[data-ui-theme=dusk] {
-  --pro-bg: #3a4744;
-  --pro-panel: #33403c;
-  --pro-bar: #3d4a46;
-  --pro-raise: #44524e;
-  --pro-raise-hi: #4c5b56;
-  --pro-press: #55645f;
-  --pro-input: #2c3734;
+html.workspace-glass[data-ui-theme=umbra] {
+  --pro-bg: #57524c;
+  --pro-panel: #4c4842;
+  --pro-bar: #5b564f;
+  --pro-raise: #625c55;
+  --pro-raise-hi: #6b645c;
+  --pro-press: #514c46;
+  --pro-input: #494540;
   --pro-line: var(--ruok-line);
   --pro-line-2: var(--ruok-line-2);
   --pro-ink: var(--ruok-ink);
@@ -301,7 +301,7 @@ html.workspace-glass[data-ui-theme=dusk] {
   --voice-wave-rim: color-mix(in srgb, var(--ruok-bronze-200) 28%, transparent);
   --voice-wave-axis: color-mix(in srgb, var(--ruok-bronze-300) 16%, transparent);
 }
-html[data-ui-theme=dusk] {
+html[data-ui-theme=umbra] {
   --ed-icon: var(--ruok-accent);
   --ed-card-s: var(--ruok-accent-hi);
   --ed-card-m: var(--ruok-accent);
@@ -316,16 +316,16 @@ html[data-ui-theme=dusk] {
   --ed-ink-2: var(--ruok-ink-2);
   --ed-muted: var(--ruok-muted);
   --ed-faint: var(--ruok-faint);
-  --ed-raise: #44524e;
-  --ed-raise-hi: #4c5b56;
-  --ed-line: #efe8dc26;
-  --ed-line-2: #efe8dc3d;
-  --ed-input: #2c3734;
-  --ed-menu-bg: #44524e;
-  --ed-hint-bg: #3d4a46;
+  --ed-raise: #625c55;
+  --ed-raise-hi: #6b645c;
+  --ed-line: #f2ece226;
+  --ed-line-2: #f2ece23d;
+  --ed-input: #494540;
+  --ed-menu-bg: #625c55;
+  --ed-hint-bg: #5b564f;
 }
-html[data-ui-theme=dusk] .ge-en {
-  --en-bg: radial-gradient(1200px 700px at 22% 40%, #3f4d49 0%, #3a3a3a 55%, #2f3a37 100%);
+html[data-ui-theme=umbra] .ge-en {
+  --en-bg: radial-gradient(1200px 700px at 22% 40%, #5e5851 0%, #48433d 55%, #3a3631 100%);
   --en-ink: var(--ruok-ink);
   --en-muted: var(--ruok-muted);
   --en-accent: var(--ruok-accent);
@@ -333,23 +333,23 @@ html[data-ui-theme=dusk] .ge-en {
   --en-accent-ink: var(--ruok-accent-ink);
   --en-beam-end: var(--ruok-bronze-200);
 }
-html[data-ui-theme=dusk] .ge-work {
-  --ge-bg: #3a4744;
-  --ge-panel: #33403c;
-  --ge-raise: #44524e;
-  --ge-field: #2c3734;
+html[data-ui-theme=umbra] .ge-work {
+  --ge-bg: #57524c;
+  --ge-panel: #4c4842;
+  --ge-raise: #625c55;
+  --ge-field: #494540;
 }
-html[data-ui-theme=dusk] :is(.home, .home-soon) {
+html[data-ui-theme=umbra] :is(.home, .home-soon) {
   --home-koubo: var(--ruok-accent);
   --home-koubo-ink: var(--ruok-accent-ink);
   --home-general: var(--ruok-accent);
   --home-general-ink: var(--ruok-accent-ink);
-  --home-card: #33403c;
-  --home-card-hover: #3d4a46;
-  --home-line: #efe8dc1f;
-  --home-line-2: #efe8dc33;
-  --home-bg: #3a4744;
-  --home-entry-bg: linear-gradient(160deg, #44524ed9, #33403ce6);
+  --home-card: #4c4842;
+  --home-card-hover: #5b564f;
+  --home-line: #f2ece21f;
+  --home-line-2: #f2ece233;
+  --home-bg: #57524c;
+  --home-entry-bg: linear-gradient(160deg, #625c55d9, #4c4842e6);
   --home-entry-line: #ffffff1f;
-  --home-media: radial-gradient(120% 120% at 50% 40%, #3f4d49 0%, #2f3a37 74%);
+  --home-media: radial-gradient(120% 120% at 50% 40%, #5e5851 0%, #3a3631 74%);
 }

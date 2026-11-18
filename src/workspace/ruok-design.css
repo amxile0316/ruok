@@ -1256,27 +1256,27 @@ html.workspace-glass[data-ui-theme=warm] .ge-en {
   --en-field: #d1d1d1;
 }
 
-/* 暮石 (Dusk Stone): the same components, one value block between the dark room and the pale stone. Ground is a
-   mid grey-green, the two plate steps separate by lightness only, ink is warm white, and the sandstone ochre is
+/* 烟褐 (Umbra): the same components, one value block between the dark room and the pale stone. Ground is a
+   mid warm taupe, the two plate steps separate by lightness only, ink is warm white, and the sandstone ochre is
    the single accent. No component rule is forked — every surface below is a token. */
-html.workspace-glass[data-ui-theme=dusk] {
+html.workspace-glass[data-ui-theme=umbra] {
   --rk-r-4: 10px;
   --rk-r-5: 16px;
   --rk-r-6: 20px;
-  --rk-bg: #3a4744;
-  --rk-surface: #44524e;
-  --rk-surface-2: #3d4a46;
-  --rk-surface-3: #33403c;
-  --rk-surface-4: #2c3734;
-  --rk-plate: linear-gradient(168deg, #4b5a55 0%, #44524e 62%, #3a4744 100%);
-  --rk-glass: linear-gradient(#44524ee6, #33403cd9);
-  --rk-media: #3f4d49;
+  --rk-bg: #57524c;
+  --rk-surface: #625c55;
+  --rk-surface-2: #5b564f;
+  --rk-surface-3: #4c4842;
+  --rk-surface-4: #494540;
+  --rk-plate: linear-gradient(168deg, #6b645c 0%, #625c55 62%, #57524c 100%);
+  --rk-glass: linear-gradient(#625c55e6, #4c4842d9);
+  --rk-media: #5e5851;
   --rk-ink: var(--ruok-ink);
   --rk-ink-2: var(--ruok-ink-2);
   --rk-muted: var(--ruok-muted);
   --rk-faint: var(--ruok-faint);
-  --rk-line: #efe8dc1f;
-  --rk-line-strong: #efe8dc33;
+  --rk-line: #f2ece21f;
+  --rk-line-strong: #f2ece233;
   --rk-rim: color-mix(in srgb, var(--ruok-ink) 14%, transparent);
   --rk-rim-hi: color-mix(in srgb, var(--ruok-ink) 24%, transparent);
   --rk-accent: var(--ruok-accent);
@@ -1295,39 +1295,44 @@ html.workspace-glass[data-ui-theme=dusk] {
   --rk-solid-bottom: #b07c44;
   --rk-solid-top-hover: #d8a469;
   --rk-solid-bottom-hover: #bd854b;
-  --rk-solid-ink: #241a10;
-  --rk-shadow-1: 0 1px 2px #1f2926 18%, 0 6px 14px -10px #1f292625;
-  --rk-shadow-2: 0 2px 6px #1f29261a, 0 16px 34px -22px #1f292633;
-  --rk-shadow-3: 0 10px 26px -18px #1f292633, 0 34px 70px -38px #1f29263d;
-  --rk-wash: radial-gradient(1300px 720px at 50% -12%, #4a5955 0%, transparent 66%),
-             radial-gradient(900px 600px at 94% 106%, #2b3734 0%, transparent 72%),
-             radial-gradient(780px 520px at 2% 90%, #40504b 0%, transparent 74%);
-  --rk-key-light: radial-gradient(900px 380px at 50% -8%, #efe8dc14 0%, transparent 70%);
+  --rk-solid-ink: #241c12;
+  --rk-shadow-1: 0 1px 2px #2f2b27 18%, 0 6px 14px -10px #2f2b2725;
+  --rk-shadow-2: 0 2px 6px #2f2b271a, 0 16px 34px -22px #2f2b2733;
+  --rk-shadow-3: 0 10px 26px -18px #2f2b2733, 0 34px 70px -38px #2f2b273d;
+  --rk-wash: radial-gradient(1300px 720px at 50% -12%, #6b645c 0%, transparent 66%),
+             radial-gradient(900px 600px at 94% 106%, #474340 0%, transparent 72%),
+             radial-gradient(780px 520px at 2% 90%, #4a4640 0%, transparent 74%);
+  --rk-key-light: radial-gradient(900px 380px at 50% -8%, #f2ece214 0%, transparent 70%);
   --rk-lit-rim: color-mix(in srgb, var(--ruok-ink) 18%, transparent);
-  --rk-lit-sheen: linear-gradient(168deg, #efe8dc12 0%, transparent 46%);
-  --rk-glow-soft: 0 18px 40px -26px #1f292640;
+  --rk-lit-sheen: linear-gradient(168deg, #f2ece212 0%, transparent 46%);
+  --rk-glow-soft: 0 18px 40px -26px #2f2b2740;
   --rk-glow-warm: none;
-  --rk-focus-ring: 0 0 0 2px #3a4744, 0 0 0 4px var(--ruok-accent);
+  --rk-focus-ring: 0 0 0 2px #57524c, 0 0 0 4px var(--ruok-accent);
 }
 /* the studio shot is a dark room take; on the mid ground it is veiled back to the stone so the corners do not go black */
-html.workspace-glass[data-ui-theme=dusk] .home > .login-backdrop-video::after {
+html.workspace-glass[data-ui-theme=umbra] .home > .login-backdrop-video::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, #3a4744a3, #3a4744c2 58%, #3a4744e0);
+  background: linear-gradient(180deg, #57524ca3, #57524cc2 58%, #57524ce0);
 }
-html.workspace-glass[data-ui-theme=dusk] .ge-en-choose-agent { background: #44524e; color: #efe8dc; border-color: #efe8dc2e; }
-html.workspace-glass[data-ui-theme=dusk] .home-thumb { background: #3d4a46; }
-html.workspace-glass[data-ui-theme=dusk] :is(.home-media, .home-thumb)::after {
-  background: linear-gradient(180deg, #00000000 56%, #1f29261f), #1f292614;
-  box-shadow: inset 0 0 0 1px #efe8dc1f;
+html.workspace-glass[data-ui-theme=umbra] .home-media__brand {
+  background: radial-gradient(120% 120% at 50% 38%, #6b645c 0%, #4c4842 74%);
 }
-html.workspace-glass[data-ui-theme=dusk] .ge {
-  --ge-bg: transparent; --ge-panel: linear-gradient(145deg, #4b5a5540, #33403c1a), #3d4a46cc; --ge-raise: #4b5a5552; --ge-field: #2c373480;
-  --ge-line: #efe8dc26; --ge-line2: #efe8dc40; --ge-ink: #efe8dc; --ge-ink2: #d9d0c2; --ge-muted: #b0a99c; --ge-faint: #948d80;
-  --ge-chip: #efe8dc12; --ge-chip-on: #efe8dc26; --ge-hover: #efe8dc14; --ge-media: #2c3734; --ge-dot: var(--ruok-accent); --ge-red: var(--ruok-danger);
-  --ge-stop-bg: #9c6c3c; --ge-stop-ink: #241a10; --ge-shadow: 0 18px 50px #1f292640; --ge-popup: linear-gradient(140deg, #44524ef2, #33403cf2); --ge-seg-on: #efe8dc1f;
+html.workspace-glass[data-ui-theme=umbra] .home-media__brand img { filter: drop-shadow(0 8px 22px #2f2b2759) drop-shadow(0 0 16px color-mix(in srgb, var(--ruok-accent) 18%, transparent)); }
+html.workspace-glass[data-ui-theme=umbra] .ot-deploy-strip { background: var(--rk-surface); color: var(--ruok-ink); }
+html.workspace-glass[data-ui-theme=umbra] .ge-en-choose-agent { background: #625c55; color: #f2ece2; border-color: #f2ece22e; }
+html.workspace-glass[data-ui-theme=umbra] .home-thumb { background: #5b564f; }
+html.workspace-glass[data-ui-theme=umbra] :is(.home-media, .home-thumb)::after {
+  background: linear-gradient(180deg, #00000000 56%, #2f2b271f), #2f2b2714;
+  box-shadow: inset 0 0 0 1px #f2ece21f;
+}
+html.workspace-glass[data-ui-theme=umbra] .ge {
+  --ge-bg: transparent; --ge-panel: linear-gradient(145deg, #6b645c40, #4c48421a), #5b564fcc; --ge-raise: #6b645c52; --ge-field: #49454080;
+  --ge-line: #f2ece226; --ge-line2: #f2ece240; --ge-ink: #f2ece2; --ge-ink2: #ded6ca; --ge-muted: #cfc6b8; --ge-faint: #b3aa9c;
+  --ge-chip: #f2ece212; --ge-chip-on: #f2ece226; --ge-hover: #f2ece214; --ge-media: #494540; --ge-dot: var(--ruok-accent); --ge-red: var(--ruok-danger);
+  --ge-stop-bg: #a67f4c; --ge-stop-ink: #241c12; --ge-shadow: 0 18px 50px #2f2b2740; --ge-popup: linear-gradient(140deg, #625c55f2, #4c4842f2); --ge-seg-on: #f2ece21f;
 }
 html.workspace-glass[data-ui-theme=warm] { --studio-accent: var(--rk-accent); }
 

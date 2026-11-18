@@ -29,14 +29,14 @@ body {font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;}
  --brand:#7a5f2f;--brand-lo:#5f4823;--accent:#7a5f2f;--accent-on:#f4f4f4;
  --accent-soft:#7a5f2f1f;--accent-wash:#7a5f2f12;--accent-border:#7a5f2f66;color-scheme:light;
 }
-:root:root:root[data-ui-theme=dusk] {
- --bg:#3a4744;--bg-grad:linear-gradient(130deg,#44524e,#33403c);
- --surface:#3d4a46f0;--surface-1:#44524e;--surface-2:#33403c;--surface-3:#2c3734;
- --surface-hi:#4c5b56;--surface-warm:#40504b;
- --border:#efe8dc26;--border-soft:#efe8dc17;--border-hi:#efe8dc3d;
- --fg:#efe8dc;--fg-2:#d9d0c2;--fg-emphasis:#fffaf0;--muted:#b0a99c;--muted-soft:#a29b8e;--meta:#b0a99c;--dim:#948d80;
- --brand:#c08a52;--brand-lo:#9c6c3c;--accent:#c08a52;--accent-on:#241a10;
- --accent-soft:#c08a5224;--accent-wash:#c08a5214;--accent-border:#c08a5266;color-scheme:dark;
+:root:root:root[data-ui-theme=umbra] {
+ --bg:#57524c;--bg-grad:linear-gradient(130deg,#625c55,#4c4842);
+ --surface:#5b564ff0;--surface-1:#625c55;--surface-2:#4c4842;--surface-3:#494540;
+ --surface-hi:#6b645c;--surface-warm:#4a4640;
+ --border:#f2ece226;--border-soft:#f2ece217;--border-hi:#f2ece23d;
+ --fg:#f2ece2;--fg-2:#ded6ca;--fg-emphasis:#fffaf0;--muted:#cfc6b8;--muted-soft:#a29b8e;--meta:#cfc6b8;--dim:#b3aa9c;
+ --brand:#c39a63;--brand-lo:#a67f4c;--accent:#c39a63;--accent-on:#241c12;
+ --accent-soft:#c39a6324;--accent-wash:#c39a6314;--accent-border:#c39a6366;color-scheme:dark;
 }
 
 /* 原色 · Patina Instrument. Values are written out in full: the OpenScreen

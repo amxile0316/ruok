@@ -40,17 +40,17 @@ html[data-ui-theme=warm] {
   --ed-clip-rim: #ffffff26; --ed-grip: #23232340; --ed-fader: #23232333; --ed-tick: #23232333; --ed-playhead-halo: #ffffff80;
   --ed-shadow-sm: 0 1px 2px #23232333; --ed-shadow-md: 0 4px 14px #23232340; --ed-shadow-lg: 0 14px 30px #23232359;
 }
-/* 暮石: the mid step — plates separate by lightness, the ochre is the only hue, shadows stay light on the mid ground */
-html[data-ui-theme=dusk] {
-  --ed-icon: #c08a52;
-  --ed-card-s: #d3a266; --ed-card-m: #c08a52; --ed-card-f: #9c6c3c; --ed-card-ink: #241a10; --ed-danger: #e08464;
-  --ed-accent: #c08a52; --ed-accent-hi: #d3a266; --ed-accent-ink: #241a10; --ed-accent-soft: #c08a5226; --ed-accent-text: #dcb988;
-  --ed-ink: #efe8dc; --ed-ink-2: #d9d0c2; --ed-muted: #b0a99c; --ed-faint: #948d80;
-  --ed-raise: #efe8dc14; --ed-raise-hi: #4c5b56; --ed-line: #efe8dc33; --ed-line-2: #efe8dc47; --ed-input: #2c373480;
-  --ed-menu-bg: #44524e; --ed-hint-bg: #3d4a46;
-  --ed-slot: #efe8dc1a; --ed-slot-hover: #efe8dc26; --ed-slot-rim: #efe8dc33; --ed-head-hover: #efe8dc17;
-  --ed-clip-rim: #ffffff1a; --ed-grip: #efe8dc33; --ed-fader: #efe8dc26; --ed-tick: #efe8dc26; --ed-playhead-halo: #efe8dc66;
-  --ed-shadow-sm: 0 1px 2px #1f292640; --ed-shadow-md: 0 4px 14px #1f29264d; --ed-shadow-lg: 0 14px 30px #1f292659;
+/* 烟褐: the mid step — plates separate by lightness, the ochre is the only hue, shadows stay light on the mid ground */
+html[data-ui-theme=umbra] {
+  --ed-icon: #c39a63;
+  --ed-card-s: #d4ae79; --ed-card-m: #c39a63; --ed-card-f: #a67f4c; --ed-card-ink: #241c12; --ed-danger: #e08a68;
+  --ed-accent: #c39a63; --ed-accent-hi: #d4ae79; --ed-accent-ink: #241c12; --ed-accent-soft: #c39a6326; --ed-accent-text: #d3ae7d;
+  --ed-ink: #f2ece2; --ed-ink-2: #ded6ca; --ed-muted: #cfc6b8; --ed-faint: #b3aa9c;
+  --ed-raise: #f2ece214; --ed-raise-hi: #6b645c; --ed-line: #f2ece233; --ed-line-2: #f2ece247; --ed-input: #49454080;
+  --ed-menu-bg: #625c55; --ed-hint-bg: #5b564f;
+  --ed-slot: #f2ece21a; --ed-slot-hover: #f2ece226; --ed-slot-rim: #f2ece233; --ed-head-hover: #f2ece217;
+  --ed-clip-rim: #ffffff1a; --ed-grip: #f2ece233; --ed-fader: #f2ece226; --ed-tick: #f2ece226; --ed-playhead-halo: #f2ece266;
+  --ed-shadow-sm: 0 1px 2px #2f2b2740; --ed-shadow-md: 0 4px 14px #2f2b274d; --ed-shadow-lg: 0 14px 30px #2f2b2759;
 }
 
 html[data-ui-theme=frost] {

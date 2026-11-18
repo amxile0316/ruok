@@ -137,26 +137,26 @@ html[data-ui-theme=warm] .workspace-preview-island button[aria-pressed=true] {ba
 @media(prefers-reduced-motion:reduce){html[data-ui-theme=warm] .workspace-switch>button,html[data-ui-theme=warm] .workspace-switch>button::before{transition:none}}
 @media(max-width:800px){.ui-theme-switch button{padding:5px 10px;}.workspace-wordmark{display:none;}}
 
-/* 暮石 (Dusk Stone): the mid step. Surfaces separate by lightness, ink is warm white, shadows stay light so the
+/* 烟褐 (Umbra): the mid step. Surfaces separate by lightness, ink is warm white, shadows stay light so the
    mid ground does not turn muddy. Tokens only — the component rules above belong to the two light themes. */
-html.workspace-glass[data-ui-theme=dusk] {
+html.workspace-glass[data-ui-theme=umbra] {
   color-scheme:dark;
-  --ui-ink:#efe8dc;--ui-muted:#b0a99c;--ui-mint:#4c5b56;
-  --ui-text:#efe8dc;--ui-panel:#44524e;--ui-input:#2c3734;--ui-hover:#efe8dc14;
-  --ui-line:#efe8dc26;--ui-field:#2c373480;
-  --ui-glass:linear-gradient(145deg,#44524ee6,#33403cd9),#33403cf0;
-  --studio-accent:#c08a52;--studio-ink:#efe8dc;--studio-muted:#b0a99c;
-  --studio-bg:transparent;--studio-panel:#33403ccc;--studio-panel-2:#3d4a46cc;
-  --studio-panel-3:#44524ed9;--studio-stage:transparent;--studio-input-bg:#2c373480;
-  --studio-line:#efe8dc2e;--studio-control-line:#ffffff33;--studio-selection:#c08a52;
-  --studio-playhead:#d3a266;--studio-ok:#8fb39c;--studio-soft:#3d4a46d9;
+  --ui-ink:#f2ece2;--ui-muted:#cfc6b8;--ui-mint:#6b645c;
+  --ui-text:#f2ece2;--ui-panel:#625c55;--ui-input:#494540;--ui-hover:#f2ece214;
+  --ui-line:#f2ece226;--ui-field:#49454080;
+  --ui-glass:linear-gradient(145deg,#625c55e6,#4c4842d9),#4c4842f0;
+  --studio-accent:#c39a63;--studio-ink:#f2ece2;--studio-muted:#cfc6b8;
+  --studio-bg:transparent;--studio-panel:#4c4842cc;--studio-panel-2:#5b564fcc;
+  --studio-panel-3:#625c55d9;--studio-stage:transparent;--studio-input-bg:#49454080;
+  --studio-line:#f2ece22e;--studio-control-line:#ffffff33;--studio-selection:#c39a63;
+  --studio-playhead:#d4ae79;--studio-ok:#bdb4a6;--studio-soft:#5b564fd9;
   --background:160 9% 25%;--foreground:40 32% 90%;--card:160 10% 27%;--card-foreground:40 32% 90%;
   --popover:160 9% 29%;--popover-foreground:40 32% 90%;--primary:29 48% 54%;--primary-foreground:29 45% 9%;
   --secondary:160 8% 31%;--secondary-foreground:40 32% 90%;--muted:160 8% 29%;--muted-foreground:42 12% 68%;
   --accent:160 8% 33%;--accent-foreground:40 32% 90%;--border:150 6% 36%;--input:150 6% 38%;--ring:29 48% 54%;
 }
-html.workspace-glass[data-ui-theme=dusk] body {
-  background:radial-gradient(ellipse at 12% 12%,#4a5955e6,transparent 65%),radial-gradient(ellipse at 84% 80%,#2b3734cc,transparent 68%),#3a4744;
+html.workspace-glass[data-ui-theme=umbra] body {
+  background:radial-gradient(ellipse at 12% 12%,#6b645ce6,transparent 65%),radial-gradient(ellipse at 84% 80%,#474340cc,transparent 68%),#57524c;
   background-attachment:fixed;
 }
-html[data-ui-theme=dusk] .ui-theme-switch button[aria-pressed=true] {background:#4c5b56;color:#efe8dc;box-shadow:0 1px 5px #1f292633;}
+html[data-ui-theme=umbra] .ui-theme-switch button[aria-pressed=true] {background:#6b645c;color:#f2ece2;box-shadow:0 1px 5px #2f2b2733;}
