@@ -25,17 +25,17 @@ html[data-ui-theme=warm] .an-page {
   --an-form-line: #23232324;
   --an-head-bg: radial-gradient(900px 520px at 8% -8%, #8e8e8e13, transparent 62%), radial-gradient(760px 460px at 96% 0%, #7a5f2f0d, transparent 66%);
 }
-/* 暮石: mid plates, warm-white ink, ochre as the only accent; shadows stay light so the mid ground does not muddy */
-html[data-ui-theme=dusk] .an-page {
-  --an-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
-  --an-card: #33403cd9;
-  --an-raise: #2c3734b3;
-  --an-field: #2c3734cc;
-  --an-track: #efe8dc1f;
-  --an-glow: inset 0 1px 0 #efe8dc1a, 0 14px 34px #1f292633;
-  --an-dot-ring: #33403c;
-  --an-form-line: #c08a5259;
-  --an-head-bg: radial-gradient(900px 520px at 8% -8%, #4a5955a6, transparent 62%), radial-gradient(760px 460px at 96% 0%, #c08a520f, transparent 66%);
+/* 烟褐: mid plates, warm-white ink, ochre as the only accent; shadows stay light so the mid ground does not muddy */
+html[data-ui-theme=umbra] .an-page {
+  --an-surface: linear-gradient(160deg, #625c55e0, #4c4842e8);
+  --an-card: #4c4842d9;
+  --an-raise: #494540b3;
+  --an-field: #494540cc;
+  --an-track: #f2ece21f;
+  --an-glow: inset 0 1px 0 #f2ece21a, 0 14px 34px #2f2b2733;
+  --an-dot-ring: #4c4842;
+  --an-form-line: #c39a6359;
+  --an-head-bg: radial-gradient(900px 520px at 8% -8%, #6b645ca6, transparent 62%), radial-gradient(760px 460px at 96% 0%, #c39a630f, transparent 66%);
 }
 .an-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 20px; }
 .an-kicker { margin: 0 0 8px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--ruok-verdigris-300); }
@@ -63,7 +63,8 @@ html[data-ui-theme=dusk] .an-page {
 .an-kpis div { padding: 14px 16px; border: 1px solid var(--ruok-line); border-radius: var(--rk-r-3, 10px); background: var(--an-card); }
 .an-kpis span { display: block; font-size: 11px; letter-spacing: .14em; color: var(--ruok-muted); }
 .an-kpis b { display: block; margin-top: 6px; font-size: 22px; font-weight: 600; color: var(--ruok-bronze-200); font-variant-numeric: tabular-nums; }
-html[data-ui-theme=warm] .an-kpis b { color: var(--ruok-ink); }
+html[data-ui-theme=warm] .an-kpis b,
+html[data-ui-theme=umbra] .an-kpis b { color: var(--ruok-ink); }
 
 .an-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 16px; max-width: 1240px; margin: 0 auto 16px; align-items: start; }
 @media (max-width: 1040px) { .an-grid { grid-template-columns: 1fr; } .an-kpis { grid-template-columns: repeat(2, 1fr); } }

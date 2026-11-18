@@ -39,24 +39,24 @@ html[data-ui-theme=warm] .talk-page {
   --tk-err-ink: #8c3f2e;
   --tk-head: radial-gradient(900px 520px at 12% -10%, #7a5f2f0d, transparent 62%), radial-gradient(800px 480px at 92% 0%, #8e8e8e13, transparent 66%);
 }
-/* 暮石: mid plates, warm-white ink, ochre as the only accent */
-html[data-ui-theme=dusk] .talk-page {
-  --tk-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
-  --tk-place: linear-gradient(150deg, #44524ed9, #2c3734bd);
-  --tk-dialog: linear-gradient(160deg, #44524ef7, #33403cf5);
-  --tk-field: #2c3734cc;
-  --tk-field-strong: #2c3734;
-  --tk-btn: #efe8dc14;
-  --tk-card: #2c3734b3;
-  --tk-glow: inset 0 1px 0 #efe8dc1a, 0 14px 34px #1f292633;
-  --tk-dialog-glow: 0 26px 70px #1f292659, inset 0 1px 0 #efe8dc1f;
-  --tk-ok-line: #8fb39c66;
-  --tk-ok-bg: #8fb39c1f;
-  --tk-mask: #1f2926a6;
-  --tk-err-line: #e0846459;
-  --tk-err-bg: #e0846414;
+/* 烟褐: mid plates, warm-white ink, ochre as the only accent */
+html[data-ui-theme=umbra] .talk-page {
+  --tk-surface: linear-gradient(160deg, #625c55e0, #4c4842e8);
+  --tk-place: linear-gradient(150deg, #625c55d9, #494540bd);
+  --tk-dialog: linear-gradient(160deg, #625c55f7, #4c4842f5);
+  --tk-field: #494540cc;
+  --tk-field-strong: #494540;
+  --tk-btn: #f2ece214;
+  --tk-card: #494540b3;
+  --tk-glow: inset 0 1px 0 #f2ece21a, 0 14px 34px #2f2b2733;
+  --tk-dialog-glow: 0 26px 70px #2f2b2759, inset 0 1px 0 #f2ece21f;
+  --tk-ok-line: #bdb4a666;
+  --tk-ok-bg: #bdb4a61f;
+  --tk-mask: #2f2b27a6;
+  --tk-err-line: #e08a6859;
+  --tk-err-bg: #e08a6814;
   --tk-err-ink: #f0b9a6;
-  --tk-head: radial-gradient(900px 520px at 12% -10%, #c08a520f, transparent 62%), radial-gradient(800px 480px at 92% 0%, #4a5955a3, transparent 66%);
+  --tk-head: radial-gradient(900px 520px at 12% -10%, #c39a630f, transparent 62%), radial-gradient(800px 480px at 92% 0%, #6b645ca3, transparent 66%);
 }
 .talk-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 26px; }
 .talk-kicker { margin: 0 0 8px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--ruok-verdigris-300); }

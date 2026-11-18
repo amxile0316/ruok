@@ -33,14 +33,14 @@ html[data-ui-theme=warm] :is(.home, .home-soon) {
   --home-card-shadow:inset 0 1px 0 #ffffff59,0 5px 16px #2323230f;
   --home-entry-bg:linear-gradient(145deg,#e0e0e05c,#eaeaea29),#b0b0b04d; --home-entry-line:#ffffff80;
 }
-html[data-ui-theme=dusk] :is(.home, .home-soon) {
-  --home-ink-2:#d9d0c2; --home-faint:#948d80;
-  --home-card:linear-gradient(145deg,#4b5a554a,#33403c1a),#33403c; --home-card-hover:linear-gradient(145deg,#52605b52,#3a474426),#3d4a46;
-  --home-line:#efe8dc26; --home-line-2:#efe8dc3d;
-  --home-bg:#3a4744; --home-dim:#22302f66; --home-backdrop:#22302f8c;
-  --home-sheet-edge:0 -1px 0 #efe8dc26,0 -30px 70px #1f292659;
-  --home-card-shadow:inset 0 1px 0 #efe8dc1f,0 5px 16px #1f292633;
-  --home-entry-bg:linear-gradient(145deg,#4b5a5566,#33403c4d),#33403c; --home-entry-line:#efe8dc2e;
+html[data-ui-theme=umbra] :is(.home, .home-soon) {
+  --home-ink-2:#ded6ca; --home-faint:#b3aa9c;
+  --home-card:linear-gradient(145deg,#6b645c4a,#4c48421a),#4c4842; --home-card-hover:linear-gradient(145deg,#716a6152,#57524c26),#5b564f;
+  --home-line:#f2ece226; --home-line-2:#f2ece23d;
+  --home-bg:#57524c; --home-dim:#2b272466; --home-backdrop:#2b27248c;
+  --home-sheet-edge:0 -1px 0 #f2ece226,0 -30px 70px #2f2b2759;
+  --home-card-shadow:inset 0 1px 0 #f2ece21f,0 5px 16px #2f2b2733;
+  --home-entry-bg:linear-gradient(145deg,#6b645c66,#4c48424d),#4c4842; --home-entry-line:#f2ece22e;
 }
 html[data-ui-theme=frost] :is(.home, .home-soon) {
   --home-entry-bg:linear-gradient(125deg,#ffffffb3,#faf8f28c 42%,#f4f5f066); --home-entry-line:#ffffffd9;

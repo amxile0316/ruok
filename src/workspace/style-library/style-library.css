@@ -23,12 +23,12 @@ html[data-ui-theme=warm] .style-library {
   --sl-surface-shadow:inset 0 1px 0 #ffffff,0 2px 8px #23232314,0 10px 24px -18px #23232326;
   --sl-media:#5a5a5a; --sl-shade:#2323232e; --sl-focus:#5a5a5a; --sl-dot:#3a3a3a;
 }
-html[data-ui-theme=dusk] .style-library {
-  --sl-ink:#efe8dc; --sl-ink-2:#d9d0c2; --sl-muted:#b0a99c; --sl-faint:#948d80;
-  --sl-line:#efe8dc26; --sl-field:#2c373480; --sl-chip-on:#efe8dc17; --sl-chip-hover:#efe8dc0f;
-  --sl-surface:linear-gradient(145deg,#4b5a5540,#33403c1a),#33403c; --sl-surface-line:#efe8dc1f;
-  --sl-surface-shadow:inset 0 1px 0 #efe8dc14,0 5px 16px #1f292626;
-  --sl-media:#2c3734; --sl-shade:#1f292638; --sl-focus:var(--ruok-accent); --sl-dot:var(--ruok-accent);
+html[data-ui-theme=umbra] .style-library {
+  --sl-ink:#f2ece2; --sl-ink-2:#ded6ca; --sl-muted:#cfc6b8; --sl-faint:#b3aa9c;
+  --sl-line:#f2ece226; --sl-field:#49454080; --sl-chip-on:#f2ece217; --sl-chip-hover:#f2ece20f;
+  --sl-surface:linear-gradient(145deg,#6b645c40,#4c48421a),#4c4842; --sl-surface-line:#f2ece21f;
+  --sl-surface-shadow:inset 0 1px 0 #f2ece214,0 5px 16px #2f2b2726;
+  --sl-media:#494540; --sl-shade:#2f2b2738; --sl-focus:var(--ruok-accent); --sl-dot:var(--ruok-accent);
   --sl-general:var(--ruok-accent); --sl-general-ink:var(--ruok-accent-ink);
 }
 html[data-ui-theme=frost] .style-library {

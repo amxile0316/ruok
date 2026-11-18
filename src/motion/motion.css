@@ -26,18 +26,18 @@ html[data-ui-theme=warm] .motion-page {
   --mo-glow: 0 14px 32px #23232314;
   background: radial-gradient(900px 520px at 88% -8%, #8e8e8e13, transparent 62%), radial-gradient(720px 460px at 4% 0%, #7a5f2f0d, transparent 66%);
 }
-/* 暮石: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
-html[data-ui-theme=dusk] .motion-page {
-  --mo-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
-  --mo-stage: radial-gradient(120% 120% at 50% 0%, #44524e 0%, #33403c 82%);
-  --mo-demo: linear-gradient(160deg, #44524e, #33403c);
-  --mo-line: #efe8dc26;
-  --mo-line-2: #efe8dc3d;
+/* 烟褐: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
+html[data-ui-theme=umbra] .motion-page {
+  --mo-surface: linear-gradient(160deg, #625c55e0, #4c4842e8);
+  --mo-stage: radial-gradient(120% 120% at 50% 0%, #625c55 0%, #4c4842 82%);
+  --mo-demo: linear-gradient(160deg, #625c55, #4c4842);
+  --mo-line: #f2ece226;
+  --mo-line-2: #f2ece23d;
   --mo-rim: color-mix(in srgb, var(--ruok-accent) 26%, transparent);
   --mo-rim-hi: color-mix(in srgb, var(--ruok-accent-hi) 18%, transparent);
   --mo-halo: 0 0 30px -14px color-mix(in srgb, var(--ruok-accent) 30%, transparent);
-  --mo-glow: 0 14px 32px #1f292633;
-  background: radial-gradient(900px 520px at 88% -8%, #4a5955a3, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c08a520f, transparent 66%);
+  --mo-glow: 0 14px 32px #2f2b2733;
+  background: radial-gradient(900px 520px at 88% -8%, #6b645ca3, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c39a630f, transparent 66%);
 }
 
 .motion-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 22px; }

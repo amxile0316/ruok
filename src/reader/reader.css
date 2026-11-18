@@ -24,17 +24,17 @@ html[data-ui-theme=warm] .reader-page {
   --rd-glow: 0 14px 34px #23232314;
   background: radial-gradient(900px 520px at 88% -8%, #8e8e8e13, transparent 62%), radial-gradient(720px 460px at 4% 0%, #7a5f2f0d, transparent 66%);
 }
-/* 暮石: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
-html[data-ui-theme=dusk] .reader-page {
-  --rd-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
-  --rd-field: #2c3734c4;
-  --rd-line: #efe8dc26;
-  --rd-line-2: #efe8dc3d;
-  --rd-rim: color-mix(in srgb, var(--ruok-accent) 26%, transparent);
-  --rd-rim-hi: color-mix(in srgb, var(--ruok-accent-hi) 18%, transparent);
-  --rd-halo: 0 0 30px -14px color-mix(in srgb, var(--ruok-accent) 30%, transparent);
-  --rd-glow: 0 14px 34px #1f292633;
-  background: radial-gradient(900px 520px at 88% -8%, #4a5955a3, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c08a520f, transparent 66%);
+/* 烟褐: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
+html[data-ui-theme=umbra] .reader-page {
+  --rd-surface: linear-gradient(160deg, #625c55e0, #4c4842e8);
+  --rd-field: #494540c4;
+  --rd-line: #f2ece226;
+  --rd-line-2: #f2ece23d;
+  --rd-rim: #f2ece21f;
+  --rd-rim-hi: #f2ece212;
+  --rd-halo: none;
+  --rd-glow: 0 14px 34px #2f2b2733;
+  background: radial-gradient(900px 520px at 88% -8%, #6b645ca3, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c39a630f, transparent 66%);
 }
 
 .reader-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 24px; }
@@ -63,6 +63,7 @@ html[data-ui-theme=dusk] .reader-page {
 }
 .reader-go:disabled { opacity: .5; cursor: default; box-shadow: none; }
 html[data-ui-theme=warm] .reader-go:disabled { opacity: 1; background: #cfcfcf; color: #8a8a8a; box-shadow: none; }
+html[data-ui-theme=umbra] .reader-go:disabled { opacity: 1; background: #5e5851; color: #a49b8d; box-shadow: none; }
 .reader-spin { animation: rd-spin 1s linear infinite; }
 @keyframes rd-spin { to { transform: rotate(360deg); } }
 

@@ -28,18 +28,18 @@ html[data-ui-theme=warm] .topics-page {
   --tp-glow: 0 14px 34px #23232314;
   --tp-head: radial-gradient(900px 520px at 88% -8%, #8e8e8e14, transparent 62%), radial-gradient(720px 460px at 4% 0%, #7a5f2f0d, transparent 66%);
 }
-/* 暮石: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
-html[data-ui-theme=dusk] .topics-page {
-  --tp-surface: linear-gradient(160deg, #44524ee0, #33403ce8);
-  --tp-field: #2c3734c4;
-  --tp-line: #efe8dc26;
-  --tp-line-2: #efe8dc3d;
+/* 烟褐: mid plates that separate by lightness, warm-white ink, ochre as the only accent */
+html[data-ui-theme=umbra] .topics-page {
+  --tp-surface: linear-gradient(160deg, #625c55e0, #4c4842e8);
+  --tp-field: #494540c4;
+  --tp-line: #f2ece226;
+  --tp-line-2: #f2ece23d;
   --tp-rim: color-mix(in srgb, var(--ruok-accent) 26%, transparent);
   --tp-rim-hi: color-mix(in srgb, var(--ruok-accent-hi) 18%, transparent);
   --tp-halo: 0 0 30px -14px color-mix(in srgb, var(--ruok-accent) 30%, transparent);
-  --tp-raise: #efe8dc0a;
-  --tp-glow: 0 14px 34px #1f292633;
-  --tp-head: radial-gradient(900px 520px at 88% -8%, #4a5955a6, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c08a520f, transparent 66%);
+  --tp-raise: #f2ece20a;
+  --tp-glow: 0 14px 34px #2f2b2733;
+  --tp-head: radial-gradient(900px 520px at 88% -8%, #6b645ca6, transparent 62%), radial-gradient(720px 460px at 4% 0%, #c39a630f, transparent 66%);
 }
 
 .topics-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; max-width: 1240px; margin: 0 auto 26px; }

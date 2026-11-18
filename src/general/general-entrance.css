@@ -32,6 +32,16 @@ html[data-ui-theme=frost] .ge-en {
   --en-card-shadow:0 22px 44px #5b746b33; --en-side:#29403b26; --en-field:#ffffffb3; --en-pill:#ffffffcc; --en-reflect:#ffffff80; --en-dot:#29403b2e;
   --en-glass:blur(26px) saturate(1.1);
 }
+/* 烟褐: the same glass in the mid taupe ground — slabs sit one step above the page, cards one step above the slabs */
+html[data-ui-theme=umbra] .ge-en {
+  --en-ink:#f2ece2; --en-muted:#d5cdbf; --en-accent:var(--ruok-accent); --en-accent-soft:var(--ruok-accent-hi); --en-accent-ink:#241c12; --en-beam-end:#f2ece2;
+  --en-slab:linear-gradient(155deg,#6b645cb8 0%,#625c558c 52%,#57524c66 100%); --en-slab-line:#f2ece2a6; --en-slab-hi:#f2ece2cc;
+  --en-slab-shadow:0 20px 46px #2f2b2759; --en-shine:#f2ece21f;
+  --en-icon:linear-gradient(160deg,#6b645c,#625c55); --en-chip:linear-gradient(180deg,#6b645cc7,#5b564fa6); --en-chip-line:#f2ece2b8;
+  --en-chip-shadow:0 8px 22px #2f2b2733; --en-count:#f2ece217; --en-card:linear-gradient(180deg,#625c55e6,#4c4842d9); --en-card-line:#f2ece2b3;
+  --en-card-shadow:0 24px 46px #2f2b2759; --en-side:#2f2b2759; --en-field:#494540cc; --en-pill:#625c55b0; --en-reflect:#f2ece226; --en-dot:#f2ece233;
+  --en-glass:blur(22px) saturate(.9);
+}
 .ge-en *,.ge-en *::before,.ge-en *::after { box-sizing:border-box; }
 .ge-en :where(button) { font:inherit;color:inherit; }
 .ge-en-stage { position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:50% 50%; }
