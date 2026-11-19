@@ -28,8 +28,21 @@ export type AnalyticsHandoff = {
   readonly topic?: string
 }
 
-const KEYS = {publish: 'ruok.handoff.publish.v1', analytics: 'ruok.handoff.analytics.v1'} as const
+/** 运营复盘 → 智能选题: the four platforms 选题 can generate for, in the same order as 选题. */
+export const TOPIC_PLATFORM_IDS = ['xiaohongshu', 'douyin', 'shipinhao', 'bilibili'] as const
+export type TopicPlatformId = (typeof TOPIC_PLATFORM_IDS)[number]
+
+/** 运营分析 → 智能选题: one work's review becomes the next round's keyword and platform. */
+export type TopicsHandoff = {
+  readonly keyword: string
+  readonly platform: TopicPlatformId
+  /** Why this keyword: shown above the form so the writer knows what was reviewed. */
+  readonly reason?: string
+}
+
+const KEYS = {publish: 'ruok.handoff.publish.v1', analytics: 'ruok.handoff.analytics.v1', topics: 'ruok.handoff.topics.v1'} as const
 const platformIds: readonly string[] = PUBLISH_PLATFORMS.map(item => item.id)
+const topicPlatformIds: readonly string[] = TOPIC_PLATFORM_IDS
 
 function write(key: string, value: unknown) {
   try { window.sessionStorage.setItem(key, JSON.stringify(value)) } catch { /* a full disk only costs the handoff */ }
@@ -68,6 +81,26 @@ export function takeAnalyticsHandoff(): AnalyticsHandoff | null {
   const title = text(value?.title), platform = text(value?.platform)
   if (!title || !platform) return null
   return {title, platform, ...(text(value?.hook) ? {hook: text(value?.hook)} : {}), ...(text(value?.topic) ? {topic: text(value?.topic)} : {})}
+}
+
+export function writeTopicsHandoff(value: TopicsHandoff) {
+  write(KEYS.topics, value)
+}
+
+export function takeTopicsHandoff(): TopicsHandoff | null {
+  const value = take(KEYS.topics)
+  const keyword = text(value?.keyword), platform = text(value?.platform)
+  if (!keyword || !platform || !topicPlatformIds.includes(platform)) return null
+  return {keyword, platform: platform as TopicPlatformId, ...(text(value?.reason) ? {reason: text(value?.reason)} : {})}
+}
+
+/** The work's subject wins, then its style, then its title; the platform is matched by Chinese name first. */
+export function topicsHandoffFromWork(work: {readonly title: string; readonly platform: string; readonly topic?: string; readonly style?: string}): TopicsHandoff | null {
+  const keyword = text(work.topic) ?? text(work.style) ?? text(work.title)
+  if (!keyword) return null
+  const nameOf = (id: TopicPlatformId) => PUBLISH_PLATFORMS.find(item => item.id === id)?.name
+  const platform = TOPIC_PLATFORM_IDS.find(id => nameOf(id) === work.platform) ?? TOPIC_PLATFORM_IDS.find(id => id === work.platform) ?? 'xiaohongshu'
+  return {keyword, platform}
 }
 
 /** A topic becomes publish-ready source: title, hook and the numbered outline. */

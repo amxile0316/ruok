@@ -1,10 +1,10 @@
 // Added by the RUOK fork on 2026-11-17: 智能选题 module page (local rules, no network).
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { Check, Copy, Lightbulb, PenLine, RefreshCw, Sparkles, Trash2 } from 'lucide-react'
 import { TOPIC_ANGLES, TOPIC_PLATFORMS, generateTopics, type Topic, type TopicAngle, type TopicPlatform } from './topic-generator'
 import { copyText } from '@/workspace/clipboard'
-import { topicSource, writePublishHandoff } from '@/workspace/handoff'
+import { takeTopicsHandoff, topicSource, writePublishHandoff, type TopicsHandoff } from '@/workspace/handoff'
 import './topics.css'
 
 const SAVED_KEY = 'ruok-topic-basket'
@@ -36,6 +36,8 @@ export default function TopicsPage() {
   const [batch, setBatch] = useState<Topic[]>([])
   const [saved, setSaved] = useState<SavedTopic[]>([])
   const [notice, setNotice] = useState('')
+  const [origin, setOrigin] = useState<TopicsHandoff | null>(null)
+  const handed = useRef(false)
 
   useEffect(() => { setSaved(loadSaved()) }, [])
   useEffect(() => {
@@ -52,8 +54,17 @@ export default function TopicsPage() {
     setSeed(nextSeed)
   }
 
-  /** The first batch is ready on arrival, so the page is never an empty form. */
-  useEffect(() => { setBatch(generateTopics('', 'xiaohongshu', 'checklist', 1)) }, [])
+  /** 运营复盘 hands over a keyword and platform; without it the first batch is ready on arrival, so the page is never an empty form. */
+  useEffect(() => {
+    if (handed.current) return
+    handed.current = true
+    const handoff = takeTopicsHandoff()
+    if (!handoff) { setBatch(generateTopics('', 'xiaohongshu', 'checklist', 1)); return }
+    setOrigin(handoff)
+    setKeyword(handoff.keyword)
+    setPlatform(handoff.platform)
+    setBatch(generateTopics(handoff.keyword, handoff.platform, 'checklist', 1))
+  }, [])
 
   const keep = (topic: Topic) => {
     setSaved(current => current.some(item => item.title === topic.title)
@@ -81,6 +92,7 @@ export default function TopicsPage() {
 
     <div className="topics-grid">
       <section className="topics-panel" aria-label="选题条件">
+        {origin && <p className="topics-origin">来自运营复盘：{origin.reason ?? `上次做的是「${origin.keyword}」。`}关键词和平台已按复盘填好，可以直接换一批或改条件。</p>}
         <h2>关键词</h2>
         <label className="topics-field">
           <span>这一条讲什么</span>

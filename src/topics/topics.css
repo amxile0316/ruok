@@ -94,6 +94,18 @@ html[data-ui-theme=umbra] .topics-page {
 html[data-ui-theme=warm] .topics-chip[aria-pressed="true"] { color: var(--ruok-accent-text); }
 
 .topics-note { margin: 10px 0 0; color: var(--ruok-muted); font-size: 12px; line-height: 1.6; }
+/* 运营复盘 handed this keyword in: one line of context above the form. */
+.topics-origin {
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  border: 1px solid var(--tp-rim);
+  border-left: 3px solid var(--ruok-accent);
+  border-radius: var(--rk-r-2, 6px);
+  background: var(--tp-raise);
+  color: var(--ruok-ink-2);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
 
 .topics-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .topics-go {

@@ -1,7 +1,7 @@
 import {useEffect,useMemo,useRef,useState} from 'react'
-import {Link} from 'react-router'
+import {Link, useNavigate} from 'react-router'
 import {attribute,emptyWork,metricsOf,parseCsv,PLATFORMS,summarize,suggestions,trend,type Work} from './model.ts'
-import {takeAnalyticsHandoff,type AnalyticsHandoff} from '@/workspace/handoff'
+import {takeAnalyticsHandoff,topicsHandoffFromWork,writeTopicsHandoff,type AnalyticsHandoff} from '@/workspace/handoff'
 import './analytics.css'
 
 const STORE = 'ruok.analytics.works.v1'
@@ -49,6 +49,7 @@ function TrendChart({ works }: { works: Work[] }) {
 }
 
 export default function AnalyticsPage() {
+  const navigate = useNavigate()
   const [works, setWorks] = useState<Work[]>(loadWorks)
   const [selected, setSelected] = useState('')
   const [draft, setDraft] = useState<Omit<Work, 'id'> | null>(null)
@@ -95,6 +96,17 @@ export default function AnalyticsPage() {
   const remove = (id: string) => {
     setWorks(rows => rows.filter(work => work.id !== id))
     if (selected === id) setSelected('')
+  }
+
+  /** 运营分析 → 智能选题: the review of this work becomes the next batch's keyword and platform. */
+  const nextRound = (work: Work) => {
+    const handoff = topicsHandoffFromWork(work)
+    if (!handoff) return flash('这条作品还没有题材或标题，先补上再复盘')
+    writeTopicsHandoff({
+      ...handoff,
+      reason: `《${work.title}》${compact(work.views)} 播放、互动率 ${pct(metricsOf(work).engagement)}，接着这个题材再做一批。`,
+    })
+    navigate('/topics')
   }
 
   const importCsv = async (file: File | undefined) => {
@@ -223,6 +235,10 @@ export default function AnalyticsPage() {
                 <div><dt>钩子</dt><dd>{current.hook || '未标注'}</dd></div>
                 <div><dt>题材</dt><dd>{current.topic || '未标注'}</dd></div>
               </dl>
+              <div className="an-actions">
+                <button type="button" className="an-btn an-btn--primary" onClick={() => nextRound(current)}>用这条结论出选题</button>
+                <span className="an-hint">把这条的题材和平台带回智能选题，直接生成下一批。</span>
+              </div>
             </>
           )}
         </section>
