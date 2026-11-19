@@ -1,9 +1,10 @@
 // Added by the RUOK fork on 2026-11-17: 智能选题 module page (local rules, no network).
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router'
-import { Check, Copy, Lightbulb, RefreshCw, Sparkles, Trash2 } from 'lucide-react'
+import { Link, useNavigate } from 'react-router'
+import { Check, Copy, Lightbulb, PenLine, RefreshCw, Sparkles, Trash2 } from 'lucide-react'
 import { TOPIC_ANGLES, TOPIC_PLATFORMS, generateTopics, type Topic, type TopicAngle, type TopicPlatform } from './topic-generator'
 import { copyText } from '@/workspace/clipboard'
+import { topicSource, writePublishHandoff } from '@/workspace/handoff'
 import './topics.css'
 
 const SAVED_KEY = 'ruok-topic-basket'
@@ -23,9 +24,11 @@ function loadSaved(): SavedTopic[] {
   }
 }
 
-const topicScript = (topic: Topic) => [topic.title, '', topic.hook, '', ...topic.outline.map((line, index) => `${index + 1}. ${line}`)].join('\n')
+/** 选题 → 文案发布: the draft carries title, hook and outline, so the writer starts from the chosen topic. */
+type HandoffTopic = Pick<Topic, 'title' | 'hook' | 'platform' | 'angle'> & {readonly outline?: readonly string[]}
 
 export default function TopicsPage() {
+  const navigate = useNavigate()
   const [keyword, setKeyword] = useState('')
   const [platform, setPlatform] = useState<TopicPlatform>('xiaohongshu')
   const [angle, setAngle] = useState<TopicAngle>('checklist')
@@ -61,6 +64,11 @@ export default function TopicsPage() {
 
   const keptTitles = useMemo(() => new Set(saved.map(item => item.title)), [saved])
 
+  const toPublish = (topic: HandoffTopic) => {
+    writePublishHandoff({ source: topicSource(topic), platform: topic.platform, title: topic.title, angle: angleName(topic.angle) })
+    navigate('/publish')
+  }
+
   return <main className="topics-page">
     <header className="topics-head">
       <div>
@@ -95,7 +103,7 @@ export default function TopicsPage() {
           <button type="button" className="topics-go" onClick={() => generate(seed + 1)}><Sparkles size={15} aria-hidden="true" />生成一批选题</button>
           <button type="button" className="topics-btn" onClick={() => generate(seed + 1)}><RefreshCw size={14} aria-hidden="true" />换一批</button>
         </div>
-        <p className="topics-hint">同一关键词换一批会给不同的标题骨架；满意的那条存进选题篮，后面写稿和发布直接用。</p>
+        <p className="topics-hint">同一关键词换一批会给不同的标题骨架；满意的那条存进选题篮，点「去写稿」会带着标题、钩子和大纲进入文案发布。</p>
       </section>
 
       <section className="topics-result" aria-labelledby="topics-result-title">
@@ -115,11 +123,12 @@ export default function TopicsPage() {
             <ol className="topics-outline">{topic.outline.map((line, lineIndex) => <li key={lineIndex}>{line}</li>)}</ol>
             <div className="topics-card__actions">
               <button type="button" className="topics-btn" onClick={() => { void copyText(topic.title).then(ok => flash(ok ? '已复制标题' : '复制失败，请手动选择')) }}><Copy size={13} aria-hidden="true" />复制标题</button>
-              <button type="button" className="topics-btn" onClick={() => { void copyText(topicScript(topic)).then(ok => flash(ok ? '已复制整条脚本' : '复制失败，请手动选择')) }}><Copy size={13} aria-hidden="true" />复制脚本</button>
+              <button type="button" className="topics-btn" onClick={() => { void copyText(topicSource(topic)).then(ok => flash(ok ? '已复制整条脚本' : '复制失败，请手动选择')) }}><Copy size={13} aria-hidden="true" />复制脚本</button>
               <button type="button" className="topics-btn topics-btn--keep" data-kept={keptTitles.has(topic.title) || undefined} onClick={() => keep(topic)}>
                 {keptTitles.has(topic.title) ? <Check size={13} aria-hidden="true" /> : <Sparkles size={13} aria-hidden="true" />}
                 {keptTitles.has(topic.title) ? '已在选题篮' : '存进选题篮'}
               </button>
+              <button type="button" className="topics-btn topics-btn--go" onClick={() => toPublish(topic)}><PenLine size={13} aria-hidden="true" />去写稿</button>
             </div>
           </li>)}</ul>}
         {notice && <p className="topics-notice" role="status">{notice}</p>}
@@ -142,6 +151,7 @@ export default function TopicsPage() {
             <p className="topics-basket__meta">{platformName(item.platform)}<i aria-hidden="true">·</i>{angleName(item.angle)}<i aria-hidden="true">·</i>{new Date(item.savedAt).toLocaleDateString('zh-CN')}</p>
           </div>
           <div className="topics-basket__actions">
+            <button type="button" className="topics-icon topics-icon--go" aria-label={`写稿：${item.title}`} title="带去文案发布" onClick={() => toPublish(item)}><PenLine size={14} aria-hidden="true" /></button>
             <button type="button" className="topics-icon" aria-label={`复制：${item.title}`} title="复制标题" onClick={() => { void copyText(item.title).then(ok => flash(ok ? '已复制标题' : '复制失败')) }}><Copy size={14} aria-hidden="true" /></button>
             <button type="button" className="topics-icon" aria-label={`删除：${item.title}`} title="从选题篮删除" onClick={() => setSaved(current => current.filter(entry => entry.savedAt !== item.savedAt))}><Trash2 size={14} aria-hidden="true" /></button>
           </div>

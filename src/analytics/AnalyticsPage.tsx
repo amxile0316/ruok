@@ -1,6 +1,7 @@
 import {useEffect,useMemo,useRef,useState} from 'react'
 import {Link} from 'react-router'
 import {attribute,emptyWork,metricsOf,parseCsv,PLATFORMS,summarize,suggestions,trend,type Work} from './model.ts'
+import {takeAnalyticsHandoff,type AnalyticsHandoff} from '@/workspace/handoff'
 import './analytics.css'
 
 const STORE = 'ruok.analytics.works.v1'
@@ -53,7 +54,24 @@ export default function AnalyticsPage() {
   const [draft, setDraft] = useState<Omit<Work, 'id'> | null>(null)
   const [dimension, setDimension] = useState<'style' | 'hook' | 'topic' | 'bucket'>('style')
   const [message, setMessage] = useState('')
+  const [origin, setOrigin] = useState<AnalyticsHandoff | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
+  // 文案发布 hands over the title, platform and hook; only the numbers are left to fill in.
+  const handed = useRef(false)
+  useEffect(() => {
+    if (handed.current) return
+    handed.current = true
+    const handoff = takeAnalyticsHandoff()
+    if (!handoff) return
+    setOrigin(handoff)
+    setDraft({
+      ...emptyWork(),
+      title: handoff.title,
+      platform: (PLATFORMS as readonly string[]).includes(handoff.platform) ? handoff.platform : PLATFORMS[0],
+      hook: handoff.hook ?? '',
+      topic: handoff.topic ?? '',
+    })
+  }, [])
 
   useEffect(() => { localStorage.setItem(STORE, JSON.stringify(works)) }, [works])
   useEffect(() => { if (!selected && works.length) setSelected(works[0].id) }, [works, selected])
@@ -70,6 +88,7 @@ export default function AnalyticsPage() {
     if (!draft.title.trim()) return flash('先填作品标题')
     setWorks(rows => [...rows, {...draft, title: draft.title.trim(), id: crypto.randomUUID()}])
     setDraft(null)
+    setOrigin(null)
     flash('已录入一条作品')
   }
 
@@ -134,6 +153,7 @@ export default function AnalyticsPage() {
       {draft && (
         <section className="an-panel an-form">
           <h2>录入作品</h2>
+          {origin && <p className="an-origin">来自文案发布：<b>{origin.title}</b>。标题、平台和钩子已填好，补上播放与互动数据即可保存。</p>}
           <div className="an-fields">
             {field('标题', 'title')}
             <label className="an-field"><span>平台</span>
@@ -155,7 +175,7 @@ export default function AnalyticsPage() {
           </div>
           <div className="an-form__actions">
             <button type="button" className="an-btn an-btn--primary" onClick={save}>保存</button>
-            <button type="button" className="an-btn" onClick={() => setDraft(null)}>取消</button>
+            <button type="button" className="an-btn" onClick={() => { setDraft(null); setOrigin(null) }}>取消</button>
           </div>
         </section>
       )}

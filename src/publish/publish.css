@@ -59,6 +59,21 @@ html[data-ui-theme=umbra] .publish-page {
 }
 .publish-panel h2 { margin: 0 0 12px; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--ruok-muted); }
 .publish-panel h2:not(:first-child) { margin-top: 20px; }
+.publish-origin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  margin: -2px 0 12px;
+  padding: 8px 11px;
+  border: 1px solid var(--pub-ok-line);
+  border-radius: var(--rk-r-2, 6px);
+  background: var(--pub-ok-bg);
+  color: var(--ruok-ink-2);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.publish-origin b { color: var(--ruok-ink); font-weight: 600; }
 
 .publish-textarea {
   width: 100%;

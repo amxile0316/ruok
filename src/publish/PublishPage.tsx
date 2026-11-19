@@ -1,15 +1,8 @@
-import {useState} from 'react'
-import {Link} from 'react-router'
+// Modified by the RUOK fork on 2026-11-19: 接住智能选题的交接，并能把生成结果带进运营分析。
+import {useEffect, useRef, useState} from 'react'
+import {Link, useNavigate} from 'react-router'
+import {PUBLISH_PLATFORMS as PLATFORMS, analyticsHandoffFromCopy, takePublishHandoff, writeAnalyticsHandoff, type PublishHandoff, type PublishPlatform} from '@/workspace/handoff'
 import './publish.css'
-
-const PLATFORMS = [
-  {id: 'xiaohongshu', name: '小红书'},
-  {id: 'douyin', name: '抖音'},
-  {id: 'shipinhao', name: '视频号'},
-  {id: 'bilibili', name: 'B 站'},
-  {id: 'youtube', name: 'YouTube'},
-  {id: 'x', name: 'X'},
-] as const
 
 type Copy = {title: string; body: string; tags: string[]; hook: string; platformName: string; local?: boolean; warning?: string}
 
@@ -27,13 +20,26 @@ function save(name: string, text: string) {
 }
 
 export default function PublishPage() {
+  const navigate = useNavigate()
   const [source, setSource] = useState('')
-  const [platform, setPlatform] = useState<(typeof PLATFORMS)[number]['id']>('xiaohongshu')
+  const [platform, setPlatform] = useState<PublishPlatform>('xiaohongshu')
   const [tone, setTone] = useState('')
   const [copy, setCopy] = useState<Copy | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
+  const [origin, setOrigin] = useState<PublishHandoff | null>(null)
+  // One-shot: consume the handoff once, not again on the second StrictMode mount.
+  const handed = useRef(false)
+  useEffect(() => {
+    if (handed.current) return
+    handed.current = true
+    const handoff = takePublishHandoff()
+    if (!handoff) return
+    setOrigin(handoff)
+    setSource(handoff.source)
+    setPlatform(handoff.platform)
+  }, [])
 
   const generate = async () => {
     if (!source.trim() || busy) return
@@ -58,6 +64,13 @@ export default function PublishPage() {
   const markdown = copy ? `${copy.title}\n\n${copy.body}\n\n${copy.tags.map(tag => `#${tag}`).join(' ')}` : ''
   const flash = (text: string) => { setNotice(text); setTimeout(() => setNotice(''), 1600) }
 
+  /** 文案发布 → 运营分析: carry the title, platform, hook and topic; metrics are filled in on that page. */
+  const toAnalytics = () => {
+    if (!copy) return
+    writeAnalyticsHandoff(analyticsHandoffFromCopy({title: copy.title, platform, hook: copy.hook, topic: origin?.angle}))
+    navigate('/analytics')
+  }
+
   return (
     <main className="publish-page">
       <header className="publish-head">
@@ -72,6 +85,7 @@ export default function PublishPage() {
       <div className="publish-grid">
         <section className="publish-panel">
           <h2>素材</h2>
+          {origin && <p className="publish-origin" role="status">来自选题：<b>{origin.title}</b>{origin.angle ? ` · ${origin.angle}` : ''}</p>}
           <textarea
             className="publish-textarea"
             value={source}
@@ -123,6 +137,7 @@ export default function PublishPage() {
                 <button type="button" className="publish-btn publish-btn--primary" onClick={() => { void copyText(markdown).then(ok => flash(ok ? '已复制全文' : '复制失败，请手动选择')) }}>复制全文</button>
                 <button type="button" className="publish-btn" onClick={() => { void copyText(copy.tags.map(tag => `#${tag}`).join(' ')).then(ok => flash(ok ? '已复制话题' : '复制失败')) }}>复制话题</button>
                 <button type="button" className="publish-btn" onClick={() => save(`发布文案-${copy.platformName}.md`, markdown)}>导出 Markdown</button>
+                <button type="button" className="publish-btn" onClick={toAnalytics}>记入运营分析</button>
               </div>
               {copy.local && <p className="publish-local">本机智能体未接通，已按素材摘句生成；接通后可在设置里让智能体改写。{copy.warning ? `（${copy.warning}）` : ''}</p>}
               {notice && <p className="publish-notice" role="status">{notice}</p>}

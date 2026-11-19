@@ -4,7 +4,7 @@
 - 上游版本：OpenTake Standard v1.1.3
 - 上游标签：`desktop-v1.1.3-2026111001`
 - 上游提交：`9af159999bca06c125f767aafd1006348d1d3091`（2026-11-09，README：下载链接换成 1.1.3）
-- 版本线：RUOK 自 **2.0.0** 起使用独立版本号（`package.json`），上游基线固定为 OpenTake Standard 1.1.3。基线字符串只在 `src/settings/ruok-version.ts` 的 `UPSTREAM_BASELINE` 维护一次，关于页显示为「RUOK 2.0.0（基于 OpenTake Standard 1.1.3）」。桌面端、安装包与启动上报均读 `package.json`，更新通道保持关闭。
+- 版本线：RUOK 自 **2.0.0** 起使用独立版本号（`package.json`），上游基线固定为 OpenTake Standard 1.1.3。基线字符串只在 `src/settings/ruok-version.ts` 的 `UPSTREAM_BASELINE` 维护一次，关于页按 `package.json` 显示「RUOK 2.1.0（基于 OpenTake Standard 1.1.3）」。桌面端、安装包与启动上报均读 `package.json`，更新通道保持关闭。
 - 本地目录：`ruok/`
 - 本地分支：`ruok/main`（从 `main` 建立，保留完整 Git 历史）
 - 改造日期：2026-11-17
@@ -112,6 +112,16 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 - `TRADEMARK.md`：新增 RUOK 分支商标边界说明。
 - `THIRD-PARTY-LICENSES.json`、`licenses/npm/**`：保留；发布新安装包前需重新生成并复核。
 - `README.md`：顶部改为 RUOK 构建说明，移除作者下载/统计链接；其余上游技术文档保留并加注适用性说明。
+
+### 2.8 2.1.0 模块闭环
+
+- 新增 `src/workspace/handoff.ts`：选题 → 文案发布 → 运营分析的一次性交接，保存发布平台清单与草稿校验。
+- `src/topics/TopicsPage.tsx`：卡片与选题篮新增「去写稿」，写入标题、钩子、大纲、平台与角度。
+- `src/publish/PublishPage.tsx`：读取交接草稿并显示来源，平台常量迁入 `handoff.ts`，结果区新增「记入运营分析」。
+- `src/analytics/AnalyticsPage.tsx`：读取交接草稿，预填标题、平台、钩子与题材并显示来源。
+- `src/topics/topics.css`、`src/publish/publish.css`、`src/analytics/analytics.css`：新增交接提示与写稿入口样式，沿用三套主题令牌。
+- `server/handoff.test.ts`：交接纯函数的回归测试。
+- `RELEASE-NOTES-2.1.0.md`：本版发布说明。
 
 ## 3. 验证记录
 
