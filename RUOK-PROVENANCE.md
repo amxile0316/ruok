@@ -176,6 +176,7 @@ RUOK 是 OpenTake Standard 的修改版本，按 AGPL-3.0-only 分发。原始�
 - 拷贝范围：保留 `scripts/`、`template/`、`packs/`、`assets/fonts/`，以及 `references/`、`adapters/`、`adaptation-profiles/`、`agents/`、`third-party/` 等支撑目录和顶层 `LICENSE`/`package.json` 等文件；排除 `node_modules/`、`.git/`、`assets/demos/`、`assets/tutorials/`、`docs/`、`examples/`、`tests/`、`cover.png` 等非必需内容（vendored 副本约 33.4 MB）。adu 的裸依赖 `acorn`、`playwright-core` 由 `ruok/node_modules` 沿目录树向上解析，无需在 vendor 内单独安装。
 - 复用 RUOK 运行时：`aduEnv()` 把 `CHROME`/`ADU_PLAYWRIGHT_MODULE`/`ADU_PYTHON` 指向 RUOK 解析到的工具，并把 RUOK 自带 ffmpeg 所在目录前置到 `PATH`，使 adu 的裸 `ffmpeg`/`ffprobe` 命中同一二进制。
 - 打包分发：`desktop/builder.config.cjs` 在排除 `vendor/**` 之后重新包含 `vendor/adu/**`（`vendor/openscreen` 仍不进包，其产物已在 `dist/`）。已用 `npx electron-builder --win dir` 验证产物 `resources/app/vendor/adu` 含 885 个文件、33.4 MB，并从该产物目录实际渲染出片。
+- 换行符与冻结包：adu 的 pack/template 清单按文件字节 SHA-256 校验。Windows 上 `core.autocrlf=true` 会把握手文件检出成 CRLF，导致 `macro-build` 报 `Frozen pack file changed or missing`。`.gitattributes` 已为 `vendor/adu/**` 设置 `-text`，保持上游原始字节；改动 vendor 后不要重新规范化这些文件。
 
 ### 6.1 本地修改（同步上游时需复核，详见 `vendor/adu/RUOK-PATCHES.md`）
 
