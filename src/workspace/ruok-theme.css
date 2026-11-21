@@ -198,15 +198,16 @@ html[data-ui-theme=warm] {
   --ed-accent-text: #6b532a;
   --ed-accent-soft: #7a5f2f14;
 
-  /* 浅色纸面上仍是深色胶囊，但底色压成中性炭黑、当前项用赭金，文字一律浅色。 */
-  --ruok-capsule-bg: #232323e8;
-  --ruok-capsule-bg-on: #7a5f2f;
-  --ruok-capsule-line: #ffffff8c;
-  --ruok-capsule-line-on: #ffffffb0;
-  --ruok-capsule-ink: #eaeaea;
-  --ruok-capsule-ink-on: #ffffff;
-  --ruok-capsule-ink-2: #c6c6c6;
-  --ruok-capsule-solid: #232323;
+  /* 浅色纸面：胶囊跟顶栏其它按钮同一套中性色——灰底黑字。
+     当前项只加深一档灰、配一圈赭金细边，不靠反色区分，免得又变成一块看不清的深色。 */
+  --ruok-capsule-bg: #e6e4e0f2;
+  --ruok-capsule-bg-on: #d9d5cd;
+  --ruok-capsule-line: #23232321;
+  --ruok-capsule-line-on: #7a5f2f66;
+  --ruok-capsule-ink: #1f1f1f;
+  --ruok-capsule-ink-on: #111111;
+  --ruok-capsule-ink-2: #4a4a4a;
+  --ruok-capsule-solid: #e6e4e0;
 }
 html[data-ui-theme=warm] .ge-en {
   --en-accent: #7a5f2f;
