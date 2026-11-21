@@ -112,6 +112,7 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 - `TRADEMARK.md`：新增 RUOK 分支商标边界说明。
 - `THIRD-PARTY-LICENSES.json`、`licenses/npm/**`：保留；发布新安装包前需重新生成并复核。
 - `vendor/adu/`：新增第三方 vendor（adu-motion-video，MIT），作为可调用的 HTML 逐帧渲染后端；来源、提交与本地修改见第 6 节。
+- `server/general/kit/styles/`：试点补入三个上游风格 `crayon-book`、`ukiyoe`、`papercut-red`（STYLE.md / DEMO.md 取自 lemo-opuscar，MIT，正文未改；text-presets.json 为 RUOK 新写），并同步 `src/standard/styles.json` 与 `category-styles.json`，可用风格从 11 个增至 14 个。
 - `README.md`：顶部改为 RUOK 构建说明，移除作者下载/统计链接；其余上游技术文档保留并加注适用性说明。
 
 ### 2.8 2.1.0 模块闭环

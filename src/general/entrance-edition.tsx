@@ -9,7 +9,7 @@ import {AgentControls} from './AgentPicker'
 import {useGeneralStart} from './general-start'
 export type Handoff = {text?: string; draft?: never}
 export const entranceHasFreeStyle = true
-export const entranceCountSuffix = ' · 10 个可用'
+export const entranceCountSuffix = ` · ${allowed.length} 个可用`
 export const categoryAllowed = (index: number, id: string) => allowed.includes(id) && ((categoryStyles as Record<string, string[]>)[String(index)] || []).includes(id)
 export function EntranceHandoff(_props: {handoff: Handoff; onDrop: () => void}) { return null }
 type DraftFile = { key: string; file: File }

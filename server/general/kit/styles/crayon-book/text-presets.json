@@ -1,0 +1,51 @@
+{
+  "presets": {
+    "绘本标题": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.082,
+      "color": "#3B3B3B",
+      "accent": "#D4553F",
+      "lineHeight": 1.25,
+      "roles": [
+        "title"
+      ]
+    },
+    "绘本旁白": {
+      "font": "Noto Sans SC",
+      "fontFile": "",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#3B3B3B",
+      "accent": "#3B3B3B",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ],
+      "box": true,
+      "boxColor": "#F4EFE3"
+    },
+    "绘本标签": {
+      "font": "Architects Daughter",
+      "fontFile": "ArchitectsDaughter-Regular.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 400,
+      "size": 0.03,
+      "color": "#2F6F9F",
+      "accent": "#D4553F",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

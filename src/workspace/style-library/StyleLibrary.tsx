@@ -356,7 +356,7 @@ export function StyleLibrary(props: StyleLibraryProps) {
         <span className="sl-filters__count">{favorites.length}</span>
       </button>
     </div>
-    <div className="sl-filters" role="group" aria-label="按九类用途筛选">{['全部',...categories.map(c=>c.name)].map(name=><button key={name} aria-pressed={category===name} onClick={()=>{setCategory(name);setOpenId(null)}}>{name}</button>)}<span>56 个风格 · 10 个可用</span></div>
+    <div className="sl-filters" role="group" aria-label="按九类用途筛选">{['全部',...categories.map(c=>c.name)].map(name=><button key={name} aria-pressed={category===name} onClick={()=>{setCategory(name);setOpenId(null)}}>{name}</button>)}<span>{LIBRARY_STYLES.length} 个风格 · {LIBRARY_STYLES.filter(isPickableStyle).length} 个可用</span></div>
     {groups.map((group, index) => <StyleSection key={group.type} type={group.type} styles={group.styles} order={index}
       openId={open ? open.id : null} pickedId={picked?.id} picking={props.mode === 'pick'}
       detailId={detailId} headingId={`${uid}-${group.type}`} onToggle={toggle} favorites={favoriteSet} onFavorite={favorite} detail={detail} />)}

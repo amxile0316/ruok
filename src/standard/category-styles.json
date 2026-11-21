@@ -9,14 +9,23 @@
   ],
   "2": [
     "whiteboard",
-    "iso-infographic"
+    "iso-infographic",
+    "crayon-book"
+  ],
+  "3": [
+    "crayon-book",
+    "papercut-red"
   ],
   "4": [
     "impasto",
     "cel-anime-80s"
   ],
+  "6": [
+    "papercut-red"
+  ],
   "7": [
     "watercolor",
-    "tilt-shift"
+    "tilt-shift",
+    "ukiyoe"
   ]
 }

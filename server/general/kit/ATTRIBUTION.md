@@ -4,7 +4,7 @@ OpenTake 通用剪辑的出片工具包里，下列文件来自 **lemo-opuscar**
 
 | 本目录中的文件 | 上游文件 |
 |---|---|
-| `styles/<风格>/STYLE.md`（Standard 上游 10 种） | `styles/<风格>/STYLE.md` |
+| `styles/<风格>/STYLE.md`（Standard 上游 13 种） | `styles/<风格>/STYLE.md` |
 | `styles/<风格>/DEMO.md` | `styles/<风格>/DEMO.md`（另加一段 OpenTake 说明：demo 源码未随附） |
 | `guides/DIRECTOR.md`、`guides/TECHNIQUE.md` | `DIRECTOR.md`、`TECHNIQUE.md` |
 | `web/lib.js` | `core/lib.js` |
@@ -13,6 +13,10 @@ OpenTake 通用剪辑的出片工具包里，下列文件来自 **lemo-opuscar**
 | `audio/sfx.py` | `core/audio/sfx.py` |
 
 lemo-opuscar 的样片、静帧（CC BY 4.0）、采样库和配音素材都不在这个工具包里。
+
+## 2026-11-21 试点补入的三种风格
+
+`styles/crayon-book/`、`styles/ukiyoe/`、`styles/papercut-red/` 的 `STYLE.md`、`DEMO.md` 取自 lemo-opuscar 提交 f9e204293930952b61ba921cd8944d05f121beee，同样是 MIT、正文未改动（文件头注释已写明该提交）。它们的 `text-presets.json` 是 RUOK 按各自风格说明里的用色与字体倾向新写的排版预设，不含上游内容。
 
 ## product-promo（RUOK 自写）
 
