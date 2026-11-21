@@ -25,7 +25,18 @@
 
 **验证**：`libopenh264` 端到端渲染产出 h264/yuv420p/bt709/tv，`ffprobe` 色彩标签正确。
 
-## 3. 运行时约定（非 vendor 文件修改，由接线层施加）
+## 3. `scripts/output-signature.mjs` + `scripts/render_project.mjs` — 关闭官方角标时隐藏源 HUD 时码
+
+**动机**：模板自带的右上角 HUD 会渲染 `品牌 + 源时码`（如 `YOUR BRAND 00:00:09:00`）。上游把隐藏这段源时码的逻辑 `hideSourceClocks()` 写在 `createSignature()` 内部，只有官方角标启用时才执行；RUOK 通过 `output-signature.json` 关闭官方角标后，该逻辑完全不运行，角落仍残留模板时码。
+
+**改动**：
+- `output-signature.mjs` 新增导出 `disableSourceClocks(page)`：沿用上游同一套筛选条件（右上角、时钟文本格式、字号 ≤ 40），只标记时钟节点并注入 `[data-motiongit-source-clock]{display:none!important}`；保留品牌文本，不移动 HUD 容器，也不绘制任何角标。函数在页面内安装 `window.__aduHideSourceClocks` 并返回本轮标记数量。
+- `render_project.mjs`：`output-signature.json` 的 `enabled:false` 分支调用一次 `disableSourceClocks(page)`；此后每次 `renderAt(t)` 后的求值里再次调用已安装的 `__aduHideSourceClocks()`，覆盖生成工程按需重建的 HUD 节点。
+- 渲染报告新增 `sourceClocks` 字段（官方角标启用时为 `0`，表示该路径由上游逻辑处理）。
+
+**验证**：`vendor/adu/template` 渲染报告 `sourceClocks >= 1`，1/9/15 秒抽帧右上角只剩品牌文本，无源时码；官方 `mm:ss` 与 Circle Logo 仍不出现。
+
+## 4. 运行时约定（非 vendor 文件修改，由接线层施加）
 
 - `server/general/adu-runtime.ts` 渲染前向工程目录写入无 BOM 的 `output-signature.json`（`{"schema":"adu-output-signature/1","enabled":false}`），关闭 adu 右上角时间码 + Circle Logo。必须无 BOM，否则 adu 的 `JSON.parse` 抛 `Unexpected token '﻿'`。
 - `aduEnv()` 注入 `CHROME`/`ADU_PLAYWRIGHT_MODULE`/`ADU_PYTHON` 并把 RUOK ffmpeg 目录前置到 `PATH`。

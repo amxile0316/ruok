@@ -180,7 +180,7 @@ RUOK 是 OpenTake Standard 的修改版本，按 AGPL-3.0-only 分发。原始�
 
 1. `scripts/color_management.py`：FFmpeg 主版本闸由 `>= 9` 放宽到 `>= 8`（SDR 导出路径）；版本正则放宽为容忍 `n` 等非数字前缀（RUOK 自带构建报告 `ffmpeg version n8.1.3`）。HDR 输入导入仍需 FFmpeg 9+，RUOK 不使用。
 2. `scripts/render_project.mjs`：H.264 编码器由硬编码 `libx264` 改为运行时探测——`libx264` 优先，缺失时回退 `libopenh264`（高码率），并支持 `ADU_VIDEO_ENCODER`/`ADU_VIDEO_ENCODER_OPTS` 覆盖。原因：RUOK 自带的是 LGPL FFmpeg，不含 GPL 的 libx264。
-3. 运行时约定：每个 adu 工程目录写无 BOM 的 `output-signature.json`（`enabled:false`）关闭右上角角标；`server/general/adu-runtime.ts` 的 `disableSignature()` 统一写入。
+3. 运行时约定：每个 adu 工程目录写无 BOM 的 `output-signature.json`（`enabled:false`）关闭右上角角标；`server/general/adu-runtime.ts` 的 `disableSignature()` 统一写入。关闭官方角标后，`scripts/render_project.mjs` 另行调用 `disableSourceClocks()` 隐藏模板自带的右上角源 HUD 时码（保留品牌文本），该逻辑上游原本只随官方角标启用。
 
 ### 6.2 已知边界
 

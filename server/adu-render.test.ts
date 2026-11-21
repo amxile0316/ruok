@@ -70,6 +70,7 @@ test('端到端：用 vendor/adu/template 渲染 2s MP4，角标关闭且含 h26
     // 渲染报告：角标应已关闭
     const sig = result.report.signature as { enabled?: boolean } | undefined;
     assert.equal(sig?.enabled, false, '角标应关闭');
+    assert.ok(Number(result.report.sourceClocks) >= 1, '模板自带的源 HUD 时码应被隐藏');
 
     // ffprobe：含 h264 视频流，帧数正确
     const probe = spawnSync(ffprobePath(), [

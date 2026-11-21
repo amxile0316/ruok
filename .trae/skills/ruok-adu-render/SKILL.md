@@ -50,6 +50,8 @@ description: 在 RUOK 中调用和维护 adu-motion-video 渲染后端。用于 
 
 不要用可能附带 BOM 的 shell 重定向生成该文件。不要修改冻结 pack、叠加第二套时码或 Logo，也不要把源片时间塞入角标。渲染报告中的 `signature.enabled=false` 只证明配置生效；修改角标实现后还须抽取实际帧检查右上角画面。
 
+官方角标关闭时，`render_project.mjs` 会调用 `disableSourceClocks()` 隐藏模板自带的右上角源 HUD 时码并保留品牌文本，报告字段 `sourceClocks` 记录标记数量。若抽帧仍看到源时码，说明该工程的 HUD 结构超出上游筛选条件（右上角、时钟文本、字号不超过 40），需按实际 DOM 补充规则，而不是重新启用官方角标。
+
 ## FFmpeg 与编码器边界
 
 RUOK 当前使用版本串含 `n` 前缀的 FFmpeg 8.1.3 LGPL 构建。维护或同步上游时保留以下兼容逻辑：

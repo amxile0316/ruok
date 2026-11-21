@@ -7,7 +7,7 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { spawn, spawnSync } from 'node:child_process';
 import { chrome } from './chrome.mjs';
-import { createSignature } from './output-signature.mjs';
+import { createSignature, disableSourceClocks } from './output-signature.mjs';
 
 // RUOK patch: select an H.264 encoder that is actually present in the linked
 // FFmpeg. Upstream hardcodes libx264, but RUOK ships an LGPL FFmpeg build that
@@ -164,6 +164,7 @@ async function main() {
       await Promise.race([Promise.resolve(window.READY), new Promise((_, reject) => setTimeout(() => reject(Error('READY timed out')), 90000))]);
     });
     let signature;
+    let sourceClocks;
     async function frame(t = null) {
       if (signature) await signature.before();
       await page.evaluate(async time => {
@@ -205,6 +206,9 @@ async function main() {
             if (!im.naturalWidth) throw Error('Broken image resource');
           }
         })(), new Promise((_, reject) => setTimeout(() => reject(Error('Font/image/frame readiness timed out')), 30000))]);
+        // RUOK patch: keep the template's own corner timecode hidden after every
+        // seek, including HUD nodes a generated project rebuilds lazily.
+        if (window.__aduHideSourceClocks) window.__aduHideSourceClocks();
       }, t);
       if (signature && t !== null) await signature.draw(t);
       check();
@@ -229,6 +233,10 @@ async function main() {
       if (config.assets !== undefined && (typeof config.assets !== 'string' || path.isAbsolute(config.assets) || path.relative(base, assets).startsWith('..'))) throw Error('Signature assets must be inside the project');
       const selector = await page.locator('#stage').count() ? '#stage' : 'body';
       signature = await createSignature(page, { width: opt.width, height: opt.height, duration: timelineEnd, fps: opt.fps, selector, mode: 'dom', assets });
+    } else {
+      // RUOK patch: with the official signature disabled, its source-clock pass
+      // never ran; hide the template's decorative corner timecode explicitly.
+      sourceClocks = await disableSourceClocks(page);
     }
     if (opt['stills-dir']) {
       if (opt.times.some(t => t >= end)) throw Error('Still times must precede END/--end');
@@ -239,7 +247,7 @@ async function main() {
       }
       fs.mkdirSync(opt.target);
       for (const file of fs.readdirSync(temporary)) fs.copyFileSync(path.join(temporary, file), path.join(opt.target, file), fs.constants.COPYFILE_EXCL);
-      report = { output: opt.target, times: opt.times, signature: signature?.receipt ?? { enabled: false }, browser: browserPath };
+      report = { output: opt.target, times: opt.times, signature: signature?.receipt ?? { enabled: false }, sourceClocks: sourceClocks ?? 0, browser: browserPath };
       return;
     }
     const first = Math.round(opt.start * opt.fps), last = Math.round(end * opt.fps), count = last - first, duration = count / opt.fps;
@@ -284,7 +292,7 @@ async function main() {
     check();
     fs.copyFileSync(output, opt.target, fs.constants.COPYFILE_EXCL);
     const imageDecodeRetries = await page.evaluate(() => window.ADU_DECODE_RETRIES || 0);
-    report = { output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, imageDecodeRetries, signature: signature?.receipt ?? { enabled: false }, browser: browserPath, color };
+    report = { output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, imageDecodeRetries, signature: signature?.receipt ?? { enabled: false }, sourceClocks: sourceClocks ?? 0, browser: browserPath, color };
   } finally {
     if (ff && ff.exitCode === null) { ff.kill('SIGKILL'); await ffDone; }
     let shutdownForced = false, shutdownTimer;

@@ -218,3 +218,54 @@ export async function createSignature(page, options) {
       assets: Object.fromEntries(Object.entries(signatureAssets).map(([tone, [file, sha256]]) => [tone, { file, sha256 }])) },
   };
 }
+
+/**
+ * RUOK patch: hide the template's own decorative corner clock (the small HUD
+ * timecode next to the brand) when output-signature.json turns the official
+ * layer off. Upstream performs this hiding only inside createSignature(), so a
+ * disabled signature left the source timecode visible in the corner.
+ *
+ * Installs window.__aduHideSourceClocks once and returns the number of nodes
+ * hidden on this pass. render_project.mjs re-invokes the installed helper after
+ * every renderAt(), so HUD nodes rebuilt by generated projects are covered too.
+ * Only clock-like nodes are marked; the user brand next to them is preserved.
+ */
+export async function disableSourceClocks(page) {
+  return page.evaluate(() => {
+    const clockText = s => /^\d{1,2}:\d{2}(?::\d{2}){0,2}(?:[.:]\d+)?$/.test(s);
+    function documents(doc = document) {
+      const all = [doc];
+      for (const frame of doc.querySelectorAll('iframe')) {
+        try { if (frame.contentDocument) all.push(...documents(frame.contentDocument)); } catch {}
+      }
+      return all;
+    }
+    function hide() {
+      let marked = 0;
+      for (const doc of documents()) {
+        const view = doc.defaultView, root = doc.querySelector('#stage') || doc.body;
+        if (!root || !view) continue;
+        if (!doc.querySelector('style[data-motiongit-source-hud]')) {
+          const style = doc.createElement('style');
+          style.dataset.motiongitSourceHud = 'true';
+          style.textContent = '[data-motiongit-source-clock],#vivid-clock,#vivid-mark{display:none!important}';
+          doc.head.append(style);
+        }
+        const bounds = root.getBoundingClientRect();
+        if (!bounds.width || !bounds.height) continue;
+        for (const node of root.querySelectorAll('span,small,time,[class*="clock"],[class*="timecode"],#clock,#timecode,#tc,.tc,.time')) {
+          const box = node.getBoundingClientRect(), text = node.textContent.trim();
+          const sourceHud = node.closest('.tc') || (node.closest('#hud') && !node.matches('.rt'));
+          if ((!sourceHud && box.left < bounds.left + bounds.width * .65) || box.top > bounds.top + bounds.height * .13 ||
+              !clockText(text) || parseFloat(view.getComputedStyle(node).fontSize) > 40) continue;
+          if (node.dataset.motiongitSourceClock === 'true') continue;
+          node.dataset.motiongitSourceClock = 'true';
+          marked++;
+        }
+      }
+      return marked;
+    }
+    window.__aduHideSourceClocks = hide;
+    return hide();
+  });
+}
