@@ -111,6 +111,7 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 - `NOTICE`、`NOTICE.base`：顶部新增 RUOK 分支说明；以下上游版权、lemo-opuscar (MIT)、LemoLab 预览素材 (CC BY 4.0)、OpenScreen (MIT)、FFmpeg、HyperFrames、Electron 等署名全部保留。
 - `TRADEMARK.md`：新增 RUOK 分支商标边界说明。
 - `THIRD-PARTY-LICENSES.json`、`licenses/npm/**`：保留；发布新安装包前需重新生成并复核。
+- `vendor/adu/`：新增第三方 vendor（adu-motion-video，MIT），作为可调用的 HTML 逐帧渲染后端；来源、提交与本地修改见第 6 节。
 - `README.md`：顶部改为 RUOK 构建说明，移除作者下载/统计链接；其余上游技术文档保留并加注适用性说明。
 
 ### 2.8 2.1.0 模块闭环
@@ -162,3 +163,27 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 ## 5. 许可与商标声明
 
 RUOK 是 OpenTake Standard 的修改版本，按 AGPL-3.0-only 分发。原始代码版权归 OpenTake 贡献者；RUOK 的修改部分同样按 AGPL-3.0-only 提供。OpenTake 名称与 T 图标不包含在代码许可中；RUOK 不使用其作为产品标识，也不声称获得原作者背书。第三方组件继续遵循各自许可，完整署名见 `NOTICE`、`THIRD-PARTY-LICENSES.json` 和 `licenses/`。
+
+## 6. Vendored 第三方代码：adu-motion-video
+
+- 上游仓库：https://github.com/adunext/adu-motion-video
+- 上游版本：`3.14.2-rc.1`
+- 上游提交：`4ae737a04107083288c02eab5c0861834fcc0364`（2026-11-14，3.14.2-rc.1：通过 DevTools 协议把导出帧做成快速无损 PNG）
+- 许可：MIT（见 `vendor/adu/LICENSE`，1088 字节，原文未改）
+- 本地目录：`vendor/adu/`
+- 接入日期：2026-11-21
+- 用途：HTML → Chrome 逐帧 → FFmpeg 的动效模板渲染后端，由 `server/general/adu-runtime.ts` 暴露 `renderAduProject()` 调用；暂未接 UI，仅作为可调用后端。
+- 拷贝范围：保留 `scripts/`、`template/`、`packs/`、`assets/fonts/`，以及 `references/`、`adapters/`、`adaptation-profiles/`、`agents/`、`third-party/` 等支撑目录和顶层 `LICENSE`/`package.json` 等文件；排除 `node_modules/`、`.git/`、`assets/demos/`、`assets/tutorials/`、`docs/`、`examples/`、`tests/`、`cover.png` 等非必需内容（vendored 副本约 33.4 MB）。adu 的裸依赖 `acorn`、`playwright-core` 由 `ruok/node_modules` 沿目录树向上解析，无需在 vendor 内单独安装。
+- 复用 RUOK 运行时：`aduEnv()` 把 `CHROME`/`ADU_PLAYWRIGHT_MODULE`/`ADU_PYTHON` 指向 RUOK 解析到的工具，并把 RUOK 自带 ffmpeg 所在目录前置到 `PATH`，使 adu 的裸 `ffmpeg`/`ffprobe` 命中同一二进制。
+
+### 6.1 本地修改（同步上游时需复核，详见 `vendor/adu/RUOK-PATCHES.md`）
+
+1. `scripts/color_management.py`：FFmpeg 主版本闸由 `>= 9` 放宽到 `>= 8`（SDR 导出路径）；版本正则放宽为容忍 `n` 等非数字前缀（RUOK 自带构建报告 `ffmpeg version n8.1.3`）。HDR 输入导入仍需 FFmpeg 9+，RUOK 不使用。
+2. `scripts/render_project.mjs`：H.264 编码器由硬编码 `libx264` 改为运行时探测——`libx264` 优先，缺失时回退 `libopenh264`（高码率），并支持 `ADU_VIDEO_ENCODER`/`ADU_VIDEO_ENCODER_OPTS` 覆盖。原因：RUOK 自带的是 LGPL FFmpeg，不含 GPL 的 libx264。
+3. 运行时约定：每个 adu 工程目录写无 BOM 的 `output-signature.json`（`enabled:false`）关闭右上角角标；`server/general/adu-runtime.ts` 的 `disableSignature()` 统一写入。
+
+### 6.2 已知边界
+
+- 仅支持 SDR 导出（Chrome sRGB 帧 → BT.709）；HDR 输入不支持。
+- 编码器回退到 `libopenh264` 时质量略低于上游 `libx264 -crf 15`，码率固定 16 Mbps；如需更高质量可设置 `ADU_VIDEO_ENCODER=libx264`（需自带含 libx264 的 FFmpeg）。
+- `vendor/adu/template` 是骨架工程，直接渲染需经 `--optional-data` 放过缺失的可选场景模块（`talkmap.js`/`face.js`/`subs.js`/`wall.js`，由 `pipeline.py build` 生成）；完整工程应由 `pipeline.py build` 从 packs 构建。

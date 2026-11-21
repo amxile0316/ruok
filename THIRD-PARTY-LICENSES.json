@@ -13623,5 +13623,15 @@
     "notices": [
       "licenses/npm/vendor__openscreen__node_modules__zustand/LICENSE"
     ]
+  },
+  {
+    "scope": "vendor/adu",
+    "name": "adu-motion-video",
+    "version": "3.14.2-rc.1",
+    "license": "MIT",
+    "source": "git+https://github.com/adunext/adu-motion-video.git",
+    "notices": [
+      "vendor/adu/LICENSE"
+    ]
   }
 ]
