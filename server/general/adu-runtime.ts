@@ -33,6 +33,15 @@ export function aduRoot(): string {
  */
 export const TEMPLATE_OPTIONAL_MODULES = ['talkmap.js', 'face.js', 'subs.js', 'wall.js'];
 
+/**
+ * 工程目录中实际缺失的模板可选模块。
+ * render_project.mjs 的 --optional-data 只接受「确实缺失」的脚本，已存在的文件不能列入，
+ * 否则上游直接拒绝渲染（Optional allow-list is only for missing data scripts）。
+ */
+export function missingOptionalModules(projectDir: string): string[] {
+  return TEMPLATE_OPTIONAL_MODULES.filter(name => !fs.existsSync(path.join(projectDir, name)));
+}
+
 export interface AduEnvOptions {
   /** 基础环境，默认 process.env。 */
   base?: NodeJS.ProcessEnv;
@@ -86,7 +95,7 @@ export interface AduRenderOptions {
   fps?: number;
   width?: number;
   height?: number;
-  /** 缺失的可选本地脚本白名单；默认用 TEMPLATE_OPTIONAL_MODULES。传 [] 表示不允许缺失。 */
+  /** 缺失的可选本地脚本白名单；默认只放行工程中确实缺失的模板可选模块。传 [] 表示不允许缺失。 */
   optionalData?: string[];
   audio?: string;
   /** 默认 false：渲染前关闭角标。传 true 保留 adu 角标。 */
@@ -121,7 +130,7 @@ export async function renderAduProject(
   if (options.fps !== undefined) args.push('--fps', String(options.fps));
   if (options.width) args.push('--width', String(options.width));
   if (options.height) args.push('--height', String(options.height));
-  const optionalData = options.optionalData ?? TEMPLATE_OPTIONAL_MODULES;
+  const optionalData = options.optionalData ?? missingOptionalModules(projectDir);
   if (optionalData.length) args.push('--optional-data', optionalData.join(','));
   if (options.audio) args.push('--audio', options.audio);
 

@@ -40,6 +40,7 @@
 
 - `server/general/adu-runtime.ts` 渲染前向工程目录写入无 BOM 的 `output-signature.json`（`{"schema":"adu-output-signature/1","enabled":false}`），关闭 adu 右上角时间码 + Circle Logo。必须无 BOM，否则 adu 的 `JSON.parse` 抛 `Unexpected token '﻿'`。
 - `aduEnv()` 注入 `CHROME`/`ADU_PLAYWRIGHT_MODULE`/`ADU_PYTHON` 并把 RUOK ffmpeg 目录前置到 `PATH`。
+- `renderAduProject()` 默认只为工程中**确实缺失**的可选模块生成 `--optional-data`（`missingOptionalModules()`）。上游只接受缺失脚本，`pipeline.py` 生成的工程四个可选模块齐全，若按模板默认全量放行会被拒绝渲染（`Optional allow-list is only for missing data scripts`）。
 
 ## 不修改的部分
 

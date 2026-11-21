@@ -24,7 +24,7 @@ description: 在 RUOK 中调用和维护 adu-motion-video 渲染后端。用于 
 
 - 工程目录必须含 `index.html`；输出目录由接线层创建，已有同名 MP4 会被替换，因此调用前确认输出路径是本次新产物。
 - 用 `start`、`end`、`fps`、`width`、`height`、`audio` 和 `onProgress` 传递渲染参数。
-- 直接渲染骨架 template 时沿用默认 `TEMPLATE_OPTIONAL_MODULES`。正式工程应明确判断 `optionalData`，需要缺失资源立即失败时传 `[]`。
+- 直接渲染骨架 template 时沿用默认行为：只放行工程中确实缺失的模板可选模块（`missingOptionalModules()`）。真实 `pipeline.py build` 工程通常四个可选模块都在，默认不会误加 `--optional-data`。需要缺失资源立即失败时传 `[]`。
 - 默认关闭 adu 角标。只有用户明确要求保留时才传 `keepSignature: true`。
 - 调用方处理运行时未就绪的异常；自动化测试可显式跳过，真实出片不能把跳过或异常当作成功。
 

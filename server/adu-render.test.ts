@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { aduRoot, aduEnv, disableSignature, renderAduProject } from './general/adu-runtime.ts';
+import { aduRoot, aduEnv, disableSignature, missingOptionalModules, renderAduProject } from './general/adu-runtime.ts';
 import { chromePath, ffprobePath, ffmpegPath } from './general/runtime-tools.ts';
 
 const tempRoot = () => fs.mkdtempSync(path.join(os.tmpdir(), 'adu-test-'));
@@ -48,6 +48,20 @@ test('aduEnv 注入运行时变量并把 ffmpeg 目录前置到 PATH', (t) => {
   const ffmpegDir = path.dirname(ffmpegPath());
   assert.ok(p.indexOf(ffmpegDir) === 0, 'ffmpeg 目录应在 PATH 最前面');
   assert.ok(p.indexOf('system32') > p.indexOf(ffmpegDir), 'ffmpeg 目录应先于继承的 PATH');
+});
+
+test('missingOptionalModules 只返回工程中确实缺失的可选模块', () => {
+  const dir = tempRoot();
+  try {
+    fs.writeFileSync(path.join(dir, 'talkmap.js'), '// stub\n');
+    fs.writeFileSync(path.join(dir, 'subs.js'), '// stub\n');
+    assert.deepEqual(missingOptionalModules(dir).sort(), ['face.js', 'wall.js']);
+    fs.writeFileSync(path.join(dir, 'face.js'), '// stub\n');
+    fs.writeFileSync(path.join(dir, 'wall.js'), '// stub\n');
+    assert.deepEqual(missingOptionalModules(dir), [], '齐全时不应再放行任何模块');
+  } finally {
+    cleanup(dir);
+  }
 });
 
 test('端到端：用 vendor/adu/template 渲染 2s MP4，角标关闭且含 h264 视频流', async (t) => {
