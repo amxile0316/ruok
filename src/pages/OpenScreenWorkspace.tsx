@@ -1,5 +1,6 @@
 // Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
 import {ProjectAgentChoice} from '@/studio/components/ScopedAgentChoice'
+import {ShotRecipePanel} from '@/studio/components/ShotRecipePanel'
 import { ScreenExportDialog, type ScreenExportRequest } from '@/screen-motion/ScreenExportDialog'
 import { prepareScreenWorkspace, ScreenWorkspaceExtraActions } from '@/screen-motion/workspace-edition'
 import { useWorkspaceLeaveGuard, WorkspaceLink as Link } from '@/workspace/navigation-guard'
@@ -202,6 +203,7 @@ export default function OpenScreenWorkspace() {
       </div>
       <div className="openscreen-hostbar__actions">
         {project&&<ProjectAgentChoice projectId={id} workspace="screen" clientId={clientId} disabled={!writable}/>}
+        <ShotRecipePanel />
         {!writable && <button type="button" onClick={() => void refreshLock(true)}>接管编辑</button>}
         <button type="button" onClick={() => iframeRef.current?.contentWindow?.location.reload()}><RefreshCw size={15} />重新载入</button>
         <button type="button" onClick={() => void launchHud()} disabled={!writable||recordingBusy}><MonitorUp size={15} />开始录屏</button>
