@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "蜡笔立体世界标题": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.078,
+      "color": "#c8452f",
+      "accent": "#c8452f",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "蜡笔立体世界字幕": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#c8452f",
+      "accent": "#c8452f",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "蜡笔立体世界标签": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#c8452f",
+      "accent": "#c8452f",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

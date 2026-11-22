@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "刮版画长镜头标题": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#ede5cd",
+      "accent": "#c4332b",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "刮版画长镜头字幕": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#ede5cd",
+      "accent": "#c4332b",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "刮版画长镜头标签": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#c4332b",
+      "accent": "#c4332b",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

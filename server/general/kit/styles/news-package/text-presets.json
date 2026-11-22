@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "电视新闻包装标题": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#f4f1e8",
+      "accent": "#d8b30c",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "电视新闻包装字幕": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#f4f1e8",
+      "accent": "#d8b30c",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "电视新闻包装标签": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#d8b30c",
+      "accent": "#d8b30c",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

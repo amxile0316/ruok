@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "卫星简报标题": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#f2f5f6",
+      "accent": "#ffbe55",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "卫星简报字幕": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#f2f5f6",
+      "accent": "#ffbe55",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "卫星简报标签": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#ffbe55",
+      "accent": "#ffbe55",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

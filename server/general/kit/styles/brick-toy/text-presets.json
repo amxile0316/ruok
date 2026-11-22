@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "积木玩具标题": {
+      "font": "Dela Gothic One",
+      "fontFile": "DelaGothicOne-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#f2f2ee",
+      "accent": "#0055bf",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "积木玩具字幕": {
+      "font": "Dela Gothic One",
+      "fontFile": "DelaGothicOne-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#f2f2ee",
+      "accent": "#0055bf",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "积木玩具标签": {
+      "font": "Dela Gothic One",
+      "fontFile": "DelaGothicOne-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#0055bf",
+      "accent": "#0055bf",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

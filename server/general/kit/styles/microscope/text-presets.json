@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "显微镜下标题": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#0b0d0f",
+      "accent": "#0b0d0f",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "显微镜下字幕": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#0b0d0f",
+      "accent": "#0b0d0f",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "显微镜下标签": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#0b0d0f",
+      "accent": "#0b0d0f",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

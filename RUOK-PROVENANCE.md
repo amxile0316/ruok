@@ -113,6 +113,7 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 - `THIRD-PARTY-LICENSES.json`、`licenses/npm/**`：保留；发布新安装包前需重新生成并复核。
 - `vendor/adu/`：新增第三方 vendor（adu-motion-video，MIT），作为可调用的 HTML 逐帧渲染后端；来源、提交与本地修改见第 6 节。
 - `server/general/kit/styles/`：试点补入三个上游风格 `crayon-book`、`ukiyoe`、`papercut-red`（STYLE.md / DEMO.md 取自 lemo-opuscar，MIT，正文未改；text-presets.json 为 RUOK 新写），并同步 `src/standard/styles.json` 与 `category-styles.json`，可用风格从 11 个增至 14 个。
+- `server/general/kit/styles/`（2026-11-22 批量补入）：把 lemo-opuscar 上游其余 86 种风格的 `STYLE.md` / `DEMO.md` 接入（取自提交 `f9e204293930952b61ba921cd8944d05f121beee`，MIT，正文未改，文件头已注明来源）；为每种风格新写 `text-presets.json`（从 STYLE.md 用色倾向 + 现有字体池生成，未做像素级渲染验证）。同步 `src/standard/styles.json`（白名单 14 → 100）、`src/standard/category-styles.json`（补齐 bucket 0–8 的入口类目映射）与 `src/workspace/style-library/style-library.json`（新增 43 条中文目录；其中 43 种风格的预览 mp4/jpg 尚未渲染，路径已预留，待后续批量出片）。`text-flash-cuts`、`comic-history`、`manga-panels` 三种需图像生成器才能出片，已在各自 STYLE.md 顶部标注；18 种依赖真实素材/数据的风格按上游 DIRECTOR.md 规定由 agent 从公开 fallback 来源获取。
 - `README.md`：顶部改为 RUOK 构建说明，移除作者下载/统计链接；其余上游技术文档保留并加注适用性说明。
 
 ### 2.8 2.1.0 模块闭环

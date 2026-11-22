@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "平板速写讲解标题": {
+      "font": "Architects Daughter",
+      "fontFile": "ArchitectsDaughter-Regular.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.078,
+      "color": "#43362e",
+      "accent": "#f1c04f",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "平板速写讲解字幕": {
+      "font": "Architects Daughter",
+      "fontFile": "ArchitectsDaughter-Regular.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#43362e",
+      "accent": "#f1c04f",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "平板速写讲解标签": {
+      "font": "Architects Daughter",
+      "fontFile": "ArchitectsDaughter-Regular.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#f1c04f",
+      "accent": "#f1c04f",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

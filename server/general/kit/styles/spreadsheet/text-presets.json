@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "表格动画标题": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#17120a",
+      "accent": "#ffb21f",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "表格动画字幕": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#17120a",
+      "accent": "#ffb21f",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "表格动画标签": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#ffb21f",
+      "accent": "#ffb21f",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

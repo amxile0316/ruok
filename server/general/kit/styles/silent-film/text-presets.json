@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "1920s 默片标题": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#E0DCD4",
+      "accent": "#E0DCD4",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "1920s 默片字幕": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#1A1A1A",
+      "accent": "#E0DCD4",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "1920s 默片标签": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#E0DCD4",
+      "accent": "#E0DCD4",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

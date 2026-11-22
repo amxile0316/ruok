@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "点云测绘标题": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#d4fff0",
+      "accent": "#ffb347",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "点云测绘字幕": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#d4fff0",
+      "accent": "#ffb347",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "点云测绘标签": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#ffb347",
+      "accent": "#ffb347",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

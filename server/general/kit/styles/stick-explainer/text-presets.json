@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "火柴人讲解标题": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.078,
+      "color": "#24242c",
+      "accent": "#eb4a2a",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "火柴人讲解字幕": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#24242c",
+      "accent": "#eb4a2a",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "火柴人讲解标签": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#eb4a2a",
+      "accent": "#eb4a2a",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

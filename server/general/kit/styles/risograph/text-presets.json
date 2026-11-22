@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "孔版印刷标题": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#3d5588",
+      "accent": "#0078bf",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "孔版印刷字幕": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#3d5588",
+      "accent": "#0078bf",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "孔版印刷标签": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#0078bf",
+      "accent": "#0078bf",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

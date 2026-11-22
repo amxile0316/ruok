@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "黑白漫画分格标题": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#121212",
+      "accent": "#00ff00",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "黑白漫画分格字幕": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#121212",
+      "accent": "#00ff00",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "黑白漫画分格标签": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#00ff00",
+      "accent": "#00ff00",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

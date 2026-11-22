@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "分色机械图解标题": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#25282d",
+      "accent": "#e8472a",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "分色机械图解字幕": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#25282d",
+      "accent": "#e8472a",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "分色机械图解标签": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#e8472a",
+      "accent": "#e8472a",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

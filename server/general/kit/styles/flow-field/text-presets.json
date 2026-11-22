@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "流场风线标题": {
+      "font": "Inter Tight",
+      "fontFile": "InterTightwght.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#262c38",
+      "accent": "#c83a24",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "流场风线字幕": {
+      "font": "Inter Tight",
+      "fontFile": "InterTightwght.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#262c38",
+      "accent": "#c83a24",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "流场风线标签": {
+      "font": "Inter Tight",
+      "fontFile": "InterTightwght.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#c83a24",
+      "accent": "#c83a24",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

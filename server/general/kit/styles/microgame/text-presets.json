@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "微游戏快闪标题": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#ffc928",
+      "accent": "#1fd1d1",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "微游戏快闪字幕": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#ffc928",
+      "accent": "#1fd1d1",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "微游戏快闪标签": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#1fd1d1",
+      "accent": "#1fd1d1",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}
