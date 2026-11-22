@@ -1316,7 +1316,7 @@
     "生物与医学",
     "供应链与管线"
    ],
-   "attribution": "Preview/poster from \"The Disassembly Line\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/assembly-line-diagram.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Disassembly Line\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (24.7–30.7 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 27.7 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/assembly-line-diagram.mp4",
    "poster": "/styles/assembly-line-diagram.jpg"
@@ -1338,7 +1338,7 @@
     "机制与原理",
     "标题与章节卡"
    ],
-   "attribution": "Preview/poster from \"COMPOUND\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/bauhaus-shapes.mp4 reserved.",
+   "attribution": "Preview/poster from \"COMPOUND\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/bauhaus-shapes.mp4",
    "poster": "/styles/bauhaus-shapes.jpg"
@@ -1360,7 +1360,7 @@
     "辟谣",
     "课堂教学"
    ],
-   "attribution": "Preview/poster from \"The Story of Chinese Characters\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/chalkboard.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Story of Chinese Characters\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.2–28.2 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.2 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/chalkboard.mp4",
    "poster": "/styles/chalkboard.jpg"
@@ -1382,7 +1382,7 @@
     "供应链",
     "设备器件"
    ],
-   "attribution": "Preview/poster from \"Seven Milliseconds\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/circuit-board.mp4 reserved.",
+   "attribution": "Preview/poster from \"Seven Milliseconds\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (27–33 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 30 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/circuit-board.mp4",
    "poster": "/styles/circuit-board.jpg"
@@ -1404,7 +1404,7 @@
     "绘本式科普",
     "隐藏结构与过程"
    ],
-   "attribution": "Preview/poster from \"The Other Half\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/colored-pencil.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Other Half\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.9–28.9 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.9 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/colored-pencil.mp4",
    "poster": "/styles/colored-pencil.jpg"
@@ -1426,7 +1426,7 @@
     "地缘政治轻科普",
     "市场份额与领地故事"
    ],
-   "attribution": "Preview/poster from \"One Piece of Paper\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/comic-history.mp4 reserved.",
+   "attribution": "Preview/poster from \"One Piece of Paper\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23–29 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/comic-history.mp4",
    "poster": "/styles/comic-history.jpg"
@@ -1448,7 +1448,7 @@
     "致敬献礼",
     "旅行"
    ],
-   "attribution": "Preview/poster from \"The Butterfly\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/crayon-world.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Butterfly\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (29–35 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 32 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/crayon-world.mp4",
    "poster": "/styles/crayon-world.jpg"
@@ -1470,7 +1470,7 @@
     "考古、遗址与复原",
     "天文、深空与测绘"
    ],
-   "attribution": "Preview/poster from \"Catching the Moon\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/dark-documentary.mp4 reserved.",
+   "attribution": "Preview/poster from \"Catching the Moon\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/dark-documentary.mp4",
    "poster": "/styles/dark-documentary.jpg"
@@ -1492,7 +1492,7 @@
     "工作流",
     "产品"
    ],
-   "attribution": "Preview/poster from \"Before the Ding\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/desktop-flythrough.mp4 reserved.",
+   "attribution": "Preview/poster from \"Before the Ding\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (27–33 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 30 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/desktop-flythrough.mp4",
    "poster": "/styles/desktop-flythrough.jpg"
@@ -1514,7 +1514,7 @@
     "纪录片与剧集片头",
     "MV 片头"
    ],
-   "attribution": "Preview/poster from \"Mountains and Seas\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/double-exposure.mp4 reserved.",
+   "attribution": "Preview/poster from \"Mountains and Seas\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.7–28.7 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.7 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/double-exposure.mp4",
    "poster": "/styles/double-exposure.jpg"
@@ -1536,7 +1536,7 @@
     "聚沙成塔",
     "夜晚与自然抒情"
    ],
-   "attribution": "Preview/poster from \"Shine Back\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/firefly-pointillism.mp4 reserved.",
+   "attribution": "Preview/poster from \"Shine Back\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.8–28.8 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.8 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/firefly-pointillism.mp4",
    "poster": "/styles/firefly-pointillism.jpg"
@@ -1558,7 +1558,7 @@
     "尺度与大小",
     "课堂教学"
    ],
-   "attribution": "Preview/poster from \"The Long Way Down\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/flat-space-explainer.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Long Way Down\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/flat-space-explainer.mp4",
    "poster": "/styles/flat-space-explainer.jpg"
@@ -1580,7 +1580,7 @@
     "洋流与洪水",
     "阈值度量的流动"
    ],
-   "attribution": "Preview/poster from \"Typhoon Yagi over Qiongzhou\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/flow-field.mp4 reserved.",
+   "attribution": "Preview/poster from \"Typhoon Yagi over Qiongzhou\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/flow-field.mp4",
    "poster": "/styles/flow-field.jpg"
@@ -1602,7 +1602,7 @@
     "节日短片",
     "品牌与起源故事"
    ],
-   "attribution": "Preview/poster from \"Borrowed Light\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/gilded-illumination.mp4 reserved.",
+   "attribution": "Preview/poster from \"Borrowed Light\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (21.1–27.1 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 24.1 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/gilded-illumination.mp4",
    "poster": "/styles/gilded-illumination.jpg"
@@ -1624,7 +1624,7 @@
     "产品工程",
     "科学教育"
    ],
-   "attribution": "Preview/poster from \"Where Is Your Phone's Antenna?\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/hardcore-info.mp4 reserved.",
+   "attribution": "Preview/poster from \"Where Is Your Phone's Antenna?\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/hardcore-info.mp4",
    "poster": "/styles/hardcore-info.jpg"
@@ -1646,7 +1646,7 @@
     "安全说明",
     "产品上手"
    ],
-   "attribution": "Preview/poster from \"Step Ten\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/instruction-manual.mp4 reserved.",
+   "attribution": "Preview/poster from \"Step Ten\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.8–28.8 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.8 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/instruction-manual.mp4",
    "poster": "/styles/instruction-manual.jpg"
@@ -1668,7 +1668,7 @@
     "手工与教程",
     "生活方式科学"
    ],
-   "attribution": "Preview/poster from \"From Cherry to Cup\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/ipad-sketch.mp4 reserved.",
+   "attribution": "Preview/poster from \"From Cherry to Cup\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23–29 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/ipad-sketch.mp4",
    "poster": "/styles/ipad-sketch.jpg"
@@ -1690,7 +1690,7 @@
     "排队",
     "对比"
    ],
-   "attribution": "Preview/poster from \"Seventy-Two Seats\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/isometric-picture-book.mp4 reserved.",
+   "attribution": "Preview/poster from \"Seventy-Two Seats\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (26.9–32.9 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 29.9 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/isometric-picture-book.mp4",
    "poster": "/styles/isometric-picture-book.jpg"
@@ -1712,7 +1712,7 @@
     "功能发布",
     "上手引导"
    ],
-   "attribution": "Preview/poster from \"Clawd Moves In\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/living-screencast.mp4 reserved.",
+   "attribution": "Preview/poster from \"Clawd Moves In\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (26.7–32.7 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 29.7 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/living-screencast.mp4",
    "poster": "/styles/living-screencast.jpg"
@@ -1734,7 +1734,7 @@
     "产品发布",
     "动漫片头"
    ],
-   "attribution": "Preview/poster from \"KOMA ONE: Thirty Frames a Second\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/manga-panels.mp4 reserved.",
+   "attribution": "Preview/poster from \"KOMA ONE: Thirty Frames a Second\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (21.6–27.6 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 24.6 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/manga-panels.mp4",
    "poster": "/styles/manga-panels.jpg"
@@ -1756,7 +1756,7 @@
     "能源、贸易与航运",
     "河流、边界与地形"
    ],
-   "attribution": "Preview/poster from \"Strait of Hormuz\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/map-explainer.mp4 reserved.",
+   "attribution": "Preview/poster from \"Strait of Hormuz\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/map-explainer.mp4",
    "poster": "/styles/map-explainer.jpg"
@@ -1778,7 +1778,7 @@
     "科学科普",
     "课堂教学"
    ],
-   "attribution": "Preview/poster from \"How Far Can You See?\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/marker-paper.mp4 reserved.",
+   "attribution": "Preview/poster from \"How Far Can You See?\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/marker-paper.mp4",
    "poster": "/styles/marker-paper.jpg"
@@ -1800,7 +1800,7 @@
     "氛围循环",
     "四季"
    ],
-   "attribution": "Preview/poster from \"Four Seasons in Pomelo Town\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/memphis-diorama.mp4 reserved.",
+   "attribution": "Preview/poster from \"Four Seasons in Pomelo Town\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (20.3–26.3 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 23.3 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/memphis-diorama.mp4",
    "poster": "/styles/memphis-diorama.jpg"
@@ -1822,7 +1822,7 @@
     "夜生活与 City Pop MV",
     "城市与节日夜场标识"
    ],
-   "attribution": "Preview/poster from \"Midnight Snack\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/neon-tubes.mp4 reserved.",
+   "attribution": "Preview/poster from \"Midnight Snack\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (21.6–27.6 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 24.6 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/neon-tubes.mp4",
    "poster": "/styles/neon-tubes.jpg"
@@ -1844,7 +1844,7 @@
     "印刷、扫描与信号",
     "夜景与太空"
    ],
-   "attribution": "Preview/poster from \"The Moon's Fax\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/one-bit-dither.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Moon's Fax\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.5–28.5 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.5 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/one-bit-dither.mp4",
    "poster": "/styles/one-bit-dither.jpg"
@@ -1866,7 +1866,7 @@
     "信号与电子",
     "科学科普"
    ],
-   "attribution": "Preview/poster from \"The Gibbs Phenomenon\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/oscilloscope-math.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Gibbs Phenomenon\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23–29 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/oscilloscope-math.mp4",
    "poster": "/styles/oscilloscope-math.jpg"
@@ -1888,7 +1888,7 @@
     "测量与记录",
     "生成式与数据绘画"
    ],
-   "attribution": "Preview/poster from \"8848.86\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/pen-plotter.mp4 reserved.",
+   "attribution": "Preview/poster from \"8848.86\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.5–28.5 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.5 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/pen-plotter.mp4",
    "poster": "/styles/pen-plotter.jpg"
@@ -1910,7 +1910,7 @@
     "品牌与活动标识片",
     "用标识与物品讲科普"
    ],
-   "attribution": "Preview/poster from \"Left Behind\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/pictogram-motion.mp4 reserved.",
+   "attribution": "Preview/poster from \"Left Behind\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.5–28.5 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.5 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/pictogram-motion.mp4",
    "poster": "/styles/pictogram-motion.jpg"
@@ -1932,7 +1932,7 @@
     "博弈论与多智能体模型",
     "流行病、排队与市场"
    ],
-   "attribution": "Preview/poster from \"Is Faster Better?\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/pip-simulation.mp4 reserved.",
+   "attribution": "Preview/poster from \"Is Faster Better?\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/pip-simulation.mp4",
    "poster": "/styles/pip-simulation.jpg"
@@ -1954,7 +1954,7 @@
     "品牌与产品海报",
     "小数据故事"
    ],
-   "attribution": "Preview/poster from \"The Same Banana\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/pop-art.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Same Banana\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/pop-art.mp4",
    "poster": "/styles/pop-art.jpg"
@@ -1976,7 +1976,7 @@
     "产品与工程科普",
     "科学教学"
    ],
-   "attribution": "Preview/poster from \"Three Systems Keep the Time\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/precise-mechanism.mp4 reserved.",
+   "attribution": "Preview/poster from \"Three Systems Keep the Time\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/precise-mechanism.mp4",
    "poster": "/styles/precise-mechanism.jpg"
@@ -1998,7 +1998,7 @@
     "野生动物",
     "风景"
    ],
-   "attribution": "Preview/poster from \"Thirty-Three Cranes\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/printed-long-take.mp4 reserved.",
+   "attribution": "Preview/poster from \"Thirty-Three Cranes\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (27–33 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 30 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/printed-long-take.mp4",
    "poster": "/styles/printed-long-take.jpg"
@@ -2020,7 +2020,7 @@
     "一笔划过整个系统",
     "光影小冒险"
    ],
-   "attribution": "Preview/poster from \"The Night Climb\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/scratch-film.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Night Climb\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/scratch-film.mp4",
    "poster": "/styles/scratch-film.jpg"
@@ -2042,7 +2042,7 @@
     "包裹与货运查验",
     "产品内部"
    ],
-   "attribution": "Preview/poster from \"Night Shift at Lane 3\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/security-xray.mp4 reserved.",
+   "attribution": "Preview/poster from \"Night Shift at Lane 3\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/security-xray.mp4",
    "poster": "/styles/security-xray.jpg"
@@ -2064,7 +2064,7 @@
     "体育与团队短片",
     "自然与节日开场"
    ],
-   "attribution": "Preview/poster from \"Half a Beat\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/silhouette-rhythm.mp4 reserved.",
+   "attribution": "Preview/poster from \"Half a Beat\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.1–28.1 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.1 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/silhouette-rhythm.mp4",
    "poster": "/styles/silhouette-rhythm.jpg"
@@ -2086,7 +2086,7 @@
     "科学科普",
     "一页纸总结"
    ],
-   "attribution": "Preview/poster from \"How Bees Make Honey\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/sketchnote.mp4 reserved.",
+   "attribution": "Preview/poster from \"How Bees Make Honey\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23–29 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/sketchnote.mp4",
    "poster": "/styles/sketchnote.jpg"
@@ -2108,7 +2108,7 @@
     "财务与成本",
     "分析科普"
    ],
-   "attribution": "Preview/poster from \"The Hidden Column\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/spreadsheet.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Hidden Column\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/spreadsheet.mp4",
    "poster": "/styles/spreadsheet.jpg"
@@ -2130,7 +2130,7 @@
     "网络与社会概念",
     "数据对比"
    ],
-   "attribution": "Preview/poster from \"Six Hands Away\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/stick-explainer.mp4 reserved.",
+   "attribution": "Preview/poster from \"Six Hands Away\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/stick-explainer.mp4",
    "poster": "/styles/stick-explainer.jpg"
@@ -2152,7 +2152,7 @@
     "赛事回顾",
     "教练指导"
    ],
-   "attribution": "Preview/poster from \"Freeze Frame\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/telestrator.mp4 reserved.",
+   "attribution": "Preview/poster from \"Freeze Frame\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (24.5–30.5 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 27.5 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/telestrator.mp4",
    "poster": "/styles/telestrator.jpg"
@@ -2174,7 +2174,7 @@
     "标题序列",
     "宣言短片"
    ],
-   "attribution": "Preview/poster from \"Behind You\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/text-flash-cuts.mp4 reserved.",
+   "attribution": "Preview/poster from \"Behind You\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (20.8–26.8 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 23.8 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/text-flash-cuts.mp4",
    "poster": "/styles/text-flash-cuts.jpg"
@@ -2196,7 +2196,7 @@
     "夜间野生动物",
     "机器与电气"
    ],
-   "attribution": "Preview/poster from \"A Building on a Winter Night\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/thermal-camera.mp4 reserved.",
+   "attribution": "Preview/poster from \"A Building on a Winter Night\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (22.1–28.1 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 25.1 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/thermal-camera.mp4",
    "poster": "/styles/thermal-camera.jpg"
@@ -2218,7 +2218,7 @@
     "随时间增长",
     "网络"
    ],
-   "attribution": "Preview/poster from \"6 Kilometres\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/transit-map.mp4 reserved.",
+   "attribution": "Preview/poster from \"6 Kilometres\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (21.2–27.2 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 24.2 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/transit-map.mp4",
    "poster": "/styles/transit-map.jpg"
@@ -2240,7 +2240,7 @@
     "杂志式思想与社会科普",
     "档案与收藏故事"
    ],
-   "attribution": "Preview/poster from \"The Inverted Jenny\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Preview not yet rendered in this RUOK build; path /styles/vintage-collage.mp4 reserved.",
+   "attribution": "Preview/poster from \"The Inverted Jenny\", a Lemo-Opuscar demo film by LemoLab (https://github.com/lemomo-ai/lemo-opuscar), licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: trimmed to 6 s (23.4–29.4 s), downscaled to 640 px, 15 fps, re-encoded H.264 without audio; poster = one frame at 26.4 s, downscaled.",
    "third_party_in_preview": [],
    "preview": "/styles/vintage-collage.mp4",
    "poster": "/styles/vintage-collage.jpg"
