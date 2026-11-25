@@ -16,7 +16,7 @@ export async function prepareDesktopRelease({source,artifacts,out,commit}){
  const zip=path.join(source,manifest.filename);
  if(await release.fileSha256(zip)!==manifest.sha256||fs.statSync(zip).size!==manifest.bytes||fs.readFileSync(zip+'.sha256','utf8')!==`${manifest.sha256}  ${manifest.filename}\n`)throw Error('Source checksum differs');
  const receipts=[];
- for(const [platform,arch,name] of [['darwin','arm64',`OpenTake-Standard-${version}-mac-arm64.dmg`],['darwin','x64',`OpenTake-Standard-${version}-mac-x64.dmg`],['win32','x64',`OpenTake-Standard-Setup-${version}-x64.exe`]]){
+ for(const [platform,arch,name] of [['darwin','arm64',`RUOK-${version}-mac-arm64.dmg`],['darwin','x64',`RUOK-${version}-mac-x64.dmg`],['win32','x64',`RUOK-Setup-${version}-x64.exe`]]){
   const file=path.join(artifacts,name),receipt=JSON.parse(fs.readFileSync(file+'.build.json','utf8'));
   if(receipt.schemaVersion!==1||receipt.repository!==release.REPOSITORY||receipt.commit!==commit||receipt.modified||receipt.version!==version||receipt.tag!==tag||receipt.platform!==platform||receipt.arch!==arch||receipt.filename!==name||release.desktopTag(version,receipt.desktopBuild)!==tag)throw Error('Installer identity differs: '+name);
   if(await release.fileSha256(file)!==receipt.sha256||fs.statSync(file).size!==receipt.bytes)throw Error('Installer checksum differs: '+name);
@@ -35,12 +35,12 @@ export async function prepareDesktopRelease({source,artifacts,out,commit}){
  fs.writeFileSync(path.join(out,'release-notes.md'),notes+`\n\n源码提交：${commit}\n发布标签：${tag}\n构建号：${win.desktopBuild}\n`);
  const handoff=fileURLToPath(new URL('../RELEASE-HANDOFF-1.1.0.md',import.meta.url));
  copy(handoff,'RELEASE-HANDOFF-1.1.0.md');
- const windowsManifest=windows.windowsRelease({schemaVersion:1,product:'opentake-standard',platform:'win32',arch:'x64',channel:'stable',version,windowsBuild:win.desktopBuild,revision:metadata.windowsRevision,notes:notes.slice(0,16000),url:`https://github.com/${release.REPOSITORY}/releases/download/${tag}/${win.filename}`,sha256:win.sha256,size:win.bytes});
+ const windowsManifest=windows.windowsRelease({schemaVersion:1,product:'ruok',platform:'win32',arch:'x64',channel:'stable',version,windowsBuild:win.desktopBuild,revision:metadata.windowsRevision,notes:notes.slice(0,16000),url:`https://github.com/${release.REPOSITORY}/releases/download/${tag}/${win.filename}`,sha256:win.sha256,size:win.bytes});
  if(!windowsManifest)throw Error('Windows update manifest is invalid');
  fs.writeFileSync(path.join(out,'windows-update.json'),JSON.stringify(windowsManifest,null,2)+'\n');
  // Mac clients read this from the latest release; both chips must be present and match their receipts.
  const macInstallers=Object.fromEntries(receipts.filter(receipt=>receipt.platform==='darwin').map(receipt=>[receipt.arch,{url:`https://github.com/${release.REPOSITORY}/releases/download/${tag}/${receipt.filename}`,sha256:receipt.sha256,size:receipt.bytes}]));
- const macManifest=mac.macRelease({schemaVersion:1,product:'opentake-standard',platform:'darwin',channel:'stable',version,desktopBuild:win.desktopBuild,notes:notes.slice(0,16000),installers:macInstallers});
+ const macManifest=mac.macRelease({schemaVersion:1,product:'ruok',platform:'darwin',channel:'stable',version,desktopBuild:win.desktopBuild,notes:notes.slice(0,16000),installers:macInstallers});
  if(!macManifest)throw Error('Mac update manifest is invalid');
  const {tag:_tag,...macFeed}=macManifest;
  fs.writeFileSync(path.join(out,'mac-update.json'),JSON.stringify(macFeed,null,2)+'\n');
