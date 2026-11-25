@@ -10,7 +10,7 @@ const pkg=JSON.parse(fs.readFileSync(new URL('../package.json',import.meta.url),
 async function fixture(){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'intel-draft-')),artifacts=path.join(root,'artifacts'),out=path.join(root,'out');
  fs.mkdirSync(artifacts);fs.mkdirSync(path.join(root,'desktop'));
- const commit='a'.repeat(40),tag=release.macIntelTag(pkg.version,'2026110401'),filename=`OpenTake-Standard-${pkg.version}-mac-x64.dmg`;
+ const commit='a'.repeat(40),tag=release.macIntelTag(pkg.version,'2026110401'),filename=`RUOK-${pkg.version}-mac-x64.dmg`;
  fs.writeFileSync(path.join(root,'package.json'),JSON.stringify({version:pkg.version}));
  fs.writeFileSync(path.join(root,'desktop/windows-version.json'),JSON.stringify({windowsBuild:2026110306}));
  fs.writeFileSync(path.join(root,'release-source.json'),JSON.stringify({commit,tag}));

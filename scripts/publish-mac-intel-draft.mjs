@@ -15,7 +15,7 @@ export async function publishMacIntelDraft({folder,repo=process.env.GITHUB_REPOS
  const manifest=JSON.parse(fs.readFileSync(path.join(folder,'desktop-release.json'),'utf8'));
  if(manifest.schemaVersion!==1||manifest.repository!==repo||!release.isMacIntelTag(manifest.tag,manifest.version)||!/^[a-f0-9]{40}$/.test(manifest.commit||'')||manifest.makeLatest!==false||manifest.publicationStatus!=='prepared-not-published'||manifest.installers?.length!==1)throw Error('Intel 草稿清单不匹配');
  release.macIntelTag(manifest.version,manifest.tag.split('-').at(-1));
- const receipt=manifest.installers[0],filename=`OpenTake-Standard-${manifest.version}-mac-x64.dmg`;
+ const receipt=manifest.installers[0],filename=`RUOK-${manifest.version}-mac-x64.dmg`;
  if(receipt.schemaVersion!==1||receipt.repository!==repo||receipt.version!==manifest.version||receipt.signing!=='adhoc'||receipt.notarized!==false||receipt.filename!==filename||receipt.platform!=='darwin'||receipt.arch!=='x64'||receipt.commit!==manifest.commit||receipt.tag!==manifest.tag||receipt.modified!==false)throw Error('Intel 草稿回执不匹配');
  const expected=[filename,filename+'.build.json','desktop-release.json','release-notes.md','SHA256SUMS.txt'].sort();
  if(JSON.stringify(fs.readdirSync(folder).sort())!==JSON.stringify(expected))throw Error('Intel 草稿只允许 DMG、回执和说明；禁止附带更新清单');
