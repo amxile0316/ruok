@@ -3,8 +3,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const crypto=require('node:crypto');
 const {spawnSync}=require('node:child_process');
-// RUOK fork: replace this placeholder with your own GitHub repository before publishing updates.
-const REPOSITORY='ruok-app/ruok';
+const REPOSITORY='amxile0316/ruok';
 function desktopTag(version,build){
  if(!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version)||!Number.isSafeInteger(build)||build<1)throw Error('Invalid desktop version/build');
  return `desktop-v${version}-${build}`;

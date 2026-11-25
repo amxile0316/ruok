@@ -12,7 +12,7 @@ const [installerArg,notesArg,outArg]=process.argv.slice(2);
 if(!installerArg||!notesArg)throw Error('用法: node scripts/prepare-windows-release.mjs <安装包.exe> <更新说明.txt> [输出目录]');
 const installer=path.resolve(installerArg),out=path.resolve(outArg||path.dirname(installer));
 const build=JSON.parse(fs.readFileSync(installer+'.build.json','utf8'));
-const name=`OpenTake-Standard-Setup-${pkg.version}-x64.exe`;
+const name=`RUOK-Setup-${pkg.version}-x64.exe`;
 if(path.basename(installer)!==name||receipt.version!==pkg.version||receipt.windowsBuild!==metadata.windowsBuild||receipt.windowsRevision!==metadata.windowsRevision||receipt.modified)throw Error('安装包名称或源码构建凭据不匹配，请从干净的已提交源码构建');
 if(build.modified||build.commit!==receipt.commit||build.version!==pkg.version||build.desktopBuild!==metadata.windowsBuild||build.platform!=='win32'||build.arch!=='x64'||build.filename!==name)throw Error('安装包生成凭据不匹配，不能混用旧安装包');
 const hash=crypto.createHash('sha256');for await(const chunk of fs.createReadStream(installer))hash.update(chunk);

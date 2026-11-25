@@ -38,8 +38,8 @@ JSON、Markdown、二进制资源等无法安全插入注释的文件，以本�
 - `desktop/policy.cjs`：随 `APP_NAME` 生效。
 - `desktop/builder.config.cjs`：`appId`、`productName`、macOS `CFBundleDisplayName/CFBundleName`、图标路径。
 - `desktop/installer.builder.config.cjs`：安装器 `productName`、`executableName`、`artifactName`、图标。
-- `desktop/windows-version.json`：`repository` → `ruok-app/ruok`，保留 `upstreamRepository` / `upstreamCommit`。
-- `desktop/release-contract.cjs`：`REPOSITORY` → 占位 `ruok-app/ruok`。
+- `desktop/windows-version.json`：`repository` → `amxile0316/ruok`，保留 `upstreamRepository` / `upstreamCommit`。
+- `desktop/release-contract.cjs`：`REPOSITORY` → `amxile0316/ruok`（发布与更新清单按此生成）。
 - `index.html`、`src/workspace/WorkspaceNavigation.tsx`：页面/窗口标题 → RUOK。
 
 ### 2.2 品牌与视觉资产

@@ -1,10 +1,10 @@
 // Modified by the RUOK fork on 2026-11-17: rebrand and upstream/Pro cleanup.
-const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{spawn,spawnSync}=require('node:child_process');
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{spawn,spawnSync}=require('node:child_process'),release=require('./release-contract.cjs');
 // Packaging omits these; they contain no code the app runs, so the receipt check must skip them too.
 const unpackaged=rel=>/\.test\./.test(rel)||/\.d\.ts$/.test(rel)||rel.startsWith('server/test-support/')||['desktop/build-app.mjs','desktop/builder.config.cjs'].includes(rel);
 /** True when the app's code still matches the official source receipt (i.e. nobody edited it locally). */
 function receiptMatches(root,version,testMode=false){
- try{const receipt=JSON.parse(fs.readFileSync(path.join(root,'release-source.json')));if(receipt.localCandidate&&!testMode)return false;if(receipt.repository!=='ruok-app/ruok'||receipt.version!==version||!receipt.files)return false;
+ try{const receipt=JSON.parse(fs.readFileSync(path.join(root,'release-source.json')));if(receipt.localCandidate&&!testMode)return false;if(receipt.repository!==release.REPOSITORY||receipt.version!==version||!receipt.files)return false;
   for(const [rel,expected] of Object.entries(receipt.files)){if(!/^(src|server|shared|desktop)\//.test(rel)||unpackaged(rel))continue;const file=path.resolve(root,rel);if(!file.startsWith(root+path.sep))return false;const b=fs.readFileSync(file);if(crypto.createHash('sha1').update(Buffer.from(`blob ${b.length}\0`)).update(b).digest('hex')!==expected)return false;}
   return true}catch{return false}
 }
