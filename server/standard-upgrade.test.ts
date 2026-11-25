@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {EventEmitter} from 'node:events';
 import type {IncomingMessage,ServerResponse} from 'node:http';
 // The fork ships upgrade.json without an endpoint and removed the upstream account/Pro endpoints.
 // This test pins that contract: state stays local, no request leaves the machine, daily checks skip.
@@ -8,7 +8,7 @@ test('public upgrade stays local without an endpoint and daily checks skip witho
  const {upgradeApi,UPGRADE_URL}=await import('./standard/upgrade.ts');
  const {default:upgradeConfig}=await import('../upgrade.json',{with:{type:'json'}});
  globalThis.fetch=async(input:any)=>{calls.push(String(input));throw Error('network disabled in tests')};
- const request=async(url:string,method='GET',body?:unknown)=>{let text='';const res={statusCode:0,setHeader(){},end(value:string){text=value}};const req={method,url,on(){},async *[Symbol.asyncIterator](){if(body!==undefined)yield Buffer.from(JSON.stringify(body))} };await upgradeApi(req as unknown as IncomingMessage,res as unknown as ServerResponse);return {status:res.statusCode,body:text?JSON.parse(text):null}};
+ const request=async(url:string,method='GET',body?:unknown)=>{let text='';const res={statusCode:0,setHeader(){},end(value:string){text=value}};const req=Object.assign(new EventEmitter(),{method,url});const pending=upgradeApi(req as unknown as IncomingMessage,res as unknown as ServerResponse);if(body!==undefined)req.emit('data',Buffer.from(JSON.stringify(body)));req.emit('end');await pending;return {status:res.statusCode,body:text?JSON.parse(text):null}};
  assert.equal(UPGRADE_URL,'','分支不内置更新地址');
  assert.equal(upgradeConfig.endpoint,'');
  const state=await request('/api/upgrade/state');

@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "暗色科技发布标题": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#8b7cff",
+      "accent": "#ff7a1a",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "暗色科技发布字幕": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#8b7cff",
+      "accent": "#ff7a1a",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "暗色科技发布标签": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#ff7a1a",
+      "accent": "#ff7a1a",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

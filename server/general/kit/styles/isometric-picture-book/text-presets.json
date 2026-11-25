@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "等距小人场景标题": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.078,
+      "color": "#2a2e29",
+      "accent": "#e2ae3a",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "等距小人场景字幕": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#2a2e29",
+      "accent": "#e2ae3a",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "等距小人场景标签": {
+      "font": "Caveat",
+      "fontFile": "Caveat-VF.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#e2ae3a",
+      "accent": "#e2ae3a",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

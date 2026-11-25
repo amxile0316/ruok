@@ -7,10 +7,11 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {build} from 'esbuild';
 import {JSDOM} from 'jsdom';
 import {connectionDefinition,defaultConnection,type ConnectionId,type ConnectionView} from '../shared/agent-connections.ts';
+import {harnessDir} from './test-support/harness.ts';
 const root=fileURLToPath(new URL('../',import.meta.url));
 
 test('任务24第二部分：失败卡只列可出片的接通家，明确换家或原家继续，状态变化立即移除',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task24b-failover-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task24b-failover-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost',pretendToBeVisual:true});
  const saved=new Map<string,PropertyDescriptor|undefined>(),oldFetch=globalThis.fetch;
  for(const[key,value]of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,Event:dom.window.Event,CustomEvent:dom.window.CustomEvent,IS_REACT_ACT_ENVIRONMENT:true})){saved.set(key,Object.getOwnPropertyDescriptor(globalThis,key));Object.defineProperty(globalThis,key,{value,configurable:true,writable:true});}
@@ -45,7 +46,7 @@ test('任务24第二部分：失败卡只列可出片的接通家，明确换家
 });
 
 test('任务24第二部分：换家客户端发单个switch-agent请求，不重建工程或先改工程选择',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task24b-client-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task24b-client-');
  const oldFetch=globalThis.fetch;try{
   const outfile=path.join(dir,'client.mjs');await build({entryPoints:[path.join(root,'src/general/general-api.ts')],outfile,bundle:true,platform:'node',format:'esm',packages:'external',logLevel:'silent',define:{'import.meta.env.DEV':'false'}});
   const requests:{url:string;method?:string;body:any}[]=[];const project={id:'film / 1',agent:{agent:'kimi',model:'default',effort:'medium'},plan:{title:'保留计划'},versions:[{n:1}]};

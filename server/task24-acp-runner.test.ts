@@ -109,7 +109,7 @@ test('任务24修复二：真实runner保留空回应分类与检查点，不伪
  const id=createGeneral({styleId:'whiteboard',settings:{length:15,aspect:'16:9'},inputs:{kind:'topic',text:'空回应测试，不调用真实模型'},agent:{agent:'kimi',model:'default',effort:'medium'}},'测试').project.id;
  try{
   startFirst(id);const pendingBefore=readSession(findGeneral(id).dir).pending;for(let i=0;i<200&&isLive(id);i++)await new Promise(resolve=>setTimeout(resolve,20));
-  const {project,dir}=findGeneral(id);assert.equal(project.run?.state,'failed');assert.equal(project.run?.errorKind,'no-response');
+  const {project,dir}=findGeneral(id);assert.equal(project.run?.state,'failed');assert.equal(project.run?.errorKind,'no-response',String(project.run?.error));
   assert.equal(project.run?.error,'Kimi没有回应。常见原因是套餐不含这项服务或额度用完，请到Kimi官网确认。');
   assert.equal(readSession(dir).pending,pendingBefore);assert.equal(project.versions.length,0);assert.equal(renders,0);assert.equal(getConnectionConfig('kimi').authRejectedAt,undefined);
   assert.equal(fs.readFileSync(path.join(dir,'work','prompt-count'),'utf8'),'1');

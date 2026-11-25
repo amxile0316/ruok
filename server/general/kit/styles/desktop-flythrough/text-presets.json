@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "桌面卡片穿梭标题": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#1d1a2e",
+      "accent": "#e2483d",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "桌面卡片穿梭字幕": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#1d1a2e",
+      "accent": "#e2483d",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "桌面卡片穿梭标签": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#e2483d",
+      "accent": "#e2483d",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

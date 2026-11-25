@@ -37,7 +37,7 @@ export const WORKSPACE_MODULES: readonly WorkspaceModule[] = [
   { id: 'styles', path: '/styles', name: '风格库', shortName: '风格库', description: '预览和挑选通用剪辑的视频风格。', brief: '57 种视频风格', group: 'make', only: 'general' },
   { id: 'talk', path: '/talk', name: '口播剪辑', shortName: '口播剪辑', description: '按逐字稿切口播：删静音、删口误，导出字幕与剪切清单。', brief: '文字驱动剪口播', group: 'make', only: 'koubo' },
   { id: 'motion', path: '/motion', name: '动效库', shortName: '动效库', description: '预览一组纯 CSS 动效，复制 keyframes 与类名直接用。', brief: '12 个可复制的 CSS 动效', group: 'make' },
-  { id: 'publish', path: '/publish', name: '文案发布', shortName: '文案发布', description: '用本机智能体按平台风格生成标题、正文与话题。', brief: '标题、正文、话题', group: 'review' },
+  { id: 'publish', path: '/publish', name: '文案发布', shortName: '文案发布', description: '用本机智能体生成文案，管理本地草稿、审核、排期与人工发布确认。', brief: '草稿审核、排期与人工发布', group: 'review' },
   { id: 'analytics', path: '/analytics', name: '运营分析', shortName: '运营分析', description: '录入作品数据，做单条面板、跨作品对比与内容归因。', brief: '记录作品，找规律', group: 'review' },
 ]
 

@@ -1,2 +1,5 @@
 vendor/openscreen-compositor/*.patch text eol=lf whitespace=-blank-at-eol
 vendor/openscreen-compositor/upstream.json text eol=lf
+# adu 的 pack/template 清单用文件字节 SHA-256 校验；core.autocrlf 会把工作区改成 CRLF
+# 并导致 "Frozen pack file changed or missing"。保持上游原始字节，禁止换行转换。
+vendor/adu/** -text

@@ -91,13 +91,14 @@ const MIST: Record<string, [number, number, number]> = { warm: [.812, .812, .812
  *  fogged on light themes. `home` sits behind the home page's two entrances: centred, fogged on light themes, and it
  *  stops drawing once the page has scrolled past it. Falls back to the graded still when WebGL is missing or reduced
  *  motion is asked for. */
-export function LoginBackdrop({ src, poster, variant = 'gate' }: { src: string; poster: string; variant?: 'gate' | 'wait' | 'home' }) {
+export function LoginBackdrop({ src, poster, variant = 'gate', posterOnly = false }: { src: string; poster: string; variant?: 'gate' | 'wait' | 'home'; posterOnly?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const videoA = useRef<HTMLVideoElement>(null)
   const videoB = useRef<HTMLVideoElement>(null)
   const [live, setLive] = useState(false)
 
   useEffect(() => {
+    if (posterOnly) return
     const canvas = canvasRef.current
     const gate = canvas?.parentElement?.parentElement
     const clips = [videoA.current, videoB.current]
@@ -245,12 +246,14 @@ export function LoginBackdrop({ src, poster, variant = 'gate' }: { src: string; 
       for (const clip of clips) clip?.pause()
       // the context is left alive: React may run this effect again on the same canvas (and gets the same context)
     }
-  }, [src, variant])
+  }, [src, variant, posterOnly])
 
-  return <div className={`login-backdrop-video${live ? ' is-live' : ''}`} data-variant={variant} aria-hidden="true">
+  return <div className={`login-backdrop-video${posterOnly ? ' is-poster-only' : live ? ' is-live' : ''}`} data-variant={variant} aria-hidden="true">
     <img className="login-backdrop-video__still" src={poster} alt="" />
-    <canvas ref={canvasRef} />
-    <video ref={videoA} src={src} muted playsInline preload="auto" />
-    <video ref={videoB} src={src} muted playsInline preload="auto" />
+    {posterOnly ? null : <>
+      <canvas ref={canvasRef} />
+      <video ref={videoA} src={src} muted playsInline preload="auto" />
+      <video ref={videoB} src={src} muted playsInline preload="auto" />
+    </>}
   </div>
 }

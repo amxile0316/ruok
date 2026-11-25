@@ -14,14 +14,14 @@ export function jianyingRuntime() {
 }
 export async function requireJianyingRuntime(signal?:AbortSignal) {
  const runtime=jianyingRuntime();
- try{await runExportTool(runtime.python,['-I','-X','utf8',fileURLToPath(new URL('./runtime-check.py',import.meta.url)),runtime.packages||''],{timeout:20000,maxBuffer:2<<20,signal});}
+ try{await runExportTool(runtime.python,['-I','-X','utf8',fileURLToPath(new URL('./runtime-check.py',import.meta.url)),runtime.packages||''],{timeout:60000,maxBuffer:2<<20,signal});}
  catch(error){throw Object.assign(Error(`剪映草稿组件预检失败，尚未开始渲染：${error instanceof Error?error.message:error}`),{status:503})}
  return runtime;
 }
 /** The existing screen-export reservation API is synchronous. Validate before reserving output. */
 export function requireJianyingRuntimeSync() {
  const runtime=jianyingRuntime();
- try{execFileSync(runtime.python,['-I','-X','utf8',fileURLToPath(new URL('./runtime-check.py',import.meta.url)),runtime.packages||''],{timeout:20000,maxBuffer:2<<20,windowsHide:true,encoding:'utf8'});}
+ try{execFileSync(runtime.python,['-I','-X','utf8',fileURLToPath(new URL('./runtime-check.py',import.meta.url)),runtime.packages||''],{timeout:60000,maxBuffer:2<<20,windowsHide:true,encoding:'utf8'});}
  catch(error){throw Object.assign(Error(`剪映草稿组件预检失败，尚未开始渲染：${error instanceof Error?error.message:error}`),{status:503})}
  return runtime;
 }

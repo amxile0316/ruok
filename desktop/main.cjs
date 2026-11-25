@@ -71,7 +71,7 @@ async function start() {
  try{origin = await waitForService(child,{onPhase:stage=>recordServiceEvent(profile,'startup-phase',{stage})});}
  catch(error){recordServiceEvent(profile,'startup-failed',{error});throw error;}
  child.on('exit',(code,signal)=>{recordServiceEvent(profile,'desktop-service-exit',{code,signal});if(!closing){if(recordingControls?.state)recordingControls.update({...recordingControls.state,phase:'failed',error:'本机服务已退出；原始录制文件保留。'});dialog.showErrorBox('本机服务已退出',`退出码：${code??'未知'}${signal?`，信号：${signal}`:''}。请退出并重新打开 RUOK。已有工程仍保存在磁盘。\n故障记录：${path.join(profile,'diagnostics','service-events.jsonl')}`);app.quit()}});
- win = new BrowserWindow({title:APP_NAME,width:1320,height:900,minWidth:640,minHeight:620,backgroundColor:'#202827',icon:path.join(assets,'ruok-icon-512.png'),webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
+ win = new BrowserWindow({title:`${APP_NAME} ${metadata.version}`,width:1320,height:900,minWidth:640,minHeight:620,backgroundColor:'#202827',icon:path.join(assets,'ruok-icon-512.png'),webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
  if(process.platform==='win32')win.on('page-title-updated',event=>event.preventDefault());
  if(process.platform==='darwin')app.dock.setIcon(path.join(assets,'ruok-icon-512.png'));
  permissions();

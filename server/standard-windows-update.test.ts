@@ -15,7 +15,7 @@ test('Windows manifest rejects foreign products, platforms, prereleases and unpi
   assert.equal(newerWindows(release(),pkg.version,metadata.windowsBuild),true);
   assert.equal(newerWindows(release(pkg.version,metadata.windowsBuild),pkg.version,metadata.windowsBuild),false);
   assert.equal(newerWindows(release('1.0.2',9999999999),pkg.version,metadata.windowsBuild),false);
-  assert.equal(newerWindows(release('1.2.0',1),pkg.version,metadata.windowsBuild),true);
+  assert.equal(newerWindows(release(`${Number(pkg.version.split('.')[0])+1}.0.0`,1),pkg.version,metadata.windowsBuild),true);
 });
 test('Windows checks persist daily preferences and skips; failed checks clear stale downloads and remain retryable',async t=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'windows-update-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));

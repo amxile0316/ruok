@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "纸雕灯影标题": {
+      "font": "Ma Shan Zheng",
+      "fontFile": "MaShanZheng-Regular.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 400,
+      "size": 0.078,
+      "color": "#dfe6ee",
+      "accent": "#0a1330",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "纸雕灯影字幕": {
+      "font": "Ma Shan Zheng",
+      "fontFile": "MaShanZheng-Regular.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#dfe6ee",
+      "accent": "#0a1330",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "纸雕灯影标签": {
+      "font": "Ma Shan Zheng",
+      "fontFile": "MaShanZheng-Regular.ttf",
+      "fallback": "Kaiti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#0a1330",
+      "accent": "#0a1330",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

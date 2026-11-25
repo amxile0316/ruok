@@ -1,9 +1,10 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';import {build} from 'esbuild';import {JSDOM} from 'jsdom';
 import {defaultAgentSettings} from '../src/studio/agent-settings.ts';
 import {connectionDefinition,defaultConnection,type ConnectionId,type ConnectionView} from '../shared/agent-connections.ts';
+import {harnessDir} from './test-support/harness.ts';
 const root=fileURLToPath(new URL('../',import.meta.url));
 test('任务24：真实选择器组件列出接通的CLI，断开不换人；未安装卡片默认收起，定向设置仍展开',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task24-selectors-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task24-selectors-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost',pretendToBeVisual:true});Object.defineProperty(dom.window.navigator,'platform',{value:'MacIntel'});
  const saved=new Map<string,PropertyDescriptor|undefined>(),oldFetch=globalThis.fetch;
  for(const[key,value]of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,Event:dom.window.Event,CustomEvent:dom.window.CustomEvent,requestAnimationFrame:(fn:()=>void)=>{fn();return 1},IS_REACT_ACT_ENVIRONMENT:true})){saved.set(key,Object.getOwnPropertyDescriptor(globalThis,key));Object.defineProperty(globalThis,key,{value,configurable:true,writable:true});}

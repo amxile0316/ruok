@@ -28,6 +28,17 @@
   --ruok-line-2: #d8a05e33;
   --ruok-input: #060a09;
 
+  /* 模块弹出菜单的胶囊：深色底是两套主题共同的形态，文字色必须跟着底色走，
+     不能直接复用 --ruok-ink（浅色主题下它是深墨色，会深底深字看不见）。 */
+  --ruok-capsule-bg: color-mix(in srgb, var(--ruok-patina-700) 94%, transparent);
+  --ruok-capsule-bg-on: color-mix(in srgb, var(--ruok-patina-500) 98%, transparent);
+  --ruok-capsule-line: var(--ruok-line-2);
+  --ruok-capsule-line-on: color-mix(in srgb, var(--ruok-verdigris-500) 52%, transparent);
+  --ruok-capsule-ink: var(--ruok-ink);
+  --ruok-capsule-ink-on: var(--ruok-ink);
+  --ruok-capsule-ink-2: var(--ruok-ink-2);
+  --ruok-capsule-solid: var(--ruok-patina-700);
+
   --ruok-accent: var(--ruok-bronze-300);
   --ruok-accent-hi: var(--ruok-bronze-200);
   --ruok-accent-deep: var(--ruok-bronze-500);
@@ -186,6 +197,17 @@ html[data-ui-theme=warm] {
   --ed-accent-hi: #8e7139;
   --ed-accent-text: #6b532a;
   --ed-accent-soft: #7a5f2f14;
+
+  /* 浅色纸面：胶囊跟顶栏其它按钮同一套中性色——灰底黑字。
+     当前项只加深一档灰、配一圈赭金细边，不靠反色区分，免得又变成一块看不清的深色。 */
+  --ruok-capsule-bg: #e6e4e0f2;
+  --ruok-capsule-bg-on: #d9d5cd;
+  --ruok-capsule-line: #23232321;
+  --ruok-capsule-line-on: #7a5f2f66;
+  --ruok-capsule-ink: #1f1f1f;
+  --ruok-capsule-ink-on: #111111;
+  --ruok-capsule-ink-2: #4a4a4a;
+  --ruok-capsule-solid: #e6e4e0;
 }
 html[data-ui-theme=warm] .ge-en {
   --en-accent: #7a5f2f;
@@ -245,6 +267,15 @@ html[data-ui-theme=umbra] {
   --ed-accent-hi: #d4ae79;
   --ed-accent-text: #d3ae7d;
   --ed-accent-soft: #c39a6324;
+
+  --ruok-capsule-bg: #4c4842f2;
+  --ruok-capsule-bg-on: #6b645c;
+  --ruok-capsule-line: #f2ece233;
+  --ruok-capsule-line-on: #f2ece24d;
+  --ruok-capsule-ink: #f2ece2;
+  --ruok-capsule-ink-on: #f2ece2;
+  --ruok-capsule-ink-2: #ded6ca;
+  --ruok-capsule-solid: #4c4842;
 }
 html.workspace-glass[data-ui-theme=umbra] {
   --pro-bg: #57524c;

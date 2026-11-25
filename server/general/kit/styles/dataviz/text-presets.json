@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "数据叙事标题": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#2B2B2B",
+      "accent": "#CA292E",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "数据叙事字幕": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#2B2B2B",
+      "accent": "#CA292E",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "数据叙事标签": {
+      "font": "IBM Plex Mono",
+      "fontFile": "IBMPlexMono-Medium.ttf",
+      "fallback": "Menlo",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#CA292E",
+      "accent": "#CA292E",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

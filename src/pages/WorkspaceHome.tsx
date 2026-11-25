@@ -296,8 +296,8 @@ export default function WorkspaceHome() {
   }, [])
   const status = activity ? activity.busy ? '一键剪辑正在处理' : activity.error ? '一键剪辑已暂停' : '一键剪辑等待继续' : ''
   return <main ref={root} className="home">
-    {/* the sign-in page's studio shot, developing under the pointer; it writes the pointer (--mx, --my) onto .home */}
-    <LoginBackdrop variant="home" src="/home/studio-faders.mp4" poster="/home/studio-faders-poster.jpg" />
+    {/* the home page's backdrop: the cave petroglyph still (no video/WebGL: just the picture, dimmed for legibility) */}
+    <LoginBackdrop variant="home" src="/home/studio-faders.mp4" poster="/home/ruok-cave-petroglyph.jpg" posterOnly />
     <h1 className="sr-only">RUOK 首页</h1>
     <div className="home-shield" aria-hidden="true" />
     <div className="home-hero" inert={intakeOpen}>

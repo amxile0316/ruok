@@ -8,12 +8,12 @@ import {build} from 'esbuild';
 import {JSDOM} from 'jsdom';
 import {CONNECTION_DEFINITIONS} from '../shared/agent-connections.ts';
 import {defaultAgentSettings} from '../src/studio/agent-settings.ts';
+import {harnessDir} from './test-support/harness.ts';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const tick=()=>new Promise(resolve=>setTimeout(resolve,20));
 async function mount(page:'deploy'|'project'|'models',offline=false){
- const temp=fs.mkdtempSync(path.join(os.tmpdir(),'windows-agent-nav-'));
- fs.symlinkSync(path.join(root,'node_modules'),path.join(temp,'node_modules'),'dir');
+ const temp=harnessDir('windows-agent-nav-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost/general/projects/qa',pretendToBeVisual:true});
  Object.defineProperty(dom.window.navigator,'platform',{value:'Win32',configurable:true});
  const saved=new Map<string,PropertyDescriptor|undefined>();

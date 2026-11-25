@@ -63,7 +63,7 @@ test('自动接通 Kimi 可走通用 ACP 出片，单家刷新不检查其他 Ag
  }finally{if(old===undefined)delete process.env.LINKREADER_CONNECTION_SETTINGS_FILE;else process.env.LINKREADER_CONNECTION_SETTINGS_FILE=old;fs.rmSync(root,{recursive:true,force:true});}
 });
 
-test('错误绑定 Claude 的路径、符号链接和硬链接不能作为其他 Agent 执行，自动发现也不读版本',async()=>{
+test('错误绑定 Claude 的路径、符号链接和硬链接不能作为其他 Agent 执行，自动发现也不读版本',async(t)=>{
  const {detectConnectionExecutable}=await import('./agent-connections.ts');
  const {isClaudeExecutable,rosterAgentStatus,ROSTER_AGENTS}=await import('./agent-roster.ts');
  const {defaultConnection}=await import('../shared/agent-connections.ts');
@@ -73,8 +73,11 @@ test('错误绑定 Claude 的路径、符号链接和硬链接不能作为其他
  try{
   const marked=path.join(root,'started'),bin=path.join(root,'bin');fs.mkdirSync(bin);
   const claude=path.join(bin,'claude'),alias=path.join(bin,'kimi'),hard=path.join(bin,'renamed');
-  fs.writeFileSync(claude,`#!/bin/sh\necho ran > '${marked}'\nexit 1\n`,{mode:0o755});fs.symlinkSync(claude,alias);fs.linkSync(claude,hard);
-  assert.equal(isClaudeExecutable(claude,{PATH:bin}),true);assert.equal(isClaudeExecutable(alias,{PATH:bin}),true);assert.equal(isClaudeExecutable(hard,{PATH:bin}),true);
+  fs.writeFileSync(claude,`#!/bin/sh\necho ran > '${marked}'\nexit 1\n`,{mode:0o755});fs.linkSync(claude,hard);
+  let linked=true;try{fs.symlinkSync(claude,alias);fs.statSync(alias)}catch{linked=false}
+  if(!linked)t.diagnostic('当前文件系统不支持可解析的符号链接，跳过符号链接别名断言');
+  assert.equal(isClaudeExecutable(claude,{PATH:bin}),true);assert.equal(isClaudeExecutable(hard,{PATH:bin}),true);
+  if(linked)assert.equal(isClaudeExecutable(alias,{PATH:bin}),true);
   let versions=0;
   const roster=await rosterAgentStatus(ROSTER_AGENTS.find(a=>a.id==='kimi')!,{home:root,env:{PATH:bin},applicationDirs:[],version:async()=>{versions++;return 'must-not-run'}});
   assert.equal(roster.executable,undefined);assert.equal(versions,0);

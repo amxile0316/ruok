@@ -1,5 +1,6 @@
 import {autoBackup} from '../editor/project-backups.ts';
 import {removeWithRetrySync} from '../file-ops.ts';
+import {copyTreeSync} from '../copy-tree.ts';
 /**
  * A layered film (film.json version 2) becomes a version's tracks: a snapshot of the agent's work folder in
  * versions/vN/work (the next turn rewrites work/) and versions/vN/layers.json, the 口播 editor's timeline shape that
@@ -139,7 +140,7 @@ export async function snapshotLayers(dir: string, n: number, media: GeneralMedia
   const folder = path.join(dir, 'versions', `v${n}`), snap = path.join(folder, 'work');
   removeWithRetrySync(folder, { recursive: true, force: true });
   fs.mkdirSync(snap, { recursive: true });
-  for (const name of fs.readdirSync(work)) if (!NOT_FILM.has(name)) fs.cpSync(path.join(work, name), path.join(snap, name), { recursive: true });
+  for (const name of fs.readdirSync(work)) if (!NOT_FILM.has(name)) copyTreeSync(path.join(work, name), path.join(snap, name));
   const base = path.relative(dir, snap).split(path.sep).join('/');
   const layers = film ? await filmToLayers(film, base, snap, media) : await hyperframesToLayers(snap, base, media);
   // each shot the agent made also goes to the media library: a still from the film at its middle

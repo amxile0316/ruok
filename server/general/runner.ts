@@ -7,6 +7,7 @@ import {requireCreationTools} from '../creation-tools.ts';
 import {standardEdition,extraStyle,includeStyle,recordCodexUsage} from './edition.ts';
 import {renameWithRetrySync,removeWithRetrySync} from '../file-ops.ts';
 import {atomicJsonSync} from '../file-ops.ts';
+import {copyTreeSync} from '../copy-tree.ts';
 /**
  * 通用剪辑的一次运行：一轮做片（读需求、设计、写、自己看一遍、渲染）→ OpenTake 机检（不过才改一轮）→ 交付第 N 版。
  * 由 Agent 自己看接触表；另开一个 Codex 看图审片（agentReview）默认关掉，它又慢又费 token。
@@ -334,7 +335,7 @@ function ensureRevisionWork(dir: string, version: number) {
   validate(snapshot);
   const staging = path.join(dir, `.revision-work-${crypto.randomUUID()}`);
   try {
-    fs.cpSync(snapshot, staging, {recursive: true, errorOnExist: true, force: false});
+    copyTreeSync(snapshot, staging, { errorOnExist: true });
     // Windows cannot rename onto an existing directory, even an empty one.
     // rmdir is deliberately non-recursive: concurrent/unsaved files must survive.
     let removedEmpty=false;

@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "1920s 新闻影片标题": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 700,
+      "size": 0.078,
+      "color": "#0a0908",
+      "accent": "#17140f",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "1920s 新闻影片字幕": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#0a0908",
+      "accent": "#17140f",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "1920s 新闻影片标签": {
+      "font": "Cormorant Garamond",
+      "fontFile": "CormorantGaramond-VF.ttf",
+      "fallback": "Songti SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#17140f",
+      "accent": "#17140f",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

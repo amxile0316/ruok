@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "低多边形等距标题": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#6B5B4E",
+      "accent": "#E8998D",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "低多边形等距字幕": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#6B5B4E",
+      "accent": "#E8998D",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "低多边形等距标签": {
+      "font": "Inter",
+      "fontFile": "Inter.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#E8998D",
+      "accent": "#E8998D",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

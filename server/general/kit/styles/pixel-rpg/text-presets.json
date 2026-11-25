@@ -1,0 +1,49 @@
+{
+  "presets": {
+    "16-bit 像素 RPG标题": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 800,
+      "size": 0.078,
+      "color": "#1A1A2E",
+      "accent": "#E8B43C",
+      "lineHeight": 1.3,
+      "roles": [
+        "title"
+      ]
+    },
+    "16-bit 像素 RPG字幕": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 500,
+      "size": 0.042,
+      "color": "#1A1A2E",
+      "accent": "#E8B43C",
+      "lineHeight": 1.35,
+      "roles": [
+        "caption"
+      ]
+    },
+    "16-bit 像素 RPG标签": {
+      "font": "B612",
+      "fontFile": "B612-Regular.ttf",
+      "fallback": "PingFang SC",
+      "layout": "content",
+      "weight": 600,
+      "size": 0.03,
+      "color": "#E8B43C",
+      "accent": "#E8B43C",
+      "lineHeight": 1.3,
+      "roles": [
+        "label"
+      ]
+    }
+  },
+  "finishes": [
+    "none"
+  ]
+}

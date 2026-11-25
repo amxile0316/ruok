@@ -14,7 +14,16 @@ export type Work = {
   shares: number
   saves: number
   follows: number
+  draftId?: string
+  accountId?: string
+  externalUrl?: string
+  publicationSource?: 'legacy' | 'manual-confirmed'
+  metricsCapturedAt?: string
+  metricsSource?: MetricsSource
 }
+
+export type MetricsSource = 'manual' | 'csv' | 'api'
+export const METRIC_SOURCES: readonly MetricsSource[] = ['manual', 'csv', 'api']
 
 export type WorkMetrics = {
   engagement: number
@@ -77,6 +86,52 @@ export function trend(works: Work[]) {
   return [...works].filter(work => work.publishedAt).sort((a, b) => a.publishedAt.localeCompare(b.publishedAt))
 }
 
+/**
+ * 给作品打上指标快照：采集时间与来源。
+ * 手动录入或更新指标、CSV 导入时调用；人工确认发布生成的零指标作品不打快照，
+ * 等用户实际录入数据时再标记，避免把"尚未采集"误当成已采集。
+ */
+export function captureMetrics<T extends Omit<Work, 'id'>>(work: T, source: MetricsSource, now: string = new Date().toISOString()): T & { metricsCapturedAt: string; metricsSource: MetricsSource } {
+  return {...work, metricsCapturedAt: now, metricsSource: source}
+}
+
+/** 指标超过这么多天没更新，就该回填一次。 */
+export const METRICS_STALE_DAYS = 14
+
+export type StaleWork = {
+  work: Work
+  capturedAt: string
+  /** 距今天数。 */
+  days: number
+}
+
+/**
+ * 找出该回填指标的作品：只统计打过快照、且快照超过 days 天的。
+ * 从没记录过更新日期的旧数据不提示，避免第一次打开就刷出一大屏；
+ * 最久没更新的排前面。
+ */
+export function staleWorks(works: Work[], now: number = Date.now(), days: number = METRICS_STALE_DAYS): StaleWork[] {
+  const limit = days * 24 * 60 * 60 * 1000
+  return works
+    .flatMap(work => {
+      const capturedAt = work.metricsCapturedAt
+      if (!capturedAt) return []
+      const time = Date.parse(capturedAt)
+      if (Number.isNaN(time)) return []
+      const age = now - time
+      return age > limit ? [{work, capturedAt, days: Math.floor(age / 86_400_000)}] : []
+    })
+    .sort((a, b) => b.days - a.days)
+}
+
+/**
+ * 人工确认发布后还没补过指标的作品：没有快照就算待补。
+ * 与"陈旧"分开提示——它们缺的是第一次采集，不是更新。
+ */
+export function pendingMetrics(works: Work[]): Work[] {
+  return works.filter(work => work.publicationSource === 'manual-confirmed' && !work.metricsCapturedAt)
+}
+
 /** 规则型建议：只用本地数据，说清依据；没有足够数据时如实说。 */
 export function suggestions(works: Work[]): string[] {
   if (!works.length) return ['先录入一条作品，分析会从播放、互动和内容维度给出建议。']
@@ -98,7 +153,9 @@ export function suggestions(works: Work[]): string[] {
   return out.slice(0, 5)
 }
 
-const HEADER_ALIASES: Record<keyof Omit<Work, 'id'>, string[]> = {
+type CsvWork = Omit<Work, 'id' | 'draftId' | 'accountId' | 'externalUrl' | 'publicationSource' | 'metricsCapturedAt' | 'metricsSource'>
+
+const HEADER_ALIASES: Record<keyof CsvWork, string[]> = {
   title: ['标题', '作品', 'title', 'name'],
   platform: ['平台', 'platform'],
   publishedAt: ['发布日期', '发布时间', '日期', 'date', 'published'],
@@ -152,16 +209,17 @@ export function splitCsvLine(line: string) {
 export function parseCsv(text: string) {
   const lines = text.replace(/\r\n?/g, '\n').split('\n').filter(line => line.trim())
   if (!lines.length) return { works: [] as Omit<Work, 'id'>[], skipped: 0 }
+  const capturedAt = new Date().toISOString()
   const headers = splitCsvLine(lines[0]).map(header => header.replace(/^[\uFEFF\s]+|[\s]+$/g, '').toLowerCase())
-  const column = (name: keyof Omit<Work, 'id'>) => headers.findIndex(header => HEADER_ALIASES[name].some(alias => header === alias.toLowerCase()))
-  const index = Object.fromEntries(Object.keys(HEADER_ALIASES).map(name => [name, column(name as keyof Omit<Work, 'id'>)])) as Record<keyof Omit<Work, 'id'>, number>
+  const column = (name: keyof CsvWork) => headers.findIndex(header => HEADER_ALIASES[name].some(alias => header === alias.toLowerCase()))
+  const index = Object.fromEntries(Object.keys(HEADER_ALIASES).map(name => [name, column(name as keyof CsvWork)])) as Record<keyof CsvWork, number>
   let skipped = 0
   const works: Omit<Work, 'id'>[] = []
   for (const line of lines.slice(1)) {
     const cells = splitCsvLine(line)
     const title = index.title >= 0 ? (cells[index.title] || '').trim() : ''
     if (!title) { skipped++; continue }
-    const cell = (name: keyof Omit<Work, 'id'>) => (index[name] >= 0 ? cells[index[name]] || '' : '')
+    const cell = (name: keyof CsvWork) => (index[name] >= 0 ? cells[index[name]] || '' : '')
     works.push({
       title,
       platform: cell('platform') || '小红书',
@@ -176,6 +234,8 @@ export function parseCsv(text: string) {
       shares: number(cell('shares')),
       saves: number(cell('saves')),
       follows: number(cell('follows')),
+      metricsCapturedAt: capturedAt,
+      metricsSource: 'csv',
     })
   }
   return { works, skipped }
