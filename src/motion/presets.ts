@@ -34,6 +34,14 @@ export const MOTION_PRESETS: readonly MotionPreset[] = [
     keyframes: '@keyframes ruok-blur-in{from{opacity:0;filter:blur(10px)}to{opacity:1;filter:blur(0)}}',
   },
   {
+    id: 'bounce-in', name: '弹性入场', group: '入场', description: '带一次回弹的放大淡入，用于成功提示与浮层。', duration: 760, easing: 'cubic-bezier(.22,1.2,.36,1)',
+    keyframes: '@keyframes ruok-bounce-in{0%{opacity:0;transform:scale(.82)}55%{opacity:1;transform:scale(1.04)}78%{transform:scale(.985)}100%{opacity:1;transform:scale(1)}}',
+  },
+  {
+    id: 'flip-in-y', name: '纵向翻入', group: '入场', description: '绕横轴翻开，用于卡片首次出现在视口。', duration: 680, easing: EASE,
+    keyframes: '@keyframes ruok-flip-in-y{from{opacity:0;transform:perspective(720px) rotateX(-52deg)}to{opacity:1;transform:perspective(720px) rotateX(0)}}',
+  },
+  {
     id: 'wipe', name: '横向擦除', group: '入场', description: '从左往右揭开，用于图文段落。', duration: 700, easing: EASE,
     keyframes: '@keyframes ruok-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}',
   },
@@ -44,6 +52,10 @@ export const MOTION_PRESETS: readonly MotionPreset[] = [
   {
     id: 'shake', name: '轻震提醒', group: '强调', description: '左右小幅抖动，用于错误或需要确认的提示。', duration: 460, easing: 'ease-in-out',
     keyframes: '@keyframes ruok-shake{0%,100%{transform:translate3d(0,0,0)}20%{transform:translate3d(-5px,0,0)}40%{transform:translate3d(5px,0,0)}60%{transform:translate3d(-3px,0,0)}80%{transform:translate3d(3px,0,0)}}',
+  },
+  {
+    id: 'heartbeat', name: '双拍心跳', group: '强调', description: '两次轻微放大后停顿，用于待办或待补指标角标。', duration: 1400, easing: 'ease-in-out', infinite: true,
+    keyframes: '@keyframes ruok-heartbeat{0%,28%,70%,100%{transform:scale(1)}14%,42%{transform:scale(1.06)}}',
   },
   {
     id: 'press', name: '按压回弹', group: '强调', description: '按下时缩小，松开回到原尺寸。', duration: 420, easing: EASE,
