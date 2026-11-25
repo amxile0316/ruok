@@ -58,6 +58,15 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
 /* ---------- layer 0: the studio shot behind the entrances (the sign-in page's backdrop, developing under the pointer) ---------- */
 .home { position:relative; }
 .home > .login-backdrop-video { position:absolute;left:0;right:0;top:0;bottom:auto;height:100vh;z-index:0; }
+/* the cave petroglyph still: keep its own colour (no grayscale), dim it gently, and veil top/bottom so the
+   navigation and the hero text stay legible while the middle of the frame stays readable. */
+.home > .login-backdrop-video.is-poster-only .login-backdrop-video__still {
+  filter: brightness(.7) contrast(1.08) saturate(.92);
+}
+.home > .login-backdrop-video.is-poster-only::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(180deg, rgba(5,5,6,.62) 0%, rgba(5,5,6,.18) 26%, rgba(5,5,6,0) 50%, rgba(5,5,6,.44) 100%);
+}
 
 /* ---------- layer 1: the two entrances ---------- */
 .home-shield,.home-spacer,.home-hero__dim,.home-hero__hint { display:none; }
