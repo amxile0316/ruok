@@ -78,6 +78,42 @@ html[data-ui-theme=umbra] .topics-page {
 .topics-field input:focus-visible { outline: none; border-color: var(--ruok-accent); box-shadow: var(--rk-focus-ring, 0 0 0 3px var(--ruok-accent-soft)); }
 .topics-field input::placeholder { color: var(--ruok-faint); }
 
+/* 热点取词: 只读取公开 RSS 的标题，点一条填进关键词，由人决定用不用。 */
+.topics-trend { display: grid; gap: 10px; }
+.topics-trend__row { display: flex; flex-wrap: wrap; gap: 8px; }
+.topics-trend__row select {
+  flex: 1 1 140px;
+  min-width: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--tp-line-2);
+  border-radius: var(--rk-r-2, 6px);
+  background: var(--tp-field);
+  color: var(--ruok-ink);
+  font: 13px/1.5 inherit;
+}
+.topics-trend__row select:focus-visible { outline: none; border-color: var(--ruok-accent); box-shadow: var(--rk-focus-ring, 0 0 0 3px var(--ruok-accent-soft)); }
+.topics-trend__row .topics-btn { flex: none; }
+.topics-trend__row .topics-btn:disabled { opacity: .55; cursor: default; }
+.topics-trend__list { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.topics-trend__list button {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--rk-r-2, 6px);
+  background: var(--tp-raise);
+  color: var(--ruok-ink-2);
+  font: 12.5px/1.55 inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.topics-trend__list button:hover { border-color: var(--ruok-accent); color: var(--ruok-ink); }
+.topics-trend__error { margin: 0; color: var(--ruok-warning); font-size: 12px; line-height: 1.6; }
+.topics-note i { margin: 0 6px; font-style: normal; opacity: .6; }
+
 .topics-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .topics-chip {
   padding: 7px 14px;

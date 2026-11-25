@@ -26,6 +26,9 @@ export type AnalyticsHandoff = {
   readonly platform: string
   readonly hook?: string
   readonly topic?: string
+  readonly workId?: string
+  readonly draftId?: string
+  readonly accountId?: string
 }
 
 /** 运营复盘 → 智能选题: the four platforms 选题 can generate for, in the same order as 选题. */
@@ -80,7 +83,15 @@ export function takeAnalyticsHandoff(): AnalyticsHandoff | null {
   const value = take(KEYS.analytics)
   const title = text(value?.title), platform = text(value?.platform)
   if (!title || !platform) return null
-  return {title, platform, ...(text(value?.hook) ? {hook: text(value?.hook)} : {}), ...(text(value?.topic) ? {topic: text(value?.topic)} : {})}
+  return {
+    title,
+    platform,
+    ...(text(value?.hook) ? {hook: text(value?.hook)} : {}),
+    ...(text(value?.topic) ? {topic: text(value?.topic)} : {}),
+    ...(text(value?.workId) ? {workId: text(value?.workId)} : {}),
+    ...(text(value?.draftId) ? {draftId: text(value?.draftId)} : {}),
+    ...(text(value?.accountId) ? {accountId: text(value?.accountId)} : {}),
+  }
 }
 
 export function writeTopicsHandoff(value: TopicsHandoff) {
@@ -109,11 +120,22 @@ export function topicSource(topic: {readonly title: string; readonly hook: strin
   return [topic.title, '', topic.hook, ...(outline.length ? ['', ...outline] : [])].join('\n')
 }
 
-export function analyticsHandoffFromCopy(copy: {readonly title: string; readonly platform: PublishPlatform; readonly hook?: string; readonly topic?: string}): AnalyticsHandoff {
+export function analyticsHandoffFromCopy(copy: {
+  readonly title: string
+  readonly platform: PublishPlatform
+  readonly hook?: string
+  readonly topic?: string
+  readonly workId?: string
+  readonly draftId?: string
+  readonly accountId?: string
+}): AnalyticsHandoff {
   return {
     title: copy.title,
     platform: PUBLISH_PLATFORMS.find(item => item.id === copy.platform)?.name ?? copy.platform,
     ...(copy.hook ? {hook: copy.hook} : {}),
     ...(copy.topic ? {topic: copy.topic} : {}),
+    ...(copy.workId ? {workId: copy.workId} : {}),
+    ...(copy.draftId ? {draftId: copy.draftId} : {}),
+    ...(copy.accountId ? {accountId: copy.accountId} : {}),
   }
 }

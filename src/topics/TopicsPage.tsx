@@ -1,7 +1,7 @@
 // Added by the RUOK fork on 2026-11-17: 智能选题 module page (local rules, no network).
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { Check, Copy, Lightbulb, PenLine, RefreshCw, Sparkles, Trash2 } from 'lucide-react'
+import { Check, Copy, Lightbulb, PenLine, RefreshCw, Sparkles, Trash2, TrendingUp } from 'lucide-react'
 import { TOPIC_ANGLES, TOPIC_PLATFORMS, generateTopics, type Topic, type TopicAngle, type TopicPlatform } from './topic-generator'
 import { copyText } from '@/workspace/clipboard'
 import { takeTopicsHandoff, topicSource, writePublishHandoff, type TopicsHandoff } from '@/workspace/handoff'
@@ -10,6 +10,9 @@ import './topics.css'
 const SAVED_KEY = 'ruok-topic-basket'
 
 type SavedTopic = Pick<Topic, 'id' | 'title' | 'hook' | 'angle' | 'platform'> & { readonly savedAt: number }
+type TrendSourceOption = { readonly id: string; readonly name: string; readonly note: string }
+type TrendItem = { readonly title: string; readonly link?: string; readonly publishedAt?: string }
+type TrendResponse = { ok?: boolean; error?: string; source?: { name: string }; fetchedAt?: string; cached?: boolean; items?: TrendItem[] }
 
 const platformName = (id: TopicPlatform) => TOPIC_PLATFORMS.find(item => item.id === id)?.name ?? id
 const angleName = (id: TopicAngle) => TOPIC_ANGLES.find(item => item.id === id)?.name ?? id
@@ -37,9 +40,27 @@ export default function TopicsPage() {
   const [saved, setSaved] = useState<SavedTopic[]>([])
   const [notice, setNotice] = useState('')
   const [origin, setOrigin] = useState<TopicsHandoff | null>(null)
+  const [trendSources, setTrendSources] = useState<TrendSourceOption[]>([])
+  const [trendSourceId, setTrendSourceId] = useState('')
+  const [trendItems, setTrendItems] = useState<TrendItem[]>([])
+  const [trendMeta, setTrendMeta] = useState<{ name: string; fetchedAt: string; cached: boolean } | null>(null)
+  const [trendError, setTrendError] = useState('')
+  const [trendBusy, setTrendBusy] = useState(false)
   const handed = useRef(false)
 
   useEffect(() => { setSaved(loadSaved()) }, [])
+  useEffect(() => {
+    let alive = true
+    void fetch('/api/trends/sources')
+      .then(response => response.ok ? response.json() as Promise<{ ok?: boolean; sources?: TrendSourceOption[] }> : null)
+      .then(payload => {
+        if (!alive || !payload?.ok || !payload.sources?.length) return
+        setTrendSources(payload.sources)
+        setTrendSourceId(current => current || payload.sources![0].id)
+      })
+      .catch(() => { /* 热点源清单取不到时，选题仍按本机规则可用 */ })
+    return () => { alive = false }
+  }, [])
   useEffect(() => {
     try { window.localStorage.setItem(SAVED_KEY, JSON.stringify(saved)) } catch { /* a full disk only costs the basket */ }
   }, [saved])
@@ -52,6 +73,30 @@ export default function TopicsPage() {
   const generate = (nextSeed = seed) => {
     setBatch(generateTopics(keyword, platform, angle, nextSeed))
     setSeed(nextSeed)
+  }
+
+  /** 热点取词只拿公开 RSS 的标题，填进关键词由人决定要不要用。 */
+  const fetchTrend = async () => {
+    if (!trendSourceId || trendBusy) return
+    setTrendBusy(true)
+    setTrendError('')
+    try {
+      const response = await fetch('/api/trends/fetch', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ sourceId: trendSourceId }),
+      })
+      const payload = await response.json() as TrendResponse
+      if (!payload.ok) throw new Error(payload.error || '热点源暂时取不到')
+      setTrendItems(payload.items ?? [])
+      setTrendMeta({ name: payload.source?.name ?? '', fetchedAt: payload.fetchedAt ?? new Date().toISOString(), cached: !!payload.cached })
+    } catch (error) {
+      setTrendItems([])
+      setTrendMeta(null)
+      setTrendError(error instanceof Error ? error.message : '热点源暂时取不到')
+    } finally {
+      setTrendBusy(false)
+    }
   }
 
   /** 运营复盘 hands over a keyword and platform; without it the first batch is ready on arrival, so the page is never an empty form. */
@@ -85,7 +130,7 @@ export default function TopicsPage() {
       <div>
         <p className="topics-kicker">选题 · 本机规则</p>
         <h1>智能选题</h1>
-        <p className="topics-lede">给一个关键词，按平台和角度生成一批可以直接开拍的选题：标题、开场钩子、结构大纲。全部在本机按规则生成，不联网、不调用模型。</p>
+        <p className="topics-lede">给一个关键词，按平台和角度生成一批可以直接开拍的选题：标题、开场钩子、结构大纲。选题在本机按规则生成，不调用模型；「热点取词」只读取公开 RSS 的标题来填关键词，不写稿、不发布。</p>
       </div>
       <Link className="topics-ghost" to="/">返回首页</Link>
     </header>
@@ -98,6 +143,27 @@ export default function TopicsPage() {
           <span>这一条讲什么</span>
           <input value={keyword} onChange={event => setKeyword(event.target.value)} placeholder="例如：口播录制、录屏转场、选题方法" spellCheck={false} />
         </label>
+
+        <h2>热点取词</h2>
+        <div className="topics-trend">
+          <div className="topics-trend__row">
+            <select value={trendSourceId} onChange={event => setTrendSourceId(event.target.value)} aria-label="热点源">
+              {trendSources.length === 0
+                ? <option value="">{trendError ? '热点源清单取不到' : '读取热点源…'}</option>
+                : trendSources.map(source => <option key={source.id} value={source.id}>{source.name}</option>)}
+            </select>
+            <button type="button" className="topics-btn" disabled={trendBusy || !trendSourceId} onClick={() => void fetchTrend()}>
+              <TrendingUp size={13} aria-hidden="true" />{trendBusy ? '取词中…' : '取热点'}
+            </button>
+          </div>
+          {trendMeta && <p className="topics-note">{trendMeta.name}<i aria-hidden="true">·</i>采集于 {new Date(trendMeta.fetchedAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}{trendMeta.cached ? ' · 缓存' : ''}</p>}
+          {trendError && <p className="topics-trend__error" role="status">{trendError}</p>}
+          {trendItems.length > 0
+            ? <ul className="topics-trend__list">{trendItems.slice(0, 8).map(item => <li key={item.title}>
+              <button type="button" onClick={() => { setKeyword(item.title); flash('已填入关键词') }} title={item.title}>{item.title}</button>
+            </li>)}</ul>
+            : !trendError && <p className="topics-hint">取来的只是标题，用哪条做选题由你决定；不会自动写稿或发布。</p>}
+        </div>
 
         <h2>平台</h2>
         <div className="topics-chips" role="group" aria-label="发布平台">

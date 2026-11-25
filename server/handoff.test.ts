@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {analyticsHandoffFromCopy,PUBLISH_PLATFORMS,topicSource,topicsHandoffFromWork} from '../src/workspace/handoff.ts';
+import {analyticsHandoffFromCopy,PUBLISH_PLATFORMS,takeAnalyticsHandoff,topicSource,topicsHandoffFromWork,writeAnalyticsHandoff} from '../src/workspace/handoff.ts';
 
 test('选题素材带标题、钩子和编号大纲',()=>{
   const source=topicSource({title:'口播剪辑｜3 个步骤',hook:'先说结论，再讲过程。',outline:['开场','主体','结尾']});
@@ -15,6 +15,26 @@ test('选题篮里只有标题和钩子也能带进写稿',()=>{
 test('文案发布到运营分析：平台转中文名，空字段不写入',()=>{
   assert.deepEqual(analyticsHandoffFromCopy({title:'标题',platform:'xiaohongshu'}),{title:'标题',platform:'小红书'});
   assert.deepEqual(analyticsHandoffFromCopy({title:'标题',platform:'bilibili',hook:'钩子'}),{title:'标题',platform:'B 站',hook:'钩子'});
+});
+
+test('文案发布到运营分析：保留作品与账号关联 ID',()=>{
+  assert.deepEqual(analyticsHandoffFromCopy({
+    title:'已发布标题',platform:'xiaohongshu',workId:'work-1',draftId:'draft-1',accountId:'account-1',
+  }),{title:'已发布标题',platform:'小红书',workId:'work-1',draftId:'draft-1',accountId:'account-1'});
+});
+
+test('分析 handoff 实际写入并一次性读取关联 ID',t=>{
+  const original=Object.getOwnPropertyDescriptor(globalThis,'window');
+  const values=new Map<string,string>();
+  Object.defineProperty(globalThis,'window',{configurable:true,value:{sessionStorage:{
+    setItem:(key:string,value:string)=>{values.set(key,value)},
+    getItem:(key:string)=>values.get(key)??null,
+    removeItem:(key:string)=>{values.delete(key)},
+  }}});
+  t.after(()=>{if(original)Object.defineProperty(globalThis,'window',original);else Reflect.deleteProperty(globalThis,'window')});
+  writeAnalyticsHandoff({title:'已发布标题',platform:'小红书',workId:'work-1',draftId:'draft-1',accountId:'account-1'});
+  assert.deepEqual(takeAnalyticsHandoff(),{title:'已发布标题',platform:'小红书',workId:'work-1',draftId:'draft-1',accountId:'account-1'});
+  assert.equal(takeAnalyticsHandoff(),null);
 });
 
 test('发布平台清单覆盖选题的四个平台且顺序稳定',()=>{
