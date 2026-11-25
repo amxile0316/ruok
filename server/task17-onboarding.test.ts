@@ -6,10 +6,11 @@ import path from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {build} from 'esbuild';
 import {JSDOM} from 'jsdom';
+import {harnessDir} from './test-support/harness.ts';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const tick=()=>new Promise(resolve=>setTimeout(resolve,10));
 async function mount(file:string,state:any){
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task17-onboarding-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task17-onboarding-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost/',pretendToBeVisual:true});const old=new Map<string,PropertyDescriptor|undefined>();Object.defineProperty(dom.window.navigator,'platform',{value:state.platform||'MacIntel',configurable:true});
  const fetch=async(url:string,options:any={})=>{state.requests.push([url,options.method||'GET']);if(url.endsWith('/module/generalEditing'))state.saved=JSON.parse(options.body);return {ok:true,json:async()=>url.endsWith('/module/generalEditing')?{ok:true,result:{}}:url.endsWith('/general-choice')?{ok:true,result:options.method==='POST'?{seenAt:'saved'}:{}}:url.includes('/system/')?{ok:true,result:{opened:'screen-recording'}}:{ok:true,result:state.screen}}};
  for(const [key,value] of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,Event:dom.window.Event,fetch,IS_REACT_ACT_ENVIRONMENT:true,__task17Onboarding:state})){old.set(key,Object.getOwnPropertyDescriptor(globalThis,key));Object.defineProperty(globalThis,key,{value,writable:true,configurable:true})}
@@ -56,22 +57,30 @@ test('Windows首次智能体选择可开始、跳过和重开；仍不显示macO
 test('复审修正2：真实暖雾通用控件样式不能覆盖三种录屏引导的主按钮，加载顺序无关',async()=>{
  const guideCss=fs.readFileSync(path.join(root,'src/screen-motion/screen-setup-guide.css'),'utf8');
  const warmCss=fs.readFileSync(path.join(root,'src/workspace/warm-theme.css'),'utf8');
+ // The guide colours point at RUOK palette tokens (--ruok-accent / --ruok-warning), so the real
+ // token sheet must be part of the cascade; otherwise every var() chain ends in `transparent`.
+ const tokenCss=fs.readFileSync(path.join(root,'src/workspace/ruok-theme.css'),'utf8');
+ const toRgb=(value:string)=>{const hex=/^#([0-9a-f]{6})$/i.exec(value.trim());return hex?`rgb(${parseInt(hex[1].slice(0,2),16)}, ${parseInt(hex[1].slice(2,4),16)}, ${parseInt(hex[1].slice(4,6),16)})`:value.trim()};
  for(const theme of ['original','warm'])for(const kind of ['permission-unknown','missing','outdated']){
   const h=await mount('screen',state({screen:{screenGuide:{state:kind,version:'1.10.0',minimum:'2.1'}}}));
   try{
    document.documentElement.dataset.uiTheme=theme;document.body.classList.add('studio-projects');
+   const tokens=document.createElement('style');tokens.textContent=tokenCss;document.head.append(tokens);
    for(const themeLast of [true,false]){
     const guide=document.createElement('style'),warm=document.createElement('style');guide.textContent=guideCss;warm.textContent=warmCss;
     document.head.append(...(themeLast?[guide,warm]:[warm,guide]));
     // JSDOM computes selector precedence/custom properties but does not resolve var() in colors.
-    // Resolve only the card's existing variables; leave selectors and competing theme rules intact.
+    // Resolve the card's variables recursively (tokens chain through several --ruok-* aliases);
+    // leave selectors and competing theme rules intact.
     const cardStyle=window.getComputedStyle(document.querySelector('.screen-setup-guide')!);
-    const resolvedCss=guideCss.replace(/var\((--sg-[\w-]+)\)/g,(_all,name)=>{const value=cardStyle.getPropertyValue(name).trim();assert.ok(value,name);return value});
+    const readVar=(name:string,depth=0):string=>{const raw=cardStyle.getPropertyValue(name).trim();assert.ok(raw,`${theme}/${kind}: ${name}`);const nested=/^var\(\s*(--[\w-]+)\s*\)$/.exec(raw);assert.ok(depth<8,'变量循环 '+name);return nested?readVar(nested[1],depth+1):raw};
+    const expectedBg=toRgb(readVar('--sg-amber')),expectedColor=toRgb(readVar('--sg-amber-ink'));
+    const resolvedCss=guideCss.replace(/var\((--sg-[\w-]+)\)/g,(_all,name)=>readVar(name));
     guide.remove();warm.remove();guide.textContent=resolvedCss;document.head.append(...(themeLast?[guide,warm]:[warm,guide]));
     const primary=document.querySelectorAll('.screen-setup-primary');assert.equal(primary.length,1);
     const actual=window.getComputedStyle(primary[0]);
-    assert.equal(actual.backgroundColor,theme==='warm'?'rgb(233, 165, 22)':'rgb(245, 179, 22)',`${theme}/${kind}/themeLast=${themeLast}`);
-    assert.equal(actual.color,theme==='warm'?'rgb(43, 29, 5)':'rgb(29, 20, 4)');
+    assert.equal(actual.backgroundColor,expectedBg,`${theme}/${kind}/themeLast=${themeLast}`);
+    assert.equal(actual.color,expectedColor,`${theme}/${kind}/themeLast=${themeLast}`);
     // JSDOM cannot resolve var(); pin the declaration so the warning colour stays on the RUOK token.
     assert.match(guideCss,/\.screen-setup-notice\{color:var\(--ruok-warning\)/);
     guide.remove();warm.remove();

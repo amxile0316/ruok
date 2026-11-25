@@ -1,5 +1,6 @@
 import {killProcessGroup} from './edition.ts';
 import {removeWithRetrySync,cleanupPathSync} from '../file-ops.ts';
+import {copyTreeSync} from '../copy-tree.ts';
 import platform from '../platform.ts';
 /** General export jobs own a new directory and an immutable snapshot. No agent run or UI files are changed. */
 import fs from 'node:fs';
@@ -168,8 +169,8 @@ export async function startExport(id: string, version: number, format: unknown, 
     fs.mkdirSync(output,{recursive:true});
     // Copy, never hard-link: later edits and render caches cannot mutate this export. A copy-on-write clone where the
     // volume can (APFS: instant and no extra space, like the 口播 export), a real copy elsewhere.
-    const clone = { recursive: true, dereference: true, mode: fs.constants.COPYFILE_FICLONE };
-    if(fs.existsSync(work))fs.cpSync(work, path.join(output, 'work'), clone);
+    const clone = { dereference: true, mode: fs.constants.COPYFILE_FICLONE };
+    if(fs.existsSync(work))copyTreeSync(work, path.join(output, 'work'), clone);
     else fs.mkdirSync(path.join(output,'work'));
     // the person's timeline edits of a HyperFrames film go into the export's own copy of the page
     if(kind==='hyperframes'){
@@ -181,7 +182,7 @@ export async function startExport(id: string, version: number, format: unknown, 
     }
     if(kind==='video')fs.copyFileSync(path.join(dir,'versions',`v${version}.mp4`),path.join(output,'work','source.mp4'),fs.constants.COPYFILE_FICLONE);
     fs.writeFileSync(path.join(output,'request.json'),JSON.stringify({settings,kind,media}));
-    if (fs.existsSync(path.join(dir, 'media'))) fs.cpSync(path.join(dir, 'media'), path.join(output, 'media'), clone);
+    if (fs.existsSync(path.join(dir, 'media'))) copyTreeSync(path.join(dir, 'media'), path.join(output, 'media'), clone);
     if(layers)fs.writeFileSync(path.join(output, 'layers.json'), JSON.stringify(layers, null, 2));
     // a HyperFrames film is its page: the worker renders it with the person's edits (layers.json), no film.json
     if (kind === 'film') {

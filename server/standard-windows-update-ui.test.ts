@@ -1,9 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';
 import {build} from 'esbuild';import {JSDOM} from 'jsdom';
+import {harnessDir} from './test-support/harness.ts';
 test('Windows update controls use the installer feed and expose only a manual download; offline checks clear the link',async()=>{
- const root=fileURLToPath(new URL('../',import.meta.url)),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'windows-update-ui-'));
- fs.symlinkSync(path.join(root,'node_modules'),path.join(tmp,'node_modules'),'dir');
+ const root=fileURLToPath(new URL('../',import.meta.url)),tmp=harnessDir('windows-update-ui-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost/',pretendToBeVisual:true}),saved=new Map<string,PropertyDescriptor|undefined>();
  const values:Record<string,unknown>={window:dom.window,document:dom.window.document,navigator:dom.window.navigator,IS_REACT_ACT_ENVIRONMENT:true};
  for(const key of ['HTMLElement','HTMLInputElement','Node','NodeFilter','Element','Event','CustomEvent','KeyboardEvent','MutationObserver'])values[key]=(dom.window as any)[key];

@@ -1,7 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';import {build} from 'esbuild';
 const root=fileURLToPath(new URL('../',import.meta.url));
+import {harnessDir} from './test-support/harness.ts';
 test('S11：公共部署检查覆盖 Codex 未装/未登录/就绪、工程库离线和 OpenScreen 下载/权限，不启动录制',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task21-deploy-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task21-deploy-');
  try{
   const outfile=path.join(dir,'checks.mjs');await build({entryPoints:[path.join(root,'server/onboarding-common.ts')],outfile,bundle:true,platform:'node',format:'esm',packages:'external',logLevel:'silent',plugins:[{name:'probe-fixtures',setup(b){
    b.onResolve({filter:/agent-installations\.ts$|agent-settings\.ts$|system-settings\.ts$|editor\/openscreen\.ts$/},a=>({path:a.path,namespace:'fixture'}));
@@ -17,8 +18,7 @@ test('S11：公共部署检查覆盖 Codex 未装/未登录/就绪、工程库�
 // Do not bundle this graph: bundlers can turn const into var and conceal the
 // native ESM temporal-dead-zone failure that Vite's browser modules exposed.
 test('S11：版本入口先加载时，原生 ESM 的部署状态库正常初始化',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task21-deploy-esm-'));
- fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task21-deploy-esm-');
  try{
   for(const file of ['edition.tsx','edition-config.ts','onboarding-store.ts']){
    const source=fs.readFileSync(path.join(root,'src/onboarding',file),'utf8')

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';
 import {build} from 'esbuild';import {JSDOM} from 'jsdom';
+import {harnessDir} from './test-support/harness.ts';
 const root=fileURLToPath(new URL('../',import.meta.url));
 
 test('S05：共享目录设置保存导出默认值、保留旧库并登记已有工程库，拒绝过期保存和离线外置盘',async()=>{
@@ -21,7 +22,7 @@ test('S05：共享目录设置保存导出默认值、保留旧库并登记已�
 });
 
 test('S12：共享设置有未保存目录时，分组切换、外部入口、关闭均确认；取消保留草稿，放弃恢复原值',async()=>{
- const temp=fs.mkdtempSync(path.join(os.tmpdir(),'task21-settings-ui-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(temp,'node_modules'),'dir');
+ const temp=harnessDir('task21-settings-ui-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost'}),saved=new Map<string,PropertyDescriptor|undefined>();
  for(const [key,value] of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,IS_REACT_ACT_ENVIRONMENT:true,requestAnimationFrame:(fn:()=>void)=>setTimeout(fn,0)})){saved.set(key,Object.getOwnPropertyDescriptor(globalThis,key));Object.defineProperty(globalThis,key,{value,configurable:true,writable:true})}
  const oldFetch=globalThis.fetch;const preferences={paths:{projects:'/fixture',cache:'',exports:'',backups:'/backups'},export:{preset:'quick',container:'mp4',quality:'fast',resolution:'original',revealWhenDone:false},backup:{automatic:true,intervalMinutes:15,keep:20},reserveGB:5};

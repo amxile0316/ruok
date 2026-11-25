@@ -7,6 +7,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
 import { JSDOM } from 'jsdom';
 import { prepareSavedScreenExport } from '../shared/openscreen-export-request.ts';
+import { harnessDir } from './test-support/harness.ts';
 
 test('P08：只读、未修改与撤销回原样只读保存版本，不请求保存或接管', async () => {
   for (const flags of [{ writable: false, dirty: true, unchanged: false }, { writable: true, dirty: false, unchanged: false }, { writable: true, dirty: true, unchanged: true }]) {
@@ -31,8 +32,7 @@ test('P08：脏文档先保存，423 转只读；其他保存错误不冒充成�
 
 test('P07/P08：录屏实际挂载共用弹窗，选择编码帧率目录，显示保存版说明与导出记录', async () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'screen-export-ui-'));
-  fs.symlinkSync(path.join(root, 'node_modules'), path.join(tmp, 'node_modules'), 'dir');
+  const tmp = harnessDir('screen-export-ui-');
   const dom = new JSDOM('<div id="root"></div>', { url: 'http://localhost' });
   dom.window.matchMedia = (() => ({ matches: true, addEventListener() {}, removeEventListener() {} })) as any;
   const saved = new Map<string, PropertyDescriptor | undefined>();
@@ -92,8 +92,7 @@ test('P07/P08：录屏实际挂载共用弹窗，选择编码帧率目录，显�
 
 test('P08：Mac/Windows 录屏窗口独立身份与锁，接管必须点击', async () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'screen-window-lock-'));
-  fs.symlinkSync(path.join(root, 'node_modules'), path.join(tmp, 'node_modules'), 'dir');
+  const tmp = harnessDir('screen-window-lock-');
   const outfile = path.join(tmp, 'harness.mjs');
   await build({ stdin: { contents: `import React,{act} from 'react';import {createRoot} from 'react-dom/client';import Workspace from './src/pages/OpenScreenWorkspace';export {act,createRoot};export const element=<Workspace/>;`, resolveDir: root, loader: 'tsx' }, outfile, jsx: 'automatic', loader: { '.css': 'empty' }, bundle: true, platform: 'node', format: 'esm', packages: 'external', logLevel: 'silent', plugins: [{ name: 'isolate-host-services', setup(plugin) {
     plugin.onResolve({ filter: /^(react-router|@\/workspace\/navigation-guard|@\/studio\/api|.*\.css\?inline)$/ }, args => ({ path: args.path, namespace: 'fixture' }));

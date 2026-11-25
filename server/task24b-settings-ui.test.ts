@@ -1,7 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';import {build} from 'esbuild';import {JSDOM} from 'jsdom';
+import {harnessDir} from './test-support/harness.ts';
 const root=fileURLToPath(new URL('../',import.meta.url));
 test('任务24第二部分：账号切换/升级只走本家管理接口，真实结果更新，未知用量不猜，关闭Claude不调用',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task24b-settings-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task24b-settings-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost',pretendToBeVisual:true}),saved=new Map<string,PropertyDescriptor|undefined>();
  const oldFetch=globalThis.fetch,oldTimeout=globalThis.setTimeout,oldClear=globalThis.clearTimeout;const timers=new Map<number,()=>Promise<void>>();let timerId=91000;
  for(const [key,value]of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,Event:dom.window.Event,CustomEvent:dom.window.CustomEvent,requestAnimationFrame:(fn:()=>void)=>{fn();return 1},IS_REACT_ACT_ENVIRONMENT:true})){saved.set(key,Object.getOwnPropertyDescriptor(globalThis,key));Object.defineProperty(globalThis,key,{value,configurable:true,writable:true})}

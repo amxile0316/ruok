@@ -1,9 +1,9 @@
 const {test}=require('node:test'),assert=require('node:assert/strict');
-const {endpoint,macRelease,macInstallerRelease,newerBuild,dmgName}=require('./mac-update-manifest.cjs');
+const {repository,endpoint,macRelease,macInstallerRelease,newerBuild,dmgName}=require('./mac-update-manifest.cjs');
 const tag='desktop-v1.1.3-2026111001';
-const feed=(over={})=>({schemaVersion:1,product:'opentake-standard',platform:'darwin',channel:'stable',version:'1.1.3',desktopBuild:2026111001,notes:'n',installers:Object.fromEntries(['arm64','x64'].map(arch=>[arch,{url:`https://github.com/saf1102/opentake-standard/releases/download/${tag}/${dmgName('1.1.3',arch)}`,sha256:'A'.repeat(64),size:400}])),...over});
+const feed=(over={})=>({schemaVersion:1,product:'ruok',platform:'darwin',channel:'stable',version:'1.1.3',desktopBuild:2026111001,notes:'n',installers:Object.fromEntries(['arm64','x64'].map(arch=>[arch,{url:`https://github.com/${repository}/releases/download/${tag}/${dmgName('1.1.3',arch)}`,sha256:'A'.repeat(64),size:400}])),...over});
 test('Mac feed only accepts this release’s own DMGs',()=>{
- assert.equal(endpoint,'https://github.com/saf1102/opentake-standard/releases/latest/download/mac-update.json');
+ assert.equal(endpoint,`https://github.com/${repository}/releases/latest/download/mac-update.json`);
  const ok=macRelease(feed());assert.equal(ok.tag,tag);assert.equal(ok.installers.arm64.sha256,'a'.repeat(64));
  for(const bad of [{platform:'win32'},{schemaVersion:2},{version:'1.1'},{desktopBuild:0},{notes:'x'.repeat(16001)},{installers:{arm64:feed().installers.arm64}}])assert.equal(macRelease(feed(bad)),null);
  const other=feed();other.installers.x64.url=other.installers.x64.url.replace(tag,'desktop-v1.1.2-2026110901');assert.equal(macRelease(other),null);

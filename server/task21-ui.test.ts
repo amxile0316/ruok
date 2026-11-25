@@ -6,12 +6,12 @@ import path from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {build} from 'esbuild';
 import {JSDOM} from 'jsdom';
+import {harnessDir} from './test-support/harness.ts';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const tick = () => new Promise(resolve => setTimeout(resolve, 15));
 async function mount(source: string, mocks: Record<string, string> = {}, state: Record<string, unknown> = {}) {
-  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'task21-ui-'));
-  fs.symlinkSync(path.join(root, 'node_modules'), path.join(temp, 'node_modules'), 'dir');
+  const temp = harnessDir('task21-ui-');
   const dom = new JSDOM('<div id="root"></div>', {url: 'http://localhost/', pretendToBeVisual: true});
   const prior = new Map<string, PropertyDescriptor | undefined>();
   const noop = () => {};

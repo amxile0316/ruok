@@ -36,6 +36,16 @@ export async function lockedDownload(item,cache,fetcher=fetch){
  if(await exists(file))throw Error('Existing cache differs; preserve it and select a new cache: '+file);
  await fs.rename(pending,file);return file;
 }
+/** comtypes 需要子包 comtypes.gen 才能生成类型库；它只在首次导入时动态创建且不重新导入，导致首次预检必失败。打包时预置，避免只读安装目录下反复失败。 */
+async function ensureComtypesGen(root){
+ const pkg=path.join(root,'jianying-python/comtypes');
+ if(!(await exists(pkg)))return false;
+ const gen=path.join(pkg,'gen'),init=path.join(gen,'__init__.py');
+ if(await exists(init))return false;
+ await fs.mkdir(gen,{recursive:true});
+ await fs.writeFile(init,'# comtypes.gen package, directory for generated files.\n');
+ return true;
+}
 async function inventory(root){
  const files=[];
  async function walk(folder){for(const entry of await fs.readdir(folder,{withFileTypes:true})){
@@ -71,7 +81,16 @@ export async function prepareWindowsRuntimes({root=path.resolve(source,'../runti
  if(process.platform!=='win32'||process.arch!=='x64')throw Error('Windows runtime assembly requires Windows x64');
  root=path.resolve(root);cache=path.resolve(cache);
  const lock=JSON.parse(await fs.readFile(path.join(source,'WINDOWS-RUNTIME-LOCK.json'),'utf8'));
- if(await exists(root)){await verifyRuntimeTree(root,lock);console.log('已校验并复用运行库：'+root);return root;}
+ if(await exists(root)){
+  await verifyRuntimeTree(root,lock);
+  if(await ensureComtypesGen(root)){
+   const files=await inventory(root);
+   await fs.writeFile(path.join(root,'manifest.json'),JSON.stringify({schema:1,platform:'win32-x64',components:lock.components,files},null,2)+'\n');
+   await verifyRuntimeTree(root,lock);
+   console.log('已补齐 comtypes.gen 包并更新运行库清单：'+root);
+  }
+  console.log('已校验并复用运行库：'+root);return root;
+ }
  await fs.mkdir(path.dirname(root),{recursive:true});
  const stage=await fs.mkdtemp(root+'.staging-'),scratch=await fs.mkdtemp(path.join(path.dirname(root),'runtime-extract-'));
  const seven=await require('app-builder-lib/out/toolsets/7zip').getPath7za();
@@ -112,6 +131,7 @@ export async function prepareWindowsRuntimes({root=path.resolve(source,'../runti
  for(const item of lock.runtimeSourceArchives)await fs.copyFile(await lockedDownload(item,cache),path.join(stage,'sources',item.file));
  await fs.writeFile(path.join(stage,'provenance.json'),JSON.stringify(lock,null,2)+'\n');
  await prepareWindowsExportRuntimes(stage);
+ await ensureComtypesGen(stage);
  await fs.copyFile(path.join(source,'desktop/python-sitecustomize.py'),path.join(stage,'python/sitecustomize.py'));
  const files=await inventory(stage);
  await fs.writeFile(path.join(stage,'manifest.json'),JSON.stringify({schema:1,platform:'win32-x64',components:lock.components,files},null,2)+'\n');

@@ -4,10 +4,11 @@ import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {build} from 'esbuild';import {JSDOM} from 'jsdom';
 import {connectionDefinition,defaultConnection,type ConnectionId} from '../shared/agent-connections.ts';
+import {harnessDir} from './test-support/harness.ts';
 const root=fileURLToPath(new URL('../',import.meta.url));
 
 test('修复二：真实选择器与空闲顶栏同步，运行中显示实际家；空回应只给官网和换家',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'task24c-panel-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'),'dir');
+ const dir=harnessDir('task24c-panel-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost',pretendToBeVisual:true});Object.defineProperty(dom.window.navigator,'platform',{value:'MacIntel'});
  const saved=new Map<string,PropertyDescriptor|undefined>(),oldFetch=globalThis.fetch;
  for(const[key,value]of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,Event:dom.window.Event,CustomEvent:dom.window.CustomEvent,IS_REACT_ACT_ENVIRONMENT:true})){

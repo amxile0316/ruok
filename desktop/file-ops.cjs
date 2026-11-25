@@ -44,9 +44,24 @@ function atomicJsonSync(file,value,options={}){
  const {indent=2,...writeOptions}=options;
  return atomicWriteFileSync(file,JSON.stringify(value,null,indent),writeOptions);
 }
+function removeTreeSync(target){
+ let stat;
+ try{stat=fs.lstatSync(target)}catch(error){if(error.code==='ENOENT')return;throw error}
+ if(stat.isDirectory()){
+  for(const name of fs.readdirSync(target))removeTreeSync(path.join(target,name));
+  fs.rmdirSync(target);
+ }else fs.unlinkSync(target);
+}
 function removeWithRetrySync(target,options={}){
  try{return retrySync(()=>{
-  if(options.recursive)return fs.rmSync(target,{...options,maxRetries:0});
+  if(options.recursive){
+   // Native rmSync can report success while leaving a non-ASCII path in place;
+   // verify the removal and fall back to per-entry deletion.
+   const result=fs.rmSync(target,{...options,maxRetries:0});
+   let present=true;try{fs.lstatSync(target)}catch{present=false}
+   if(present)removeTreeSync(target);
+   return result;
+  }
   try{return fs.unlinkSync(target)}catch(error){if(options.force&&error.code==='ENOENT')return;throw error}
  })}catch(error){throw fileError(error,'清理文件',target)}
 }

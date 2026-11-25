@@ -1,10 +1,10 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {pathToFileURL,fileURLToPath} from 'node:url';
 import {build} from 'esbuild';import {JSDOM} from 'jsdom';
+import {harnessDir} from './test-support/harness.ts';
 
 test('缺项保留文案、亮紫提示、重查通过才建工程和开始；双击只检查一次',async()=>{
- const root=fileURLToPath(new URL('../',import.meta.url)),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'creation-ui-'));
- fs.symlinkSync(path.join(root,'node_modules'),path.join(tmp,'node_modules'),'dir');
+ const root=fileURLToPath(new URL('../',import.meta.url)),tmp=harnessDir('creation-ui-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost'});
  const saved=new Map<string,PropertyDescriptor|undefined>();
  for(const [key,value] of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,IS_REACT_ACT_ENVIRONMENT:true})){

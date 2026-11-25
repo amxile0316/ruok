@@ -1,7 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {fileURLToPath,pathToFileURL} from 'node:url';import {build} from 'esbuild';import {JSDOM} from 'jsdom';
 const root=fileURLToPath(new URL('../',import.meta.url));
+import {harnessDir} from './test-support/harness.ts';
 for (const platform of ['MacIntel','Win32']) test(`任务17：${platform} 工程选择器保留平台接入边界`,async()=>{
- const temp=fs.mkdtempSync(path.join(os.tmpdir(),'task17-picker-'));fs.symlinkSync(path.join(root,'node_modules'),path.join(temp,'node_modules'),'dir');
+ const temp=harnessDir('task17-picker-');
  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost'}),saved=new Map<string,PropertyDescriptor|undefined>();
  for(const [key,value] of Object.entries({window:dom.window,document:dom.window.document,navigator:dom.window.navigator,IS_REACT_ACT_ENVIRONMENT:true,requestAnimationFrame:(fn:()=>void)=>setTimeout(fn,0)})){saved.set(key,Object.getOwnPropertyDescriptor(globalThis,key));Object.defineProperty(globalThis,key,{value,configurable:true,writable:true})}
  Object.defineProperty(dom.window.navigator,'platform',{value:platform,configurable:true});
