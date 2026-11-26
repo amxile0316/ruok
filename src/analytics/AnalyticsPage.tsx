@@ -222,6 +222,13 @@ export default function AnalyticsPage() {
         <div><span>播放中位数</span><b>{compact(Math.round(stats.medianViews))}</b></div>
       </section>
 
+      {pending.length === 0 && (
+        <section className="an-panel an-stale">
+          <div className="an-panel__head"><h2>待补指标 · 0 条</h2><span className="an-hint">人工确认发布后还没录过播放与互动；点一条直接补录</span></div>
+          <p className="an-hint">目前没有待补的作品。手动录入或 CSV 导入会直接带上指标；这里只收「人工确认发布」后还没补数据的作品。</p>
+        </section>
+      )}
+
       {pending.length > 0 && (
         <section className="an-panel an-stale">
           <div className="an-panel__head"><h2>待补指标 · {pending.length} 条</h2><span className="an-hint">人工确认发布后还没录过播放与互动；点一条直接补录</span></div>
@@ -236,6 +243,13 @@ export default function AnalyticsPage() {
             ))}
           </ul>
           {pending.length > 6 && <p className="an-hint">还有 {pending.length - 6} 条。</p>}
+        </section>
+      )}
+
+      {stale.length === 0 && (
+        <section className="an-panel an-stale">
+          <div className="an-panel__head"><h2>待回填指标 · 0 条</h2><span className="an-hint">超过 {METRICS_STALE_DAYS} 天未更新；点一条直接补录</span></div>
+          <p className="an-hint">目前没有过期数据。保存指标时会记下更新日期，超过 {METRICS_STALE_DAYS} 天未更新的作品会提醒你回填。</p>
         </section>
       )}
 
