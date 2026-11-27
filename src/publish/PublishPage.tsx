@@ -1,9 +1,11 @@
 import {useEffect, useMemo, useRef, useState} from 'react'
 import {Link} from 'react-router'
 import {PUBLISH_PLATFORMS as PLATFORMS, takePublishHandoff, type PublishHandoff, type PublishPlatform} from '@/workspace/handoff'
-import {addContentDraft, createContentDraft, transitionContentDraft} from '@/operations/model.ts'
+import {addContentDraft, createContentDraft, transitionContentDraft, type DraftAsset} from '@/operations/model.ts'
 import {useOperations} from '@/operations/useOperations.ts'
 import {ContentCalendar, DraftCenter, ProfileManager} from './OperationsPanels.tsx'
+import {AssetRow} from './AssetRow.tsx'
+import {PLATFORM_GUIDANCE} from './platforms.ts'
 import './publish.css'
 
 type Copy = {title: string; body: string; tags: string[]; hook: string; platformName: string; local?: boolean; warning?: string}
@@ -45,6 +47,8 @@ export default function PublishPage() {
   const [tone, setTone] = useState('')
   const [accountId, setAccountId] = useState('')
   const [copy, setCopy] = useState<Copy | null>(null)
+  const [video, setVideo] = useState<DraftAsset | undefined>(undefined)
+  const [cover, setCover] = useState<DraftAsset | undefined>(undefined)
   const [generatedMeta, setGeneratedMeta] = useState<GenerationMeta | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -116,6 +120,8 @@ export default function PublishPage() {
         body: copy.body,
         tags: copy.tags.map(tag => tag.trim()).filter(Boolean),
         hook: copy.hook,
+        ...(video ? {video} : {}),
+        ...(cover ? {cover} : {}),
       })
       draftId = draft.id
       const added = addContentDraft(current, draft)
@@ -173,6 +179,12 @@ export default function PublishPage() {
                 placeholder="成片标题、口播稿、功能点或一段文稿。事实越具体，文案越像你写的。"
                 spellCheck={false}
               />
+              <h2>发布包素材</h2>
+              <div className="publish-assets">
+                <AssetRow kind="video" label="成片" asset={video} onChange={setVideo} onError={setError} />
+                <AssetRow kind="cover" label="封面" asset={cover} ratio={PLATFORM_GUIDANCE[platform].coverRatio} onChange={setCover} onError={setError} />
+              </div>
+              <p className="publish-hint">只记本机路径，不复制文件、不上传；成片时长会带进作品记录。</p>
               <h2>平台</h2>
               <div className="publish-chips" role="group" aria-label="发布平台">
                 {PLATFORMS.map(item => (

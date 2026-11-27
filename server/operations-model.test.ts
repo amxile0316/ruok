@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import type {Work} from '../src/analytics/model.ts';
 import {
-  addContentDraft,appendProfileMemory,confirmPublication,createAccountProfile,createContentDraft,createOperationsState,
-  removeAccountProfile,removeContentDraft,removeProfileMemory,transitionContentDraft,updateContentDraft,upsertAccountProfile,
-  type AccountProfile,type ContentDraft,type OperationsState,
+  addContentDraft,appendProfileMemory,attachDraftAsset,confirmPublication,createAccountProfile,createContentDraft,createOperationsState,
+  removeAccountProfile,removeContentDraft,removeDraftAsset,removeProfileMemory,transitionContentDraft,updateContentDraft,upsertAccountProfile,
+  type AccountProfile,type ContentDraft,type DraftAsset,type OperationsState,
 } from '../src/operations/model.ts';
 import {
   LEGACY_WORKS_STORAGE_KEY,loadOperations,migrateLegacyWorks,OPERATIONS_STORAGE_KEY,
@@ -194,6 +194,44 @@ test('未发布草稿可删除，不隐式创建作品或改变其他内容',()=
   assert.equal(next.drafts.length,0);
   assert.equal(next.works.length,0);
   assert.equal(state.drafts.length,1);
+});
+
+const videoAsset:DraftAsset={path:'D:\\videos\\final.mp4',name:'final.mp4',bytes:80*1024*1024,durationSec:47.5,addedAt:TIME};
+const coverAsset:DraftAsset={path:'D:\\videos\\cover.png',name:'cover.png',bytes:2048,ratio:'3:4',addedAt:TIME};
+
+test('发布包素材：挂载与移除不改变审核状态，已发布不可改，确认发布写入成片时长',()=>{
+  let state=attachDraftAsset(approvedState(),'draft-1','video',videoAsset,{now:TIME});
+  assert.deepEqual(state.drafts[0].video,videoAsset);
+  assert.equal(state.drafts[0].status,'approved'); // 换素材不算文案改动
+  state=attachDraftAsset(state,'draft-1','cover',coverAsset,{now:TIME});
+  assert.deepEqual(state.drafts[0].cover,coverAsset);
+  const without=removeDraftAsset(state,'draft-1','cover',{now:TIME});
+  assert.equal(without.drafts[0].cover,undefined);
+  assert.strictEqual(removeDraftAsset(without,'draft-1','cover'),without); // 没有素材时原样返回
+  assert.throws(()=>attachDraftAsset(draftState(),'draft-1','video',{...videoAsset,path:'   '}),/路径/);
+  assert.throws(()=>attachDraftAsset(draftState(),'draft-1','cover',{...coverAsset,ratio:'1:1' as never}),/比例/);
+
+  const published=confirmPublication(state,'draft-1',{confirmed:true,publishedAt:TIME},{workId:'work-video',now:TIME});
+  assert.equal(published.work.durationSec,47.5);
+  assert.throws(()=>attachDraftAsset(published.state,'draft-1','video',videoAsset),/不可再编辑/);
+  assert.throws(()=>removeDraftAsset(published.state,'draft-1','video'),/不可再编辑/);
+});
+
+test('素材随运营状态一起读写，缺少素材字段的旧数据仍可解析',()=>{
+  const state=attachDraftAsset(draftState(),'draft-1','video',videoAsset);
+  const storage=new MemoryStorage();
+  assert.deepEqual(saveOperations(storage,state),{ok:true});
+  const loaded=loadOperations(storage);
+  assert.ok(loaded.ok);
+  assert.deepEqual(loaded.state.drafts[0].video,videoAsset);
+
+  const plain=JSON.stringify({version:1,profiles:[],drafts:[createContentDraft(input,{id:'d1',now:TIME})],works:[]});
+  const parsed=parseOperationsState(plain);
+  assert.ok(parsed.ok);
+  assert.equal(parsed.state.drafts[0].video,undefined);
+
+  const bad=JSON.stringify({version:1,profiles:[],drafts:[{...createContentDraft(input,{id:'d1',now:TIME}),video:{...videoAsset,bytes:-1}}],works:[]});
+  assert.equal(parseOperationsState(bad).ok,false);
 });
 
 test('画像记忆：结构化写入时间与关联作品，去重追加，按索引删除，旧纯文本记忆读盘升级',()=>{

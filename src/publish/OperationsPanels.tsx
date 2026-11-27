@@ -3,9 +3,11 @@ import {useNavigate} from 'react-router'
 import {PUBLISH_PLATFORMS, writeAnalyticsHandoff, type PublishPlatform} from '@/workspace/handoff'
 import type {Work} from '@/analytics/model.ts'
 import {
+  attachDraftAsset,
   confirmPublication,
   createAccountProfile,
   removeAccountProfile,
+  removeDraftAsset,
   removeProfileMemory,
   removeContentDraft,
   transitionContentDraft,
@@ -13,9 +15,14 @@ import {
   upsertAccountProfile,
   type AccountProfile,
   type ContentDraft,
+  type DraftAsset,
+  type DraftAssetKind,
   type DraftStatus,
 } from '@/operations/model.ts'
 import type {OperationsCommitResult, OperationsUpdater} from '@/operations/useOperations.ts'
+import {AssetRow} from './AssetRow.tsx'
+import {assetExists} from './assets.ts'
+import {PLATFORM_GUIDANCE, guidanceWarnings, textLength} from './platforms.ts'
 
 type Commit = (updater: OperationsUpdater) => OperationsCommitResult
 type CommonProps = {commit: Commit; notify: (message: string) => void}
@@ -87,6 +94,8 @@ export function DraftCenter({drafts, works, selectedId, onSelect, commit, notify
   const [publishedAtInput, setPublishedAtInput] = useState(localInput())
   const [externalUrl, setExternalUrl] = useState('')
   const [publishChecked, setPublishChecked] = useState(false)
+  const [assetError, setAssetError] = useState('')
+  const [missing, setMissing] = useState<{video?: boolean; cover?: boolean}>({})
 
   useEffect(() => {
     setEditor(editorFrom(current))
@@ -96,7 +105,22 @@ export function DraftCenter({drafts, works, selectedId, onSelect, commit, notify
     setPublishedAtInput(localInput())
     setExternalUrl('')
     setPublishChecked(false)
+    setAssetError('')
   }, [current?.id, current?.updatedAt])
+
+  // 每次切换草稿或素材变化时确认文件还在；找不到只提示，不删除记录。
+  useEffect(() => {
+    let alive = true
+    setMissing({})
+    const check = async () => {
+      const next: {video?: boolean; cover?: boolean} = {}
+      if (current?.video) next.video = !(await assetExists(current.video.path))
+      if (current?.cover) next.cover = !(await assetExists(current.cover.path))
+      if (alive) setMissing(next)
+    }
+    void check()
+    return () => { alive = false }
+  }, [current?.id, current?.video?.path, current?.cover?.path])
 
   if (!current) {
     return <section className="publish-panel publish-empty-panel"><h2>发布中心</h2><p className="publish-empty">还没有本地草稿。回到「写稿」生成内容，再选择「保存草稿」或「保存并送审」。</p></section>
@@ -104,6 +128,28 @@ export function DraftCenter({drafts, works, selectedId, onSelect, commit, notify
 
   const dirty = editor.title !== current.title || editor.body !== current.body || editor.hook !== current.hook || splitTags(editor.tags).join('\n') !== current.tags.join('\n')
   const linkedWork = works.find(work => work.id === current.workId && work.draftId === current.id)
+  const guide = PLATFORM_GUIDANCE[current.platform]
+  const warnings = guidanceWarnings(current.platform, editor.title, editor.body, splitTags(editor.tags))
+  const packageText = () => [
+    `# ${editor.title}`,
+    '',
+    editor.body,
+    '',
+    splitTags(editor.tags).map(tag => `#${tag}`).join(' '),
+    '',
+    '---',
+    `平台：${platformName(current.platform)}`,
+    `成片：${current.video?.name ?? '未添加'}`,
+    `封面：${current.cover?.name ?? '未添加'}`,
+  ].join('\n')
+
+  /** 素材只改引用，不触发重新审核；已发布草稿由模型层拒绝修改。 */
+  const setAsset = (kind: DraftAssetKind, asset: DraftAsset | undefined) => {
+    setAssetError('')
+    const result = commit(state => asset ? attachDraftAsset(state, current.id, kind, asset) : removeDraftAsset(state, current.id, kind))
+    if (!result.ok && !result.committed) return
+    if (result.ok) notify(asset ? `${kind === 'video' ? '成片' : '封面'}已更新` : `已移除${kind === 'video' ? '成片' : '封面'}`)
+  }
 
   const saveEditor = () => {
     notify('')
@@ -217,14 +263,6 @@ export function DraftCenter({drafts, works, selectedId, onSelect, commit, notify
                 const text = `${editor.title}\n\n${editor.body}\n\n${splitTags(editor.tags).map(tag => `#${tag}`).join(' ')}`
                 void copyText(text).then(ok => notify(ok ? '已复制全文；未改变发布状态' : '复制失败，请手动选择'))
               }}>复制全文</button>
-              <button type="button" className="publish-btn" onClick={() => {
-                void copyText(splitTags(editor.tags).map(tag => `#${tag}`).join(' ')).then(ok => notify(ok ? '已复制话题；未改变发布状态' : '复制失败'))
-              }}>复制话题</button>
-              <button type="button" className="publish-btn" onClick={() => {
-                const text = `${editor.title}\n\n${editor.body}\n\n${splitTags(editor.tags).map(tag => `#${tag}`).join(' ')}`
-                downloadMarkdown(`发布文案-${platformName(current.platform)}.md`, text)
-                notify('已导出 Markdown；未改变发布状态')
-              }}>导出 Markdown</button>
               <button type="button" className="publish-btn publish-btn--danger" onClick={remove}>删除草稿</button>
             </div>
             {dirty && current.status === 'draft' && <p className="publish-hint">送审前请先保存修改。</p>}
@@ -267,6 +305,10 @@ export function DraftCenter({drafts, works, selectedId, onSelect, commit, notify
               ) : (
                 <div className="publish-confirm-box">
                   <p className="publish-local">人工填报，RUOK 未向平台核验。确认后会将草稿标记为已发布，并创建一条零指标作品记录。</p>
+                  <p className="publish-hint">
+                    发布包：成片 {current.video ? current.video.name : '未添加'}；封面 {current.cover ? current.cover.name : '未添加'}。
+                    {!current.video && '还没有成片，确认后作品时长会是 0。'}
+                  </p>
                   <label className="publish-field"><span>实际发布时间（本地时间）</span><input type="datetime-local" value={publishedAtInput} onChange={event => setPublishedAtInput(event.target.value)} /></label>
                   <label className="publish-field"><span>作品链接（可选，http/https）</span><input type="url" value={externalUrl} onChange={event => setExternalUrl(event.target.value)} placeholder="https://example.com/post/123" /></label>
                   <label className="publish-check"><input type="checkbox" checked={publishChecked} onChange={event => setPublishChecked(event.target.checked)} /><span>我已在平台完成发布</span></label>
@@ -279,6 +321,33 @@ export function DraftCenter({drafts, works, selectedId, onSelect, commit, notify
             </section>
           </>
         )}
+
+        <section className="publish-subsection publish-package">
+          <h3>发布包</h3>
+          <div className="publish-assets">
+            <AssetRow kind="video" label="成片" asset={current.video} readOnly={current.status === 'published'} missing={missing.video}
+              onChange={asset => setAsset('video', asset)} onError={setAssetError} />
+            <AssetRow kind="cover" label="封面" asset={current.cover} ratio={guide.coverRatio} readOnly={current.status === 'published'} missing={missing.cover}
+              onChange={asset => setAsset('cover', asset)} onError={setAssetError} />
+          </div>
+          {assetError && <p className="publish-error" role="alert">{assetError}</p>}
+          <p className="publish-hint">只记本机路径，不复制文件、不上传。{guide.note}</p>
+          <p className="publish-limits">
+            标题 {textLength(editor.title)}/{guide.titleMax} · 正文 {textLength(editor.body)}/{guide.bodyMax} · 话题 {splitTags(editor.tags).length}/{guide.tagsMax}
+          </p>
+          {warnings.length > 0 && <ul className="publish-limits publish-limits--over">{warnings.map(item => <li key={item}>{item}</li>)}</ul>}
+          <div className="publish-exports">
+            <button type="button" className="publish-btn" onClick={() => { void copyText(editor.title).then(ok => notify(ok ? '已复制标题' : '复制失败')) }}>复制标题</button>
+            <button type="button" className="publish-btn" onClick={() => { void copyText(editor.body).then(ok => notify(ok ? '已复制正文' : '复制失败')) }}>复制正文</button>
+            <button type="button" className="publish-btn" onClick={() => { void copyText(splitTags(editor.tags).map(tag => `#${tag}`).join(' ')).then(ok => notify(ok ? '已复制话题' : '复制失败')) }}>复制话题</button>
+            {current.video && <button type="button" className="publish-btn" onClick={() => { void copyText(current.video!.path).then(ok => notify(ok ? '已复制成片路径' : '复制失败')) }}>复制成片路径</button>}
+            {current.cover && <button type="button" className="publish-btn" onClick={() => { void copyText(current.cover!.path).then(ok => notify(ok ? '已复制封面路径' : '复制失败')) }}>复制封面路径</button>}
+            <button type="button" className="publish-btn publish-btn--primary" onClick={() => {
+              downloadMarkdown(`发布包-${platformName(current.platform)}-${editor.title || '未命名'}.md`, packageText())
+              notify('已导出发布包；未改变发布状态')
+            }}>导出发布包</button>
+          </div>
+        </section>
 
         {current.status === 'published' && (
           <section className="publish-subsection publish-work-result">

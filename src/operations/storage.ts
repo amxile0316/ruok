@@ -48,6 +48,15 @@ const AccountProfileSchema = z.object({
   memory: z.array(MemoryEntrySchema).optional(),
 }).strict() satisfies z.ZodType<AccountProfile>
 
+const AssetSchema = z.object({
+  path: z.string().min(1),
+  name: z.string().min(1),
+  bytes: z.number().nonnegative(),
+  durationSec: z.number().nonnegative().optional(),
+  ratio: z.enum(['3:4', '9:16', '16:9']).optional(),
+  addedAt: dateText,
+}).strict()
+
 const ContentDraftSchema = z.object({
   id: z.string().min(1),
   source: z.string(),
@@ -59,6 +68,8 @@ const ContentDraftSchema = z.object({
   body: z.string(),
   tags: z.array(z.string()),
   hook: z.string(),
+  video: AssetSchema.optional(),
+  cover: AssetSchema.optional(),
   status: z.enum(DRAFT_STATUSES),
   scheduledAt: dateText.optional(),
   publishedAt: dateText.optional(),

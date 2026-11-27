@@ -28,6 +28,22 @@ export type AccountProfile = {
   memory?: ProfileMemoryEntry[]
 }
 
+/** 成片或封面的本地引用：只记路径与元数据，不复制文件、不上传、不读内容。 */
+export type DraftAsset = {
+  path: string
+  /** 文件名，列表和复制时直接用。 */
+  name: string
+  /** 字节数。 */
+  bytes: number
+  /** 视频时长（秒）；没有探测到时省略。 */
+  durationSec?: number
+  /** 封面建议比例，只用于提示。 */
+  ratio?: '3:4' | '9:16' | '16:9'
+  addedAt: string
+}
+export type DraftAssetKind = 'video' | 'cover'
+const ASSET_RATIOS = ['3:4', '9:16', '16:9'] as const
+
 export type ContentDraft = {
   id: string
   source: string
@@ -39,6 +55,9 @@ export type ContentDraft = {
   body: string
   tags: string[]
   hook: string
+  /** 发布包的素材引用：成片与封面。 */
+  video?: DraftAsset
+  cover?: DraftAsset
   status: DraftStatus
   scheduledAt?: string
   publishedAt?: string
@@ -57,7 +76,7 @@ export type OperationsState = {
 
 export type AccountProfileInput = Omit<AccountProfile, 'id'>
 export type ContentDraftInput = Pick<ContentDraft, 'source' | 'platform' | 'title' | 'body' | 'tags' | 'hook'> &
-  Partial<Pick<ContentDraft, 'accountId' | 'topic' | 'tone'>>
+  Partial<Pick<ContentDraft, 'accountId' | 'topic' | 'tone' | 'video' | 'cover'>>
 export type ContentDraftPatch = Partial<Pick<ContentDraft,
   'source' | 'accountId' | 'topic' | 'tone' | 'title' | 'body' | 'tags' | 'hook'
 >>
@@ -177,6 +196,25 @@ export function removeProfileMemory(state: OperationsState, profileId: string, i
   }
 }
 
+/** 素材引用只做格式校验：不访问磁盘，路径存在性由界面在打开时检查。 */
+function normalizeAsset(asset: DraftAsset): DraftAsset {
+  const filePath = typeof asset.path === 'string' ? asset.path.trim() : ''
+  if (!filePath) throw new Error('素材路径无效')
+  const name = typeof asset.name === 'string' ? asset.name.trim() : ''
+  if (!name) throw new Error('素材文件名无效')
+  if (!Number.isFinite(asset.bytes) || asset.bytes < 0) throw new Error('素材大小无效')
+  if (asset.durationSec !== undefined && (!Number.isFinite(asset.durationSec) || asset.durationSec < 0)) throw new Error('素材时长无效')
+  if (asset.ratio !== undefined && !ASSET_RATIOS.includes(asset.ratio)) throw new Error('封面比例无效')
+  return {
+    path: filePath,
+    name,
+    bytes: asset.bytes,
+    ...(asset.durationSec !== undefined ? {durationSec: asset.durationSec} : {}),
+    ...(asset.ratio !== undefined ? {ratio: asset.ratio} : {}),
+    addedAt: validDate(asset.addedAt, '素材添加时间'),
+  }
+}
+
 export function createContentDraft(input: ContentDraftInput, options: EntityOptions = {}): ContentDraft {
   const timestamp = now(options)
   return {
@@ -190,6 +228,8 @@ export function createContentDraft(input: ContentDraftInput, options: EntityOpti
     body: input.body,
     tags: [...input.tags],
     hook: input.hook,
+    ...(input.video !== undefined ? {video: normalizeAsset(input.video)} : {}),
+    ...(input.cover !== undefined ? {cover: normalizeAsset(input.cover)} : {}),
     status: 'draft',
     createdAt: timestamp,
     updatedAt: timestamp,
@@ -244,6 +284,22 @@ export function removeContentDraft(state: OperationsState, draftId: string): Ope
   return {...state, drafts: state.drafts.filter(item => item.id !== draftId)}
 }
 
+/** 挂上成片或封面。素材变化不算文案改动，因此不重置审核状态。 */
+export function attachDraftAsset(state: OperationsState, draftId: string, kind: DraftAssetKind, asset: DraftAsset, options: ChangeOptions = {}): OperationsState {
+  const draft = findDraft(state, draftId)
+  assertEditable(draft)
+  return replaceDraft(state, {...draft, [kind]: normalizeAsset(asset), updatedAt: now(options)})
+}
+
+export function removeDraftAsset(state: OperationsState, draftId: string, kind: DraftAssetKind, options: ChangeOptions = {}): OperationsState {
+  const draft = findDraft(state, draftId)
+  assertEditable(draft)
+  if (draft[kind] === undefined) return state
+  const next: ContentDraft = {...draft, updatedAt: now(options)}
+  delete next[kind]
+  return replaceDraft(state, next)
+}
+
 /** 人工确认后原子地发布草稿并创建零指标 Work；重复确认只返回原 Work。 */
 export function confirmPublication(state: OperationsState, draftId: string, confirmation: PublicationConfirmation, options: PublicationOptions = {}) {
   const draft = findDraft(state, draftId)
@@ -277,7 +333,7 @@ export function confirmPublication(state: OperationsState, draftId: string, conf
     title: draft.title,
     platform: PUBLISH_PLATFORMS.find(item => item.id === draft.platform)?.name ?? draft.platform,
     publishedAt,
-    durationSec: 0,
+    durationSec: draft.video?.durationSec ?? 0,
     style: '',
     hook: draft.hook,
     topic: draft.topic ?? '',

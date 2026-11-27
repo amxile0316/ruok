@@ -2,9 +2,13 @@ import type {IncomingMessage,ServerResponse} from 'node:http';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {createRequire} from 'node:module';
 import {bodyJson,sendJson} from './http.ts';
 import {resolveAgent,runAgent} from './agent-runtime.ts';
 import type {AccountProfile} from '../src/operations/model.ts';
+
+const require = createRequire(import.meta.url);
 
 const PLATFORMS = {
   xiaohongshu: { name: '小红书', limit: 20, tags: ['创作日常', '效率工具', '视频剪辑'], cta: '先把素材留好，再决定怎么剪。', rule: '第一人称、口语、真诚分享；标题不超过 20 字；正文 200–600 字，可用短段落；话题 5–8 个，不加无关热词。' },
@@ -153,8 +157,60 @@ function parseAnswer(text: string) {
  * 文案发布：把成片标题或文稿交给用户已经接通的本机智能体，按平台风格生成
  * 标题 / 正文 / 话题。不接第三方发布接口，结果只回给界面，由用户复制或导出。
  */
+/**
+ * 发布包素材：由桌面窗口弹出原生文件选择，只返回路径、文件名、大小与（视频的）时长。
+ * 不读文件内容、不复制、不上传；浏览器预览没有桌面窗口时可用 path 直接传绝对路径。
+ */
+const ASSET_KINDS = {video: 'media', cover: 'image'} as const;
+type AssetKind = keyof typeof ASSET_KINDS;
+
+function probeDuration(file: string): number | undefined {
+  try {
+    const {ffprobePath} = require('../desktop/media-tools.cjs') as {ffprobePath: () => string};
+    const probe = ffprobePath();
+    if (!probe) return undefined;
+    const stdout = execFileSync(probe, ['-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nw=1:nk=1', file], {encoding: 'utf8', timeout: 8000});
+    const seconds = Number.parseFloat(stdout.trim());
+    return Number.isFinite(seconds) && seconds > 0 ? Math.round(seconds * 1000) / 1000 : undefined;
+  } catch { return undefined }
+}
+
+async function handleAsset(res: ServerResponse, kind: AssetKind, manualPath: string | undefined, check: boolean) {
+  if (check) {
+    if (!manualPath || !path.isAbsolute(manualPath)) return sendJson(res, 400, {ok: false, error: '请提供绝对路径'});
+    return sendJson(res, 200, {ok: true, exists: fs.existsSync(manualPath) && fs.statSync(manualPath).isFile()});
+  }
+  let selected = manualPath;
+  if (!selected) {
+    try {
+      const {requestFileDialog} = require('../desktop/file-dialogs.cjs') as {requestFileDialog: (kind: string) => Promise<string | null>};
+      selected = await requestFileDialog(ASSET_KINDS[kind]) ?? undefined;
+    } catch (error) {
+      return sendJson(res, 400, {ok: false, error: error instanceof Error ? error.message : '无法打开文件选择窗口'});
+    }
+  }
+  if (!selected) return sendJson(res, 200, {ok: true, asset: null});
+  if (!path.isAbsolute(selected)) return sendJson(res, 400, {ok: false, error: '请提供绝对路径'});
+  let stat: fs.Stats;
+  try { stat = fs.statSync(selected); } catch { return sendJson(res, 400, {ok: false, error: '找不到这个文件，可能已被移动或删除'}) }
+  if (!stat.isFile()) return sendJson(res, 400, {ok: false, error: '选择的不是文件'});
+  const durationSec = kind === 'video' ? probeDuration(selected) : undefined;
+  return sendJson(res, 200, {ok: true, asset: {path: selected, name: path.basename(selected), bytes: stat.size, ...(durationSec !== undefined ? {durationSec} : {})}});
+}
+
 export async function handlePublishApi(req: IncomingMessage, res: ServerResponse) {
   const url = new URL(req.url || '/', 'http://localhost');
+  if (url.pathname === '/asset' && req.method === 'POST') {
+    try {
+      const body = await bodyJson(req) as {kind?: unknown; path?: unknown; check?: unknown};
+      const kind = typeof body.kind === 'string' && body.kind in ASSET_KINDS ? body.kind as AssetKind : undefined;
+      if (!kind) return sendJson(res, 400, {ok: false, error: '素材类型只支持 video 或 cover'});
+      const manualPath = typeof body.path === 'string' && body.path.trim() ? body.path.trim() : undefined;
+      return await handleAsset(res, kind, manualPath, body.check === true);
+    } catch (error) {
+      return sendJson(res, 500, {ok: false, error: error instanceof Error ? error.message : String(error)});
+    }
+  }
   if (url.pathname !== '/generate' || req.method !== 'POST') {
     return sendJson(res, 404, { ok: false, error: '文案发布没有这个接口' });
   }

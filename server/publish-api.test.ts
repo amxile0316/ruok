@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {buildPublishPrompt,handlePublishApi,localCopy,validatePublishProfile} from './publish-api.ts';
 
 async function withServer(run: (base: string) => Promise<void>) {
@@ -129,5 +131,39 @@ test('文案发布没有生成以外的入口',async()=>{
     const response=await fetch(`${base}/publish-now`,{method:'POST'});
     assert.equal(response.status,404);
     assert.match((await response.json() as {error:string}).error,/没有这个接口/);
+  });
+});
+
+test('发布包素材：只接受 video/cover 与绝对路径，检查存在性不读内容',async()=>{
+  const file=fileURLToPath(new URL('./publish-api.test.ts',import.meta.url));
+  const missing=path.join(path.dirname(file),'definitely-missing.mp4');
+  const post=async (base:string,body:unknown)=>{
+    const response=await fetch(`${base}/asset`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});
+    return {status:response.status,payload:await response.json() as {ok:boolean;asset?:{path:string;name:string;bytes:number};exists?:boolean;error?:string}};
+  };
+  await withServer(async base => {
+    const wrongKind=await post(base,{kind:'audio'});
+    assert.equal(wrongKind.status,400);
+
+    const relative=await post(base,{kind:'video',path:'videos/final.mp4'});
+    assert.equal(relative.status,400);
+    assert.match(relative.payload.error||'',/绝对路径/);
+
+    const gone=await post(base,{kind:'video',path:missing});
+    assert.equal(gone.status,400);
+    assert.match(gone.payload.error||'',/找不到/);
+
+    const exists=await post(base,{kind:'cover',path:file,check:true});
+    assert.equal(exists.status,200);
+    assert.equal(exists.payload.exists,true);
+    const absent=await post(base,{kind:'cover',path:missing,check:true});
+    assert.equal(absent.status,200);
+    assert.equal(absent.payload.exists,false);
+
+    const asset=await post(base,{kind:'cover',path:file});
+    assert.equal(asset.status,200);
+    assert.equal(asset.payload.asset?.name,'publish-api.test.ts');
+    assert.equal(asset.payload.asset?.path,file);
+    assert.ok((asset.payload.asset?.bytes??0)>0);
   });
 });
