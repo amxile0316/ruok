@@ -8,7 +8,8 @@ import {AssetRow} from './AssetRow.tsx'
 import {PLATFORM_GUIDANCE} from './platforms.ts'
 import './publish.css'
 
-type Copy = {title: string; body: string; tags: string[]; hook: string; platformName: string; local?: boolean; warning?: string}
+type Review = {excerpt: string; issue: string; fix: string}
+type Copy = {title: string; body: string; tags: string[]; hook: string; platformName: string; review?: Review[]; local?: boolean; warning?: string}
 type PublishView = 'write' | 'center' | 'calendar' | 'profiles'
 type GenerationMeta = {
   source: string
@@ -72,6 +73,7 @@ export default function PublishPage() {
   )
   const selectedProfile = availableProfiles.find(profile => profile.id === accountId)
 
+  const [previous, setPrevious] = useState<Copy | null>(null)
   const generate = async () => {
     if (!source.trim() || busy) return
     setBusy(true); setError(''); setNotice('')
@@ -84,6 +86,7 @@ export default function PublishPage() {
       const body = await response.json() as {ok: boolean; result?: Copy; error?: string}
       if (!response.ok || !body.ok || !body.result) throw new Error(body.error || '生成失败')
       setCopy(body.result)
+      setPrevious(null)
       setGeneratedMeta({
         source,
         platform,
@@ -91,6 +94,31 @@ export default function PublishPage() {
         ...(origin?.angle || origin?.title ? {topic: origin.angle || origin.title} : {}),
         ...(tone.trim() ? {tone: tone.trim()} : {}),
       })
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : String(failure))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  // 按体检意见改：把上一稿和意见一起送回服务端，只改点到的地方；标题和钩子由人定。
+  const improve = async () => {
+    if (!copy || busy) return
+    setBusy(true); setError(''); setNotice('')
+    try {
+      const response = await fetch('/api/publish/generate', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({
+          source, platform, tone, ...(selectedProfile ? {profile: selectedProfile} : {}),
+          revise: {title: copy.title, body: copy.body, tags: copy.tags, hook: copy.hook, review: copy.review ?? []},
+        }),
+      })
+      const body = await response.json() as {ok: boolean; result?: Copy; error?: string}
+      if (!response.ok || !body.ok || !body.result) throw new Error(body.error || '改写失败')
+      setPrevious(copy)
+      setCopy(body.result)
+      setNotice('已按体检意见改过，可撤销')
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : String(failure))
     } finally {
@@ -231,6 +259,31 @@ export default function PublishPage() {
                     <span>开场钩子</span>
                     <input value={copy.hook} onChange={event => update({hook: event.target.value})} />
                   </label>
+                  {copy.review && copy.review.length > 0 && (
+                  <div className="publish-review">
+                    <div className="publish-review__head">
+                      <b>AI 味体检</b>
+                      <span>{copy.review.length} 处</span>
+                      <button type="button" className="publish-btn" disabled={busy} onClick={() => void improve()}>{busy ? '正在改…' : '按建议改'}</button>
+                    </div>
+                    <ul>
+                      {copy.review.map((item, index) => (
+                        <li key={`${index}-${item.excerpt.slice(0, 8)}`}>
+                          <q>{item.excerpt}</q>
+                          <p>{item.issue}{item.fix ? ` · ${item.fix}` : ''}</p>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="publish-hint">只改这几处，标题、钩子和段落结构保留原样。</p>
+                  </div>
+                  )}
+                  {/* 撤销放在体检块外面：改完问题清空时体检块会消失，撤销不能跟着消失。 */}
+                  {previous && (
+                    <p className="publish-review__undo">
+                      已按体检意见改过一次。
+                      <button type="button" className="publish-btn" onClick={() => { setCopy(previous); setPrevious(null); setNotice('已复原到上一稿') }}>撤销</button>
+                    </p>
+                  )}
                   <div className="publish-exports">
                     <button type="button" className="publish-btn publish-btn--primary" onClick={() => { void copyText(markdown).then(ok => setNotice(ok ? '已复制全文' : '复制失败，请手动选择')) }}>复制全文</button>
                     <button type="button" className="publish-btn" onClick={() => { void copyText(copy.tags.map(tag => `#${tag}`).join(' ')).then(ok => setNotice(ok ? '已复制话题' : '复制失败')) }}>复制话题</button>

@@ -241,7 +241,7 @@ html[data-ui-theme] .export-dialog .export-header .export-notice { color: var(--
 .export-jianying.is-ready > div > svg { color: #42d3a9; background: #183f34; }
 .export-jianying > label { position: relative; flex: 0 0 42px; width: 42px; height: 24px; border-radius: 20px; background: #343b46; cursor: pointer; }
 .export-jianying > label input { position: absolute; opacity: 0; }
-.export-jianying > label i { position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #9ba4b0; transition: transform .2s ease, background .2s ease; }
+.export-jianying > label i { position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #9ba4b0; transition: transform var(--rk-dur-2) var(--rk-ease), background var(--rk-dur-2) var(--rk-ease); }
 .export-jianying > label:has(input:checked) { background: #1d8b6e; }
 .export-jianying > label:has(input:checked) i { transform: translateX(18px); background: #fff; }
 .export-jianying > label:has(input:disabled) { opacity: .45; cursor: not-allowed; }
@@ -295,7 +295,7 @@ html[data-ui-theme] .export-dialog .export-header .export-notice { color: var(--
 .export-progress__number { align-self: end; font: 900 58px/.9 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -.06em; }
 .export-progress__number small { margin-left: 5px; color: #77818e; font-size: 18px; letter-spacing: 0; }
 .export-progress__track { grid-column: 1 / -1; height: 9px; overflow: hidden; border-radius: 10px; background: #282e37; }
-.export-progress__track i { display: block; height: 100%; border-radius: inherit; background: #e8564c; transition: width .4s ease; }
+.export-progress__track i { display: block; height: 100%; border-radius: inherit; background: #e8564c; transition: width var(--rk-dur-4) var(--rk-ease); }
 .export-progress > p { grid-column: 1 / -1; min-height: 17px; margin: -6px 0 0; overflow: hidden; color: #7d8794; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .export-progress > ul { grid-column: 1 / -1; margin: -4px 0 0; padding: 10px 12px 10px 28px; border: 1px solid #594822; border-radius: 9px; color: #f0cf82; background: #2d2514; font-size: 10px; }
 .export-progress > footer { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 9px; margin-top: 10px; }

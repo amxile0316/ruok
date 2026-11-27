@@ -123,9 +123,9 @@ html[data-ui-theme=warm] .workspace-switch>button {
   position:relative;isolation:isolate;overflow:hidden;padding:9px 15px;border:1px solid #ffffff8c;border-radius:14px;
   color:#e4e4e4;background:linear-gradient(112deg,#232323e8,#1c1c1cd9 58%,#3c3c3cd4);
   box-shadow:inset 0 1px 0 #ffffff47,inset 0 -1px 0 #0000003b,0 8px 22px #23232326;
-  backdrop-filter:blur(22px) saturate(.8);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+  backdrop-filter:blur(22px) saturate(.8);transition:transform var(--rk-dur-2) var(--rk-ease),box-shadow var(--rk-dur-2) var(--rk-ease),border-color var(--rk-dur-2) var(--rk-ease);
 }
-html[data-ui-theme=warm] .workspace-switch>button::before {content:"";position:absolute;z-index:-1;inset:-70% -18%;background:linear-gradient(100deg,transparent 24%,#ffffff24 45%,#d8c08f1f 54%,transparent 72%);transform:translateX(-55%) rotate(-6deg);transition:transform .45s ease;}
+html[data-ui-theme=warm] .workspace-switch>button::before {content:"";position:absolute;z-index:-1;inset:-70% -18%;background:linear-gradient(100deg,transparent 24%,#ffffff24 45%,#d8c08f1f 54%,transparent 72%);transform:translateX(-55%) rotate(-6deg);transition:transform var(--rk-dur-5) var(--rk-ease);}
 html[data-ui-theme=warm] .workspace-switch>button:hover::before,html[data-ui-theme=warm] .workspace-switch>button[aria-expanded=true]::before {transform:translateX(38%) rotate(-6deg)}
 html[data-ui-theme=warm] .workspace-switch>button:hover {transform:translateY(-1px);border-color:#ffffffc7;box-shadow:inset 0 1px 0 #ffffff8a,0 11px 26px #23232335}
 html[data-ui-theme=warm] .workspace-switch>button[aria-expanded=true] {background:linear-gradient(112deg,#1c1c1ced,#3a4744e3);}

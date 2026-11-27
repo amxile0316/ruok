@@ -1,0 +1,95 @@
+/* Hold to Confirm (HoldToConfirm.tsx).
+   The fill's height is written per frame by the component (it is the press
+   progress, not a loop), so only its retract speed and visibility are styled
+   here. It takes the control's own `border-radius`, which is why the gesture
+   looks native on a circle and on a rounded chip alike. Colours come from the
+   theme's danger step so it reads as destructive in all four themes. */
+
+.hold-confirm {
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.hold-confirm__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--ruok-danger, #cf4a44) 46%, transparent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  pointer-events: none;
+  transition: transform var(--rk-dur-2) var(--rk-ease), opacity var(--rk-dur-2) var(--rk-ease);
+}
+
+/* While held, the frame loop owns the transform; tweening it would lag behind the press. */
+.hold-confirm[data-holding] .hold-confirm__fill {
+  transition: none;
+}
+
+.hold-confirm[data-done] .hold-confirm__fill {
+  opacity: 0;
+}
+
+/* Text variant: the same gesture on a labelled button — the permanent delete in a
+   dialog. The fill is softer here so the label keeps its contrast on top of it. */
+.hold-confirm--text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--ruok-danger, #cf4a44) 48%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ruok-danger, #cf4a44) 10%, transparent);
+  color: var(--ruok-danger, #cf4a44);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--rk-dur-2) var(--rk-ease), border-color var(--rk-dur-2) var(--rk-ease);
+}
+
+.hold-confirm--text:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--ruok-danger, #cf4a44) 18%, transparent);
+  border-color: color-mix(in srgb, var(--ruok-danger, #cf4a44) 68%, transparent);
+}
+
+.hold-confirm--text:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.hold-confirm--text .hold-confirm__fill {
+  background: color-mix(in srgb, var(--ruok-danger, #cf4a44) 32%, transparent);
+}
+
+.hold-confirm--text .hold-confirm__icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hold-confirm--text .hold-confirm__icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.hold-confirm__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  transition: scale var(--rk-dur-2) var(--rk-ease);
+}
+
+.hold-confirm[data-holding] .hold-confirm__icon {
+  scale: .86;
+  transition: scale var(--rk-dur-1) var(--rk-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hold-confirm__icon,
+  .hold-confirm[data-holding] .hold-confirm__icon {
+    scale: 1;
+  }
+}

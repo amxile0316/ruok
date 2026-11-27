@@ -1461,28 +1461,52 @@ export function V4Timeline({
 						) : null}
 
 						{showLanes ? (
-							<>
-								{/* An empty lane advertises the shortcut that fills it ("Press A to add
-								    annotation") rather than restating that it is empty — the same hint
-								    strings the pre-v4 timeline used, so the keys stay translated. */}
+							clips.length === 0 ? (
+								// A timeline with no clips yet: one quiet row naming the keys. Five
+								// per-lane hints stack 5 × 29px into a panel that is often shorter
+								// than that, and because the tracks are bottom-anchored the top lane
+								// was clipped mid-line under the ruler — text landing on text. One
+								// row always fits and says the same thing.
 								<div className={styles.tlLane}>
-									{renderPills(annPills, t("hints.pressAnnotation"))}
+									<span
+										className={`${styles.laneEmpty} ${styles.laneEmptySingle}`}
+										style={{ left: `${nav.start * 100}%`, width: `${navSpan * 100}%` }}
+									>
+										{[
+											t("hints.pressAnnotation"),
+											t("hints.pressSpeed"),
+											t("hints.pressTrim"),
+											t("hints.pressZoom"),
+											hasAnyCamera
+												? t("hints.pressCameraFullscreen")
+												: ts("layout.noWebcam"),
+										].join(" · ")}
+									</span>
 								</div>
-								<div className={styles.tlLane}>
-									{renderPills(speedPills, t("hints.pressSpeed"))}
-								</div>
-								<div className={styles.tlLane}>{renderPills(trimPills, t("hints.pressTrim"))}</div>
-								<div className={styles.tlLane}>{renderPills(zoomPills, t("hints.pressZoom"))}</div>
-								<div className={styles.tlLane}>
-									{/* Advertising "Press C" on a project with no webcam invites a keystroke
-									    that `addCameraFullscreen` now refuses (#353). The toolbar button is
-									    already disabled; this keeps the lane from contradicting it. */}
-									{renderPills(
-										cameraFullscreenPills,
-										hasAnyCamera ? t("hints.pressCameraFullscreen") : ts("layout.noWebcam"),
-									)}
-								</div>
-							</>
+							) : (
+								<>
+									{/* An empty lane advertises the shortcut that fills it ("Press A to add
+									    annotation") rather than restating that it is empty — the same hint
+									    strings the pre-v4 timeline used, so the keys stay translated. */}
+									<div className={styles.tlLane}>
+										{renderPills(annPills, t("hints.pressAnnotation"))}
+									</div>
+									<div className={styles.tlLane}>
+										{renderPills(speedPills, t("hints.pressSpeed"))}
+									</div>
+									<div className={styles.tlLane}>{renderPills(trimPills, t("hints.pressTrim"))}</div>
+									<div className={styles.tlLane}>{renderPills(zoomPills, t("hints.pressZoom"))}</div>
+									<div className={styles.tlLane}>
+										{/* Advertising "Press C" on a project with no webcam invites a keystroke
+										    that `addCameraFullscreen` now refuses (#353). The toolbar button is
+										    already disabled; this keeps the lane from contradicting it. */}
+										{renderPills(
+											cameraFullscreenPills,
+											hasAnyCamera ? t("hints.pressCameraFullscreen") : ts("layout.noWebcam"),
+										)}
+									</div>
+								</>
+							)
 						) : null}
 
 						<div

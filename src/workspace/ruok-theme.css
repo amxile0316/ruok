@@ -159,10 +159,10 @@ html[data-ui-theme=original] :is(.home, .home-soon) {
   --home-card-hover: var(--ruok-patina-700);
   --home-line: var(--ruok-line);
   --home-line-2: var(--ruok-line-2);
-  --home-bg: #12161a;
-  --home-entry-bg: linear-gradient(168deg, #262b33 0%, #1d2229 54%, #171c22 100%);
-  --home-entry-line: #ffffff2b;
-  --home-media: #0d1013;
+  --home-bg: #0a0f0e;
+  --home-entry-bg: linear-gradient(168deg, #1c2624 0%, #17201e 52%, #121a18 100%);
+  --home-entry-line: #d6a85f33;
+  --home-media: #0b1211;
 }
 
 /* Light is cool stone: three families again — pale gray-green ground, porcelain surfaces, daiqing ink,

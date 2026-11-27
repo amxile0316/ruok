@@ -124,22 +124,98 @@ export function buildPublishPrompt({ source, platform, tone = '', profile = {} }
     tone.trim() ? `语气偏好：${tone.trim()}。` : '',
     profileLines.length ? ['账号画像（仅用于表达与受众适配，不能作为事实来源）：', ...profileLines].join('\n') : '',
     '规则：只使用素材里的事实，不编造数据、亲历或评价；不要提“本视频”“本期节目”；不要输出代码块或解释，只返回符合 JSON Schema 的 JSON。',
+    SELF_CHECK,
+    '写完自查一遍，把仍会让人一眼看出是机器写的 0–3 处写进 review：逐字摘出原文片段、一句话说问题、一句话给最小改法。没有就返回空数组，不要为凑数硬找。',
     '素材：',
     source.slice(0, 6000),
   ].filter(Boolean).join('\n');
 }
 
+/**
+ * 写作自检：治“读起来像机器写的”，不是一张禁用词表。
+ * 这几条是改稿方法论（最小改动、信息守恒、不制造参差、结构不动），
+ * 放这里既指导生成，也作为 review 的判据。
+ */
+const SELF_CHECK = [
+  '写作自检（写完逐条过一遍，不合格就改；不要为了“像人写的”刻意把句子改长改短）：',
+  '① 不要成串对偶句式（一句话里反复“不是A，而是B”）；② 破折号和分号每段最多一个，不用它们堆节奏；',
+  '③ 不用空泛比喻和形容词叠词充数；④ 段落结构跟着素材走，不为节奏拆段、合段或加小标题；',
+  '⑤ 每句话里的实词都要能在素材里找到出处。',
+].join('\n');
+
 const schema = {
   type: 'object',
   additionalProperties: false,
-  required: ['title', 'body', 'tags', 'hook'],
+  required: ['title', 'body', 'tags', 'hook', 'review'],
   properties: {
     title: { type: 'string', description: '平台风格的标题，单行' },
     body: { type: 'string', description: '正文，可含换行' },
     tags: { type: 'array', items: { type: 'string' }, description: '不带 # 的话题标签' },
     hook: { type: 'string', description: '一句可放在视频开头的钩子文案' },
+    review: {
+      type: 'array',
+      description: 'AI 味体检：最多 3 处仍像机器写的地方；没有就给空数组',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['excerpt', 'issue', 'fix'],
+        properties: {
+          excerpt: { type: 'string', description: '原文中出问题的片段，逐字摘录' },
+          issue: { type: 'string', description: '问题是什么，一句话' },
+          fix: { type: 'string', description: '按最小改动怎么改，一句话' },
+        },
+      },
+    },
   },
 };
+
+export type CopyIssue = { excerpt: string; issue: string; fix: string };
+
+/** 只保留 0–3 条有原文出处的意见：没有片段就没有依据，宁可少报。 */
+export function parseIssues(value: unknown): CopyIssue[] {
+  if (!Array.isArray(value)) return [];
+  return value.slice(0, 3).flatMap(item => {
+    const row = (item ?? {}) as Record<string, unknown>;
+    const excerpt = typeof row.excerpt === 'string' ? row.excerpt.trim() : '';
+    const issue = typeof row.issue === 'string' ? row.issue.trim() : '';
+    const fix = typeof row.fix === 'string' ? row.fix.trim() : '';
+    return excerpt && issue ? [{ excerpt, issue, fix }] : [];
+  });
+}
+
+/**
+ * 改写提示：只动体检点到的地方。标题与钩子不参与重写——它们是内容本身的
+ * 资产，机器改一次就可能换掉意思。
+ */
+export function buildRevisePrompt({ source, platform, tone = '', profile = {}, copy, issues }: {
+  source: string;
+  platform: PublishPlatform;
+  tone?: string;
+  profile?: PublishProfile;
+  copy: { title: string; body: string; tags: string[]; hook: string };
+  issues: CopyIssue[];
+}) {
+  const style = PLATFORMS[platform];
+  const lines = issues.map((item, index) => `${index + 1}. 片段「${item.excerpt}」→ 问题：${item.issue}${item.fix ? ` → 改法：${item.fix}` : ''}`);
+  return [
+    `你是中文内容编辑。下面这份「${style.name}」文案已经写好，只按体检意见做最小改动。`,
+    `平台要求：${style.rule}`,
+    tone.trim() ? `语气偏好：${tone.trim()}。` : '',
+    '体检意见：',
+    lines.join('\n') || '（没有意见，保持原样）',
+    '改写规则：一次命中只改必需的部分；每个实词都要能在素材或原稿里指出出处，不新增事实；不改结构、不拆段合段、不加小标题；',
+    '不为“像人写的”改变句长；标题和开场钩子保持原样，除非体检意见点名了它们；',
+    SELF_CHECK,
+    '改完复查一遍，把仍未解决的 0–3 处写进 review（可以返回空数组），并按同样的 JSON Schema 输出完整稿。',
+    '素材：',
+    source.slice(0, 6000),
+    '当前文案：',
+    `标题：${copy.title}`,
+    `正文：${copy.body}`,
+    `话题：${copy.tags.join('、')}`,
+    `钩子：${copy.hook}`,
+  ].filter(Boolean).join('\n');
+}
 
 function parseAnswer(text: string) {
   const cleaned = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
@@ -150,7 +226,7 @@ function parseAnswer(text: string) {
   const tags = Array.isArray(value.tags) ? value.tags.map(tag => String(tag).replace(/^#/, '').trim()).filter(Boolean) : [];
   const hook = typeof value.hook === 'string' ? value.hook.trim() : '';
   if (!title || !body) throw new Error('智能体没有给出可用的标题和正文');
-  return { title, body, tags, hook };
+  return { title, body, tags, hook, review: parseIssues(value.review) };
 }
 
 /**
@@ -216,7 +292,7 @@ export async function handlePublishApi(req: IncomingMessage, res: ServerResponse
   }
   let work = '';
   try {
-    const body = await bodyJson(req) as { source?: unknown; platform?: unknown; tone?: unknown; profile?: unknown };
+    const body = await bodyJson(req) as { source?: unknown; platform?: unknown; tone?: unknown; profile?: unknown; revise?: unknown };
     const source = typeof body.source === 'string' ? body.source.trim() : '';
     const platform = (typeof body.platform === 'string' ? body.platform : 'xiaohongshu') as PublishPlatform;
     if (!source) return sendJson(res, 400, { ok: false, error: '先粘贴成片标题、口播稿或要点' });
@@ -231,7 +307,14 @@ export async function handlePublishApi(req: IncomingMessage, res: ServerResponse
     const output = path.join(work, 'answer.json');
     fs.writeFileSync(schemaFile, JSON.stringify(schema));
 
-    const prompt = buildPublishPrompt({ source, platform, tone, profile: checkedProfile.profile });
+    // revise：带着上一稿和体检意见再跑一次，只改点到的地方。
+    const prior = (body.revise ?? null) as {title?:unknown;body?:unknown;tags?:unknown;hook?:unknown;review?:unknown} | null;
+    const priorCopy = prior && typeof prior.title === 'string' && typeof prior.body === 'string'
+      ? {title: prior.title, body: prior.body, tags: Array.isArray(prior.tags) ? prior.tags.map(tag => String(tag)) : [], hook: typeof prior.hook === 'string' ? prior.hook : ''}
+      : null;
+    const prompt = priorCopy
+      ? buildRevisePrompt({source, platform, tone, profile: checkedProfile.profile, copy: priorCopy, issues: parseIssues(prior?.review)})
+      : buildPublishPrompt({ source, platform, tone, profile: checkedProfile.profile });
 
     try {
       const agent = await resolveAgent('publishCopy');

@@ -1543,6 +1543,14 @@
 	pointer-events: none;
 	user-select: none;
 }
+/* The single hint row a clip-less timeline shows (V4Timeline): every key on one
+   line. It must never wrap into the row below — a 24px lane has no room for a
+   second line, and that is what the five stacked hints used to look like. */
+.laneEmptySingle {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .lanePill {
 	position: absolute;
 	top: 1px;

@@ -40,6 +40,11 @@ export const TransportBar = memo(function TransportBar({
 		(acc, c) => acc + (c.timelineEndSec - c.timelineStartSec),
 		0,
 	);
+	// Nothing on the timeline yet (no project, or a project without media): play,
+	// previous and next would all be no-ops, so they are disabled with a reason
+	// instead of swallowing the click. A button that visibly cannot be pressed is
+	// the feedback; an enabled button that does nothing reads as a bug.
+	const canPlay = virtualDurationSec > 0;
 	// ponytail: mirrors Preview's old clamp so the CSS thumb and the native
 	// range thumb stay in sync when there's no clip yet.
 	const inputMax = virtualDurationSec || 1;
@@ -145,8 +150,10 @@ export const TransportBar = memo(function TransportBar({
 			<button
 				type="button"
 				className={`${styles.tbtn} ${styles.play}`}
-				title={te("transport.playPauseTitle")}
-				aria-label={te("transport.playPause")}
+				title={canPlay ? te("transport.playPauseTitle") : te("transport.nothingToPlay")}
+				aria-label={canPlay ? te("transport.playPause") : te("transport.nothingToPlay")}
+				aria-disabled={!canPlay}
+				disabled={!canPlay}
 				data-playing={playing}
 				onClick={onTogglePlay}
 			>
@@ -157,6 +164,7 @@ export const TransportBar = memo(function TransportBar({
 				className={styles.tbtn}
 				title={te("transport.previousClip")}
 				aria-label={te("transport.previousClip")}
+				disabled={!canPlay}
 				onClick={onPrevClip}
 			>
 				<SkipBack size={13} />
@@ -166,6 +174,7 @@ export const TransportBar = memo(function TransportBar({
 				className={styles.tbtn}
 				title={te("transport.nextClip")}
 				aria-label={te("transport.nextClip")}
+				disabled={!canPlay}
 				onClick={onNextClip}
 			>
 				<SkipForward size={13} />

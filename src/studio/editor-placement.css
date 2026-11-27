@@ -56,8 +56,8 @@ html[data-ui-theme=warm] .motion-swap-button, html[data-ui-theme=frost] .motion-
 /* the card lifts while it is carried */
 .motion-overlay-shell.is-carried { z-index: 30; cursor: grabbing; filter: drop-shadow(0 14px 26px #000a); }
 /* let go, it glides into its slot; a half card carried across has the presenter and subtitle make way for it */
-.motion-overlay-shell.is-landing { z-index: 30; transition: translate .32s var(--ed-ease, ease); }
-.is-swap-sliding, .preview-subtitle.is-swap-sliding { transition: translate .32s var(--ed-ease, ease); }
+.motion-overlay-shell.is-landing { z-index: 30; transition: translate var(--rk-dur-4) var(--ed-ease, ease); }
+.is-swap-sliding, .preview-subtitle.is-swap-sliding { transition: translate var(--rk-dur-4) var(--ed-ease, ease); }
 @media (prefers-reduced-motion: reduce) {
   .motion-overlay-shell.is-landing, .is-swap-sliding, .preview-subtitle.is-swap-sliding { transition: none; }
 }
@@ -78,7 +78,7 @@ html[data-ui-theme=warm] .motion-swap-button, html[data-ui-theme=frost] .motion-
   color: #fff;
   cursor: pointer;
   pointer-events: auto;
-  transition: inset .22s var(--ed-ease, ease), background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
+  transition: inset var(--rk-dur-2) var(--ed-ease, ease), background-color var(--rk-dur-1) var(--rk-ease), border-color var(--rk-dur-1) var(--rk-ease), box-shadow var(--rk-dur-1) var(--rk-ease);
 }
 .motion-slot-layer--half .motion-slot__box { inset: 3%; border-radius: 14px; }
 .motion-slot__box > span {

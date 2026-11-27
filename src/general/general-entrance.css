@@ -45,7 +45,7 @@ html[data-ui-theme=umbra] .ge-en {
 .ge-en *,.ge-en *::before,.ge-en *::after { box-sizing:border-box; }
 .ge-en :where(button) { font:inherit;color:inherit; }
 .ge-en-stage { position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:50% 50%; }
-.ge-en h1 { position:absolute;left:72px;top:58px;margin:0;font-size:30px;letter-spacing:.5px;font-weight:700;transition:opacity .4s; }
+.ge-en h1 { position:absolute;left:72px;top:58px;margin:0;font-size:30px;letter-spacing:.5px;font-weight:700;transition:opacity var(--rk-dur-4); }
 .ge-en h1 small { display:block;font-size:14px;font-weight:400;color:var(--en-muted);margin-top:6px;letter-spacing:0; }
 .ge-en-all { position:absolute;right:72px;top:64px;padding:8px 16px;border-radius:10px;cursor:pointer;background:var(--en-chip);border:1px solid var(--en-chip-line);
   box-shadow:inset 0 1px 0 var(--en-slab-hi);backdrop-filter:var(--en-glass); }
@@ -55,7 +55,7 @@ html[data-ui-theme=umbra] .ge-en {
 .ge-en-ent { position:absolute;left:72px;width:380px;height:162px;border-radius:22px;padding:20px 24px;cursor:pointer;text-align:left;overflow:hidden;
   background:var(--en-slab);border:1px solid var(--en-slab-line);backdrop-filter:var(--en-glass);
   box-shadow:inset 0 1px 0 var(--en-slab-hi),inset 0 -1px 0 #0000001f,var(--en-slab-shadow);
-  transition:transform .6s cubic-bezier(.2,.9,.2,1),opacity .5s,filter .5s,box-shadow .5s,width .6s cubic-bezier(.2,.9,.2,1),padding .6s; }
+  transition:transform var(--rk-dur-5) var(--rk-ease),opacity var(--rk-dur-5),filter var(--rk-dur-5),box-shadow var(--rk-dur-5),width var(--rk-dur-5) var(--rk-ease),padding var(--rk-dur-5); }
 .ge-en-ent::after { content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(420px 140px at 10% 0%,var(--en-shine),transparent 60%);pointer-events:none; }
 .ge-en-ent .ic { display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--en-icon);box-shadow:inset 0 1px 0 var(--en-slab-hi);color:var(--en-accent); }
 .ge-en-ent b { display:block;font-size:21px;margin-top:12px;white-space:nowrap; }
@@ -63,7 +63,7 @@ html[data-ui-theme=umbra] .ge-en {
 .ge-en-ent i { position:absolute;right:26px;top:26px;font-style:normal;font-size:13px;color:var(--en-muted); }
 .ge-en-ent i em { font-style:normal;font-size:26px;color:var(--en-ink);font-weight:700;margin-right:3px;font-variant-numeric:tabular-nums; }
 .ge-en-ent i em.free { font-size:15px;color:var(--en-accent); }
-.ge-en-ent b,.ge-en-ent .hint,.ge-en-ent i { transition:opacity .35s .2s; }
+.ge-en-ent b,.ge-en-ent .hint,.ge-en-ent i { transition:opacity var(--rk-dur-4) var(--rk-dur-2); }
 .ge-en-ent:hover { transform:translateY(-3px); }
 .ge-en-ent[data-on] { transform:translateX(10px);box-shadow:inset 0 1px 0 var(--en-slab-hi),0 0 0 1px color-mix(in srgb,var(--en-accent) 70%,transparent),var(--en-slab-shadow),0 0 70px color-mix(in srgb,var(--en-accent) 14%,transparent); }
 .ge-en-ent[data-on] .ic { background:linear-gradient(160deg,var(--ruok-bronze-200,#e6c489),var(--ruok-bronze-400,#c39a5c));color:var(--ruok-accent-ink,#17130b); }
@@ -72,7 +72,7 @@ html[data-ui-theme=umbra] .ge-en {
 
 /* beams: a thin light from the card, drawn once, one light running it */
 .ge-en-beams { position:absolute;inset:0;width:1600px;height:900px;pointer-events:none;overflow:visible; }
-.ge-en-beam { fill:none;stroke:url(#ge-en-g);stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:1;animation:ge-en-draw .5s cubic-bezier(.3,.7,.2,1) forwards;transition:opacity .2s; }
+.ge-en-beam { fill:none;stroke:url(#ge-en-g);stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:1;animation:ge-en-draw .5s var(--rk-ease) forwards;transition:opacity var(--rk-dur-2); }
 .ge-en-beam[data-hot] { stroke:url(#ge-en-gh);stroke-width:1.6; }
 .ge-en-spark { fill:var(--ruok-bronze-200,#e8bd85);filter:drop-shadow(0 0 5px #d8a05e) drop-shadow(0 0 16px #d8a05e66); }
 @keyframes ge-en-draw { to { stroke-dashoffset:0; } }
@@ -80,11 +80,11 @@ html[data-ui-theme=umbra] .ge-en {
 /* purposes: frosted chips in one column. The button only comes in (its own animation); the chip inside it does the rest
    (chosen, set aside, folded), so the two never fight over one transform. */
 .ge-en-cat { position:absolute;padding:0;border:0;border-radius:999px;background:none;cursor:pointer;transform:translate(-30px,-50%) scale(.8);opacity:0;
-  animation:ge-en-in .55s cubic-bezier(.2,1.25,.3,1) forwards;transition:left .6s cubic-bezier(.2,.9,.2,1); }
+  animation:ge-en-in .55s var(--rk-ease-spring) forwards;transition:left var(--rk-dur-5) var(--rk-ease); }
 @keyframes ge-en-in { to { transform:translate(0,-50%) scale(1);opacity:1; } }
 .ge-en-chip { height:46px;padding:0 18px 0 20px;border-radius:999px;display:flex;align-items:center;gap:12px;white-space:nowrap;
   background:var(--en-chip);border:1px solid var(--en-chip-line);backdrop-filter:var(--en-glass);box-shadow:inset 0 1px 0 var(--en-slab-hi),var(--en-chip-shadow);
-  transform-origin:0 50%;transition:transform .6s cubic-bezier(.2,.9,.2,1),opacity .35s,filter .4s,box-shadow .4s; }
+  transform-origin:0 50%;transition:transform var(--rk-dur-5) var(--rk-ease),opacity var(--rk-dur-4),filter var(--rk-dur-4),box-shadow var(--rk-dur-4); }
 .ge-en-chip b { font-weight:600;font-size:15px; }
 .ge-en-chip i { font-style:normal;font-size:12px;color:var(--en-muted);padding:2px 8px;border-radius:999px;background:var(--en-count); }
 .ge-en-cat:hover .ge-en-chip { box-shadow:inset 0 1px 0 var(--en-slab-hi),0 0 0 1px var(--en-chip-line),var(--en-chip-shadow); }
@@ -94,7 +94,7 @@ html[data-ui-theme=umbra] .ge-en {
 
 /* 不用风格: straight to a composer */
 .ge-en-compose { position:absolute;left:560px;top:250px;width:620px;padding:22px;border-radius:22px;background:var(--en-slab);border:1px solid var(--en-slab-line);
-  backdrop-filter:var(--en-glass);box-shadow:inset 0 1px 0 var(--en-slab-hi),var(--en-slab-shadow);animation:ge-en-compose .55s .48s cubic-bezier(.2,1.1,.3,1) both; }
+  backdrop-filter:var(--en-glass);box-shadow:inset 0 1px 0 var(--en-slab-hi),var(--en-slab-shadow);animation:ge-en-compose .55s .48s var(--rk-ease-spring) both; }
 @keyframes ge-en-compose { from { opacity:0;transform:translateX(-24px) scale(.97); } }
 .ge-en-compose textarea { display:block;width:100%;height:150px;resize:none;border-radius:14px;background:var(--en-field);border:1px solid var(--en-slab-line);padding:14px 16px;
   color:var(--en-ink);font:15px/1.55 inherit;font-family:inherit;outline:none; }
@@ -117,7 +117,7 @@ html[data-ui-theme] .ge-en .ge-en-compose textarea:not([disabled]):focus,.ge-en-
 
 /* styles: a poster flow, like a film library: tall covers, picture above, notes below, the one in front faces you */
 .ge-en-flow { position:absolute;left:840px;top:185px;width:720px;height:600px;animation:ge-en-fade .45s .3s both;
-  transition:left .65s cubic-bezier(.2,.9,.2,1),width .65s cubic-bezier(.2,.9,.2,1); }
+  transition:left var(--rk-dur-5) var(--rk-ease),width var(--rk-dur-5) var(--rk-ease); }
 @keyframes ge-en-fade { from { opacity:0; } }
 .ge-en-flow header { display:flex;align-items:center;justify-content:space-between;padding:0 20px; }
 .ge-en-flow header b { font-size:18px; }
@@ -128,7 +128,7 @@ html[data-ui-theme] .ge-en .ge-en-compose textarea:not([disabled]):focus,.ge-en-
 .ge-en-posters { position:absolute;left:0;right:0;top:64px;height:470px;perspective:1300px;perspective-origin:50% 40%; }
 .ge-en-pc { position:absolute;left:50%;top:10px;width:232px;height:400px;margin:0 0 0 -116px;border-radius:16px;overflow:hidden;cursor:pointer;
   background:var(--en-card);border:1px solid var(--en-card-line);box-shadow:var(--en-card-shadow),inset 0 1px 0 var(--en-slab-hi);
-  transition:transform .7s cubic-bezier(.2,.85,.25,1),opacity .5s,box-shadow .4s;transform-style:preserve-3d; }
+  transition:transform var(--rk-dur-5) var(--rk-ease),opacity var(--rk-dur-5),box-shadow var(--rk-dur-4);transform-style:preserve-3d; }
 .ge-en-pc img { display:block;width:100%;height:250px;object-fit:cover; }
 .ge-en-pc .txt { padding:13px 15px; }
 .ge-en-pc b { font-size:16px;display:flex;justify-content:space-between; }
@@ -137,20 +137,20 @@ html[data-ui-theme] .ge-en .ge-en-compose textarea:not([disabled]):focus,.ge-en-
 .ge-en-pc .tags { display:flex;gap:6px;margin-top:9px; }
 .ge-en-pc .tags i { font-style:normal;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--en-count); }
 .ge-en-pc[data-front] { box-shadow:0 0 0 1px color-mix(in srgb,var(--en-accent) 70%,transparent),var(--en-card-shadow),0 0 60px color-mix(in srgb,var(--en-accent) 10%,transparent); }
-.ge-en-pc::after { content:"";position:absolute;inset:0;pointer-events:none;transition:background .6s; }
+.ge-en-pc::after { content:"";position:absolute;inset:0;pointer-events:none;transition:background var(--rk-dur-5); }
 .ge-en-pc[data-side=l]::after { background:linear-gradient(90deg,var(--en-side),#0000 70%); }
 .ge-en-pc[data-side=r]::after { background:linear-gradient(270deg,var(--en-side),#0000 70%); }
 .ge-en-use { position:absolute;right:10px;top:206px;display:inline-flex;align-items:center;gap:2px;padding:6px 8px 6px 12px;border-radius:999px;
   background:linear-gradient(180deg,var(--ruok-bronze-200,#e6c489),var(--ruok-bronze-400,#c39a5c));color:var(--ruok-accent-ink,#17130b);font-size:12.5px;font-weight:700;box-shadow:inset 0 1px 0 #ffffff57,0 6px 16px #0006;animation:ge-en-fade .3s .25s both; }
 .ge-en-reflect { position:absolute;left:0;right:0;top:470px;height:70px;background:radial-gradient(50% 100% at 50% 0,var(--en-reflect),transparent 70%); }
 .ge-en-dots { position:absolute;left:0;right:0;top:552px;display:flex;gap:6px;justify-content:center; }
-.ge-en-dots i { width:6px;height:6px;border-radius:50%;background:var(--en-dot);transition:all .3s; }
+.ge-en-dots i { width:6px;height:6px;border-radius:50%;background:var(--en-dot);transition:all var(--rk-dur-4); }
 .ge-en-dots i[data-on] { background:var(--en-accent);width:18px;border-radius:3px; }
 
 /* the posters take the room: entrances and purposes fold away to the left like an accordion */
 .ge-en[data-wide] .ge-en-ent { width:84px;padding:20px 19px;transform:translateX(-40px) perspective(700px) rotateY(18deg);opacity:.75;filter:none; }
 .ge-en[data-wide] .ge-en-ent[data-on] { opacity:1; }
-.ge-en[data-wide] .ge-en-ent :is(b,.hint,i) { opacity:0;transition:opacity .2s; }
+.ge-en[data-wide] .ge-en-ent :is(b,.hint,i) { opacity:0;transition:opacity var(--rk-dur-2); }
 .ge-en[data-wide] .ge-en-cat { left:150px !important; }
 .ge-en[data-wide] .ge-en-chip { transform:perspective(700px) rotateY(16deg) scale(.82); }
 .ge-en[data-wide] .ge-en-cat[data-away] .ge-en-chip { opacity:.5; }

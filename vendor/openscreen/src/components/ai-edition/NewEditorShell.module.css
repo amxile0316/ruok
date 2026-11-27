@@ -888,6 +888,23 @@
 .transport .tbtn.play:hover {
 	background: var(--fg-2);
 }
+/* Nothing on the timeline: the transport is inert until a video is imported, so it
+   says so instead of accepting a click that cannot do anything. */
+.transport .tbtn:disabled {
+	opacity: .4;
+	cursor: not-allowed;
+}
+.transport .tbtn:disabled:hover {
+	background: transparent;
+	color: var(--fg-2);
+}
+.transport .tbtn.play:disabled {
+	background: color-mix(in srgb, var(--fg) 26%, transparent);
+	color: var(--fg-2);
+}
+.transport .tbtn.play:disabled:hover {
+	background: color-mix(in srgb, var(--fg) 26%, transparent);
+}
 .transport .time {
 	font-family: var(--font-mono);
 	font-size: var(--fs-app-sm);

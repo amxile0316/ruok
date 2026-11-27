@@ -11,10 +11,11 @@ html {
   --ed-text: 12px;
   --ed-text-sm: 11px;
   --ed-text-xs: 10px;
-  --ed-ease: cubic-bezier(.2, .8, .2, 1);
-  --ed-fast: 120ms;
-  --ed-state: 180ms;
-  --ed-enter: 220ms;
+  /* 剪辑器沿用全局动效尺度：这里只是别名，改一处即可全站同步 */
+  --ed-ease: var(--rk-ease);
+  --ed-fast: var(--rk-dur-1);
+  --ed-state: var(--rk-dur-2);
+  --ed-enter: var(--rk-dur-3);
 }
 
 html[data-ui-theme=original] {

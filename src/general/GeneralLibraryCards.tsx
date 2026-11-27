@@ -4,6 +4,7 @@ import { Check, Film, Pencil, Trash2, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { LIBRARY_STYLES } from '@/workspace/style-library/library-styles'
 import { styleById } from '@/workspace/style-library/style-library'
+import { HoldToConfirm } from '@/components/ui/hold-to-confirm'
 import { PROJECT_KIND_LABELS, formatProjectDate, type GeneralLibraryProject } from '@/workspace/project-kind'
 import { announceGeneralChange, errorText, generalApi } from './general-api'
 import { generalProjectHref, libraryDuration, libraryRunLabel, versionName } from './general-logic'
@@ -56,9 +57,10 @@ export function GeneralStudioCard({ project, onChanged }: { project: GeneralLibr
     catch (failure) { toast.error(`重命名失败：${errorText(failure)}`) }
     finally { setSaving(false) }
   }
+  // The confirmation is the hold itself (see HoldToConfirm): pressing for 0.8 s is
+  // the deliberate act, so there is no second dialog to dismiss.
   const remove = async () => {
-    if (!confirm(`将“${project.name}”移入回收站？`)) return
-    try { await generalApi.remove(project.id); announceGeneralChange(); onChanged() } catch (failure) { toast.error(`删除失败：${errorText(failure)}`) }
+    try { await generalApi.remove(project.id); announceGeneralChange(); toast.success(`已把“${project.name}”移入回收站`); onChanged() } catch (failure) { toast.error(`删除失败：${errorText(failure)}`) }
   }
   const style = { '--project-title-color': '#ffffff', '--project-title-shadow': '0 1px 2px #000000a8, 0 0 10px #00000070' } as CSSProperties
   return <article className="project-row project-card ge-studio-card" role="link" tabIndex={0} aria-label={`打开通用工程 ${project.name}`}
@@ -85,7 +87,7 @@ export function GeneralStudioCard({ project, onChanged }: { project: GeneralLibr
       </div>
       <div className="project-card__quick-actions">
         <button type="button" title="重命名工程" aria-label={`重命名工程：${project.name}`} onClick={event => { event.stopPropagation(); setName(project.name); setEditing(true) }}><Pencil /></button>
-        <button type="button" className="is-delete" title="删除工程" aria-label={`删除工程 ${project.name}`} onClick={event => { event.stopPropagation(); void remove() }}><Trash2 /></button>
+        <HoldToConfirm className="is-delete" label={`长按删除工程 ${project.name}，移入回收站`} title="长按删除工程" onConfirm={() => void remove()}><Trash2 /></HoldToConfirm>
       </div>
       <footer><time>{new Date(project.updatedAt).toLocaleString('zh-CN')}</time></footer>
     </div>

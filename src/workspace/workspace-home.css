@@ -6,7 +6,7 @@
 :is(.home, .home-soon) {
   --home-gutter:10px; /* the top bar's own side margin: the least room the cards keep from the window edge */
   --home-width:1320px; /* the three entrances sit in a centred column; 我的工程 and 全部模块 use the full width */
-  --home-ease:cubic-bezier(.2,.8,.2,1);
+  --home-ease:var(--rk-ease);
   /* three accents from one warm-neutral family: no fourth hue, no pure saturated block */
   --home-koubo:#d8a05e; --home-koubo-ink:#17110a;
   --home-general:#9dbaa8; --home-general-ink:#0d1713;
@@ -16,25 +16,26 @@
   --home-faint:color-mix(in srgb,var(--ui-muted) 70%,transparent);
   --home-card:var(--ui-glass); --home-card-hover:var(--ui-glass);
   --home-line:var(--ui-line); --home-line-2:var(--ui-line);
-  --home-bg:#12161a; --home-dim:#0d1013a8; --home-backdrop:#0d1013c4;
-  --home-sheet-edge:0 -1px 0 #ffffff12,0 -40px 90px #000000a8;
-  --home-media:#0d1013; --home-card-shadow:none;
-  /* the ground: a lit charcoal, not a void. Two washes near the top corners keep the first screen from reading as flat
-     black, and the grain stops large areas from banding. */
+  --home-bg:#0a0f0e; --home-dim:#070d0ca6; --home-backdrop:#070d0cbe;
+  --home-sheet-edge:0 -1px 0 #d6a85f1f,0 -40px 90px #000000b3;
+  --home-media:#0b1211; --home-card-shadow:none;
+  /* the ground: a pine-black room, not a charcoal one. A bronze glow in the top-left corner and a fainter sage one
+     in the top-right keep the first screen from reading as flat black; the grain stops the large areas from banding.
+     These four values are sampled from the editor's dark UI so the home and the desk share one palette. */
   --home-ambient:
-    radial-gradient(72% 62% at 10% 6%, #e0a76333, #e0a76300 62%),
-    radial-gradient(64% 54% at 92% 2%, #e6cfae1c, #e6cfae00 60%),
-    linear-gradient(168deg,#1d232b 0%,#171c22 44%,#12161a 100%);
-  --home-grain:.04;
+    radial-gradient(62% 52% at 8% 2%, #d6a85f18, #d6a85f00 58%),
+    radial-gradient(58% 48% at 92% 0%, #7fa08c12, #7fa08c00 56%),
+    linear-gradient(168deg,#101614 0%,#0b110f 44%,#090e0d 100%);
+  --home-grain:.045;
   /* the card is an opaque plate one step lighter than the ground, so it reads as raised instead of cut out */
-  --home-entry-bg:linear-gradient(168deg,#262b33 0%,#1d2229 54%,#171c22 100%);
-  --home-entry-line:#ffffff2b;
+  --home-entry-bg:linear-gradient(168deg,#1c2624 0%,#17201e 52%,#121a18 100%);
+  --home-entry-line:#d6a85f33;
   color:var(--home-ink);
 }
 html[data-ui-theme=original] :is(.home, .home-soon) {
   --home-ink:var(--pro-ink); --home-ink-2:var(--pro-ink-2); --home-muted:var(--pro-muted); --home-faint:var(--pro-faint);
   --home-card:#17181b; --home-card-hover:#1c1d21; --home-line:#ffffff0d; --home-line-2:#ffffff17;
-  --home-bg:#12161a;
+  --home-bg:#0a0f0e;
 }
 html[data-ui-theme=warm] :is(.home, .home-soon) {
   --home-ink-2:#3d3d3d; --home-faint:#8a8a8a;
@@ -106,26 +107,26 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
   content:""; position:absolute; left:50%; top:50%; width:min(1240px,96%); height:min(620px,84vh);
   transform:translate(-50%,-50%); z-index:-1; pointer-events:none;
   background:
-    radial-gradient(52% 54% at 50% 50%, #e8c08a22, #e8c08a00 72%),
-    radial-gradient(36% 40% at 50% 46%, #ffffff0d, #ffffff00 76%);
+    radial-gradient(52% 54% at 50% 50%, #d6a85f14, #d6a85f00 72%),
+    radial-gradient(36% 40% at 50% 46%, #8fa89a0e, #8fa89a00 76%);
 }
 .home-entries { flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:16px;width:min(var(--home-width),100%);margin:0 auto;min-height:0; }
 /* the entrances lean away from the pointer, like the sign-in page's text (--mx, --my come from the backdrop) */
-.home-entries { translate:calc(var(--mx,0) * -10px) calc(var(--my,0) * -7px);transition:translate .6s var(--home-ease); }
-.home-entry { position:relative;display:flex;flex-direction:column;justify-content:flex-start;gap:28px;height:100%;min-height:0;padding:clamp(28px,3vw,44px);border:1px solid var(--home-entry-line);border-radius:var(--rk-r-6,14px);background:var(--home-entry-bg);box-shadow:var(--home-card-shadow),inset 0 1px 0 #ffffff0f;transition:border-color .28s var(--home-ease); }
+.home-entries { translate:calc(var(--mx,0) * -10px) calc(var(--my,0) * -7px);transition:translate var(--rk-dur-5) var(--home-ease); }
+.home-entry { position:relative;display:flex;flex-direction:column;justify-content:flex-start;gap:28px;height:100%;min-height:0;padding:clamp(28px,3vw,44px);border:1px solid var(--home-entry-line);border-radius:var(--rk-r-6,14px);background:var(--home-entry-bg);box-shadow:var(--home-card-shadow),inset 0 1px 0 #dfece514;transition:border-color var(--rk-dur-4) var(--home-ease); }
 /* pointer depth: the card tilts a couple of degrees under the pointer, a soft sheen follows it, and the photo
    drifts the other way so the two planes separate. --px / --py are written by WorkspaceHome (motion mode only). */
 .home-entry {
   transform:perspective(1000px) rotateX(calc(var(--py,0) * -2.4deg)) rotateY(calc(var(--px,0) * 2.8deg));
   transform-style:preserve-3d;
-  transition:transform .22s var(--home-ease),border-color .28s var(--home-ease),box-shadow .24s var(--home-ease);
+  transition:transform var(--rk-dur-3) var(--home-ease),border-color var(--rk-dur-4) var(--home-ease),box-shadow var(--rk-dur-3) var(--home-ease);
 }
 .home-entry::after {
   content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;pointer-events:none;opacity:0;
-  background:radial-gradient(300px circle at calc(50% + var(--px,0) * 62%) calc(50% + var(--py,0) * 62%),#ffffff24,#ffffff00 60%);
-  transition:opacity .25s var(--home-ease);
+  background:radial-gradient(300px circle at calc(50% + var(--px,0) * 62%) calc(50% + var(--py,0) * 62%),#f0dbb01f,#f0dbb000 60%);
+  transition:opacity var(--rk-dur-3) var(--home-ease);
 }
-.home-entry:hover { box-shadow:0 18px 44px #00000059,inset 0 1px 0 #ffffff14; }
+.home-entry:hover { box-shadow:0 20px 48px #00000073,inset 0 1px 0 #dfece51c; }
 .home-entry:hover::after { opacity:1; }
 .home-entry:hover .home-media__still { filter:saturate(.96) contrast(1.05) brightness(1.05); translate:calc(var(--px,0) * -7px) calc(var(--py,0) * -5px); }
 /* the only colour a card takes on hover: its own hairline, quietly */
@@ -135,7 +136,7 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
 .home-entry__line { max-width:440px;margin:0;font-size:15px;line-height:1.6;color:var(--home-muted); }
 .home-entry__actions { display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:28px; }
 /* one action shape for all three: a tinted chip in the card's own accent, no saturated block of colour */
-.home-entry__button { display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 18px 0 20px;border:1px solid color-mix(in srgb,var(--home-accent) 38%,transparent);border-radius:12px;background:color-mix(in srgb,var(--home-accent) 15%,transparent);color:var(--home-accent);font:inherit;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;transition:background-color .18s,border-color .18s; }
+.home-entry__button { display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 18px 0 20px;border:1px solid color-mix(in srgb,var(--home-accent) 38%,transparent);border-radius:12px;background:color-mix(in srgb,var(--home-accent) 15%,transparent);color:var(--home-accent);font:inherit;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;transition:background-color var(--rk-dur-2) var(--home-ease),border-color var(--rk-dur-2) var(--home-ease); }
 .home-entry__button:hover { background:color-mix(in srgb,var(--home-accent) 24%,transparent);border-color:color-mix(in srgb,var(--home-accent) 62%,transparent); }
 .home-entry__button:disabled { background:none;border-color:var(--home-entry-line);color:var(--home-muted);cursor:default; }
 .home-entry__button:focus-visible { outline:2px solid var(--home-ink);outline-offset:3px; }
@@ -145,12 +146,12 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
    so each crop is framed on the person and the gear: --still-* is the crop window (w / x / y), set per entrance. */
 .home-media { position:relative;flex:0 1 auto;align-self:stretch;width:100%;min-height:110px;margin-top:auto;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:var(--home-media); }
 .home-media video { display:block;width:100%;max-width:none;height:100%;object-fit:cover; }
-:is(.home-media,.home-thumb)::after { content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,#00000000 50%,#00000047),#0000003d;box-shadow:inset 0 0 0 1px #ffffff12;pointer-events:none;transition:opacity .2s; }
+:is(.home-media,.home-thumb)::after { content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,#00000000 50%,#00000047),#0000003d;box-shadow:inset 0 0 0 1px #ffffff12;pointer-events:none;transition:opacity var(--rk-dur-2) var(--home-ease); }
 
 .home-media__still {
   position:absolute; left:var(--still-x,0); top:var(--still-y,0); width:var(--still-w,100%); max-width:none; height:auto; z-index:0;
   filter:saturate(.8) contrast(1.04) brightness(1);
-  transition:filter .3s var(--home-ease), translate .35s var(--home-ease);
+  transition:filter var(--rk-dur-4) var(--home-ease), translate var(--rk-dur-4) var(--home-ease);
 }
 .home-entry[data-kind=koubo] .home-media { --still-w:227%; --still-x:-4.5%; --still-y:-27%; }
 .home-entry[data-kind=general] .home-media { --still-w:245%; --still-x:-68.6%; --still-y:-78.4%; }
@@ -176,7 +177,7 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
 .home-section__head h2 { margin:0;font-size:32px;line-height:1.2;font-weight:650;letter-spacing:-.01em;color:var(--home-ink); }
 .home-tools { display:flex;align-items:center;gap:24px;font-size:12px;line-height:1.5;color:var(--home-muted); }
 .home-filter { display:flex;gap:4px; }
-.home-filter button { display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 8px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;cursor:pointer;transition:color .18s; }
+.home-filter button { display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 8px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;cursor:pointer;transition:color var(--rk-dur-2) var(--home-ease); }
 .home-filter button:hover,.home-all:hover { color:var(--home-ink-2); }
 .home-filter button[aria-pressed=true] { color:var(--home-ink); }
 .home-all { display:inline-flex;align-items:center;gap:2px;height:28px;color:var(--home-ink-2);text-decoration:none;border-radius:8px; }
@@ -201,13 +202,13 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
 .home-module-group { display:grid;grid-template-columns:subgrid;align-content:start;grid-column:var(--home-group-cols); }
 .home-module-group__head { grid-column:1 / -1;margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid var(--home-line-2);font-size:12px;line-height:1.5;font-weight:600;letter-spacing:.06em;color:var(--home-ink-2); }
 .home-module-list { grid-column:1 / -1;display:grid;grid-template-columns:subgrid;margin:0;padding:0;list-style:none; }
-.home-module { display:flex;flex-direction:column;padding:10px 10px 16px;border:1px solid var(--home-line);border-radius:var(--rk-r-5,12px);background:var(--home-card);box-shadow:var(--home-card-shadow);color:inherit;text-decoration:none;transition:background .18s,border-color .18s; }
+.home-module { display:flex;flex-direction:column;padding:10px 10px 16px;border:1px solid var(--home-line);border-radius:var(--rk-r-5,12px);background:var(--home-card);box-shadow:var(--home-card-shadow);color:inherit;text-decoration:none;transition:background var(--rk-dur-2) var(--home-ease),border-color var(--rk-dur-2) var(--home-ease); }
 .home-module:hover { background:var(--home-card-hover);border-color:var(--home-line-2); }
 .home-module__top { display:flex;align-items:center;justify-content:space-between;gap:8px;margin:14px 8px 0;color:var(--home-ink-2); }
 /* the concept loop: 16:9, darkened, sitting low; modules without one keep a dark frame with their icon */
 .home-module__media { position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:var(--home-media);color:#ffffff38; }
 .home-module__media video { display:block;width:100%;height:100%;object-fit:cover; }
-.home-module__media::after { content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,#00000000 55%,#00000040),#00000024;box-shadow:inset 0 0 0 1px #ffffff12;pointer-events:none;transition:opacity .2s; }
+.home-module__media::after { content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,#00000000 55%,#00000040),#00000024;box-shadow:inset 0 0 0 1px #ffffff12;pointer-events:none;transition:opacity var(--rk-dur-2) var(--home-ease); }
 .home-module:is(:hover,:focus-visible) .home-module__media::after { opacity:.4; }
 .home-only { display:inline-flex;align-items:center;gap:6px;font-size:12px;line-height:1.5;white-space:nowrap;color:var(--home-faint); }
 .home-only .home-dot { width:6px;height:6px; }
@@ -218,8 +219,8 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
 html.home-intake-open { overflow:hidden; }
 .home-intake { position:fixed;inset:0;z-index:36;display:flex;flex-direction:column;padding:var(--workspace-nav-height) var(--home-gutter) var(--home-gutter); }
 .home-intake[hidden] { display:none; }
-.home-intake__backdrop { position:absolute;inset:0;background:var(--home-backdrop);animation:home-fade-in .2s ease both; }
-.home .home-intake__panel[role=dialog] { position:relative;display:flex;flex-direction:column;gap:8px;max-height:100%;overflow:auto;padding:0;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none;outline:none;overscroll-behavior:contain;animation:home-intake-in .26s var(--home-ease) both; }
+.home-intake__backdrop { position:absolute;inset:0;background:var(--home-backdrop);animation:home-fade-in var(--rk-dur-2) var(--home-ease) both; }
+.home .home-intake__panel[role=dialog] { position:relative;display:flex;flex-direction:column;gap:8px;max-height:100%;overflow:auto;padding:0;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none;outline:none;overscroll-behavior:contain;animation:home-intake-in var(--rk-dur-3) var(--home-ease) both; }
 .home-intake__bar { display:flex;justify-content:flex-end; }
 /* Outranks the themes' generic button rules for this sheet (暖雾 lists .home-intake there for the intake's own controls). */
 html[data-ui-theme] .home .home-intake .home-intake__close { display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:1px solid var(--home-line-2);border-radius:10px;background:var(--home-bg);color:var(--home-ink-2);font:inherit;font-size:12px;cursor:pointer; }
@@ -283,6 +284,6 @@ html[data-ui-theme] .home .home-intake .home-intake__close:hover { color:var(--h
 .home-soon p.home-soon__picked { display:flex;align-items:center;gap:12px;margin-top:20px;font-size:14px;color:var(--home-ink-2); }
 .home-soon__picked a { color:var(--home-muted);font-size:13px;text-decoration:underline;text-underline-offset:3px; }
 .home-soon__picked a:hover { color:var(--home-ink); }
-.home-soon__back { display:inline-flex;align-items:center;gap:4px;height:40px;margin-top:28px;padding:0 16px 0 12px;border:1px solid var(--home-line-2);border-radius:12px;color:var(--home-ink-2);font-size:13px;text-decoration:none;transition:color .18s,border-color .18s; }
+.home-soon__back { display:inline-flex;align-items:center;gap:4px;height:40px;margin-top:28px;padding:0 16px 0 12px;border:1px solid var(--home-line-2);border-radius:12px;color:var(--home-ink-2);font-size:13px;text-decoration:none;transition:color var(--rk-dur-2) var(--home-ease),border-color var(--rk-dur-2) var(--home-ease); }
 .home-soon__back:hover { color:var(--home-ink);border-color:var(--home-faint); }
 @media (prefers-reduced-motion: reduce) { .home-soon__back { transition:none; } }

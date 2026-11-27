@@ -354,6 +354,7 @@
 		"playbackControls": "Playback controls",
 		"playPause": "Play / Pause",
 		"playPauseTitle": "Play / Pause (Space)",
+		"nothingToPlay": "Import a video to start playback",
 		"previousClip": "Previous clip",
 		"nextClip": "Next clip",
 		"loop": "Loop",

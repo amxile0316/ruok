@@ -2,7 +2,7 @@
 /* above the trim handles (z 8) so the dots win where they meet; the layer itself lets clicks through */
 .clip-audio { position: absolute; inset: 0; z-index: 9; pointer-events: none; }
 .clip-audio-ramp { position: absolute; top: 0; bottom: 0; height: 100%; fill: #0000008c; pointer-events: none; }
-.clip-audio-line, .clip-audio-dot { opacity: 0; transition: opacity .12s; }
+.clip-audio-line, .clip-audio-dot { opacity: 0; transition: opacity var(--rk-dur-1); }
 .timeline-clip:hover .clip-audio-line, .timeline-clip:hover .clip-audio-dot, .clip-audio[data-dragging] :is(.clip-audio-line, .clip-audio-dot) { opacity: 1; pointer-events: auto; }
 .clip-audio-line { position: absolute; left: 12px; right: 12px; height: 9px; margin-top: -4.5px; cursor: ns-resize; touch-action: none; }
 .clip-audio-line::before { content: ""; position: absolute; left: 0; right: 0; top: 4px; border-top: 1.5px solid #fff; opacity: .9; box-shadow: 0 0 2px #0008; }
@@ -12,7 +12,7 @@
 /* at the top of the fade ramp; an 18 px target around a 10 px dot */
 .clip-audio-dot { position: absolute; top: -4px; width: 18px; height: 18px; margin-left: -9px; cursor: ew-resize; touch-action: none; }
 .clip-audio-dot.is-out { margin: 0 -9px 0 0; }
-.clip-audio-dot::after { content: ""; position: absolute; left: 4px; top: 4px; width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; background: #fff; border: 2px solid var(--studio-accent, var(--ruok-accent)); box-shadow: 0 0 2px #0009; transition: transform .1s; }
+.clip-audio-dot::after { content: ""; position: absolute; left: 4px; top: 4px; width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; background: #fff; border: 2px solid var(--studio-accent, var(--ruok-accent)); box-shadow: 0 0 2px #0009; transition: transform var(--rk-dur-1); }
 .clip-audio-dot:hover::after, .clip-audio[data-dragging] .clip-audio-dot::after { transform: scale(1.25); }
 .clip-audio-tip { position: absolute; top: 1px; padding: 1px 5px; border-radius: 4px; background: #000c; color: #fff; font: 600 10px/1.4 var(--studio-font, system-ui); white-space: nowrap; pointer-events: none; }
 /* the waveform follows the line; what would clip shows orange at the edges */
