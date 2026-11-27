@@ -286,6 +286,7 @@ function HomeIntake({ open, onClose, onActivity, activity }: { open: boolean; on
 
 export default function WorkspaceHome() {
   const root = useRef<HTMLElement>(null)
+  const entries = useRef<HTMLDivElement>(null)
   const kouboButton = useRef<HTMLButtonElement>(null)
   const [activity, setActivity] = useState<QuickEditActivity | null>(null)
   // ?intake=1 opens 一键剪辑 at once (拿去剪 › 口播剪辑 from 文案发布)
@@ -295,6 +296,38 @@ export default function WorkspaceHome() {
   const [projectsKey, setProjectsKey] = useState(0)
   useLayoutEffect(() => { window.scrollTo(0, 0) }, [])
   useParallax(root)
+  // 光标深度：把指针在每张卡里的相对位置写成 --px / --py，卡片据此轻微倾斜，照片反向漂移
+  useEffect(() => {
+    const host = entries.current
+    if (!host || !motionOn()) return
+    let frame = 0, x = 0, y = 0
+    const cards = () => host.querySelectorAll<HTMLElement>('.home-entry')
+    const paint = () => {
+      frame = 0
+      for (const card of cards()) {
+        const rect = card.getBoundingClientRect()
+        const px = Math.max(-1, Math.min(1, (x - rect.left) / rect.width - .5))
+        const py = Math.max(-1, Math.min(1, (y - rect.top) / rect.height - .5))
+        card.style.setProperty('--px', px.toFixed(3))
+        card.style.setProperty('--py', py.toFixed(3))
+      }
+    }
+    const move = (event: PointerEvent) => {
+      x = event.clientX; y = event.clientY
+      if (!frame) frame = requestAnimationFrame(paint)
+    }
+    const reset = () => {
+      if (frame) { cancelAnimationFrame(frame); frame = 0 }
+      for (const card of cards()) { card.style.setProperty('--px', '0'); card.style.setProperty('--py', '0') }
+    }
+    host.addEventListener('pointermove', move)
+    host.addEventListener('pointerleave', reset)
+    return () => {
+      if (frame) cancelAnimationFrame(frame)
+      host.removeEventListener('pointermove', move)
+      host.removeEventListener('pointerleave', reset)
+    }
+  }, [])
   const closeIntake = useCallback(() => {
     setIntakeOpen(false); setProjectsKey(key => key + 1)
     requestAnimationFrame(() => kouboButton.current?.focus({ preventScroll: true }))
@@ -307,7 +340,7 @@ export default function WorkspaceHome() {
     <div className="home-shield" aria-hidden="true" />
     <div className="home-hero" inert={intakeOpen}>
       <DeployStrip />
-      <div className="home-entries">
+      <div className="home-entries" ref={entries}>
         <section className="home-entry" data-pro={!homeHasKoubo || undefined} data-kind="koubo" aria-labelledby="home-entry-koubo">
           <div>
             <p className="home-entry__eyebrow"><i className="home-dot" data-kind="koubo" aria-hidden="true" />专业 · 极致可控</p>

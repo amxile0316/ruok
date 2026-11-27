@@ -1,3 +1,1 @@
-/* 首页第三个入口「文案发布」：强调色是陶土，与口播的铜金、通用的苔绿同属一个暖中性家族；
-   圆点在卡片内继承 --home-accent，这里只在离开卡片时兜底。 */
-.home-dot[data-kind=publish] { background: var(--home-publish); }
+/* 首页三个入口共用同一枚强调色（铜金），圆点统一继承 --home-accent，不再按入口分色。 */

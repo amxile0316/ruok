@@ -23,7 +23,7 @@
      black, and the grain stops large areas from banding. */
   --home-ambient:
     radial-gradient(72% 62% at 10% 6%, #e0a76333, #e0a76300 62%),
-    radial-gradient(64% 54% at 92% 2%, #8fb8a528, #8fb8a500 60%),
+    radial-gradient(64% 54% at 92% 2%, #e6cfae1c, #e6cfae00 60%),
     linear-gradient(168deg,#1d232b 0%,#171c22 44%,#12161a 100%);
   --home-grain:.04;
   /* the card is an opaque plate one step lighter than the ground, so it reads as raised instead of cut out */
@@ -79,9 +79,11 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
   --home-grain:0;
 }
 
-.home-entry[data-kind=koubo] { --home-accent:var(--home-koubo); --home-accent-ink:var(--home-koubo-ink); }
-.home-entry[data-kind=general] { --home-accent:var(--home-general); --home-accent-ink:var(--home-general-ink); }
-.home-entry[data-kind=publish] { --home-accent:var(--home-publish); --home-accent-ink:var(--home-publish-ink); }
+/* One accent for the whole first screen. The three entrances differ by photograph, not by hue: dots, buttons,
+   hover hairlines and the image wash all read bronze, so nothing competes with the pictures. */
+.home-entry[data-kind=koubo],
+.home-entry[data-kind=general],
+.home-entry[data-kind=publish] { --home-accent:var(--ruok-accent); --home-accent-ink:var(--home-koubo-ink); }
 
 .home-dot { flex:none;display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--home-accent); }
 
@@ -107,10 +109,25 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
     radial-gradient(52% 54% at 50% 50%, #e8c08a22, #e8c08a00 72%),
     radial-gradient(36% 40% at 50% 46%, #ffffff0d, #ffffff00 76%);
 }
-.home-entries { flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:16px;width:min(var(--home-width),100%);margin:0 auto;min-height:0; }
+.home-entries { flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:16px;width:min(var(--home-width),100%);margin:0 auto;min-height:0; }
 /* the entrances lean away from the pointer, like the sign-in page's text (--mx, --my come from the backdrop) */
 .home-entries { translate:calc(var(--mx,0) * -10px) calc(var(--my,0) * -7px);transition:translate .6s var(--home-ease); }
-.home-entry { display:flex;flex-direction:column;justify-content:flex-start;gap:28px;min-height:0;padding:clamp(28px,3vw,44px);border:1px solid var(--home-entry-line);border-radius:var(--rk-r-6,14px);background:var(--home-entry-bg);box-shadow:var(--home-card-shadow),inset 0 1px 0 #ffffff0f;transition:border-color .28s var(--home-ease); }
+.home-entry { position:relative;display:flex;flex-direction:column;justify-content:flex-start;gap:28px;height:100%;min-height:0;padding:clamp(28px,3vw,44px);border:1px solid var(--home-entry-line);border-radius:var(--rk-r-6,14px);background:var(--home-entry-bg);box-shadow:var(--home-card-shadow),inset 0 1px 0 #ffffff0f;transition:border-color .28s var(--home-ease); }
+/* pointer depth: the card tilts a couple of degrees under the pointer, a soft sheen follows it, and the photo
+   drifts the other way so the two planes separate. --px / --py are written by WorkspaceHome (motion mode only). */
+.home-entry {
+  transform:perspective(1000px) rotateX(calc(var(--py,0) * -2.4deg)) rotateY(calc(var(--px,0) * 2.8deg));
+  transform-style:preserve-3d;
+  transition:transform .22s var(--home-ease),border-color .28s var(--home-ease),box-shadow .24s var(--home-ease);
+}
+.home-entry::after {
+  content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;pointer-events:none;opacity:0;
+  background:radial-gradient(300px circle at calc(50% + var(--px,0) * 62%) calc(50% + var(--py,0) * 62%),#ffffff24,#ffffff00 60%);
+  transition:opacity .25s var(--home-ease);
+}
+.home-entry:hover { box-shadow:0 18px 44px #00000059,inset 0 1px 0 #ffffff14; }
+.home-entry:hover::after { opacity:1; }
+.home-entry:hover .home-media__still { filter:saturate(.96) contrast(1.05) brightness(1.05); translate:calc(var(--px,0) * -7px) calc(var(--py,0) * -5px); }
 /* the only colour a card takes on hover: its own hairline, quietly */
 .home-entry:hover { border-color:color-mix(in srgb,var(--home-accent) 34%,var(--home-entry-line)); }
 .home-entry__eyebrow { display:flex;align-items:center;gap:8px;margin:0;font-size:12px;line-height:1.5;letter-spacing:.02em;color:var(--home-muted); }
@@ -126,14 +143,14 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
 
 /* The 16:9 slot under each button holds the entrance's own photograph. The source posters carry their own headline,
    so each crop is framed on the person and the gear: --still-* is the crop window (w / x / y), set per entrance. */
-.home-media { position:relative;flex:0 1 auto;align-self:stretch;width:100%;min-height:110px;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:var(--home-media); }
+.home-media { position:relative;flex:0 1 auto;align-self:stretch;width:100%;min-height:110px;margin-top:auto;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:var(--home-media); }
 .home-media video { display:block;width:100%;max-width:none;height:100%;object-fit:cover; }
 :is(.home-media,.home-thumb)::after { content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,#00000000 50%,#00000047),#0000003d;box-shadow:inset 0 0 0 1px #ffffff12;pointer-events:none;transition:opacity .2s; }
 
 .home-media__still {
-  position:absolute; left:var(--still-x,0); top:var(--still-y,0); width:var(--still-w,100%); height:auto; z-index:0;
+  position:absolute; left:var(--still-x,0); top:var(--still-y,0); width:var(--still-w,100%); max-width:none; height:auto; z-index:0;
   filter:saturate(.8) contrast(1.04) brightness(1);
-  transition:filter .3s var(--home-ease);
+  transition:filter .3s var(--home-ease), translate .35s var(--home-ease);
 }
 .home-entry[data-kind=koubo] .home-media { --still-w:227%; --still-x:-4.5%; --still-y:-27%; }
 .home-entry[data-kind=general] .home-media { --still-w:245%; --still-x:-68.6%; --still-y:-78.4%; }
@@ -146,8 +163,6 @@ html[data-ui-theme=frost] :is(.home, .home-soon) {
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
   background:radial-gradient(95% 80% at 16% 108%,color-mix(in srgb,var(--home-accent) 26%,transparent),transparent 62%);
 }
-.home-entry:hover .home-media__still { filter:saturate(.96) contrast(1.05) brightness(1.04); }
-
 .home-hero__dim { position:absolute;inset:0;background:var(--home-dim);opacity:0;pointer-events:none; }
 .home-hero__hint { position:absolute;left:0;right:0;bottom:18px;justify-content:center;pointer-events:none; }
 .home-hero__hint span { display:flex;flex-direction:column;align-items:center;font-size:12px;line-height:1.5;color:var(--home-faint);animation:home-bob 2.6s ease-in-out infinite; }

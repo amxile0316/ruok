@@ -409,6 +409,17 @@ html.workspace-glass .home-entry__button {
   color: var(--home-accent);
   box-shadow: none;
 }
+/* the three entrances mix a real <button> with two links; the broad glass button rule would give the <button>
+   a different fill, so both element types are pinned to the same accent here */
+html.workspace-glass .home-entry .home-entry__actions .home-entry__button {
+  border: 1px solid color-mix(in srgb, var(--home-accent) 38%, transparent);
+  background: color-mix(in srgb, var(--home-accent) 15%, transparent);
+  color: var(--home-accent);
+}
+html.workspace-glass .home-entry .home-entry__actions .home-entry__button:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--home-accent) 62%, transparent);
+  background: color-mix(in srgb, var(--home-accent) 24%, transparent);
+}
 html.workspace-glass .home-entry__button:hover:not(:disabled) {
   border-color: color-mix(in srgb, var(--home-accent) 60%, transparent);
   background: color-mix(in srgb, var(--home-accent) 22%, transparent);
