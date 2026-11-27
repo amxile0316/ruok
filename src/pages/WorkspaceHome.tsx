@@ -136,59 +136,16 @@ function useParallax(ref: RefObject<HTMLElement | null>) {
   }, [ref])
 }
 
-const BARS = [6, 14, 9, 22, 13, 30, 10, 18, 38, 16, 26, 44, 12, 20, 34, 15, 8, 24, 11, 17]
+/** One photograph per entrance, cropped to the person and the gear: the card title says the rest. */
+const HOME_STILLS = {
+  koubo: '/home/home-koubo.jpg',
+  general: '/home/home-general.jpg',
+  publish: '/home/home-publish.jpg',
+} as const
 
-/** Each entrance carries its own line drawing: no shared brand mark, no two cards looking the same. */
-function HomeVignette({ kind }: { kind: 'koubo' | 'general' | 'publish' }) {
+function HomeStill({ kind }: { kind: keyof typeof HOME_STILLS }) {
   return <div className="home-media" aria-hidden="true">
-    <div className="home-vignette">
-      {kind === 'koubo' && <svg viewBox="0 0 320 180" focusable="false">
-        <g fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-          <line x1="18" y1="126" x2="302" y2="126" opacity=".4" />
-          {BARS.map((height, index) => <line key={index} x1={38 + index * 13} y1={126 - height} x2={38 + index * 13} y2="126" opacity={index === 9 ? 1 : .55} className={index === 9 ? 'home-vignette__accent' : undefined} />)}
-          <rect x="20" y="142" width="92" height="16" rx="8" opacity=".35" />
-          <line x1="30" y1="150" x2="86" y2="150" opacity=".5" />
-        </g>
-        <g className="home-vignette__accent" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-          <line x1="200" y1="36" x2="200" y2="126" opacity=".75" />
-          <path d="M200 26 l5 9 h-10 z" fill="currentColor" stroke="none" />
-          <line x1="20" y1="150" x2="52" y2="150" />
-        </g>
-      </svg>}
-      {kind === 'general' && <svg viewBox="0 0 320 180" focusable="false">
-        <g fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-          <rect x="24" y="54" width="146" height="80" rx="8" opacity=".28" />
-          <rect x="62" y="40" width="146" height="80" rx="8" opacity=".55" />
-          <line x1="80" y1="62" x2="140" y2="62" opacity=".5" />
-          <line x1="80" y1="74" x2="116" y2="74" opacity=".35" />
-        </g>
-        <rect x="98" y="26" width="146" height="80" rx="8" fill="none" stroke="currentColor" strokeWidth="1.6" />
-        <g fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-          <line x1="116" y1="50" x2="184" y2="50" opacity=".6" />
-          <line x1="116" y1="62" x2="156" y2="62" opacity=".4" />
-          <line x1="116" y1="74" x2="200" y2="74" opacity=".4" />
-          {[0, 1, 2, 3].map(row => [0, 1, 2, 3, 4].map(col => <circle key={`${row}-${col}`} cx={40 + col * 9} cy={148 + row * 9} r="1.2" opacity=".3" />))}
-        </g>
-        <path className="home-vignette__accent" d="M252 92 v26 l7-7 5 10 6-3 -5-10 9-1 z" fill="currentColor" stroke="none" />
-      </svg>}
-      {kind === 'publish' && <svg viewBox="0 0 320 180" focusable="false">
-        <g fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-          <rect x="58" y="26" width="116" height="128" rx="10" />
-          <line x1="76" y1="56" x2="156" y2="56" opacity=".6" />
-          <line x1="76" y1="74" x2="134" y2="74" opacity=".45" />
-          <line x1="76" y1="92" x2="150" y2="92" opacity=".45" />
-          <line x1="76" y1="110" x2="118" y2="110" opacity=".35" />
-          <rect x="76" y="126" width="46" height="12" rx="6" opacity=".4" />
-          <rect x="206" y="56" width="62" height="18" rx="9" opacity=".45" />
-          <rect x="206" y="84" width="62" height="18" rx="9" opacity=".3" />
-          <rect x="206" y="112" width="62" height="18" rx="9" opacity=".3" />
-          <circle cx="217" cy="65" r="2.4" opacity=".6" />
-          <circle cx="217" cy="93" r="2.4" opacity=".6" />
-          <circle cx="217" cy="121" r="2.4" opacity=".6" />
-        </g>
-        <line className="home-vignette__accent" x1="158" y1="82" x2="158" y2="102" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>}
-    </div>
+    <img className="home-media__still" src={HOME_STILLS[kind]} alt="" loading="lazy" decoding="async" />
   </div>
 }
 
@@ -361,7 +318,7 @@ export default function WorkspaceHome() {
               {status && <span className="home-entry__status" role="status"><i className="home-dot" data-kind="koubo" aria-hidden="true" />{status}</span>}
             </div>
           </div>
-          <HomeVignette kind="koubo" />
+          <HomeStill kind="koubo" />
         </section>
         <section className="home-entry" data-kind="general" aria-labelledby="home-entry-general">
           <div>
@@ -372,7 +329,7 @@ export default function WorkspaceHome() {
               <Link className="home-entry__button" to={GENERAL_EDIT_PATH}>新建通用工程<ChevronRight size={16} aria-hidden="true" /></Link>
             </div>
           </div>
-          <HomeVignette kind="general" />
+          <HomeStill kind="general" />
         </section>
         <section className="home-entry" data-pro={!homeHasKoubo || undefined} data-kind="publish" aria-labelledby="home-entry-publish">
           <div>
@@ -383,7 +340,7 @@ export default function WorkspaceHome() {
               {homeHasKoubo ? <Link className="home-entry__button" to="/publish">新建稿子<ChevronRight size={16} aria-hidden="true" /></Link> : <button type="button" className="home-entry__button" disabled>本分支未包含文案发布</button>}
             </div>
           </div>
-          <HomeVignette kind="publish" />
+          <HomeStill kind="publish" />
         </section>
       </div>
       <div className="home-hero__dim" aria-hidden="true" />

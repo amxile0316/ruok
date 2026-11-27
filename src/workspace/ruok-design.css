@@ -1174,7 +1174,6 @@ html.workspace-glass[data-ui-theme=warm] :is(.home, .home-soon) {
   --home-general-ink: #f7fbf8;
   --home-publish: #95583c;
   --home-publish-ink: #fdf7f3;
-  --home-line-art: #23232342;
 }
 html.workspace-glass[data-ui-theme=warm] :is(.home-media, .home-thumb)::after {
   background: linear-gradient(180deg, #ffffff00 52%, #23232312), #ffffff14;
