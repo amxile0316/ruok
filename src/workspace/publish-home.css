@@ -1,7 +1,3 @@
-/* 首页第三个入口「文案发布」。上游 T 标识动图已移除，改用 RUOK 问号图标与铜绿按钮。 */
-.home-entries:has(.home-entry[data-kind=publish]) { grid-template-columns:repeat(3,minmax(0,1fr)); }
-.home-dot[data-kind=publish] { background:var(--ruok-verdigris-500); }
-/* 模块色：App 规定的亮紫（S先生 10-26），两套主题一样 */
-.home-entry[data-kind=publish] .home-entry__button { background:var(--ruok-verdigris-500);color:#f2fffb; }
-.home-entry[data-kind=publish] .home-entry__button:hover { filter:brightness(1.06); }
-@media (max-width:1180px) { .home-entries:has(.home-entry[data-kind=publish]) { grid-template-columns:1fr; } }
+/* 首页第三个入口「文案发布」：强调色是陶土，与口播的铜金、通用的苔绿同属一个暖中性家族；
+   圆点在卡片内继承 --home-accent，这里只在离开卡片时兜底。 */
+.home-dot[data-kind=publish] { background: var(--home-publish); }

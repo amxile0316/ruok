@@ -151,16 +151,19 @@ html[data-ui-theme=original] .ge-work {
 html[data-ui-theme=original] :is(.home, .home-soon) {
   --home-koubo: var(--ruok-accent);
   --home-koubo-ink: var(--ruok-accent-ink);
-  --home-general: var(--ruok-accent);
-  --home-general-ink: var(--ruok-accent-ink);
+  --home-general: #9dbaa8;
+  --home-general-ink: #0d1713;
+  --home-publish: #cf9a7d;
+  --home-publish-ink: #1c1109;
+  --home-line-art: #ffffff3d;
   --home-card: var(--ruok-patina-800);
   --home-card-hover: var(--ruok-patina-700);
   --home-line: var(--ruok-line);
   --home-line-2: var(--ruok-line-2);
-  --home-bg: var(--ruok-patina-900);
-  --home-entry-bg: linear-gradient(160deg, #1a211fb8, #0a0f0ecc);
-  --home-entry-line: #ffffff1f;
-  --home-media: radial-gradient(120% 120% at 50% 40%, #1a211f 0%, #090e0d 74%);
+  --home-bg: #0b0d0f;
+  --home-entry-bg: linear-gradient(168deg, #171a1e 0%, #111417 56%, #0c0e10 100%);
+  --home-entry-line: #ffffff17;
+  --home-media: #0a0c0e;
 }
 
 /* Light is cool stone: three families again — pale gray-green ground, porcelain surfaces, daiqing ink,
@@ -371,16 +374,19 @@ html[data-ui-theme=umbra] .ge-work {
   --ge-field: #494540;
 }
 html[data-ui-theme=umbra] :is(.home, .home-soon) {
-  --home-koubo: var(--ruok-accent);
-  --home-koubo-ink: var(--ruok-accent-ink);
-  --home-general: var(--ruok-accent);
-  --home-general-ink: var(--ruok-accent-ink);
+  --home-koubo: #e0ac6b;
+  --home-koubo-ink: #241c12;
+  --home-general: #b3c6b4;
+  --home-general-ink: #1a231d;
+  --home-publish: #dcab90;
+  --home-publish-ink: #2a1a11;
+  --home-line-art: #f2ece23d;
   --home-card: #4c4842;
   --home-card-hover: #5b564f;
   --home-line: #f2ece21f;
   --home-line-2: #f2ece233;
   --home-bg: #57524c;
-  --home-entry-bg: linear-gradient(160deg, #625c55d9, #4c4842e6);
-  --home-entry-line: #ffffff1f;
-  --home-media: radial-gradient(120% 120% at 50% 40%, #5e5851 0%, #3a3631 74%);
+  --home-entry-bg: linear-gradient(160deg, #645e57 0%, #58534c 58%, #4d4943 100%);
+  --home-entry-line: #f2ece229;
+  --home-media: #3f3b36;
 }

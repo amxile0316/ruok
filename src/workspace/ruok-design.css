@@ -319,7 +319,7 @@ html.workspace-glass :is(.panel-tabs button, .media-view-toggle button, .inspect
 html.workspace-glass :is(.panel-tabs button, .media-view-toggle button, .inspector-tabs button):hover { background-color: color-mix(in srgb, var(--rk-ink) 8%, transparent); }
 
 /* primary: the one solid block of colour on the page */
-html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .media-panel .upload-button, .agent-settings-footer .agent-settings-save, .full-card-dialog footer > button, .full-card-controls > button, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry__button, .settings-primary, .export-primary) {
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .media-panel .upload-button, .agent-settings-footer .agent-settings-save, .full-card-dialog footer > button, .full-card-controls > button, .ge-export, .ot-deploy-go, .ge-en-go, .settings-primary, .export-primary) {
   border: 1px solid color-mix(in srgb, var(--rk-solid-top) 74%, transparent);
   border-radius: var(--rk-r-4);
   background: linear-gradient(180deg, var(--rk-solid-top) 0%, var(--rk-solid-bottom) 100%);
@@ -327,14 +327,14 @@ html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .media-panel
   font-weight: 650;
   box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 30%, transparent), 0 6px 16px -8px color-mix(in srgb, var(--rk-accent) 52%, transparent);
 }
-html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry__button, .settings-primary):hover:not(:disabled) {
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .ot-deploy-go, .ge-en-go, .settings-primary):hover:not(:disabled) {
   background: linear-gradient(180deg, var(--rk-solid-top-hover) 0%, var(--rk-solid-bottom-hover) 100%);
   border-color: var(--rk-solid-top-hover);
   color: var(--rk-solid-ink);
   transform: translateY(var(--rk-lift));
 }
-html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .home-entry__button):active:not(:disabled) { transform: none; }
-html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry__button, .settings-primary, .export-primary):disabled {
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export):active:not(:disabled) { transform: none; }
+html.workspace-glass :is(.editor-primary, .media-import, .qe-start, .ge-export, .ot-deploy-go, .ge-en-go, .settings-primary, .export-primary):disabled {
   background: color-mix(in srgb, var(--rk-ink) 6%, transparent);
   border-color: var(--rk-line-strong);
   color: var(--rk-faint);
@@ -370,17 +370,14 @@ html.workspace-glass :is(input[type=range], input[type=checkbox], input[type=rad
 html.workspace-glass option { background: var(--rk-surface); color: var(--rk-ink); }
 
 /* ---------- 5. home ---------- */
-html.workspace-glass .home { --home-entry-line: var(--rk-line-strong); }
 html.workspace-glass .home-entry {
   gap: 24px;
   padding: clamp(22px, 2.3vw, 32px);
-  border: 1px solid var(--rk-line-strong);
+  border: 1px solid var(--home-entry-line);
   border-radius: var(--rk-r-5);
-  background: var(--rk-plate);
+  background: var(--home-entry-bg);
   box-shadow: inset 0 1px 0 #ffffff08, var(--rk-shadow-1);
 }
-html.workspace-glass .home-entry[data-kind=general] { box-shadow: inset 0 1px 0 #ffffff08, var(--rk-shadow-1); }
-html.workspace-glass .home-entry:hover { border-color: var(--rk-rim); }
 html.workspace-glass .home-entry__eyebrow {
   gap: 7px;
   font-size: var(--rk-fs-1);
@@ -405,23 +402,27 @@ html.workspace-glass .home-entry__button {
   font-size: var(--rk-fs-3);
   font-weight: 600;
 }
-/* two of the three entrances are alternates: hairline + text, no second block of colour */
-html.workspace-glass :is(.home-entry[data-kind=koubo], .home-entry[data-kind=publish]) .home-entry__button {
-  border: 1px solid var(--rk-line-strong);
-  background: transparent;
-  color: var(--rk-ink);
+/* all three entrances speak the same way: a quiet tint of their own accent, never a filled block */
+html.workspace-glass .home-entry__button {
+  border: 1px solid color-mix(in srgb, var(--home-accent) 36%, transparent);
+  background: color-mix(in srgb, var(--home-accent) 14%, transparent);
+  color: var(--home-accent);
   box-shadow: none;
 }
-html.workspace-glass :is(.home-entry[data-kind=koubo], .home-entry[data-kind=publish]) .home-entry__button:hover {
-  border-color: var(--rk-rim);
-  background: color-mix(in srgb, var(--rk-ink) 7%, transparent);
-  color: var(--rk-ink);
+html.workspace-glass .home-entry__button:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--home-accent) 60%, transparent);
+  background: color-mix(in srgb, var(--home-accent) 22%, transparent);
+  color: var(--home-accent);
   transform: none;
+}
+html.workspace-glass .home-entry__button:disabled {
+  border-color: var(--rk-line-strong);
+  background: none;
+  color: var(--rk-faint);
 }
 html.workspace-glass .home-entry__status { font-size: var(--rk-fs-2); color: var(--rk-muted); }
 html.workspace-glass :is(.home-media, .home-thumb) { border-radius: var(--rk-r-5); background: var(--rk-media); }
 html.workspace-glass :is(.home-media, .home-thumb)::after { box-shadow: inset 0 0 0 1px var(--rk-line-strong); }
-html.workspace-glass .home-media__brand img { filter: drop-shadow(0 8px 22px #00000073) drop-shadow(0 0 16px color-mix(in srgb, var(--ruok-bronze-300) 20%, transparent)); }
 html.workspace-glass .home-section__head h2 { font-size: var(--rk-fs-7); line-height: var(--rk-lh-1); font-weight: 600; letter-spacing: var(--rk-track-1); }
 html.workspace-glass .home-tools { font-size: var(--rk-fs-2); color: var(--rk-muted); }
 html.workspace-glass .home-filter button { height: 28px; padding: 0 9px; border: 1px solid transparent; border-radius: var(--rk-r-3); background: none; color: var(--rk-muted); }
@@ -963,7 +964,7 @@ html.workspace-glass :is(button, a, input, select, textarea, [role=button], .hom
    bronze is deepened so a filled block stays dark enough for the archive's text ink. */
 html.workspace-glass.workspace-glass
   :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, [role=dialog], .studio-dialog)
-  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry[data-kind=general] .home-entry__button) {
+  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go) {
   border: 1px solid color-mix(in srgb, var(--rk-solid-top) 70%, transparent);
   border-radius: var(--rk-r-4);
   background: linear-gradient(180deg, var(--rk-solid-top) 0%, var(--rk-solid-bottom) 100%);
@@ -973,7 +974,7 @@ html.workspace-glass.workspace-glass
 }
 html.workspace-glass.workspace-glass
   :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, [role=dialog], .studio-dialog)
-  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry[data-kind=general] .home-entry__button):hover:not(:disabled) {
+  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go):hover:not(:disabled) {
   border-color: var(--rk-solid-top-hover);
   background: linear-gradient(180deg, var(--rk-solid-top-hover) 0%, var(--rk-solid-bottom-hover) 100%);
   color: var(--rk-solid-ink);
@@ -981,7 +982,7 @@ html.workspace-glass.workspace-glass
 }
 html.workspace-glass.workspace-glass
   :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, [role=dialog], .studio-dialog)
-  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry[data-kind=general] .home-entry__button):disabled {
+  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go):disabled {
   border-color: var(--rk-line-strong);
   background: color-mix(in srgb, var(--rk-ink) 6%, transparent);
   color: var(--rk-faint);
@@ -1038,38 +1039,30 @@ html.workspace-glass[data-ui-theme=warm] .workspace-nav {
 html.workspace-glass[data-ui-theme=warm] .workspace-switch > nav,
 html.workspace-glass[data-ui-theme=warm] .ui-theme-switch { background: #e0e0e0; border-color: #2323231a; box-shadow: 0 12px 34px -18px #23232338; }
 
-/* 20.2b the shot itself is graded into the same two hues as the chrome: an ochre room never
-   shows a teal studio. Grading sits on the sources so the beam keeps its own light. */
-html.workspace-glass[data-ui-theme=original] .home > .login-backdrop-video :is(canvas, .login-backdrop-video__still) {
-  filter: grayscale(.5) sepia(.45) saturate(.85) brightness(.52) contrast(1.08);
-}
-
-/* 20.2c the beam: light enters from outside the top-left corner and rakes across the shot.
-   It lives inside the backdrop layer, so it lights the picture and the engraved mark behind the
-   content instead of washing the whole page. Two passes: a wide haze and a narrow core, both
-   fading out as they travel. The mark is part of that picture, so the beam crossing it is what
-   makes it read as lit rather than pasted onto the background.
-   Light is screen-blended inside the backdrop's own stacking context; content above is untouched. */
-html.workspace-glass[data-ui-theme=original] .home > .login-backdrop-video::after {
+/* 20.2b the ground is drawn, not photographed (workspace-home.css): near-black with two very low glows.
+   What the dark room keeps from the old backdrop is one slow rake of light, far above the ground so it
+   reads as air instead of a lamp. Screen-blended inside the ground's own layer; content above is untouched. */
+html.workspace-glass[data-ui-theme=original] .home > .home-ambient::before {
   content: "";
   position: absolute;
   inset: -30% -12%;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
+  opacity: .5;
   background:
     linear-gradient(38deg,
       transparent 24%,
-      color-mix(in srgb, var(--ruok-bronze-200) 5%, transparent) 37%,
-      color-mix(in srgb, var(--ruok-bronze-200) 12%, transparent) 44%,
-      color-mix(in srgb, #fff6dd 32%, transparent) 47.6%,
-      color-mix(in srgb, #fff1cd 22%, transparent) 50.4%,
-      color-mix(in srgb, var(--ruok-bronze-200) 10%, transparent) 56%,
+      color-mix(in srgb, var(--ruok-bronze-200) 4%, transparent) 37%,
+      color-mix(in srgb, var(--ruok-bronze-200) 9%, transparent) 44%,
+      color-mix(in srgb, #fff6dd 18%, transparent) 47.6%,
+      color-mix(in srgb, #fff1cd 12%, transparent) 50.4%,
+      color-mix(in srgb, var(--ruok-bronze-200) 7%, transparent) 56%,
       transparent 68%),
     linear-gradient(30deg,
       transparent 14%,
-      color-mix(in srgb, #ffffff 4%, transparent) 34%,
-      color-mix(in srgb, #f7efdf 9%, transparent) 47%,
-      color-mix(in srgb, #ffffff 3%, transparent) 58%,
+      color-mix(in srgb, #ffffff 3%, transparent) 34%,
+      color-mix(in srgb, #f7efdf 6%, transparent) 47%,
+      color-mix(in srgb, #ffffff 2%, transparent) 58%,
       transparent 78%);
   mix-blend-mode: screen;
   -webkit-mask-image: radial-gradient(165% 130% at 2% -12%, #000 0%, #000000c4 34%, #0000004d 58%, transparent 78%);
@@ -1077,25 +1070,12 @@ html.workspace-glass[data-ui-theme=original] .home > .login-backdrop-video::afte
   animation: rk-beam-rake 34s cubic-bezier(.45, 0, .55, 1) infinite alternate;
   will-change: transform, opacity;
 }
-/* the pool of light where the beam lands on the mark: a soft acceptance on its upper body */
-html.workspace-glass[data-ui-theme=original] .home > .login-backdrop-video::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(38% 34% at 76% 40%, color-mix(in srgb, var(--ruok-bronze-200) 16%, transparent) 0%, transparent 72%),
-    radial-gradient(22% 20% at 74% 34%, color-mix(in srgb, #fff2d2 12%, transparent) 0%, transparent 70%);
-  mix-blend-mode: screen;
-  opacity: .9;
-}
 @keyframes rk-beam-rake {
-  from { transform: translate3d(-1.6%, -1.2%, 0); opacity: .72; }
-  to { transform: translate3d(2.4%, 1.6%, 0); opacity: 1; }
+  from { transform: translate3d(-1.6%, -1.2%, 0); opacity: .46; }
+  to { transform: translate3d(2.4%, 1.6%, 0); opacity: .58; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html.workspace-glass[data-ui-theme=original] .home > .login-backdrop-video::after { animation: none; }
+  html.workspace-glass[data-ui-theme=original] .home > .home-ambient::before { animation: none; }
 }
 
 /* 20.3 focus: double ring, visible on both grounds, not hue-dependent */
@@ -1109,7 +1089,7 @@ html.workspace-glass :where(button, a, input, select, textarea, [role=button]):f
    stroke instead of a painted line. Two shadows carry the glow: a thin inner catch and a wide,
    very low halo. Hover states below still win, so a lit plate keeps its stronger rim. */
 html.workspace-glass[data-ui-theme=original] :is(
-  .workspace-nav, .studio-projects__header, .home-entry, .home-module, .home-intake__panel,
+  .workspace-nav, .studio-projects__header, .home-module, .home-intake__panel,
   .workspace-module-card, .workspace-project-list article, .workspace-project-list .workspace-project-card,
   .sl-card, .sl-thumb, .media-panel, .inspector-panel, .preset-panel, .editor-header,
   .preview-controls, .timeline-toolbar, .project-card, .project-row,
@@ -1124,8 +1104,9 @@ html.workspace-glass[data-ui-theme=original] :is(
     0 0 22px -12px color-mix(in srgb, var(--ruok-bronze-300) 30%, transparent);
 }
 
-/* 20.4 the lit plate: only the plate under the pointer (or the current selection) catches light */
-html.workspace-glass[data-ui-theme=original] :is(.home-entry:hover, .home-entry:focus-within, .home-module:hover, .workspace-module-card:hover, .home-intake__panel:focus-within) {
+/* 20.4 the lit plate: only the plate under the pointer (or the current selection) catches light.
+   The home entrances keep their own accent hairline instead: three gold-rimmed plates on one screen read as three lights. */
+html.workspace-glass[data-ui-theme=original] :is(.home-module:hover, .workspace-module-card:hover, .home-intake__panel:focus-within) {
   border-color: var(--rk-lit-rim);
   box-shadow:
     inset 0 1px 0 #ffffff16,
@@ -1133,14 +1114,14 @@ html.workspace-glass[data-ui-theme=original] :is(.home-entry:hover, .home-entry:
     0 22px 48px -30px #000000,
     var(--rk-glow-soft);
 }
-html.workspace-glass[data-ui-theme=original] :is(.home-entry, .home-module, .workspace-module-card) {
+html.workspace-glass[data-ui-theme=original] :is(.home-module, .workspace-module-card) {
   background-image: var(--rk-lit-sheen);
 }
-html.workspace-glass[data-ui-theme=original] :is(.home-entry[data-kind=general], .sl-card[data-picked] .sl-thumb, .timeline-clip.selected) {
+html.workspace-glass[data-ui-theme=original] :is(.sl-card[data-picked] .sl-thumb, .timeline-clip.selected) {
   border-color: var(--rk-lit-rim);
   box-shadow: inset 0 1px 0 #ffffff14, 0 18px 40px -28px #000000, var(--rk-glow-soft);
 }
-html.workspace-glass[data-ui-theme=warm] :is(.home-entry:hover, .home-entry:focus-within, .home-module:hover, .workspace-module-card:hover) {
+html.workspace-glass[data-ui-theme=warm] :is(.home-module:hover, .workspace-module-card:hover) {
   border-color: var(--rk-lit-rim);
   box-shadow: inset 0 1px 0 #ffffff, 0 2px 6px #23232310, 0 26px 54px -32px #23232333;
 }
@@ -1148,7 +1129,7 @@ html.workspace-glass[data-ui-theme=warm] :is(.home-entry:hover, .home-entry:focu
 /* 20.5 the one solid action: a warm halo in the dark, matte paper in the light */
 html.workspace-glass.workspace-glass[data-ui-theme=original]
   :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, [role=dialog], .studio-dialog)
-  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry[data-kind=general] .home-entry__button) {
+  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go) {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, #ffffff 30%, transparent),
     0 0 0 1px color-mix(in srgb, var(--ruok-bronze-300) 16%, transparent),
@@ -1157,7 +1138,7 @@ html.workspace-glass.workspace-glass[data-ui-theme=original]
 }
 html.workspace-glass.workspace-glass[data-ui-theme=warm]
   :is(.home, .workspace-dashboard, .workspace-nav, .studio-editor, .studio-projects, .style-library, .ge, .system-settings, [role=dialog], .studio-dialog)
-  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go, .home-entry[data-kind=general] .home-entry__button) {
+  :is(button, a):is(.editor-primary, .media-import, .qe-start, .settings-primary, .export-primary, .ge-export, .ot-deploy-go, .ge-en-go) {
   box-shadow: inset 0 1px 0 #ffffff2b, 0 8px 18px -12px #5f482366;
 }
 
@@ -1187,25 +1168,17 @@ html.workspace-glass[data-ui-theme=warm] :is(.home, .home-soon) {
   --home-entry-bg: linear-gradient(168deg, #ffffff 0%, #e0e0e0 58%, #e3e3e3 100%);
   --home-entry-line: #2323231f;
   --home-media: linear-gradient(170deg, #e7e7e7 0%, #e3e3e3 60%, #dbdbdb 100%);
-  --home-koubo: var(--rk-accent);
-  --home-koubo-ink: var(--rk-accent-ink);
-  --home-general: var(--rk-accent);
-  --home-general-ink: var(--rk-accent-ink);
-}
-html.workspace-glass[data-ui-theme=warm] .home-media__brand img {
-  opacity: .62;
-  filter: drop-shadow(0 6px 14px #23232333);
-}
-/* the studio shot stays a watermark on the stone, not a grey veil over it */
-html.workspace-glass[data-ui-theme=warm] .home > .login-backdrop-video {
-  filter: opacity(.14) grayscale(.72) brightness(1.2);
+  --home-koubo: #8a6428;
+  --home-koubo-ink: #fbf7ee;
+  --home-general: #4c705f;
+  --home-general-ink: #f7fbf8;
+  --home-publish: #95583c;
+  --home-publish-ink: #fdf7f3;
+  --home-line-art: #23232342;
 }
 html.workspace-glass[data-ui-theme=warm] :is(.home-media, .home-thumb)::after {
   background: linear-gradient(180deg, #ffffff00 52%, #23232312), #ffffff14;
   box-shadow: inset 0 0 0 1px #2323231f;
-}
-html.workspace-glass[data-ui-theme=warm] .home-media__brand {
-  background: radial-gradient(120% 120% at 50% 38%, #e7e7e7 0%, #dedede 74%);
 }
 html.workspace-glass[data-ui-theme=warm] :is(.media-panel, .inspector-panel, .preset-panel) {
   --studio-ink: #232323;
@@ -1309,18 +1282,6 @@ html.workspace-glass[data-ui-theme=umbra] {
   --rk-glow-warm: none;
   --rk-focus-ring: 0 0 0 2px #57524c, 0 0 0 4px var(--ruok-accent);
 }
-/* the studio shot is a dark room take; on the mid ground it is veiled back to the stone so the corners do not go black */
-html.workspace-glass[data-ui-theme=umbra] .home > .login-backdrop-video::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, #57524ca3, #57524cc2 58%, #57524ce0);
-}
-html.workspace-glass[data-ui-theme=umbra] .home-media__brand {
-  background: radial-gradient(120% 120% at 50% 38%, #6b645c 0%, #4c4842 74%);
-}
-html.workspace-glass[data-ui-theme=umbra] .home-media__brand img { filter: drop-shadow(0 8px 22px #2f2b2759) drop-shadow(0 0 16px color-mix(in srgb, var(--ruok-accent) 18%, transparent)); }
 html.workspace-glass[data-ui-theme=umbra] .ot-deploy-strip { background: var(--rk-surface); color: var(--ruok-ink); }
 html.workspace-glass[data-ui-theme=umbra] .ge-en-choose-agent { background: #625c55; color: #f2ece2; border-color: #f2ece22e; }
 html.workspace-glass[data-ui-theme=umbra] .home-thumb { background: #5b564f; }
