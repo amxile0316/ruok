@@ -50,11 +50,17 @@ export type GeneralRun = {
   rounds?: { round: number; steps: GeneralStep[] }[];
 };
 
+/** 审片意见的一条：第几秒（整体问题为 null）、什么问题、怎么改。 */
+export type GeneralReviewIssue = { time: number | null; problem: string; fix: string };
+/** 审片角色对一版成片的结论。没有这一项 = 这一版没跑成审片（不阻塞出片）。 */
+export type GeneralVersionReview = { pass: boolean; summary: string; issues: GeneralReviewIssue[] };
 export type GeneralVersion = {
   n: number; createdAt: string; duration: number; videoUrl: string; posterUrl: string;
   segments: GeneralSegment[]; note?: string;
   /** a layered film (film.json version 2): versions/vN/layers.json, the tracks the page edits */
   layersUrl?: string;
+  /** 审片角色看过这一版之后的意见，显示在版本卡下面 */
+  review?: GeneralVersionReview;
 };
 /**
  * A layered version's tracks, in the 口播 editor's timeline shape (src/types/editor.ts), plus what the timeline itself

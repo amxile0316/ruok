@@ -221,6 +221,8 @@ export default function GeneralProject() {
       // the tags in the sentence go out as words the agent reads where they stand
       void act('send', () => generalApi.send(project.id, expandTokens(text, project.inputs.media), reference?.reference), () => { setDraft(''); setReference(undefined) })
     },
+    // 审片意见走普通的改片请求：生成下一版，人手动改过的地方由服务端带过去
+    revise: text => void act('revise', () => generalApi.send(project.id, text)),
   }
   const prefill = (segment: GeneralSegment, index: number) => {
     const next = applyPrefill(draft, redoPrefill(segment, index))

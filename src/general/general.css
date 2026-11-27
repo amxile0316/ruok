@@ -286,6 +286,21 @@ html[data-ui-theme=warm] .ge-play { background:#232323;color:#e5e5e5; }
 .ge-vcard b { display:block;font-size:13px;font-weight:650;color:var(--ge-ink); }
 .ge-vcard span { font-size:12px;color:var(--ge-muted); }
 .ge-vcard em { margin-left:auto;margin-right:6px;font-style:normal;font-size:11.5px;color:var(--ge-faint);white-space:nowrap; }
+/* 审片意见：跟在版本卡下面，逐条列位置和改法；过了审的用虚线边，没过审的标题偏警示色 */
+.ge-review { margin-top:-4px;padding:10px 12px;border-radius:10px;border:1px solid var(--ge-line);background:var(--ge-chip);animation:ge-pop .35s var(--ge-ease) both; }
+.ge-review[data-pass] { border-style:dashed; }
+.ge-review header { display:flex;align-items:baseline;gap:8px; }
+.ge-review header b { font-size:12.5px;font-weight:650;color:var(--ge-ink); }
+.ge-review header span { margin-left:auto;font-size:11.5px;color:var(--ge-muted);white-space:nowrap; }
+.ge-review:not([data-pass]) header span { color:var(--ruok-warning); }
+.ge-review > p { margin:3px 0 0;font-size:12px;line-height:1.6;color:var(--ge-muted); }
+.ge-review ol { margin:7px 0 0;padding:0;list-style:none;display:grid;gap:6px; }
+.ge-review li { display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;font-size:12px;line-height:1.6;color:var(--ge-ink2); }
+.ge-review li small { align-self:start;padding:1px 6px;border-radius:999px;border:1px solid var(--ge-line2);color:var(--ge-muted);font-size:11px;line-height:1.5;white-space:nowrap; }
+.ge-review li em { display:block;font-style:normal;color:var(--ge-muted); }
+.ge-review .row { display:flex;align-items:center;gap:8px;margin-top:9px; }
+.ge-review .row small { flex:1;min-width:0;font-size:11.5px;line-height:1.5;color:var(--ge-faint); }
+.ge-review .row .ge-soft { flex:none;height:28px; }
 .ge-comp { flex:none;padding:10px 14px 14px;transition:opacity var(--rk-dur-3); }
 .ge-box { border:1px solid var(--ge-line2);border-radius:14px;background:var(--ge-field);padding:10px 10px 8px 12px;transition:border-color var(--rk-dur-1); }
 .ge-box:focus-within { border-color:color-mix(in srgb,var(--ge-ink) 30%,transparent); }

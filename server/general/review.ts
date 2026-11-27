@@ -23,7 +23,7 @@ export const REVIEW_SCHEMA = {
     pass: { type: 'boolean', description: 'true = 可以交给用户；false = 有必须改的问题' },
     summary: { type: 'string', description: '一两句中文结论' },
     issues: {
-      type: 'array', description: '要改的条目，最要紧的在前，最多 6 条；通过时可以为空',
+      type: 'array', description: '要改的条目，最要紧的在前，最多 5 条；通过时可以为空',
       items: { type: 'object', additionalProperties: false, required: ['time', 'problem', 'fix'], properties: {
         time: { type: ['number', 'null'], description: '问题出现在第几秒，整体问题为 null' },
         problem: { type: 'string' }, fix: { type: 'string', description: '具体怎么改' },
@@ -114,7 +114,7 @@ export function parseVerdict(text: string): Verdict {
   if (start < 0 || end <= start) throw new Error('审片结论不是 JSON');
   const raw = JSON.parse(text.slice(start, end + 1)) as Record<string, unknown>;
   if (typeof raw.pass !== 'boolean') throw new Error('审片结论缺少 pass');
-  const issues = Array.isArray(raw.issues) ? raw.issues.slice(0, 8).map(i => {
+  const issues = Array.isArray(raw.issues) ? raw.issues.slice(0, 5).map(i => {
     const item = (i || {}) as Record<string, unknown>;
     const time = typeof item.time === 'number' && Number.isFinite(item.time) ? item.time : null;
     return { time, problem: String(item.problem || '').trim(), fix: String(item.fix || '').trim() };

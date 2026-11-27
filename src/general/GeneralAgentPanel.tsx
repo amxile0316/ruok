@@ -9,7 +9,7 @@ import { connectionDefinition } from '@/studio/connections'
 import { AgentMark } from '@/studio/components/AgentMark'
 import { UNIFIED_AGENTS } from './platform'
 import {
-  clockTime, elapsedLabel, feedItems, networkCopy, revisionNote, runActive, runStatus, secondsLabel, stepRows, stepsSummary, versionCardTime, versionName,
+  clockTime, elapsedLabel, feedItems, networkCopy, reviewRequest, revisionNote, runActive, runStatus, secondsLabel, stepRows, stepsSummary, versionCardTime, versionName,
   type FeedItem, type StepRow,
 } from './general-logic'
 import { AgentText, CodexMark, Spinner, StopGlyph, TodoDot } from './GeneralBits'
@@ -18,6 +18,8 @@ import type { StageReference } from './GeneralStage'
 
 export type AgentActions = {
   stop: () => void; resume: () => void; switchAgent: (choice: GeneralAgentChoice) => void; generate: () => void; network: (allow: boolean) => void; send: () => void
+  /** 按审片意见改：把意见当成一次改片请求（新版本，人手动改的地方照旧保留） */
+  revise: (text: string) => void
   /** the project's model and effort (undefined: 系统默认) and its 联网 switch, used from the next turn on */
   setAgent: (choice: GeneralAgentChoice | undefined) => void; setNetwork: (on: boolean) => void
 }
@@ -113,13 +115,44 @@ function VersionCard({ version, shown, onPick }: { version: GeneralVersion; show
   </button>
 }
 
+/**
+ * 审片角色给这一版的意见：逐条列出第几秒、什么问题、怎么改。
+ * 「按建议改」把意见当成一次改片请求发出去（新版本）；「先这样」只收起这一版的面板。
+ * 撤销不用另做：新版本出来以后，版本菜单里随时能切回这一版。
+ */
+function ReviewCard({ version, busy, onRevise }: { version: GeneralVersion; busy: string; onRevise: (text: string) => void }) {
+  const review = version.review
+  const [dismissed, setDismissed] = useState(false)
+  const [sent, setSent] = useState(false)
+  if (!review?.issues.length || dismissed) return null
+  return <section className="ge-review" data-pass={review.pass || undefined} aria-label={`第 ${version.n} 版审片意见`}>
+    <header><b>审片意见</b><span>{review.pass ? '可以交，也能再改改' : '这条没过审'}</span></header>
+    {review.summary && <p>{review.summary}</p>}
+    <ol>{review.issues.map((item, index) => <li key={index}>
+      <small>{item.time !== null ? `${item.time} 秒` : '全片'}</small>
+      <span>{item.problem}{item.fix && <em>改法：{item.fix}</em>}</span>
+    </li>)}</ol>
+    <div className="row">
+      {sent
+        ? <small>已发出去，改完会多一版；想留这一版就在版本里切回 {versionName(version.n)}</small>
+        : <>
+          <button type="button" className="ge-soft" onClick={() => setDismissed(true)}>先这样</button>
+          <button type="button" className="ge-soft" data-solid disabled={!!busy} onClick={() => { onRevise(reviewRequest(review.issues)); setSent(true) }}>按建议改</button>
+        </>}
+    </div>
+  </section>
+}
+
 function FeedRow({ item, project, shown, busy, actions, onPick }: {
   item: FeedItem; project: GeneralProject; shown?: number; busy: string; actions: AgentActions; onPick: (n: number) => void
 }) {
   switch (item.type) {
     case 'brief': return <div className="ge-you">{item.text}</div>
     case 'run': return <RunBlock run={item.run} project={project} busy={busy} actions={actions} />
-    case 'version': return <VersionCard version={item.version} shown={item.version.n === shown} onPick={onPick} />
+    case 'version': return <>
+      <VersionCard version={item.version} shown={item.version.n === shown} onPick={onPick} />
+      {item.version.review && <ReviewCard version={item.version} busy={busy} onRevise={actions.revise} />}
+    </>
     case 'message': {
       const { message } = item
       if (message.role === 'person') return <div className="ge-you">

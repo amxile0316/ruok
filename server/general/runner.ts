@@ -9,14 +9,15 @@ import {renameWithRetrySync,removeWithRetrySync} from '../file-ops.ts';
 import {atomicJsonSync} from '../file-ops.ts';
 import {copyTreeSync} from '../copy-tree.ts';
 /**
- * 通用剪辑的一次运行：一轮做片（读需求、设计、写、自己看一遍、渲染）→ OpenTake 机检（不过才改一轮）→ 交付第 N 版。
- * 由 Agent 自己看接触表；另开一个 Codex 看图审片（agentReview）默认关掉，它又慢又费 token。
+ * 通用剪辑的一次运行：一轮做片（读需求、设计、写、自己看一遍、渲染）→ 审片（机检 + 一个审片角色看图，给出 3–5 条意见）→ 交付第 N 版。
+ * 审片角色（agentReview）每版只多一次调用：意见跟着版本走，显示给用户，改不改由用户点「按建议改」决定。
+ * 只有机检不过（画幅、时长、没音轨、黑场）才自动返工一轮；审片本身失败不阻塞出片。
  * - 每一轮是一次 `codex exec`（第一轮新开会话，之后用 `exec resume` 续接同一个会话）。
  * - 停止：结束 Codex 和它启动的进程，文件都留着；接着做：续接同一个会话把停下的那一轮做完。
  * - 插话：codex exec 没有中途插话的接口（app-server 有 turn/steer，但 app-server 不能忽略用户配置，见交回说明），
  *   所以运行中收到的话先排队，下一轮开始时一起发给它；最后一轮之后才到的话，交付后自动开一轮修改。
  * - 联网：Agent 写 network-request.json 并结束这一轮 → 页面问用户 → 允许后下一轮打开沙盒网络。
- * 内部状态（会话号、待做的下一步、排队的话）放在 agent/session.json，不进 GeneralProject。
+ * 内部状态（会话号、待做的下一步、排队的话、这一版的审片结论）放在 agent/session.json，不进 GeneralProject。
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -59,7 +60,7 @@ export type GeneralRuntime = {
   maxTurns: number;
   /** Only model-busy failures get one automatic retry; injectable delay keeps fake-process tests fast. */
   busyRetryDelayMs: number;
-  /** a second Codex looks at the frames and judges the cut (off: the agent's own look plus OpenTake's machine checks) */
+  /** 审片角色：每版成片抽帧看图给 3–5 条意见（一次调用，不阻塞出片） */
   agentReview: boolean;
   renderFilm: typeof renderHyperframes;
 };
@@ -89,7 +90,7 @@ let runtime: GeneralRuntime = {
   baseEnv: () => installations.sanitizeAgentEnv(installations.loginEnvironment()),
   maxTurns: 6,
   busyRetryDelayMs: 3000,
-  agentReview: false,
+  agentReview: true,
   renderFilm: renderHyperframes,
 };
 export function setGeneralRuntime(patch: Partial<GeneralRuntime>) { runtime = { ...runtime, ...patch }; }
@@ -118,6 +119,8 @@ export type Session = {
   polished: boolean;
   extraTurns: number;
   review?: string;
+  /** 这一轮成片的审片结论；交付时挂到版本上，给用户看也可点「按建议改」 */
+  verdict?: Verdict;
   networkAllowed: boolean;
   networkAnswer?: { allowed: boolean; hosts: string[] };
   queue: (QueuedNote & { id: string })[];
@@ -200,7 +203,7 @@ export function startFirst(id: string, options: { request?: boolean; tools?: Cre
     renameWithRetrySync(work, path.join(dir, 'agent', `work-${Date.now()}`));
   }
   fs.mkdirSync(work, { recursive: true });
-  editSession(dir, s => Object.assign(s, { threadId: undefined, pending: 'make', resumed: false, reviewRounds: 0, polished: false, extraTurns: 0, review: undefined, pageFailure: undefined, pageRepairAttempted: false, networkAllowed: false, networkAnswer: undefined, revision: undefined }));
+  editSession(dir, s => Object.assign(s, { threadId: undefined, pending: 'make', resumed: false, reviewRounds: 0, polished: false, extraTurns: 0, review: undefined, verdict: undefined, pageFailure: undefined, pageRepairAttempted: false, networkAllowed: false, networkAnswer: undefined, revision: undefined }));
   const out = updateGeneral(id, p => {
     if (options.request) p.messages.push(message('person', requestText(p)));
     p.run = newRun('first', p); p.run.queued = readSession(dir).queue.length;
@@ -365,7 +368,7 @@ export function postMessage(id: string, body: { text?: unknown; reference?: unkn
   const current = project.current ?? project.versions.at(-1)?.n;
   if (standardEdition ? current !== undefined : !!current) {
     ensureRevisionWork(dir, current!);
-    editSession(dir, s => Object.assign(s, { pending: 'revise', resumed: false, reviewRounds: 0, polished: false, extraTurns: 0, review: undefined, pageFailure: undefined, pageRepairAttempted: false, networkAnswer: undefined, revision: { version: current, text, reference: note.reference } }));
+    editSession(dir, s => Object.assign(s, { pending: 'revise', resumed: false, reviewRounds: 0, polished: false, extraTurns: 0, review: undefined, verdict: undefined, pageFailure: undefined, pageRepairAttempted: false, networkAnswer: undefined, revision: { version: current, text, reference: note.reference } }));
     const out = updateGeneral(id, p => { p.messages.push(msg); p.run = { ...newRun('revision', p), queued: readSession(dir).queue.length }; });
     void drive(id);
     return out;
@@ -433,8 +436,8 @@ async function drive(id: string) {
       if (!step) { patchRun(id, r => { r.state = 'done'; r.endedAt = now(); }); return; }
       if (step === 'review') {
         if (session.queue.length && session.extraTurns < 2) { editSession(dir, s => { s.pending = 'polish'; s.extraTurns++; s.review = undefined; }); continue; }
-        let verdict: Verdict | undefined;
-        try { verdict = await review(id, dir, runId); }
+        let outcome: { verdict: Verdict; repair: boolean } | undefined;
+        try { outcome = await review(id, dir, runId); }
         catch (error) {
           if (!(error instanceof PageExecutionError) || entry.stopRun === runId || session.pageRepairAttempted) throw error;
           preservePageFailure(dir, runId, error);
@@ -444,8 +447,9 @@ async function drive(id: string) {
         }
         if (entry.stopRun === runId) { finishStopped(id, runId); return; }
         const s = readSession(dir);
-        // one more round only when the cut failed; no forced polish, to avoid unnecessary time and model usage
-        if (verdict && !verdict.pass && !s.polished) editSession(dir, x => Object.assign(x, { pending: 'polish', polished: true, review: verdictText(verdict) }));
+        // 机检不过（画幅、时长、没音轨、黑场）是硬错，自动返工一轮；
+        // 看图审片的意见交给用户决定：点「按建议改」才开下一版，不替他多跑一轮
+        if (outcome?.repair && !s.polished) editSession(dir, x => Object.assign(x, { pending: 'polish', polished: true, review: verdictText(outcome.verdict) }));
         else editSession(dir, x => { x.pending = 'deliver'; });
         continue;
       }
@@ -457,7 +461,7 @@ async function drive(id: string) {
           // words that arrived after the last turn: they become the next version
           const text = left.map(n => n.text).join('\n');
           const current = findGeneral(id).project.current!;
-          editSession(dir, s => Object.assign(s, { queue: [], filmMessage: undefined, pending: 'revise', resumed: false, reviewRounds: 0, polished: false, extraTurns: 0, review: undefined, pageFailure: undefined, pageRepairAttempted: false, revision: { version: current, text, reference: left.find(n => n.reference)?.reference } }));
+          editSession(dir, s => Object.assign(s, { queue: [], filmMessage: undefined, pending: 'revise', resumed: false, reviewRounds: 0, polished: false, extraTurns: 0, review: undefined, verdict: undefined, pageFailure: undefined, pageRepairAttempted: false, revision: { version: current, text, reference: left.find(n => n.reference)?.reference } }));
           updateGeneral(id, p => { p.run = newRun('revision', p); });
           continue;
         }
@@ -719,7 +723,7 @@ function readNetworkRequest(work: string, dir: string): GeneralRun['networkReque
   } catch { return undefined; }
 }
 
-async function review(id: string, dir: string, runId: string): Promise<Verdict | undefined> {
+async function review(id: string, dir: string, runId: string): Promise<{ verdict: Verdict; repair: boolean } | undefined> {
   const entry = live.get(id)!;
   const stopped = () => entry.stopRun === runId;
   const session = editSession(dir, s => { s.reviewRounds++; });
@@ -751,8 +755,9 @@ async function review(id: string, dir: string, runId: string): Promise<Verdict |
   if (!runtime.agentReview || filmAgentId(project.agent ?? readAgentSettings().modules.generalEditing)!=='codex') {
     const failed = checks.filter(c => !c.ok);
     verdict = { pass: !failed.length, summary: failed.length ? '成片没过机检' : '机检通过', issues: failed.map(c => ({ time: null, problem: c.text, fix: '' })) };
+    editSession(dir, s => { s.verdict = verdict; });
     patchRun(id, r => { r.steps = setStep(r.steps, 'review', { state: 'done', endedAt: now(), detail: verdict!.pass ? '机检通过' : `机检要改：${failed.map(c => c.text).join('；')}`.slice(0, 600) }); });
-    return verdict;
+    return { verdict, repair: !verdict.pass };
   }
   try {
     const codex = await runtime.resolveCodex(project.agent);
@@ -778,6 +783,7 @@ async function review(id: string, dir: string, runId: string): Promise<Verdict |
     if (stopped()) throw new Error('已停止');
     if (result.code !== 0) throw new Error(stderrTail(result.stderr) || `退出码 ${result.code}`);
     verdict = parseVerdict(fs.readFileSync(lastFile, 'utf8'));
+    editSession(dir, s => { s.verdict = verdict; });
     fs.writeFileSync(path.join(reviewDir, 'verdict.json'), JSON.stringify({ verdict, checks }, null, 2));
   } catch (error) { problem = error instanceof Error ? error.message : String(error); }
   if (stopped()) { editSession(dir, s => { s.reviewRounds = Math.max(0, s.reviewRounds - 1); }); return undefined; }
@@ -787,7 +793,7 @@ async function review(id: string, dir: string, runId: string): Promise<Verdict |
       ? { state: 'done', endedAt: now(), detail: `${round > 1 ? '复审' : '审片'}${verdict.pass ? '通过' : '要改'}：${verdictText(verdict)}`.slice(0, 1200) }
       : { state: 'failed', endedAt: now(), detail: `看图审片没有完成（${problem}）。${failedChecks.length ? `机检：${failedChecks.join('；')}` : '机检通过'}，先交付这一版`.slice(0, 600) });
   });
-  return verdict;
+  return verdict ? { verdict, repair: checks.some(check => !check.ok) } : undefined;
 }
 
 /** The person's edits of the version being revised, as lines for the agent (they stay; it should know the film as shown). */
@@ -837,15 +843,18 @@ async function deliver(id: string, dir: string) {
   else await exec(ffmpegPath(), ['-hide_banner', '-loglevel', 'error', '-y', '-ss', String(duration / 3), '-i', video, '-frames:v', '1', '-q:v', '2', poster]);
   const hfSegments = isHyperframesWork(work) ? (await hyperframesToLayers(work, '', project.inputs.media)).segments.map(s => ({ id: s.id, name: s.name, start: s.start, end: Math.min(duration, s.end) })) : undefined;
   const segments = filmSegments(work, duration) ?? hfSegments ?? project.plan?.segments ?? [{ name: project.plan?.title || '全片', start: 0, end: duration }];
-  const note = readSession(dir).filmMessage;
+  const session = readSession(dir);
+  const note = session.filmMessage;
+  // 这一版的审片结论：跟着版本走，前端据此显示意见并可「按建议改」；没有就不显示
+  const review = session.verdict;
   // a HyperFrames film: every element gets its id (kept in work/ for the next turns), so edits can find it
   if (isHyperframesWork(work)) stampHfWork(work);
   // a layered film keeps its tracks: a snapshot of work/ and layers.json, which the page edits
   const layers = await snapshotLayers(dir, n, project.inputs.media, video);
-  const carried = layers ? carryPersonEdits(dir, readSession(dir).revision?.version, n) : undefined;
+  const carried = layers ? carryPersonEdits(dir, session.revision?.version, n) : undefined;
   updateGeneral(id, (p, d) => {
     const stamp = Math.round(fs.statSync(video).mtimeMs);
-    p.versions.push({ n, createdAt: now(), duration, videoUrl: fileUrl(id, path.relative(d, video), stamp), posterUrl: fileUrl(id, path.relative(d, poster), stamp), segments, ...(note ? { note: note.slice(0, 600) } : {}), ...(layers ? { layersUrl: fileUrl(id, layers, stamp) } : {})});
+    p.versions.push({ n, createdAt: now(), duration, videoUrl: fileUrl(id, path.relative(d, video), stamp), posterUrl: fileUrl(id, path.relative(d, poster), stamp), segments, ...(note ? { note: note.slice(0, 600) } : {}), ...(layers ? { layersUrl: fileUrl(id, layers, stamp) } : {}), ...(review ? { review } : {})});
     p.current = n;
     p.messages.push(message('agent', note || `第 ${n} 版做好了。`, { version: n }));
     if (carried) p.messages.push(message('system', carried, { version: n }));

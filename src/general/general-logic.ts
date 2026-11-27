@@ -5,7 +5,7 @@
 import {
   GENERAL_STEP_IDS,
   type GeneralAspect, type GeneralInputKind, type GeneralLength, type GeneralMedia, type GeneralMessage, type GeneralPlan,
-  type GeneralProject, type GeneralProjectSummary, type GeneralRun, type GeneralRunState, type GeneralSegment, type GeneralSettings, type GeneralStep,
+  type GeneralProject, type GeneralProjectSummary, type GeneralReviewIssue, type GeneralRun, type GeneralRunState, type GeneralSegment, type GeneralSettings, type GeneralStep,
   type GeneralStepId, type GeneralVersion,
 } from './general-contract.ts'
 import { GENERAL_EDIT_PATH } from '../workspace/modules.ts'
@@ -448,8 +448,21 @@ export function briefLine(kind: GeneralInputKind, styleName: string, media: read
   return `用这 ${media.length} ${noun}做一条「${styleName}」，${settings.aspect}，${length}。`
 }
 
-// ---------- the conversation feed ----------
+// ---------- 审片 ----------
 
+/**
+ * 「按建议改」发出去的话：只带位置、问题和改法。走普通的改片请求（下一版），
+ * 所以人手动改过的地方照旧保留，想回退就在版本里切回去。
+ */
+export function reviewRequest(issues: readonly GeneralReviewIssue[]): string {
+  return [
+    '按审片意见改这几处：',
+    ...issues.slice(0, 5).map((item, index) => `${index + 1}. ${item.time !== null ? `第 ${item.time} 秒` : '全片'}：${item.problem}${item.fix ? `；改法：${item.fix}` : ''}`),
+    '只改上面点到的这几处，其他保持原样。',
+  ].join('\n')
+}
+
+// ---------- the conversation feed ----------
 export type FeedItem =
   | { type: 'brief'; key: string; text: string }
   | { type: 'message'; key: string; message: GeneralMessage; queued: boolean }

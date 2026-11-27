@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { initialSteps, classifyCommand, classifyFiles, applyCodexEvent, finishAgentSteps, beginRepair } from './general/events.ts';
-import { runStatus } from '../src/general/general-logic.ts';
+import { runStatus, reviewRequest } from '../src/general/general-logic.ts';
 import type { GeneralRun } from '../src/general/general-contract.ts';
 
 test('真实命令形态：写子页面优先于脚本里的 check；hfx 与即时 progress 不漏报', () => {
@@ -31,6 +31,18 @@ test('真实返工保留第一轮时间，第二轮带问题；状态文字可�
   assert.equal(run.rounds?.[0].round, 1);
   assert.equal(run.steps.find(s => s.id === 'code')?.state, 'running');
   assert.match(runStatus({ run, versions: [] }).text, /第 2 轮：修正 时长不对/);
+});
+test('审片意见转成改片请求：带位置和改法，最多五条，说明只改这些', () => {
+  const text = reviewRequest([
+    { time: 3.2, problem: '标题贴边', fix: '往里收 80 像素' },
+    { time: null, problem: '画面三秒不动', fix: '换一个构图' },
+    ...[1, 2, 3, 4, 5].map(n => ({ time: n, problem: `第 ${n} 处`, fix: '' })),
+  ]);
+  assert.match(text, /^按审片意见改这几处：/);
+  assert.match(text, /1\. 第 3\.2 秒：标题贴边；改法：往里收 80 像素/);
+  assert.match(text, /2\. 全片：画面三秒不动；改法：换一个构图/);
+  assert.equal(text.split('\n').filter(line => /^\d+\./.test(line)).length, 5);
+  assert.match(text, /只改上面点到的这几处/);
 });
 test('hfx plan 在写页面前一次给全规则，15 秒骨架满足数量与长度', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'task14-plan-'));
